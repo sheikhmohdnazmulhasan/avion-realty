@@ -1,9 +1,12 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import localFont from "next/font/local";
+import Navbar from "@/components/nav/Navbar";
+import Footer from "@/components/footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
+
+const kaleko = localFont({ src: "../public/fonts/Kaleko105Light.ttf" });
 
 export const metadata = {
   title: "Avion Realty",
@@ -13,7 +16,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="bg-black text-white">
-      <body className={inter.className}>
+      <body className={kaleko.className}>
         {/* navbar */}
         <Navbar />
 

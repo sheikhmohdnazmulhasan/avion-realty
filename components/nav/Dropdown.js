@@ -18,11 +18,13 @@ const Dropdown = () => {
   const handleToggle = () => {
     setIsDrop(!isDrop);
   };
+
   return (
     <span className="mt-1 ">
       <button onClick={handleToggle}>
         {isDrop ? <FaAngleUp size={16} /> : <FaAngleDown size={16} />}
       </button>
+      
       {isDrop && (
         <ul className=" normal-case text-white bg-[#262626] px-4 py-2 absolute z-10 -left-2 space-y-2">
           <li>
