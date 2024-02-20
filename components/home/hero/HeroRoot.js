@@ -12,6 +12,7 @@ const HeroRoot = () => {
                 <div className="flex-1"><RightContent /></div>
 
             </div>
+            <div className="h-0.5 w-full bg-gradient-to-r from-[#E8BF44] via-[#776326a0] to-[#E8BF44] ..."></div>
         </div>
     );
 };
