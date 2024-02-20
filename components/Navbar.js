@@ -5,11 +5,12 @@ import logo from "@/public/images/logo.svg";
 import icon from "@/public/images/icon.svg";
 import whatsapp from "@/public/images/whatsapp.svg";
 import Dropdown from "./Dropdown";
+import MobileMenu from "./MobileMenu";
 
 const Navbar = () => {
   return (
     <>
-      <nav className="px-8 lg:px-16 py-4 bg-[#262626]">
+      <nav className="px-8 lg:px-16 py-4 bg-[#101010] hidden md:block">
         <div className="flex justify-between items-center text-[#E8BF44]">
           {/* logo image */}
           <div>
@@ -53,6 +54,11 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
+      </nav>
+
+      {/* moble devices */}
+      <nav className="md:hidden">
+        <MobileMenu />
       </nav>
     </>
   );
