@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FaWhatsappSquare } from "react-icons/fa";
 
 import logo from "@/public/images/logo.svg";
 import icon from "@/public/images/icon.svg";
