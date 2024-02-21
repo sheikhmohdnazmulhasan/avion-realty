@@ -12,7 +12,6 @@ const LoginLayout = ({ children }) => {
     return (
         <div className="bg-black text-white">
             <div className={kaleko.className}>
-
                 {/* dynamic content */}
                 <div className="min-h-screen">{children}</div>
             </div>

@@ -110,7 +110,7 @@ const Footer = () => {
         {/* copyright and social media  */}
         <div className="flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-4 mt-12 ">
           <div className="flex flex-col md:flex-row gap-4 justify-center text-center text-sm lg:text-base ">
-            <p>@2024 Avion Realty All Rights Reserved.</p>
+            <p>&copy; 2024 Avion Realty All Rights Reserved.</p>
             <span>
               <a>Privacy Policy</a>
             </span>
