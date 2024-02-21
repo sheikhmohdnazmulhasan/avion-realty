@@ -1,10 +1,12 @@
 "use client"
 import image from '@/public/images/login.jpg';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 
 const Login = () => {
+
+    const [showPassword, setShowPassword] = useState(false);
 
     return (
         <>
@@ -21,9 +23,10 @@ const Login = () => {
                         <div className="flex flex-col w-full relative">
                             <label className='mb-2 mt-10'>Password</label>
                             <input className='p-3  bg-black border border-[#E4B649] rounded-lg' placeholder='Enter Password' type="password" name="" id="" />
-                            {/* <IoMdEye className='relative bottom-8 md:left-96' /> */}
 
-                            <IoMdEye size={20} className='absolute text-[#E4B649] right-3 bottom-3.5 cursor-pointer hover:scale-125 duration-150' />
+                            <div className="absolute text-[#E4B649] right-3 bottom-3.5 cursor-pointer hover:scale-125 duration-150" onClick={() => setShowPassword(!showPassword)}>
+                                {showPassword ? <IoMdEyeOff size={20} /> : <IoMdEye size={20} />}
+                            </div>
                         </div>
 
                         <div className="flex items-center mt-4 md:mt-10 gap-3 justify-between">
