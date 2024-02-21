@@ -22,7 +22,7 @@ const Login = () => {
 
                         <div className="flex flex-col w-full relative">
                             <label className='mb-2 mt-10'>Password</label>
-                            <input className='p-3  bg-black border border-[#E4B649] rounded-lg' placeholder='Enter Password' type="password" name="" id="" />
+                            <input className='p-3  bg-black border border-[#E4B649] rounded-lg' placeholder='Enter Password' type={showPassword ? 'text' : 'password'} name="" id="" />
 
                             <div className="absolute text-[#E4B649] right-3 bottom-3.5 cursor-pointer hover:scale-125 duration-150" onClick={() => setShowPassword(!showPassword)}>
                                 {showPassword ? <IoMdEyeOff size={20} /> : <IoMdEye size={20} />}
@@ -31,7 +31,7 @@ const Login = () => {
 
                         <div className="flex items-center mt-4 md:mt-10 gap-3 justify-between">
                             <div className="hidden md:flex gap-2">
-                                <input className='w-4 h-4  rounded-md appearance-none checked:bg-[#E4B649] border border-[#E4B649]' type="checkbox" name="" id="" />
+                                <input className='w-4 h-4 rounded-md appearance-none checked:bg-[#E4B649] border border-[#E4B649]' type="checkbox" name="" id="" />
                                 <span className='text-sm'>Remember my preference</span>
                             </div>
                             <div className=""><p className='cursor-pointer hover:underline text-sm'>Forgot Password?</p></div>
