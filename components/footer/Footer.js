@@ -6,9 +6,12 @@ import { MdEmail } from "react-icons/md";
 import { IoCall } from "react-icons/io5";
 import { FaFacebookF, FaLinkedin, FaTwitter, FaYoutube } from "react-icons/fa6";
 import Link from "next/link";
+import Inquiry from "../shared/Inquiry";
 
 const Footer = () => {
   return (
+    <>
+    <Inquiry/>
     <div className='lg:bg-[url("https://i.ibb.co/JzgqCkk/footer-bg.png")] bg-no-repeat bg-left-bottom  border-t border-[#9E9E9E]  '>
       <div className="px-4 md:px-8 lg:px-20 pt-16 pb-8">
         <div className="md:border-b border-[#E4B649] pb-4 md:pb-8">
@@ -141,6 +144,7 @@ const Footer = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
