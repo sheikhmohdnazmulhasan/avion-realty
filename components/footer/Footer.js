@@ -4,16 +4,17 @@ import Image from "next/image";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { IoCall } from "react-icons/io5";
+import { FaFacebookF, FaLinkedin, FaTwitter, FaYoutube } from "react-icons/fa6";
 import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className='bg-[url("https://i.ibb.co/JzgqCkk/footer-bg.png)] border-t border-[#9E9E9E] '>
-      <div className="px-4 md:px-8 lg:px-16 mt-16 mb-10">
+    <div className='bg-[url("https://i.ibb.co/JzgqCkk/footer-bg.png")] bg-no-repeat bg-left-bottom  border-t border-[#9E9E9E] '>
+      <div className="px-4 md:px-20 pt-16 pb-8">
         <div className="border-b border-[#E4B649] pb-8">
           <Image src={logo} alt="avion realty" />
         </div>
-        <div className="flex justify-between my-8">
+        <div className="flex justify-between mt-8">
           {/* items list div */}
           <div className="text-xl font-light flex gap-12">
             {/* property type */}
@@ -88,6 +89,44 @@ const Footer = () => {
                 <br />
                 <a>+971 4 876 6085</a>
               </span>
+            </li>
+          </ul>
+        </div>
+
+        {/* search bar */}
+        {/* <form>
+          <input type="text" />
+        </form> */}
+
+        {/* copyright and social media  */}
+        <div className="flex justify-between items-center mt-12 ">
+          <div className="flex gap-4 text-base">
+            <p>@2024 Avion Realty All Rights Reserved.</p>
+            <span>
+              <a>Privacy Policy</a>
+            </span>
+          </div>
+          <ul className="text-[#E8BF44] text-2xl flex gap-4">
+            <li>
+              <Link href="/">
+                <FaFacebookF />
+              </Link>
+            </li>
+            <li>
+              <Link href="/">
+                <FaLinkedin />
+              </Link>
+            </li>
+            <li>
+              <Link href="/">
+                <FaTwitter />
+              </Link>
+            </li>
+
+            <li>
+              <Link href="/">
+                <FaYoutube />
+              </Link>
             </li>
           </ul>
         </div>
