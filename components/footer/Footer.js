@@ -9,16 +9,19 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className='bg-[url("https://i.ibb.co/JzgqCkk/footer-bg.png")] bg-no-repeat bg-left-bottom  border-t border-[#9E9E9E] '>
-      <div className="px-4 md:px-20 pt-16 pb-8">
-        <div className="border-b border-[#E4B649] pb-8">
+    <div className='lg:bg-[url("https://i.ibb.co/JzgqCkk/footer-bg.png")] bg-no-repeat bg-left-bottom  border-t border-[#9E9E9E]  '>
+      <div className="px-4 md:px-8 lg:px-20 pt-16 pb-8">
+        <div className="md:border-b border-[#E4B649] pb-4 md:pb-8">
           <Image src={logo} alt="avion realty" />
         </div>
-        <div className="flex justify-between mt-8">
+        <div className="flex flex-col-reverse  lg:flex-row justify-between gap-y-6 mt-4 md:mt-8 px-4">
           {/* items list div */}
-          <div className="text-xl font-light flex gap-12">
+          <div className=" text-base lg:text-xl font-light flex flex-col md:flex-row gap-4 md:gap-12">
             {/* property type */}
             <ul>
+              <h3 className="font-semibold text-[#CC9107] md:hidden">
+                Property Type
+              </h3>
               <li>
                 <Link href="/">Apartment</Link>
               </li>
@@ -34,6 +37,9 @@ const Footer = () => {
             </ul>
             {/* popular area */}
             <ul>
+              <h3 className="font-semibold text-[#CC9107]  md:hidden">
+                Popular Area{" "}
+              </h3>
               <li>
                 <Link href="/">Business bay</Link>
               </li>
@@ -49,6 +55,9 @@ const Footer = () => {
             </ul>
             {/* quick links */}
             <ul>
+              <h3 className="font-semibold text-[#CC9107]  md:hidden">
+                Quick Links{" "}
+              </h3>
               <li>
                 <Link href="/">Off-Plan</Link>
               </li>
@@ -64,7 +73,7 @@ const Footer = () => {
             </ul>
           </div>
           {/* contact list */}
-          <ul className="space-y-2">
+          <ul className="space-y-2 text-sm lg:text-base">
             <li className="flex gap-2 items-center">
               <span className="text-[#E4B649] ">
                 <FaMapMarkerAlt size={24} />
@@ -99,14 +108,14 @@ const Footer = () => {
         </form> */}
 
         {/* copyright and social media  */}
-        <div className="flex justify-between items-center mt-12 ">
-          <div className="flex gap-4 text-base">
+        <div className="flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-4 mt-12 ">
+          <div className="flex flex-col md:flex-row gap-4 justify-center text-center text-sm lg:text-base ">
             <p>@2024 Avion Realty All Rights Reserved.</p>
             <span>
               <a>Privacy Policy</a>
             </span>
           </div>
-          <ul className="text-[#E8BF44] text-2xl flex gap-4">
+          <ul className="text-[#E8BF44] md:text-2xl flex gap-4">
             <li>
               <Link href="/">
                 <FaFacebookF />
