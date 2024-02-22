@@ -5,6 +5,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { IoCall } from "react-icons/io5";
 import { FaFacebookF, FaLinkedin, FaTwitter, FaYoutube } from "react-icons/fa6";
+import { HiOutlineSearch } from "react-icons/hi";
 import Link from "next/link";
 import Inquiry from "../shared/Inquiry";
 
@@ -106,9 +107,22 @@ const Footer = () => {
           </div>
 
           {/* search bar */}
-          {/* <form>
-          <input type="text" />
-        </form> */}
+          <form className="hidden md:flex items-center bg-[#0F0F0F] w-full pl-8 pr-4 justify-around py-3 rounded-3xl my-8">
+            <span className="w-1 ">
+              <HiOutlineSearch />
+            </span>
+            <input
+              type="text"
+              placeholder="Search For A Property or Location"
+              className="bg-transparent w-2/3 lg:w-4/5"
+            />
+            <button className="bg-[#E4B649] text-black flex items-center font-extrabold gap-2 py-2 px-4 rounded-3xl">
+              <span>
+                <HiOutlineSearch />
+              </span>
+              <span>Find Property</span>
+            </button>
+          </form>
 
           {/* copyright and social media  */}
           <div className="flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-4 mt-12 ">
