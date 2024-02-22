@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
-const connectMongoDB = () => {
+const connectMongoDB = async () => {
 
     try {
-        mongoose.connect(process.env.MONGOBD_URI);
+        await mongoose.connect(process.env.MONGOBD_URI);
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
     } catch (error) {
