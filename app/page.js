@@ -1,4 +1,5 @@
 import HeroRoot from "@/components/home/hero/HeroRoot";
+import Inquiry from "@/components/shared/Inquiry";
 
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
       {/* <HeroRoot/> */}
 
       <HeroRoot />
+      <Inquiry />
     </main>
   );
 }
