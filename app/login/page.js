@@ -2,12 +2,15 @@
 import image from '@/public/images/login.jpg';
 import { signIn } from 'next-auth/react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
 import React, { useState } from 'react';
 import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 
 const Login = () => {
 
     const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter()
 
     // Defining an asynchronous function called handleLogin which takes an 'event' parameter
     const handleLogin = async (event) => {
@@ -20,8 +23,13 @@ const Login = () => {
 
         try {
             // Attempting to sign in using the provided email and password
-            const res = await signIn('credential', { email, password, redirect: false });
+            const res = await signIn('credentials', { email, password, redirect: false });
 
+            if (res.ok) {
+                alert('login success');
+                router.replace('/');
+
+            }
             // Logging the result of the sign-in attempt
             console.log(res);
 

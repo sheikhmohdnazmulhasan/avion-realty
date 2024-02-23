@@ -11,12 +11,12 @@ const authOptions = {
         // Configuring CredentialsProvider for username/password authentication
         CredentialsProvider({
             // Name of the provider (for reference)
-            name: 'credential',
+            name: 'credentials',
             // Hardcoded credentials (for testing, replace with dynamic checks)
-            credentials: {
-                userName: 'nazmul',
-                password: 'P@ssw0rd'
-            },
+            // credentials: {
+            //     // userName: 'nazmul',
+            //     // password: 'P@ssw0rd'
+            // },
             // Asynchronous function to authorize user based on provided credentials
             async authorize(credentials) {
                 // Hardcoded user data (for testing, replace with dynamic data retrieval)
@@ -38,7 +38,7 @@ const authOptions = {
     // Secret key for signing cookies (replace with a securely generated key)
     secret: process.env.NEXT_AUTH_SECRET,
     // Page route for login page
-    pages: '/login'
+    pages: '/'
 };
 
 // Creating a handler for authentication requests using NextAuth with the provided options
