@@ -1,16 +1,16 @@
 const page = () => {
   return (
-    <div className="px-8 lg:px-52 py-12">
-      <div className="relative ">
-      <h2 className="text-6xl font-bold flex items-center gap-4">
+    <div className="px-4 md:px-12 lg:px-52 py-12">
+      <div className="lg:relative ">
+      <h2 className="lg:text-6xl font-bold flex items-center gap-2">
         
-        <span className="border p-16 pr-0 text-right block">Privacy</span>
+        <span className=" text-right block border p-4 md:p-8 lg:p-20 pr-0">Privacy</span>
         <span>Policy</span></h2>
-        <div className="w-4/5 absolute  -bottom-28 left-48 bg-[#242424] px-20 py-12 ">
-          <p>At Avion Realty Properties LLC, we are committed to ensuring the privacy and security of your personal information. This Privacy Policy outlines how we collect, use, disclose, and protect the information you provide when using our services.</p>
+        <div className="lg:w-4/5 lg:absolute  -bottom-28 left-48 bg-[#242424] p-4 md:px-8 lg:px-20 md:py-12 shadow-md mt-8 lg:mt-0 ">
+          <p className="text-sm md:text-base">At Avion Realty Properties LLC, we are committed to ensuring the privacy and security of your personal information. This Privacy Policy outlines how we collect, use, disclose, and protect the information you provide when using our services.</p>
         </div>
       </div>
-      <div className="space-y-12 lg:text-xl mt-52">
+      <div className="space-y-12 lg:text-xl mt-12 lg:mt-52">
         <div>
           <h2 className=" font-semibold mb-4">Information You Provide:</h2>
           <p>
