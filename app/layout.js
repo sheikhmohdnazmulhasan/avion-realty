@@ -18,14 +18,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="bg-black text-white">
       <body className={kaleko.className}>
-        {/* navbar */}
-        <Navbar />
+        <AuthProvider> <div className="">
+          {/* navbar */}
+          <Navbar />
 
-        {/* dynamic content */}
-        <div className="min-h-screen"><AuthProvider>{children}</AuthProvider></div>
+          {/* dynamic content */}
+          <div className="min-h-screen">{children}</div>
 
-        {/* footer */}
-        <Footer />
+          {/* footer */}
+          <Footer />
+        </div> </AuthProvider>
       </body>
     </html>
   );

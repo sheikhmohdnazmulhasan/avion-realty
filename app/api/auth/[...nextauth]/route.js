@@ -20,11 +20,9 @@ const authOptions = {
             // Asynchronous function to authorize user based on provided credentials
             async authorize(credentials) {
                 // Hardcoded user data (for testing, replace with dynamic data retrieval)
-                const user = {
-                    name: 'nazmul',
-                    age: '20',
-                    email: 'nazmul@test.com'
-                };
+
+                const { email } = credentials;
+                const user = { email };
                 // Returning user object if authorization succeeds
                 return user;
             }
