@@ -3,6 +3,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import Navbar from "@/components/nav/Navbar";
 import Footer from "@/components/footer/Footer";
+import AuthProvider from "./AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,7 @@ export default function RootLayout({ children }) {
         <Navbar />
 
         {/* dynamic content */}
-        <div className="min-h-screen">{children}</div>
+        <div className="min-h-screen"><AuthProvider>{children}</AuthProvider></div>
 
         {/* footer */}
         <Footer />
