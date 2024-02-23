@@ -1,28 +1,60 @@
 "use client"
 import image from '@/public/images/login.jpg';
+import { signIn } from 'next-auth/react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
 import React, { useState } from 'react';
 import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 
 const Login = () => {
 
     const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter()
+
+    // Defining an asynchronous function called handleLogin which takes an 'event' parameter
+    const handleLogin = async (event) => {
+        // Preventing the default form submission behavior
+        event.preventDefault();
+
+        // Extracting email and password from the form fields
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+
+        try {
+            // Attempting to sign in using the provided email and password
+            const res = await signIn('credentials', { email, password, redirect: false });
+
+            if (res.ok) {
+                alert('login success');
+                router.replace('/');
+
+            }
+            // Logging the result of the sign-in attempt
+            console.log(res);
+
+        } catch (error) {
+            // Handling errors that occur during sign-in attempts
+            console.log(error);
+        }
+    }
+
 
     return (
         <>
             <div className="flex w-full h-screen justify-between">
                 <div className="md:w-[40%] w-full flex flex-col gap-3 justify-center items-center px-10">
                     <h2 className='text-2xl md:text-3xl mb-16'>Sign in your account </h2>
-                    <form className='w-full'>
+                    <form className='w-full' onSubmit={handleLogin}>
 
                         <div className="flex flex-col w-full ">
                             <label className='mb-2'>Mail Address</label>
-                            <input className='p-3 bg-black border border-[#E4B649] rounded-lg' placeholder='Enter Email Address' type="email" name="" id="" />
+                            <input className='p-3 bg-black border border-[#E4B649] rounded-lg' placeholder='Enter Email Address' type="email" name="email" id="" />
                         </div>
 
                         <div className="flex flex-col w-full relative">
                             <label className='mb-2 mt-10'>Password</label>
-                            <input className='p-3  bg-black border border-[#E4B649] rounded-lg' placeholder='Enter Password' type={showPassword ? 'text' : 'password'} name="" id="" />
+                            <input className='p-3  bg-black border border-[#E4B649] rounded-lg' placeholder='Enter Password' type={showPassword ? 'text' : 'password'} name="password" id="" />
 
                             <div className="absolute text-[#E4B649] right-3 bottom-3.5 cursor-pointer hover:scale-125 duration-150" onClick={() => setShowPassword(!showPassword)}>
                                 {showPassword ? <IoMdEyeOff size={20} /> : <IoMdEye size={20} />}
