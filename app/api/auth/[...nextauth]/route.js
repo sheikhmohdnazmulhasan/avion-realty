@@ -1,5 +1,8 @@
 // Importing NextAuth library from "next-auth/next"
+import connectMongoDB from "@/libs/mongodb";
+import User from "@/models/user";
 import NextAuth from "next-auth/next";
+import bcrypt from "bcryptjs"
 
 // Importing CredentialsProvider from "next-auth/providers/credentials"
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -12,19 +15,36 @@ const authOptions = {
         CredentialsProvider({
             // Name of the provider (for reference)
             name: 'credentials',
-            // Hardcoded credentials (for testing, replace with dynamic checks)
-            // credentials: {
-            //     // userName: 'nazmul',
-            //     // password: 'P@ssw0rd'
-            // },
+
             // Asynchronous function to authorize user based on provided credentials
             async authorize(credentials) {
-                // Hardcoded user data (for testing, replace with dynamic data retrieval)
 
-                const { email } = credentials;
-                const user = { email };
+                const { email, password } = credentials;
+
+                try {
+                    await connectMongoDB();
+                    const user = await User.findOne({ email });
+
+                    if (!user) {
+                        return null
+
+                    } else {
+
+                        const validPassword = await bcrypt.compare(password, user.password);
+
+                        if (!validPassword) {
+                            return null
+                        }
+                    }
+
+                    return user;
+
+                } catch (error) {
+                    console.log(error)
+                }
+
                 // Returning user object if authorization succeeds
-                return user;
+
             }
         })
     ],
