@@ -1,6 +1,6 @@
 "use client"
 import image from '@/public/images/login.jpg';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 
 const Login = () => {
+    const loggedInUser = useSession();
 
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter()
@@ -29,6 +30,8 @@ const Login = () => {
                 alert('login success');
                 router.replace('/');
 
+            } else {
+                alert('Invalid Email Of Password');
             }
             // Logging the result of the sign-in attempt
             console.log(res);
@@ -38,6 +41,8 @@ const Login = () => {
             console.log(error);
         }
     }
+
+    console.log(loggedInUser.data);
 
 
     return (
