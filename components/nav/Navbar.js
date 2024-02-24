@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,8 +7,11 @@ import icon from "@/public/images/icon.svg";
 import whatsapp from "@/public/images/whatsapp.svg";
 import Dropdown from "./Dropdown";
 import MobileMenu from "./MobileMenu";
+import { signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
+  const user = useSession();
+
   return (
     <>
       <nav className="px-8 lg:px-16 py-4 bg-[#101010] hidden md:block">
@@ -40,6 +44,9 @@ const Navbar = () => {
             <li>
               <Link href="/">Media</Link>
             </li>
+            {user?.data?.user && <li onClick={() => signOut({ redirect: false })}>
+              <Link href="/">Sign Out</Link>
+            </li>}
           </ul>
           {/* social contact */}
           <ul className="flex gap-6 items-center">
