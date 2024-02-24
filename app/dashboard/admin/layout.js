@@ -1,10 +1,10 @@
-import AdminNav from "@/components/dashboard/admin/AdminNav";
+import Sidebar from "@/components/dashboard/admin/Sidebar";
 
 export default function AdminLayout({ children }) {
   return (
-    <div className="flex">
-      <div className="w-1/6">
-        <AdminNav />
+    <div className="flex max-h-screen">
+      <div className=" shadow-white shadow-lg">
+        <Sidebar />
       </div>
       <div>
         {/* dynamic content */}
