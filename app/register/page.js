@@ -1,14 +1,24 @@
 "use client"
 
+import axios from "axios";
+
 const Register = () => {
 
-    const handleRegister = (event) => {
+    const handleRegister = async (event) => {
         event.preventDefault();
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
+        const user = { name, email, password };
 
-        console.log(name, email, password);
+        try {
+            const res = await axios.post('http://localhost:3000/api/users', user);
+            console.log(res.data);
+
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
     return (
