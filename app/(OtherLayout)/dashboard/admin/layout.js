@@ -3,7 +3,7 @@ import "../../../globals.css";
 
 export default function AdminLayout({ children }) {
   return (
-    <div className="flex max-h-screen">
+    <div className="flex max-h-screen overflow-hidden">
       <div className=" shadow-gray-500 shadow-xl">
         <Sidebar />
       </div>
