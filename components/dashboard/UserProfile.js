@@ -34,9 +34,9 @@ const UserProfile = ({ user }) => {
 
       {/* bio */}
       <div className="">
-        <div className="flex justify-between items-center my-">
+        <div className="flex justify-between items-center my-2">
           <h3>Bio</h3>
-          <button onClick={() => setEditBio(!editBio)}>
+          <button onClick={() => setEditBio(true)}>
             <RiEditBoxFill />
           </button>
         </div>
