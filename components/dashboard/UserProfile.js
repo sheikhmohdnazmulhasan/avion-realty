@@ -33,7 +33,7 @@ const UserProfile = ({ user }) => {
       </div>
 
       {/* bio */}
-      <div className="">
+      <div>
         <div className="flex justify-between items-center my-2">
           <h3>Bio</h3>
           <button onClick={() => setEditBio(true)}>
@@ -48,6 +48,35 @@ const UserProfile = ({ user }) => {
             className="bg-black rounded-md text-xs w-full p-4"
           />
         </form>
+      </div>
+
+      {/* other information */}
+      <div className="my-8 space-y-4 text-sm">
+        <div className="space-y-2">
+          <h3>Email Address</h3>
+          <p className="text-xs bg-black p-2 rounded-md">
+            {currentUser?.email}
+          </p>
+        </div>
+        <div className="space-y-2">
+          <h3>WhatsApp Number</h3>
+          <p className="text-xs bg-black p-2 rounded-md">
+            {currentUser?.whatsApp || "+xxx xx xxx xxxx"}
+          </p>
+        </div>
+        <div className="space-y-2">
+          <h3>Languages Speak</h3>
+          <p className="text-xs bg-black p-2 rounded-md">
+            {currentUser?.langs || "English"}
+          </p>
+        </div>
+      </div>
+
+      {/* change password */}
+      <div>
+        <button className="text-xs hover:underline text-[#FFD167]">
+          Are You Want to Change Password?{" "}
+        </button>
       </div>
     </div>
   );
