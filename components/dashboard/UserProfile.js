@@ -10,7 +10,7 @@ const UserProfile = ({ user }) => {
   const currentUser = user?.data?.user;
 
   return (
-    <div className="bg-[#161616] p-8 rounded-2xl">
+    <div className="bg-[#161616] p-8 rounded-2xl ">
       <h2 className="text-2xl font-semibold">My Profile</h2>
 
       {/* profile */}
@@ -34,7 +34,7 @@ const UserProfile = ({ user }) => {
 
       {/* bio */}
       <div>
-        <div className="flex justify-between items-center my-2">
+        <div className="flex justify-between items-center my-1">
           <h3>Bio</h3>
           <button onClick={() => setEditBio(true)}>
             <RiEditBoxFill />
@@ -52,19 +52,19 @@ const UserProfile = ({ user }) => {
 
       {/* other information */}
       <div className="my-8 space-y-4 text-sm">
-        <div className="space-y-2">
+        <div className="space-y-1">
           <h3>Email Address</h3>
           <p className="text-xs bg-black p-2 rounded-md">
             {currentUser?.email}
           </p>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-1">
           <h3>WhatsApp Number</h3>
           <p className="text-xs bg-black p-2 rounded-md">
             {currentUser?.whatsApp || "+xxx xx xxx xxxx"}
           </p>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-1">
           <h3>Languages Speak</h3>
           <p className="text-xs bg-black p-2 rounded-md">
             {currentUser?.langs || "English"}
@@ -73,7 +73,7 @@ const UserProfile = ({ user }) => {
       </div>
 
       {/* change password */}
-      <div>
+      <div className="text-center">
         <button className="text-xs hover:underline text-[#FFD167]">
           Are You Want to Change Password?{" "}
         </button>

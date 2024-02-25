@@ -4,7 +4,7 @@ import "../../../globals.css";
 export default function AdminLayout({ children }) {
   return (
     <div className="flex max-h-screen">
-      <div className=" shadow-white shadow-lg">
+      <div className=" shadow-gray-500 shadow-xl">
         <Sidebar />
       </div>
       <div>
