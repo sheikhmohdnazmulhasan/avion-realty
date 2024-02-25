@@ -1,11 +1,13 @@
 import Image from "next/image";
+import { useState } from "react";
+
 import { FaUserCircle } from "react-icons/fa";
+import { RiEditBoxFill } from "react-icons/ri";
 
 const UserProfile = ({ user }) => {
-  const currentUser = user?.data?.user;
-  console.log(currentUser);
+  const [editBio, setEditBio] = useState(false);
 
-  //   const { name } = currentUser;
+  const currentUser = user?.data?.user;
 
   return (
     <div className="bg-[#161616] p-8 rounded-2xl">
@@ -28,6 +30,24 @@ const UserProfile = ({ user }) => {
           <h2 className="text-xl font-semibold">{currentUser?.name}</h2>
           <p>Marketing And IT</p>
         </div>
+      </div>
+
+      {/* bio */}
+      <div className="">
+        <div className="flex justify-between items-center my-">
+          <h3>Bio</h3>
+          <button onClick={() => setEditBio(!editBio)}>
+            <RiEditBoxFill />
+          </button>
+        </div>
+        <form>
+          <textarea
+            defaultValue={currentUser?.bio}
+            disabled={!editBio}
+            placeholder="Write your bio within 200 letters."
+            className="bg-black rounded-md text-xs w-full p-4"
+          />
+        </form>
       </div>
     </div>
   );
