@@ -1,13 +1,13 @@
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import localFont from "next/font/local";
 import Navbar from "@/components/nav/Navbar";
 import Footer from "@/components/footer/Footer";
-import AuthProvider from "./AuthProvider";
+import AuthProvider from "../AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const kaleko = localFont({ src: "../public/fonts/Kaleko105Light.ttf" });
+const kaleko = localFont({ src: "../../public/fonts/Kaleko105Light.ttf" });
 
 export const metadata = {
   title: "Avion Realty",
