@@ -1,11 +1,17 @@
 const EditProfile = ({ user }) => {
   const currentUser = user?.data?.user;
 
+
+  const handleProfileEdit = (event) => {
+    event.preventDefault();
+
+  }
+
   return (
     <div className="bg-[#161616] p-12 rounded-2xl">
       <h2 className="text-2xl font-semibold">Edit Profile</h2>
 
-      <form className="mt-4 text-sm">
+      <form className="mt-4 text-sm" onSubmit={handleProfileEdit}>
         <div className="flex justify-between w-full gap-12 mb-6">
           <div className="w-1/2">
             <label>User Name</label>
@@ -51,7 +57,7 @@ const EditProfile = ({ user }) => {
               name="whatsApp"
               defaultValue={currentUser?.whatsApp}
               placeholder="Write your whatsapp number"
-              className="bg-black text-xs p-2 rounded-md mt-2 w-full border border-dotted"
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted"
             />
           </div>
         </div>

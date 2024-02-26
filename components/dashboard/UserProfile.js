@@ -54,10 +54,11 @@ const UserProfile = ({ user }) => {
 
       {/* other information */}
       <div className="my-8 space-y-4 text-sm">
+
         <div className="space-y-1">
           <h3>Email Address</h3>
           <p className="text-xs bg-black p-2 rounded-md">
-            {currentUser?.email}
+            {currentUser?.email || "admin@avionrealty.ae"}
           </p>
         </div>
         <div className="space-y-1">
