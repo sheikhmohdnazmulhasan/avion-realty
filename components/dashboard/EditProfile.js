@@ -15,7 +15,7 @@ const EditProfile = ({ user }) => {
               name="name"
               defaultValue={currentUser?.name}
               placeholder="Write your name"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full"
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
           </div>
           <div className="w-1/2">
@@ -27,7 +27,7 @@ const EditProfile = ({ user }) => {
               disabled
               defaultValue={currentUser?.email}
               placeholder="Write your email address"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full"
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
           </div>
         </div>
@@ -40,7 +40,7 @@ const EditProfile = ({ user }) => {
               name="langs"
               defaultValue={currentUser?.langs}
               placeholder="Write your language"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full"
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
           </div>
           <div className="w-1/2">
@@ -51,7 +51,7 @@ const EditProfile = ({ user }) => {
               name="whatsApp"
               defaultValue={currentUser?.whatsApp}
               placeholder="Write your whatsapp number"
-              className="bg-black text-xs p-2 rounded-md mt-2 w-full"
+              className="bg-black text-xs p-2 rounded-md mt-2 w-full border border-dotted"
             />
           </div>
         </div>
@@ -62,7 +62,7 @@ const EditProfile = ({ user }) => {
             name="about"
             defaultValue={currentUser?.about}
             placeholder="Write about you (max 600 character)"
-            className="bg-black text-xs p-2 rounded-md mt-1 w-full"
+            className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             rows={12}
           />
         </div>
