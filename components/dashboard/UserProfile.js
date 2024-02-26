@@ -3,9 +3,11 @@ import { useState } from "react";
 
 import { FaUserCircle } from "react-icons/fa";
 import { RiEditBoxFill } from "react-icons/ri";
+import { PiKeyLight } from "react-icons/pi";
 
 const UserProfile = ({ user }) => {
   const [editBio, setEditBio] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const currentUser = user?.data?.user;
 
@@ -74,9 +76,74 @@ const UserProfile = ({ user }) => {
 
       {/* change password */}
       <div className="text-center">
-        <button className="text-xs hover:underline text-[#FFD167]">
+        <button
+          onClick={() => setOpenModal(!openModal)}
+          className="text-xs hover:underline text-[#FFD167]"
+        >
           Are You Want to Change Password?{" "}
         </button>
+
+        {openModal && (
+          <div className="bg-[#161616] p-12 w-1/3 rounded-lg shadow-md shadow-white absolute top-1/4 left-1/3 text-left">
+            <h2 className="mb-6 text-xl font-semibold">
+              Change Your Paasword Here
+            </h2>
+            <form className=" space-y-3 ">
+              <div>
+                <label>Old Password</label>
+                <br />
+                <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
+                  <PiKeyLight className="text-xl rotate-180 ml-2" />
+                  <input
+                    type="text"
+                    name="oldPass"
+                    placeholder="Old PassWord"
+                    className="bg-black w-full p-2 outline-none"
+                  />
+                </div>
+              </div>
+              <div>
+                <label>New Password</label>
+                <br />
+                <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
+                  <PiKeyLight className="text-xl rotate-180 ml-2" />
+                  <input
+                    type="text"
+                    name="newPass"
+                    placeholder="New PassWord"
+                    className="bg-black w-full p-2 outline-none"
+                  />
+                </div>
+              </div>
+              <div>
+                <label>Re-type New Password</label>
+                <br />
+                <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
+                  <PiKeyLight className="text-xl rotate-180 ml-2" />
+                  <input
+                    type="text"
+                    name="re-typeNewwPaa"
+                    placeholder="Re-type New Password"
+                    className="bg-black w-full p-2 outline-none"
+                  />
+                </div>
+              </div>
+              <div className="flex justify-between pt-4">
+                <button
+                  onClick={() => setOpenModal(!openModal)}
+                  className="bg-red-600 px-6 py-2 rounded-md font-semibold"
+                >
+                  Cancel
+                </button>
+                <input
+                  type="submit"
+                  value="Save Changes"
+                  className="bg-[#835C00] px-8 py-2 rounded-md"
+                />
+              </div>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );
