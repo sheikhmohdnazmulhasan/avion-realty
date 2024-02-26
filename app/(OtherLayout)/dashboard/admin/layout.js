@@ -7,7 +7,7 @@ export default function AdminLayout({ children }) {
       <div className=" shadow-gray-500 shadow-xl">
         <Sidebar />
       </div>
-      <div>
+      <div className="w-4/5">
         {/* dynamic content */}
         <div>{children}</div>
       </div>

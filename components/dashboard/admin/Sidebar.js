@@ -12,10 +12,9 @@ import { FaPlus } from "react-icons/fa6";
 
 const Sidebar = () => {
   return (
-    <nav className="p-16 ">
+    <nav className="p-16  min-h-screen">
       {/* logo */}
       <Image src={logo} alt="Avion Realty" />
-
       {/* nav links */}
       <ul className="text-xl font-bold mt-16 space-y-6">
         <li>
@@ -61,13 +60,11 @@ const Sidebar = () => {
           </Link>
         </li>
       </ul>
-
       {/* add property */}
-
-      <div className="mt-12">
+      <div className="mt-12 ">
         <Link
           href="/"
-          className="bg-[#835C00] rounded-2xl px-8 py-4 flex items-center gap-2 text-xl "
+          className="bg-[#835C00] rounded-2xl p-3 flex items-center gap-2 text-xl "
         >
           <FaPlus />
           <span>Add Property</span>

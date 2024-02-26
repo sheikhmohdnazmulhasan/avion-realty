@@ -7,13 +7,13 @@ const Profile = () => {
   const user = useSession();
 
   return (
-    <div className="min-h-screen w-full">
+    <div>
       <h2>profie</h2>
       <div className="flex py-12 px-12 gap-8 h-full ">
-        <div className="w-[360px]">
+        <div className="w-1/3">
           <UserProfile user={user} />
         </div>
-        <div className="w-[780px]">
+        <div className="w-2/3">
           <EditProfile user={user} />
         </div>
       </div>
