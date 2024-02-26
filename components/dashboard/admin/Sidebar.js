@@ -64,7 +64,7 @@ const Sidebar = () => {
       <div className="mt-12 ">
         <Link
           href="/"
-          className="bg-[#835C00] rounded-2xl p-3 flex items-center gap-2 text-xl "
+          className="bg-[#835C00] rounded-2xl p-3 flex items-center gap-2 text-xl justify-center"
         >
           <FaPlus />
           <span>Add Property</span>

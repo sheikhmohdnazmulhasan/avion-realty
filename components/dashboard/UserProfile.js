@@ -84,7 +84,7 @@ const UserProfile = ({ user }) => {
         </button>
 
         {openModal && (
-          <div className="bg-[#161616] p-12 w-1/3 rounded-lg shadow-md shadow-white absolute top-1/4 left-1/3 text-left">
+          <div className="bg-[#161616] p-12 w-1/3 rounded-lg shadow-md shadow-gray-500 absolute top-1/4 left-1/3 text-left">
             <h2 className="mb-6 text-xl font-semibold">
               Change Your Paasword Here
             </h2>
