@@ -7,9 +7,9 @@ const Profile = () => {
   const user = useSession();
 
   return (
-    <div>
-      <h2>profie</h2>
-      <div className="flex py-12 px-12 gap-8 h-full ">
+    <div className="max-h-screen overflow-hidden">
+      <h2>profile</h2>
+      <div className="flex py-8 px-12 gap-8 h-full ">
         <div className="w-1/3">
           <UserProfile user={user} />
         </div>
