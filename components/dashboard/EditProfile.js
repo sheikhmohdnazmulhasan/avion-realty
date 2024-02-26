@@ -1,9 +1,20 @@
+
+
 const EditProfile = ({ user }) => {
   const currentUser = user?.data?.user;
 
 
   const handleProfileEdit = (event) => {
     event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const langs = form.langs.value;
+    const whatsApp = form.whatsApp.value;
+    const about = form.about.value;
+
+    console.log(name, langs, whatsApp, about);
+
+
 
   }
 
@@ -76,7 +87,7 @@ const EditProfile = ({ user }) => {
           <input
             type="submit"
             value="Save Changes"
-            className="bg-[#835C00] px-8 py-2 rounded-md"
+            className="bg-[#835C00] hover:cursor-pointer px-8 py-2 rounded-md"
           />
         </div>
       </form>

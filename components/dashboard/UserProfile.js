@@ -8,6 +8,7 @@ import { PiKeyLight } from "react-icons/pi";
 const UserProfile = ({ user }) => {
   const [editBio, setEditBio] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  
 
   const currentUser = user?.data?.user;
 
@@ -38,7 +39,7 @@ const UserProfile = ({ user }) => {
       <div>
         <div className="flex justify-between items-center my-1">
           <h3>Bio</h3>
-          <button onClick={() => setEditBio(true)}>
+          <button onClick={() => setEditBio(!editBio)}>
             <RiEditBoxFill />
           </button>
         </div>
@@ -47,9 +48,11 @@ const UserProfile = ({ user }) => {
             defaultValue={currentUser?.bio}
             disabled={!editBio}
             placeholder="Write your bio within 200 letters."
-            className="bg-black rounded-md text-xs w-full p-4"
+            className={`bg-black ${editBio && 'border border-dotted'}  rounded-md text-xs w-full p-4`}
           />
+          {editBio && <button className="flex justify-end w-full">Save</button>}
         </form>
+
       </div>
 
       {/* other information */}
@@ -81,13 +84,13 @@ const UserProfile = ({ user }) => {
           onClick={() => setOpenModal(!openModal)}
           className="text-xs hover:underline text-[#FFD167]"
         >
-          Are You Want to Change Password?{" "}
+          Need to Change Password?{" "}
         </button>
 
         {openModal && (
           <div className="bg-[#161616] p-12 w-1/3 rounded-lg shadow-md shadow-gray-500 absolute top-1/4 left-1/3 text-left">
             <h2 className="mb-6 text-xl font-semibold">
-              Change Your Paasword Here
+              Change Your Password Here
             </h2>
             <form className=" space-y-3 ">
               <div>
