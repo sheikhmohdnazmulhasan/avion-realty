@@ -1,4 +1,5 @@
 import Areas from "@/components/dashboard/admin/items/Areas";
+import Propertiy from "@/components/dashboard/admin/items/Propertiy";
 
 const page = () => {
   return (
@@ -6,7 +7,7 @@ const page = () => {
       <h2>items</h2>
       <div className="py-8 px-12 grid grid-cols-3 gap-8">
         <Areas />
-        <Areas />
+        <Propertiy />
         <Areas />
       </div>
     </div>
