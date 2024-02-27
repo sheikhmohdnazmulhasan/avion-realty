@@ -17,4 +17,16 @@ export async function POST(request) {
     await User.create({ name, email, password: encryptedPassword });
     return NextResponse.json({ message: "The user has been successfully saved to the database" }, { status: 201 })
 
+};
+
+export async function PUT(request) {
+
+    const { email } = await request.json()
+
+    console.log(email);
+
+    // const user = await User.findByIdAndUpdate({})
+
+    
+    return NextResponse.json({ message: 'route hit' })
 }

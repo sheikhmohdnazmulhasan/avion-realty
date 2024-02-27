@@ -1,10 +1,11 @@
+import axios from "axios";
 
 
 const EditProfile = ({ user }) => {
   const currentUser = user?.data?.user;
 
 
-  const handleProfileEdit = (event) => {
+  const handleProfileEdit = async (event) => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
@@ -12,9 +13,13 @@ const EditProfile = ({ user }) => {
     const whatsApp = form.whatsApp.value;
     const about = form.about.value;
 
-    console.log(name, langs, whatsApp, about);
+    const updatedData = { email: currentUser.email }
 
-
+    try {
+      const res = await axios.put(`http://localhost:3000/api/users`, updatedData)
+    } catch (error) {
+      console.log(error);
+    }
 
   }
 
