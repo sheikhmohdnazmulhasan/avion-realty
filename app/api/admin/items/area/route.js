@@ -2,13 +2,14 @@ import connectMongoDB from "@/libs/mongodb";
 import AreaItem from "@/models/items/area";
 import { NextResponse } from "next/server";
 
+// Area Get
 export async function GET(request) {
 
     await connectMongoDB();
     const data = await AreaItem.find();
 
     return NextResponse.json(data);
-    
+
 };
 
 // Area POST
