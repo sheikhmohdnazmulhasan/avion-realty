@@ -1,7 +1,10 @@
 "use client";
 
+// import connectMongoDB from "@/libs/mongodb";
+// import AreaItem from "@/models/items/area";
 import axios from "axios";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdCloseCircle } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
@@ -17,12 +20,43 @@ const Areas = () => {
     const image = new FormData()
     image.append('image', areaImage);
 
-    
+    const toastId = toast.loading('Working...');
 
     try {
+
+      // ***TODO: With this logic I used to match all the previous area names with the new area given by the admin.
+      // If that data was already there, I would not have added it.
+      // But when trying to do this (TypeError: Cannot read properties of undefined (reading 'models')) it shows this error!!
+
+      // ***logic begging
+
+              // await connectMongoDB();
+              // const isExist = await AreaItem.findOne({ itemName: area });
+              // console.log(isExist);
+
+              // if (isExist) {
+              //   toast.error('Area Already Exist!', { id: toastId });
+              // return
+              // }
+
+      // ***logic end
+
+      // (import commented! line: 3 and 4)
+
+      // ***
+
       const imgBbResponse = await axios.post(`https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`, image);
 
       if (imgBbResponse.data.success) {
+
+        const dataForBackend = { itemName: area, itemImg: imgBbResponse.data.data.display_url }
+
+        const serverResponse = await axios.post('http://localhost:3000/api/admin/items/area', dataForBackend);
+
+        if (serverResponse.data.success) {
+          toast.success('Area Successfully Added', { id: toastId });
+          setOpenModal(false);
+        }
 
       }
 
@@ -35,6 +69,7 @@ const Areas = () => {
 
   return (
     <div className="bg-[#161616] p-6 rounded-2xl">
+      <Toaster />
       <h2 className="text-xl font-semibold">Add/Remove Areas</h2>
       <div className="my-10 h-[60vh] overflow-y-scroll pr-2">
         <ul>
