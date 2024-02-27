@@ -3,6 +3,13 @@ import User from "@/models/user";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs"
 
+
+export async function POST(request) {
+    await connectMongoDB();
+
+    const data = 
+}
+
 export async function POST(request) {
     await connectMongoDB();
 
