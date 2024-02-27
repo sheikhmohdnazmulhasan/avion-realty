@@ -1,9 +1,32 @@
+import axios from "axios";
+
+
 const EditProfile = ({ user }) => {
   const currentUser = user?.data?.user;
 
 
-  const handleProfileEdit = (event) => {
+  const handleProfileEdit = async (event) => {
     event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const languagesSpeak = form.langs.value;
+    const wpNum = form.whatsApp.value;
+    const about = form.about.value;
+
+    const updatedData = { email: currentUser.email, wpNum, name, languagesSpeak, about }
+
+    try {
+      const res = await axios.put('http://localhost:3000/api/users', updatedData);
+
+      if (res.data.success) {
+        alert('data updated')
+      }
+
+      console.log(res);
+
+    } catch (error) {
+      console.log(error);
+    }
 
   }
 
@@ -76,7 +99,7 @@ const EditProfile = ({ user }) => {
           <input
             type="submit"
             value="Save Changes"
-            className="bg-[#835C00] px-8 py-2 rounded-md"
+            className="bg-[#835C00] hover:cursor-pointer px-8 py-2 rounded-md"
           />
         </div>
       </form>
