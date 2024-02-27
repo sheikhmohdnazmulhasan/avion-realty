@@ -3,7 +3,7 @@ import AreaItem from "@/models/items/area";
 import { NextResponse } from "next/server";
 
 // Area Get
-export async function GET(request) {
+export async function GET() {
 
     await connectMongoDB();
     const data = await AreaItem.find();
@@ -17,6 +17,14 @@ export async function POST(request) {
     await connectMongoDB();
     const data = await request.json();
 
-    await AreaItem.create(data);
-    return NextResponse.json({ message: 'item successfully save to database', success: true }, { status: 200 })
+    const result = await AreaItem.create(data);
+
+    if (!result) {
+        return NextResponse.json({ message: 'Something Wrong', success: false }, { status: 500 });
+
+    } else {
+        
+        return NextResponse.json({ message: 'Data successfully saved in database', success: true }, { status: 200 });
+    }
+
 };

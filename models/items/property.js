@@ -1,7 +1,7 @@
 const { Schema, default: mongoose } = require("mongoose");
 
-const propertySchema = new Schema({ propertyName: String, propertyImg: String }, { timestamps: true });
+const propertySchema = new Schema({ propertyName: String }, { timestamps: true });
 
-const PropertyItem = mongoose.models.PropertyItem || mongoose.model('PropertyItems', propertySchema);
+const PropertyItem = mongoose.models.PropertyItems || mongoose.model('PropertyItems', propertySchema);
 
 export default PropertyItem;
