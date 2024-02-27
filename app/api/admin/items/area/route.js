@@ -4,12 +4,15 @@ import { NextResponse } from "next/server";
 
 // Area Get
 export async function GET() {
-
     await connectMongoDB();
-    const data = await AreaItem.find();
+    const result = await AreaItem.find();
 
-    return NextResponse.json(data);
+    if (!result.length) {
+        return NextResponse.json({ message: 'no data found', success: true }, { status: 501 });
 
+    } else {
+        return NextResponse.json(result);
+    }
 };
 
 // Area POST
@@ -23,8 +26,7 @@ export async function POST(request) {
         return NextResponse.json({ message: 'Something Wrong', success: false }, { status: 500 });
 
     } else {
-        
-        return NextResponse.json({ message: 'Data successfully saved in database', success: true }, { status: 200 });
-    }
 
+        return NextResponse.json({ message: 'Data successfully saved in database', success: true }, { status: 200 });
+    };
 };

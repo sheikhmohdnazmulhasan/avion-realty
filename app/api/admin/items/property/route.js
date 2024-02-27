@@ -2,6 +2,19 @@ import connectMongoDB from "@/libs/mongodb";
 import PropertyItem from "@/models/items/property";
 import { NextResponse } from "next/server";
 
+export async function GET() {
+    await connectMongoDB();
+    const result = await PropertyItem.find();
+
+    if (!result.length) {
+        return NextResponse.json({ message: 'no data found', success: true }, { status: 501 });
+
+    } else {
+        return NextResponse.json(result);
+    }
+
+}
+
 export async function POST(request) {
     await connectMongoDB();
     const data = await request.json();
