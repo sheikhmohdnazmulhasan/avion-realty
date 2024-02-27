@@ -24,9 +24,18 @@ export async function POST(request) {
 export async function PUT(request) {
     await connectMongoDB();
 
-    const data = await request.json();
-    const filter = { email: data.email }
+    const { searchParams } = new URL(request.url);
+    const email = searchParams.get('email');
 
-    await User.findOneAndUpdate(filter, data);
+    const data = await request.json();
+    const filter = { email }
+
+    const result = await User.findOneAndUpdate(filter, data);
+    console.log(result);
+
+    if (!result) {
+        return NextResponse.json({ message: 'Something is wrong', success: false }, { status: 402 })
+    }
+
     return NextResponse.json({ message: 'Data Updated', success: true }, { status: 200 });
 }

@@ -6,12 +6,9 @@ export async function GET(request) {
 
     await connectMongoDB();
     const data = await AreaItem.find();
-    const { searchParams } = new URL(request.url);
-    
-    const params = searchParams.get('nazmul');
 
     return NextResponse.json(data);
-
+    
 };
 
 // Area POST
