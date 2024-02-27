@@ -17,10 +17,14 @@ const Areas = () => {
     const image = new FormData()
     image.append('image', areaImage);
 
+    
+
     try {
       const imgBbResponse = await axios.post(`https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`, image);
 
-      // if (imgBbResponse.data.success)
+      if (imgBbResponse.data.success) {
+
+      }
 
     } catch (error) {
 
