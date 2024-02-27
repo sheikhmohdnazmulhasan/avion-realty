@@ -11,9 +11,9 @@ export async function GET() {
 
     } else {
         return NextResponse.json(result);
-    }
+    };
 
-}
+};
 
 export async function POST(request) {
     await connectMongoDB();
@@ -26,5 +26,5 @@ export async function POST(request) {
     } else {
 
         return NextResponse.json({ message: 'Data successfully saved in database', success: true }, { status: 200 });
-    }
-}
+    };
+};
