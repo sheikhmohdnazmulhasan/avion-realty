@@ -9,14 +9,21 @@ const EditProfile = ({ user }) => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
-    const langs = form.langs.value;
-    const whatsApp = form.whatsApp.value;
+    const languagesSpeak = form.langs.value;
+    const wpNum = form.whatsApp.value;
     const about = form.about.value;
 
-    const updatedData = { email: currentUser.email }
+    const updatedData = { email: currentUser.email, wpNum, name, languagesSpeak, about }
 
     try {
-      const res = await axios.put(`http://localhost:3000/api/users`, updatedData)
+      const res = await axios.put('http://localhost:3000/api/users', updatedData);
+
+      if (res.data.success) {
+        alert('data updated')
+      }
+
+      console.log(res);
+
     } catch (error) {
       console.log(error);
     }
