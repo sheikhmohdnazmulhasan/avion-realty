@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdCloseCircle } from "react-icons/io";
+import { IoMdClose } from "react-icons/io";
 
 const Areas = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -22,7 +23,7 @@ const Areas = () => {
       </div>
       <div className="flex justify-center">
         <button
-          onClick={() => setOpenModal(!openModal)}
+          onClick={() => setOpenModal(true)}
           className="bg-[#835C00] rounded-3xl px-3 py-1 flex items-center justify-center"
         >
           <FaPlus size={16} />
@@ -32,29 +33,36 @@ const Areas = () => {
 
       {/* modal for add more items */}
       {openModal && (
-        <div className="bg-[#161616] p-8 w-1/3 rounded-lg shadow shadow-gray-500 absolute top-1/4 left-1/3 text-center">
-          <h2 className="mb-6 text-xl font-semibold">Add Areas</h2>
-          <form className=" space-y-6 ">
-            <input
-              type="text"
-              name="area"
-              placeholder="write area name"
-              className="bg-black w-full p-2 outline-none border border-dotted rounded-lg"
-            />
-            <br />
-            <input
-              type="file"
-              name="areaImage"
-              placeholder="write area name"
-              className="bg-black w-full p-2  outline-none border border-dotted rounded-lg "
-            />
-            <br />
-            <input
-              type="submit"
-              value="+ Submit"
-              className="bg-[#835C00] px-8 py-1 rounded-2xl"
-            />
-          </form>
+        <div className=" w-1/3 absolute top-1/4 left-1/3">
+          <div className="text-right">
+            <button onClick={() => setOpenModal(false)}>
+              <IoMdClose size={24} />
+            </button>
+          </div>
+          <div className="bg-[#161616] p-8 rounded-lg shadow shadow-gray-500  text-center">
+            <h2 className="mb-6 text-xl font-semibold">Add Areas</h2>
+            <form className=" space-y-6 ">
+              <input
+                type="text"
+                name="area"
+                placeholder="write area name"
+                className="bg-black w-full p-2 outline-none border border-dotted rounded-lg"
+              />
+              <br />
+              <input
+                type="file"
+                name="areaImage"
+                placeholder="write area name"
+                className="bg-black w-full p-2  outline-none border border-dotted rounded-lg "
+              />
+              <br />
+              <input
+                type="submit"
+                value="+ Submit"
+                className="bg-[#835C00] px-8 py-1 rounded-2xl"
+              />
+            </form>
+          </div>
         </div>
       )}
     </div>
