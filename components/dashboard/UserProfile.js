@@ -8,7 +8,6 @@ import { PiKeyLight } from "react-icons/pi";
 const UserProfile = ({ user }) => {
   const [editBio, setEditBio] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  
 
   const currentUser = user?.data?.user;
 
@@ -48,16 +47,16 @@ const UserProfile = ({ user }) => {
             defaultValue={currentUser?.bio}
             disabled={!editBio}
             placeholder="Write your bio within 200 letters."
-            className={`bg-black ${editBio && 'border border-dotted'}  rounded-md text-xs w-full p-4`}
+            className={`bg-black ${
+              editBio && "border border-dotted"
+            }  rounded-md text-xs w-full p-4`}
           />
           {editBio && <button className="flex justify-end w-full">Save</button>}
         </form>
-
       </div>
 
       {/* other information */}
       <div className="my-8 space-y-4 text-sm">
-
         <div className="space-y-1">
           <h3>Email Address</h3>
           <p className="text-xs bg-black p-2 rounded-md">
