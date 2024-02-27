@@ -4,4 +4,6 @@ const areaSchema = new Schema({ itemName: String, itemImg: String }, { timestamp
 
 const AreaItem = mongoose.models.AreaItems || mongoose.model('AreaItems', areaSchema);
 
+
+
 export default AreaItem;
