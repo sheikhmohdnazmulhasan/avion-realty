@@ -7,12 +7,6 @@ import bcrypt from "bcryptjs"
 export async function POST(request) {
     await connectMongoDB();
 
-    const data = 
-}
-
-export async function POST(request) {
-    await connectMongoDB();
-
     const { name, email, password } = await request.json();
     const encryptedPassword = await bcrypt.hash(password, 10);
     const isExist = await User.findOne({ email });
@@ -33,9 +27,6 @@ export async function PUT(request) {
     const data = await request.json();
     const filter = { email: data.email }
 
-    const newDoc = await User.findOneAndUpdate(filter, data);
-
-    console.log(newDoc);
-
+    await User.findOneAndUpdate(filter, data);
     return NextResponse.json({ message: 'Data Updated', success: true }, { status: 200 });
 }
