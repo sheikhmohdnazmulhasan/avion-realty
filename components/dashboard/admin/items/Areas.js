@@ -22,6 +22,11 @@ const Areas = () => {
     fetcher
   );
 
+  async function handleDeleteArea(_id) {
+
+    console.log(_id);
+  }
+
   async function handleAddNew(event) {
     event.preventDefault();
     const area = event.target.area.value;
@@ -92,7 +97,7 @@ const Areas = () => {
           {data?.map((area) => (
             <li key={area._id} className="flex items-center justify-between">
               <span>{area.itemName}</span>
-              <button>
+              <button onClick={() => handleDeleteArea(area._id)}>
                 <IoMdCloseCircle className="text-red-600 text-xl" />
               </button>
             </li>
