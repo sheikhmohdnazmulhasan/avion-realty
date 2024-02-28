@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdCloseCircle } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
+import Swal from "sweetalert2";
 import useSWR, { mutate } from "swr";
 
 // define fetcher to fetch data in json format
@@ -23,8 +24,28 @@ const Areas = () => {
   );
 
   async function handleDeleteArea(_id) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
 
-    
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Swal.fire({
+        //   title: "Deleted!",
+        //   text: "Area has been deleted.",
+        //   icon: "success"
+        // });
+
+        
+
+      }
+    });
+
   }
 
   async function handleAddNew(event) {
