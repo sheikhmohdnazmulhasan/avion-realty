@@ -8,15 +8,17 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
 const UserProfile = ({ user }) => {
+  const currentUser = user;
   const [editBio, setEditBio] = useState(false);
   const [editDesignation, setEditDesignation] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [bio, setBio] = useState('');
-  const [designation, setDesignation] = useState('')
-  const currentUser = user;
+  const [designation, setDesignation] = useState('');
 
   const dataWithBio = { ...user, bio };
-  const dataWithDesignation = { ...dataWithBio, designation }
+  const dataWithDesignation = { ...user, designation };
+
+
 
   async function handleChangeDesignation() {
 
@@ -24,9 +26,11 @@ const UserProfile = ({ user }) => {
       const serverResponse = await axios.put(`http://localhost:3000/api/users?email=${user?.email}`, dataWithDesignation);
 
       if (serverResponse.data.success) {
-        setEditBio(false);
+        setEditDesignation(false);
 
-        toast('Bio Updated',
+        console.log(serverResponse.data);
+
+        toast('Designation Updated',
           {
             icon: '👏',
             style: {
@@ -92,16 +96,16 @@ const UserProfile = ({ user }) => {
         </div>
         <div>
           <h2 className="text-xl font-semibold">{currentUser?.name}</h2>
-          {!editDesignation && <p onClick={() => setEditDesignation(!editDesignation)}>Designation</p>}
+          {!editDesignation && <p onClick={() => setEditDesignation(!editDesignation)}>{currentUser.designation ? currentUser.designation : 'Designation'}</p>}
           {editDesignation && <div className="">
             <input
+              onChange={(event) => setDesignation(event.target.value)}
               type="text"
               name="whatsApp"
               defaultValue={currentUser?.designation || 'Designation'}
-              placeholder="Write your whatsapp number"
               className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted"
             />
-            <button className="flex justify-end w-full hover:underline mt-2">Save</button>
+            <button className="flex justify-end w-full hover:underline mt-2" onClick={handleChangeDesignation}>Save</button>
           </div>}
         </div>
       </div>

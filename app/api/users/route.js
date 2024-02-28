@@ -41,7 +41,6 @@ export async function PUT(request) {
     const filter = { email }
 
     const result = await User.findOneAndUpdate(filter, data);
-    console.log(result);
 
     if (!result) {
         return NextResponse.json({ message: 'Something is wrong', success: false }, { status: 402 })
