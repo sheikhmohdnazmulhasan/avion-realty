@@ -9,11 +9,39 @@ import toast, { Toaster } from "react-hot-toast";
 
 const UserProfile = ({ user }) => {
   const [editBio, setEditBio] = useState(false);
+  const [editDesignation, setEditDesignation] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [bio, setBio] = useState('');
+  const [designation, setDesignation] = useState('')
   const currentUser = user;
 
   const dataWithBio = { ...user, bio };
+  const dataWithDesignation = { ...dataWithBio, designation }
+
+  async function handleChangeDesignation() {
+
+    try {
+      const serverResponse = await axios.put(`http://localhost:3000/api/users?email=${user?.email}`, dataWithDesignation);
+
+      if (serverResponse.data.success) {
+        setEditBio(false);
+
+        toast('Bio Updated',
+          {
+            icon: '👏',
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        );
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 
   async function handleChangeBio() {
@@ -39,7 +67,7 @@ const UserProfile = ({ user }) => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <div className="bg-[#161616] p-8 rounded-2xl ">
@@ -64,14 +92,17 @@ const UserProfile = ({ user }) => {
         </div>
         <div>
           <h2 className="text-xl font-semibold">{currentUser?.name}</h2>
-          <p>Designation</p>
-          {/* <input
-            type="text"
-            name="whatsApp"
-            defaultValue={currentUser?.wpNum}
-            placeholder="Write your whatsapp number"
-            className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted"
-          /> */}
+          {!editDesignation && <p onClick={() => setEditDesignation(!editDesignation)}>Designation</p>}
+          {editDesignation && <div className="">
+            <input
+              type="text"
+              name="whatsApp"
+              defaultValue={currentUser?.designation || 'Designation'}
+              placeholder="Write your whatsapp number"
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted"
+            />
+            <button className="flex justify-end w-full hover:underline mt-2">Save</button>
+          </div>}
         </div>
       </div>
 
