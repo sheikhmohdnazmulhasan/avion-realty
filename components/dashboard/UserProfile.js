@@ -19,6 +19,18 @@ const UserProfile = ({ user }) => {
   const dataWithDesignation = { ...user, designation };
 
 
+  function handleToast() {
+    toast('Click to Update Designation',
+      {
+        style: {
+          borderRadius: '10px',
+          background: '#333',
+          color: '#fff',
+        },
+      }
+    );
+  }
+
 
   async function handleChangeDesignation() {
 
@@ -28,9 +40,7 @@ const UserProfile = ({ user }) => {
       if (serverResponse.data.success) {
         setEditDesignation(false);
 
-        console.log(serverResponse.data);
-
-        toast('Designation Updated',
+        toast.success('Designation Updated',
           {
             icon: '👏',
             style: {
@@ -56,7 +66,7 @@ const UserProfile = ({ user }) => {
       if (serverResponse.data.success) {
         setEditBio(false);
 
-        toast('Bio Updated',
+        toast.success('Bio Updated',
           {
             icon: '👏',
             style: {
@@ -96,7 +106,7 @@ const UserProfile = ({ user }) => {
         </div>
         <div>
           <h2 className="text-xl font-semibold">{currentUser?.name}</h2>
-          {!editDesignation && <p onClick={() => setEditDesignation(!editDesignation)}>{currentUser.designation ? currentUser.designation : 'Designation'}</p>}
+          {!editDesignation && <p onClick={() => setEditDesignation(!editDesignation)} onMouseEnter={handleToast}>{currentUser.designation ? currentUser.designation : 'Designation'}</p>}
           {editDesignation && <div className="">
             <input
               onChange={(event) => setDesignation(event.target.value)}
