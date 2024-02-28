@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const EditProfile = ({ user }) => {
-  const currentUser = user?.data?.user;
-
+  const currentUser = user
 
   const handleProfileEdit = async (event) => {
     event.preventDefault();
@@ -25,7 +24,7 @@ const EditProfile = ({ user }) => {
         alert('Something wrong, check console');
       }
 
-      console.log(res);
+
 
     } catch (error) {
       console.log(error);
@@ -70,7 +69,7 @@ const EditProfile = ({ user }) => {
             <input
               type="text"
               name="langs"
-              defaultValue={currentUser?.langs}
+              defaultValue={currentUser?.languagesSpeak}
               placeholder="Write your language"
               className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
@@ -79,9 +78,9 @@ const EditProfile = ({ user }) => {
             <label>WhatsApp Number</label>
             <br />
             <input
-              type="phone"
+              type="number"
               name="whatsApp"
-              defaultValue={currentUser?.whatsApp}
+              defaultValue={currentUser?.wpNum}
               placeholder="Write your whatsapp number"
               className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted"
             />

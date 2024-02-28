@@ -9,7 +9,7 @@ const UserProfile = ({ user }) => {
   const [editBio, setEditBio] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
-  const currentUser = user?.data?.user;
+  const currentUser = user;
 
   return (
     <div className="bg-[#161616] p-8 rounded-2xl ">
@@ -47,9 +47,8 @@ const UserProfile = ({ user }) => {
             defaultValue={currentUser?.bio}
             disabled={!editBio}
             placeholder="Write your bio within 200 letters."
-            className={`bg-black ${
-              editBio && "border border-dotted"
-            }  rounded-md text-xs w-full p-4`}
+            className={`bg-black ${editBio && "border border-dotted"
+              }  rounded-md text-xs w-full p-4`}
           />
           {editBio && <button className="flex justify-end w-full">Save</button>}
         </form>
@@ -66,13 +65,13 @@ const UserProfile = ({ user }) => {
         <div className="space-y-1">
           <h3>WhatsApp Number</h3>
           <p className="text-xs bg-black p-2 rounded-md">
-            {currentUser?.whatsApp || "+xxx xx xxx xxxx"}
+            {currentUser?.wpNum || "+xxx xx xxx xxxx"}
           </p>
         </div>
         <div className="space-y-1">
           <h3>Languages Speak</h3>
           <p className="text-xs bg-black p-2 rounded-md">
-            {currentUser?.langs || "English"}
+            {currentUser?.languagesSpeak || "English"}
           </p>
         </div>
       </div>
