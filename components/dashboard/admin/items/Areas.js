@@ -24,7 +24,7 @@ const Areas = () => {
 
   async function handleDeleteArea(_id) {
 
-    console.log(_id);
+    
   }
 
   async function handleAddNew(event) {
