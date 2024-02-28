@@ -8,8 +8,15 @@ import { PiKeyLight } from "react-icons/pi";
 const UserProfile = ({ user }) => {
   const [editBio, setEditBio] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [bio, setBio] = useState('');
+
+  console.log(bio);
 
   const currentUser = user;
+
+  async function handleChangeBio() {
+
+  }
 
   return (
     <div className="bg-[#161616] p-8 rounded-2xl ">
@@ -42,16 +49,17 @@ const UserProfile = ({ user }) => {
             <RiEditBoxFill />
           </button>
         </div>
-        <form>
+        <div>
           <textarea
+            onChange={(event) => setBio(event.target.value)}
             defaultValue={currentUser?.bio}
             disabled={!editBio}
             placeholder="Write your bio within 200 letters."
             className={`bg-black ${editBio && "border border-dotted"
               }  rounded-md text-xs w-full p-4`}
           />
-          {editBio && <button className="flex justify-end w-full">Save</button>}
-        </form>
+          {editBio && <button className="flex justify-end w-full hover:underline">Save</button>}
+        </div>
       </div>
 
       {/* other information */}
