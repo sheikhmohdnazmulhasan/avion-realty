@@ -8,8 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdCloseCircle } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
-
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 
 // define fetcher to fetch data in json format
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -18,7 +17,7 @@ const Areas = () => {
   const [openModal, setOpenModal] = useState(false);
 
   // get all data from api using swr
-  const { data, error } = useSWR(
+  const { data, error, } = useSWR(
     "http://localhost:3000/api/admin/items/area",
     fetcher
   );
@@ -76,6 +75,8 @@ const Areas = () => {
         if (serverResponse.data.success) {
           toast.success("Area Successfully Added", { id: toastId });
           setOpenModal(false);
+          
+          mutate(`http://localhost:3000/api/admin/items/area`)
         }
       }
     } catch (error) {
