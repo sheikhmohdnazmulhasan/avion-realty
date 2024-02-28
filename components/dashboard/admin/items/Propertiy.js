@@ -40,7 +40,7 @@ const Property = () => {
             if (res.data.success) {
               Swal.fire({
                 title: "Deleted!",
-                text: "Area has been deleted.",
+                text: "Property type has been deleted.",
                 icon: "success",
               });
 
