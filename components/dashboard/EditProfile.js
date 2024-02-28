@@ -1,6 +1,7 @@
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
-const EditProfile = ({ user }) => {
+const EditProfile = ({ user, mutate }) => {
   const currentUser = user
 
   const handleProfileEdit = async (event) => {
@@ -17,8 +18,18 @@ const EditProfile = ({ user }) => {
       const res = await axios.put(`http://localhost:3000/api/users?email=${currentUser.email}`, updatedData);
 
       if (res.data.success) {
-        alert('Data updated');
 
+        toast.success('Profile Info Updated',
+          {
+            icon: '👏',
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        );
+        mutate(`http://localhost:3000/api/users?email=${currentUser.email}`)
 
       } else {
         alert('Something wrong, check console');
@@ -34,6 +45,10 @@ const EditProfile = ({ user }) => {
 
   return (
     <div className="bg-[#161616] p-12 rounded-2xl">
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+      />
       <h2 className="text-2xl font-semibold">Edit Profile</h2>
 
       <form className="mt-4 text-sm" onSubmit={handleProfileEdit}>

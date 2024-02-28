@@ -10,7 +10,7 @@ const Profile = () => {
 
   const fetcher = (url) => axios.get(url).then(res => res.data);
 
-  const { data = [], error } = useSWR(`http://localhost:3000/api/users?email=${user?.data?.user?.email}`, fetcher);
+  const { data = [], error, mutate } = useSWR(`http://localhost:3000/api/users?email=${user?.data?.user?.email}`, fetcher);
 
 
   return (
@@ -18,10 +18,10 @@ const Profile = () => {
       <h2>profile</h2>
       <div className="flex py-8 px-12 gap-8 h-full ">
         <div className="w-1/3">
-          <UserProfile user={data} />
+          <UserProfile user={data} mutate={mutate} />
         </div>
         <div className="w-2/3">
-          <EditProfile user={data} />
+          <EditProfile user={data} mutate={mutate} />
         </div>
       </div>
     </div>

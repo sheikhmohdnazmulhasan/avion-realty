@@ -7,7 +7,7 @@ import { PiKeyLight } from "react-icons/pi";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
-const UserProfile = ({ user }) => {
+const UserProfile = ({ user, mutate }) => {
   const currentUser = user;
   const [editBio, setEditBio] = useState(false);
   const [editDesignation, setEditDesignation] = useState(false);
@@ -50,6 +50,8 @@ const UserProfile = ({ user }) => {
             },
           }
         );
+
+        mutate(`http://localhost:3000/api/users?email=${currentUser.email}`)
       }
 
     } catch (error) {
@@ -76,6 +78,7 @@ const UserProfile = ({ user }) => {
             },
           }
         );
+        mutate(`http://localhost:3000/api/users?email=${currentUser.email}`)
       }
 
     } catch (error) {
