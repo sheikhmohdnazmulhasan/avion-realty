@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdCloseCircle } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
+import Swal from "sweetalert2";
 import useSWR, { mutate } from "swr";
 
 // define fetcher to fetch data in json format
@@ -17,10 +18,43 @@ const Areas = () => {
   const [openModal, setOpenModal] = useState(false);
 
   // get all data from api using swr
-  const { data, error, } = useSWR(
+  const { data = [], error, } = useSWR(
     "http://localhost:3000/api/admin/items/area",
     fetcher
   );
+
+  async function handleDeleteArea(_id) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+
+        axios.delete(`http://localhost:3000/api/admin/items/area?id=${_id}`).then(res => {
+
+          if (res.data.success) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Area has been deleted.",
+              icon: "success"
+            });
+
+            mutate(`http://localhost:3000/api/admin/items/area`);
+          }
+
+        }).catch(err => console.log(err))
+
+      }
+    });
+
+  }
 
   async function handleAddNew(event) {
     event.preventDefault();
@@ -87,19 +121,32 @@ const Areas = () => {
     <div className="bg-[#161616] p-6 rounded-2xl">
       <Toaster />
       <h2 className="text-xl font-semibold">Add/Remove Areas</h2>
-      <div className="my-10 h-[60vh] overflow-y-scroll pr-2">
-        <ul>
-          {data?.map((area) => (
-            <li key={area._id} className="flex items-center justify-between">
-              <span>{area.itemName}</span>
-              <button>
-                <IoMdCloseCircle className="text-red-600 text-xl" />
+      <div className="my-10 h-[60vh]  overflow-y-scroll pr-2">
+        <ul className="h-full">
+          {!data.length ? <>
+            <div className="flex justify-center flex-col items-center h-full">
+              <p className="font-bold mb-5">No Data Found</p>
+              <button
+                onClick={() => setOpenModal(true)}
+                className="bg-[#835C00] rounded-3xl px-3 py-1 flex items-center justify-center"
+              >
+                <FaPlus size={16} />
+                <span className="mt-1 ml-1">Add One</span>
               </button>
-            </li>
-          ))}
+            </div>
+          </> : <>
+            {data?.map((area) => (
+              <li key={area?._id} className="flex  items-center justify-between">
+                <span>{area?.itemName}</span>
+                <button onClick={() => handleDeleteArea(area?._id)}>
+                  <IoMdCloseCircle className="text-red-600 text-xl" />
+                </button>
+              </li>
+            ))}
+          </>}
         </ul>
       </div>
-      <div className="flex justify-center">
+      {data.length && <div className="flex justify-center">
         <button
           onClick={() => setOpenModal(true)}
           className="bg-[#835C00] rounded-3xl px-3 py-1 flex items-center justify-center"
@@ -107,7 +154,7 @@ const Areas = () => {
           <FaPlus size={16} />
           <span className="mt-1 ml-1">Add More</span>
         </button>
-      </div>
+      </div>}
 
       {/* modal for add more items */}
       {openModal && (
