@@ -16,10 +16,13 @@ const EditProfile = ({ user }) => {
     const updatedData = { email: currentUser.email, wpNum, name, languagesSpeak, about }
 
     try {
-      const res = await axios.put('http://localhost:3000/api/users', updatedData);
+      const res = await axios.put(`http://localhost:3000/api/users?email=${currentUser.email}`, updatedData);
 
       if (res.data.success) {
-        alert('data updated')
+        alert('Data updated');
+
+      } else {
+        alert('Something wrong, check console');
       }
 
       console.log(res);
