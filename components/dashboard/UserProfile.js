@@ -5,6 +5,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { RiEditBoxFill } from "react-icons/ri";
 import { PiKeyLight } from "react-icons/pi";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const UserProfile = ({ user }) => {
   const [editBio, setEditBio] = useState(false);
@@ -19,7 +20,21 @@ const UserProfile = ({ user }) => {
 
     try {
       const serverResponse = await axios.put(`http://localhost:3000/api/users?email=${user?.email}`, dataWithBio);
-      console.log(serverResponse);
+
+      if (serverResponse.data.success) {
+        setEditBio(false);
+
+        toast('Bio Updated',
+          {
+            icon: '👏',
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        );
+      }
 
     } catch (error) {
       console.log(error);
@@ -28,6 +43,10 @@ const UserProfile = ({ user }) => {
 
   return (
     <div className="bg-[#161616] p-8 rounded-2xl ">
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+      />
       <h2 className="text-2xl font-semibold">My Profile</h2>
 
       {/* profile */}
@@ -45,7 +64,14 @@ const UserProfile = ({ user }) => {
         </div>
         <div>
           <h2 className="text-xl font-semibold">{currentUser?.name}</h2>
-          <p>Marketing And IT</p>
+          <p>Designation</p>
+          {/* <input
+            type="text"
+            name="whatsApp"
+            defaultValue={currentUser?.wpNum}
+            placeholder="Write your whatsapp number"
+            className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted"
+          /> */}
         </div>
       </div>
 
