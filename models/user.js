@@ -13,8 +13,9 @@ const userSchema = new Schema(
         languagesSpeak: String,
         reraId: String,
         about: String,
-        role: String
-        
+        role: String,
+        designation: String,
+
     }, { timestamps: true }
 
 );

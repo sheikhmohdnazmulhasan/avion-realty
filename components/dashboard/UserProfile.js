@@ -4,15 +4,94 @@ import { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { RiEditBoxFill } from "react-icons/ri";
 import { PiKeyLight } from "react-icons/pi";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
-const UserProfile = ({ user }) => {
+const UserProfile = ({ user, mutate }) => {
+  const currentUser = user;
   const [editBio, setEditBio] = useState(false);
+  const [editDesignation, setEditDesignation] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [bio, setBio] = useState('');
+  const [designation, setDesignation] = useState('');
 
-  const currentUser = user?.data?.user;
+  const dataWithBio = { ...user, bio };
+  const dataWithDesignation = { ...user, designation };
+
+
+  function handleToast() {
+    toast('Click to Update Designation',
+      {
+        style: {
+          borderRadius: '10px',
+          background: '#333',
+          color: '#fff',
+        },
+      }
+    );
+  }
+
+
+  async function handleChangeDesignation() {
+
+    try {
+      const serverResponse = await axios.put(`http://localhost:3000/api/users?email=${user?.email}`, dataWithDesignation);
+
+      if (serverResponse.data.success) {
+        setEditDesignation(false);
+
+        toast.success('Designation Updated',
+          {
+            icon: '👏',
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        );
+
+        mutate(`http://localhost:3000/api/users?email=${currentUser.email}`)
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  async function handleChangeBio() {
+
+    try {
+      const serverResponse = await axios.put(`http://localhost:3000/api/users?email=${user?.email}`, dataWithBio);
+
+      if (serverResponse.data.success) {
+        setEditBio(false);
+
+        toast.success('Bio Updated',
+          {
+            icon: '👏',
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        );
+        mutate(`http://localhost:3000/api/users?email=${currentUser.email}`)
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="bg-[#161616] p-8 rounded-2xl ">
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+      />
       <h2 className="text-2xl font-semibold">My Profile</h2>
 
       {/* profile */}
@@ -30,7 +109,17 @@ const UserProfile = ({ user }) => {
         </div>
         <div>
           <h2 className="text-xl font-semibold">{currentUser?.name}</h2>
-          <p>Marketing And IT</p>
+          {!editDesignation && <p onClick={() => setEditDesignation(!editDesignation)} onMouseEnter={handleToast}>{currentUser.designation ? currentUser.designation : 'Designation'}</p>}
+          {editDesignation && <div className="">
+            <input
+              onChange={(event) => setDesignation(event.target.value)}
+              type="text"
+              name="whatsApp"
+              defaultValue={currentUser?.designation || 'Designation'}
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted"
+            />
+            <button className="flex justify-end w-full hover:underline mt-2" onClick={handleChangeDesignation}>Save</button>
+          </div>}
         </div>
       </div>
 
@@ -42,17 +131,17 @@ const UserProfile = ({ user }) => {
             <RiEditBoxFill />
           </button>
         </div>
-        <form>
+        <div>
           <textarea
+            onChange={(event) => setBio(event.target.value)}
             defaultValue={currentUser?.bio}
             disabled={!editBio}
             placeholder="Write your bio within 200 letters."
-            className={`bg-black ${
-              editBio && "border border-dotted"
-            }  rounded-md text-xs w-full p-4`}
+            className={`bg-black ${editBio && "border border-dotted"
+              }  rounded-md text-xs w-full p-4`}
           />
-          {editBio && <button className="flex justify-end w-full">Save</button>}
-        </form>
+          {editBio && <button className="flex justify-end w-full hover:underline" onClick={handleChangeBio}>Save</button>}
+        </div>
       </div>
 
       {/* other information */}
@@ -66,13 +155,13 @@ const UserProfile = ({ user }) => {
         <div className="space-y-1">
           <h3>WhatsApp Number</h3>
           <p className="text-xs bg-black p-2 rounded-md">
-            {currentUser?.whatsApp || "+xxx xx xxx xxxx"}
+            {currentUser?.wpNum || "+xxx xx xxx xxxx"}
           </p>
         </div>
         <div className="space-y-1">
           <h3>Languages Speak</h3>
           <p className="text-xs bg-black p-2 rounded-md">
-            {currentUser?.langs || "English"}
+            {currentUser?.languagesSpeak || "English"}
           </p>
         </div>
       </div>

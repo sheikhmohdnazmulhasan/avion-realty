@@ -1,8 +1,8 @@
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
-const EditProfile = ({ user }) => {
-  const currentUser = user?.data?.user;
-
+const EditProfile = ({ user, mutate }) => {
+  const currentUser = user
 
   const handleProfileEdit = async (event) => {
     event.preventDefault();
@@ -18,14 +18,24 @@ const EditProfile = ({ user }) => {
       const res = await axios.put(`http://localhost:3000/api/users?email=${currentUser.email}`, updatedData);
 
       if (res.data.success) {
-        alert('Data updated');
 
+        toast.success('Profile Info Updated',
+          {
+            icon: '👏',
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        );
+        mutate(`http://localhost:3000/api/users?email=${currentUser.email}`)
 
       } else {
         alert('Something wrong, check console');
       }
 
-      console.log(res);
+
 
     } catch (error) {
       console.log(error);
@@ -35,6 +45,10 @@ const EditProfile = ({ user }) => {
 
   return (
     <div className="bg-[#161616] p-12 rounded-2xl">
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+      />
       <h2 className="text-2xl font-semibold">Edit Profile</h2>
 
       <form className="mt-4 text-sm" onSubmit={handleProfileEdit}>
@@ -70,7 +84,7 @@ const EditProfile = ({ user }) => {
             <input
               type="text"
               name="langs"
-              defaultValue={currentUser?.langs}
+              defaultValue={currentUser?.languagesSpeak}
               placeholder="Write your language"
               className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
@@ -79,9 +93,9 @@ const EditProfile = ({ user }) => {
             <label>WhatsApp Number</label>
             <br />
             <input
-              type="phone"
+              type="number"
               name="whatsApp"
-              defaultValue={currentUser?.whatsApp}
+              defaultValue={currentUser?.wpNum}
               placeholder="Write your whatsapp number"
               className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted"
             />

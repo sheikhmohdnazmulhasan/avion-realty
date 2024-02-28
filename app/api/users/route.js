@@ -3,6 +3,16 @@ import User from "@/models/user";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs"
 
+export async function GET(request) {
+    await connectMongoDB();
+
+    const { searchParams } = new URL(request.url);
+    const email = searchParams.get('email');
+
+    const result = await User.findOne({ email });
+    return NextResponse.json(result);
+};
+
 
 export async function POST(request) {
     await connectMongoDB();
@@ -31,7 +41,6 @@ export async function PUT(request) {
     const filter = { email }
 
     const result = await User.findOneAndUpdate(filter, data);
-    console.log(result);
 
     if (!result) {
         return NextResponse.json({ message: 'Something is wrong', success: false }, { status: 402 })
