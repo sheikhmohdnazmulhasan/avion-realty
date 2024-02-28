@@ -22,8 +22,6 @@ const Areas = () => {
     fetcher
   );
 
-  console.log(data);
-
   async function handleAddNew(event) {
     event.preventDefault();
     const area = event.target.area.value;
@@ -75,11 +73,12 @@ const Areas = () => {
         if (serverResponse.data.success) {
           toast.success("Area Successfully Added", { id: toastId });
           setOpenModal(false);
-          
+
           mutate(`http://localhost:3000/api/admin/items/area`)
         }
       }
     } catch (error) {
+      console.log(error);
       throw new Error("Something wrong");
     }
   }

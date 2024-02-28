@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const EditProfile = ({ user }) => {
   const currentUser = user?.data?.user;
 
@@ -20,6 +19,7 @@ const EditProfile = ({ user }) => {
 
       if (res.data.success) {
         alert('Data updated');
+
 
       } else {
         alert('Something wrong, check console');
