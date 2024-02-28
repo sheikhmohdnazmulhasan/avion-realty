@@ -4,18 +4,26 @@ import { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { RiEditBoxFill } from "react-icons/ri";
 import { PiKeyLight } from "react-icons/pi";
+import axios from "axios";
 
 const UserProfile = ({ user }) => {
   const [editBio, setEditBio] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [bio, setBio] = useState('');
-
-  console.log(bio);
-
   const currentUser = user;
+
+  const dataWithBio = { ...user, bio };
+
 
   async function handleChangeBio() {
 
+    try {
+      const serverResponse = await axios.put(`http://localhost:3000/api/users?email=${user?.email}`, dataWithBio);
+      console.log(serverResponse);
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -58,7 +66,7 @@ const UserProfile = ({ user }) => {
             className={`bg-black ${editBio && "border border-dotted"
               }  rounded-md text-xs w-full p-4`}
           />
-          {editBio && <button className="flex justify-end w-full hover:underline">Save</button>}
+          {editBio && <button className="flex justify-end w-full hover:underline" onClick={handleChangeBio}>Save</button>}
         </div>
       </div>
 
