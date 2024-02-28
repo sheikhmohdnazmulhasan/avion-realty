@@ -3,6 +3,18 @@ import User from "@/models/user";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs"
 
+export async function GET(request) {
+    await connectMongoDB();
+
+    const { searchParams } = new URL(request.url);
+    const email = searchParams.get('email');
+
+    const result = await User.findOne({ email });
+    return NextResponse.json(result);
+};
+
+
+
 
 export async function POST(request) {
     await connectMongoDB();
