@@ -6,6 +6,7 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { PiKeyLight } from "react-icons/pi";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import bcrypt from "bcryptjs"
 
 const UserProfile = ({ user, mutate }) => {
   const currentUser = user;
@@ -14,6 +15,7 @@ const UserProfile = ({ user, mutate }) => {
   const [openModal, setOpenModal] = useState(false);
   const [bio, setBio] = useState("");
   const [designation, setDesignation] = useState("");
+  const [passwordError, setPasswordError] = useState('');
 
   const dataWithBio = { ...user, bio };
   const dataWithDesignation = { ...user, designation };
@@ -26,6 +28,91 @@ const UserProfile = ({ user, mutate }) => {
         color: "#fff",
       },
     });
+  }
+
+
+  async function handleChangePassword(event) {
+    event.preventDefault();
+    const currentPassword = event.target.currentPassword.value;
+    const newPassword = event.target.newPassword.value;
+    const confirmNewPassword = event.target.confirmNewPassword.value;
+
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+    setPasswordError('');
+
+    if (!passwordRegex.test(newPassword)) {
+
+      toast.error('Password must be at least 8 characters long and contain at least one letter, one digit, and one special character.', {
+        style: {
+          background: '#333',
+          color: '#fff'
+        }
+      });
+
+      return;
+
+    } else if (newPassword !== confirmNewPassword) {
+
+      toast.error(' Password did not match!', {
+        style: {
+          background: '#333',
+          color: '#fff'
+        }
+      });
+
+      return;
+
+    }
+
+    try {
+      const validCurrentPassword = await bcrypt.compare(currentPassword, user.password);
+      const checkSamePassword = await bcrypt.compare(newPassword, user.password);
+
+      if (!validCurrentPassword) {
+        setPasswordError('Wrong Password');
+
+      } else if (checkSamePassword) {
+
+        toast('New password is same as current password!', {
+          style: {
+            background: '#333',
+            color: '#fff'
+          }
+        });
+
+        return;
+
+      } else {
+
+        const password = await bcrypt.hash(newPassword, 10);
+
+        const dataWithNewPassword = { ...user, password };
+
+        const serverResponse = await axios.put(`http://localhost:3000/api/users?email=${currentUser.email}`, dataWithNewPassword);
+
+        if (serverResponse.data.success) {
+
+          toast('Password Changed',
+            {
+              icon: '👏',
+              style: {
+                borderRadius: '10px',
+                background: '#333',
+                color: '#fff',
+              },
+            }
+          );
+
+          setOpenModal(false);
+        }
+
+      }
+    } catch (error) {
+
+      console.log(error);
+    }
+
   }
 
   async function handleChangeDesignation() {
@@ -46,7 +133,7 @@ const UserProfile = ({ user, mutate }) => {
             color: "#fff",
           },
         });
-        
+
         mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
 
       }
@@ -194,7 +281,7 @@ const UserProfile = ({ user, mutate }) => {
             <h2 className="mb-6 text-xl font-semibold">
               Change Your Password Here
             </h2>
-            <form className=" space-y-3 ">
+            <form className=" space-y-3" onSubmit={handleChangePassword}>
               <div>
                 <label>Old Password</label>
                 <br />
@@ -202,11 +289,12 @@ const UserProfile = ({ user, mutate }) => {
                   <PiKeyLight className="text-xl rotate-180 ml-2" />
                   <input
                     type="text"
-                    name="oldPass"
+                    name="currentPassword"
                     placeholder="Old PassWord"
                     className="bg-black w-full p-2 outline-none"
                   />
                 </div>
+                <p className="text-red-600 mt-2">{passwordError}</p>
               </div>
               <div>
                 <label>New Password</label>
@@ -215,7 +303,7 @@ const UserProfile = ({ user, mutate }) => {
                   <PiKeyLight className="text-xl rotate-180 ml-2" />
                   <input
                     type="text"
-                    name="newPass"
+                    name="newPassword"
                     placeholder="New PassWord"
                     className="bg-black w-full p-2 outline-none"
                   />
@@ -228,7 +316,7 @@ const UserProfile = ({ user, mutate }) => {
                   <PiKeyLight className="text-xl rotate-180 ml-2" />
                   <input
                     type="text"
-                    name="re-typeNewwPaa"
+                    name="confirmNewPassword"
                     placeholder="Re-type New Password"
                     className="bg-black w-full p-2 outline-none"
                   />
