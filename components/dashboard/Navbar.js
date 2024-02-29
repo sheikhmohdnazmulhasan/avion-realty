@@ -8,10 +8,25 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { FaRegUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { IoNotificationsOutline } from "react-icons/io5";
+import useSWR from "swr";
+import { useSession } from "next-auth/react";
 
-const Navbar = ({ title, user }) => {
+const Navbar = ({ title }) => {
   const [openModal, setOpenModal] = useState(false);
-  const profile = user?.image;
+  const user = useSession();
+
+  const fetcher = (url) => axios.get(url).then((res) => res.data);
+
+  const {
+    data = [],
+    error,
+    mutate,
+  } = useSWR(
+    `http://localhost:3000/api/users?email=${user?.data?.user?.email}`,
+    fetcher
+  );
+
+  const profile = data?.image;
 
   return (
     <div className="px-12 py-10 flex justify-between items-center ">
@@ -20,7 +35,7 @@ const Navbar = ({ title, user }) => {
         <IoNotificationsOutline size={32} className="mr-8 mt-2" />
         <div className="w-12  rounded-full ">
           {profile ? (
-            <Image src={profile} alt={user?.name} className="rounded-full" />
+            <Image src={profile} alt={data?.name} className="rounded-full" />
           ) : (
             <FaUserCircle size={40} />
           )}
