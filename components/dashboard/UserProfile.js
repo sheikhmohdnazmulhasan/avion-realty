@@ -77,8 +77,9 @@ const UserProfile = ({ user, mutate }) => {
 
         const dataWithNewPassword = { ...user, password };
 
+        const serverResponse = await axios.put(`http://localhost:3000/api/users?email=${currentUser.email}`, dataWithNewPassword);
 
-        //  All checked are done here. now we will call a API for change password;
+        console.log(serverResponse.data);
 
       }
     } catch (error) {
