@@ -6,7 +6,7 @@ import Propertiy from "@/components/dashboard/admin/items/Propertiy";
 const page = () => {
   return (
     <div>
-      <Navbar title="item" />
+      <Navbar title="Items" />
       <div className="py-8 px-12 grid grid-cols-3 gap-8">
         <Areas />
         <Propertiy />
