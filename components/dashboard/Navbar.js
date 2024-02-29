@@ -9,7 +9,7 @@ import { FaRegUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { IoNotificationsOutline } from "react-icons/io5";
 import useSWR from "swr";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import axios from "axios";
 
 const Navbar = ({ title }) => {
@@ -19,7 +19,7 @@ const Navbar = ({ title }) => {
   const fetcher = (url) => axios.get(url).then((res) => res.data);
 
   const {
-    data = [],
+    data = [], 
     error,
     mutate,
   } = useSWR(
@@ -27,7 +27,6 @@ const Navbar = ({ title }) => {
     fetcher
   );
 
-  console.log(data);
 
   const profile = data?.image;
 
@@ -59,10 +58,10 @@ const Navbar = ({ title }) => {
                 </Link>
               </li>
               <li>
-                <Link href="/" className="flex gap-3 items-center">
+                <div className="flex gap-3 cursor-pointer items-center" onClick={() => signOut({ redirect: false })}>
                   <MdLogout className=" text-[#E4B649]" size={24} />
                   <span>Log Out</span>
-                </Link>
+                </div>
               </li>
             </ul>
           </div>

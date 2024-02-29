@@ -7,10 +7,8 @@ import icon from "@/public/images/icon.svg";
 import whatsapp from "@/public/images/whatsapp.svg";
 import Dropdown from "./Dropdown";
 import MobileMenu from "./MobileMenu";
-import { signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
-  const user = useSession();
 
   return (
     <>
@@ -44,9 +42,9 @@ const Navbar = () => {
             <li>
               <Link href="/">Media</Link>
             </li>
-            {user?.data?.user && <li onClick={() => signOut({ redirect: false })}>
+            {/* <li onClick={() => signOut({ redirect: false })}>
               <Link href="/">Sign Out</Link>
-            </li>}
+            </li> */}
           </ul>
           {/* social contact */}
           <ul className="flex gap-6 items-center">
