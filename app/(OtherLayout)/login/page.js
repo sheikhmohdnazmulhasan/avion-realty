@@ -42,8 +42,6 @@ const Login = () => {
         }
     }
 
-    console.log(loggedInUser.data);
-
 
     return (
         <>

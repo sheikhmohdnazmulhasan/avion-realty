@@ -6,6 +6,7 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { PiKeyLight } from "react-icons/pi";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import connectMongoDB from "@/libs/mongodb";
 
 const UserProfile = ({ user, mutate }) => {
   const currentUser = user;
@@ -28,6 +29,22 @@ const UserProfile = ({ user, mutate }) => {
     });
   }
 
+
+  async function handleChangePassword(event) {
+    event.preventDefault();
+    const currentPassword = event.target.currentPassword.value;
+    const newPassword = event.target.newPassword.value;
+    const confirmNewPassword = event.target.confirmNewPassword.value;
+
+    try {
+      await connectMongoDB();
+    } catch (error) {
+
+    }
+
+
+  }
+
   async function handleChangeDesignation() {
     try {
       const serverResponse = await axios.put(
@@ -46,7 +63,7 @@ const UserProfile = ({ user, mutate }) => {
             color: "#fff",
           },
         });
-        
+
         mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
 
       }
@@ -194,7 +211,7 @@ const UserProfile = ({ user, mutate }) => {
             <h2 className="mb-6 text-xl font-semibold">
               Change Your Password Here
             </h2>
-            <form className=" space-y-3 ">
+            <form className=" space-y-3" onSubmit={handleChangePassword}>
               <div>
                 <label>Old Password</label>
                 <br />
@@ -202,7 +219,7 @@ const UserProfile = ({ user, mutate }) => {
                   <PiKeyLight className="text-xl rotate-180 ml-2" />
                   <input
                     type="text"
-                    name="oldPass"
+                    name="currentPassword"
                     placeholder="Old PassWord"
                     className="bg-black w-full p-2 outline-none"
                   />
@@ -215,7 +232,7 @@ const UserProfile = ({ user, mutate }) => {
                   <PiKeyLight className="text-xl rotate-180 ml-2" />
                   <input
                     type="text"
-                    name="newPass"
+                    name="newPassword"
                     placeholder="New PassWord"
                     className="bg-black w-full p-2 outline-none"
                   />
@@ -228,7 +245,7 @@ const UserProfile = ({ user, mutate }) => {
                   <PiKeyLight className="text-xl rotate-180 ml-2" />
                   <input
                     type="text"
-                    name="re-typeNewwPaa"
+                    name="confirmNewPassword"
                     placeholder="Re-type New Password"
                     className="bg-black w-full p-2 outline-none"
                   />
