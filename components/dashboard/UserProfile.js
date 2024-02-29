@@ -48,6 +48,18 @@ const UserProfile = ({ user, mutate }) => {
       });
 
       return;
+
+    } else if (newPassword !== confirmNewPassword) {
+
+      toast.error(' Password did not match!', {
+        style: {
+          background: '#333',
+          color: '#fff'
+        }
+      });
+      
+      return;
+
     }
 
     try {
