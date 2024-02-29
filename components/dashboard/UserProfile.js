@@ -15,6 +15,7 @@ const UserProfile = ({ user, mutate }) => {
   const [openModal, setOpenModal] = useState(false);
   const [bio, setBio] = useState("");
   const [designation, setDesignation] = useState("");
+  const [passwordError, setPasswordError] = useState('');
 
   const dataWithBio = { ...user, bio };
   const dataWithDesignation = { ...user, designation };
@@ -36,7 +37,9 @@ const UserProfile = ({ user, mutate }) => {
     const newPassword = event.target.newPassword.value;
     const confirmNewPassword = event.target.confirmNewPassword.value;
 
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+    setPasswordError('');
 
     if (!passwordRegex.test(newPassword)) {
 
@@ -57,7 +60,7 @@ const UserProfile = ({ user, mutate }) => {
           color: '#fff'
         }
       });
-      
+
       return;
 
     }
@@ -66,11 +69,11 @@ const UserProfile = ({ user, mutate }) => {
       const validCurrentPassword = await bcrypt.compare(currentPassword, user.password);
 
       if (!validCurrentPassword) {
-
-
+        setPasswordError('Wrong Password');
 
       } else {
-        alert('invalid Pass');
+
+        //  All checked are done here. now we will call a API for change password;
 
       }
     } catch (error) {
@@ -259,6 +262,7 @@ const UserProfile = ({ user, mutate }) => {
                     className="bg-black w-full p-2 outline-none"
                   />
                 </div>
+                <p className="text-red-600 mt-2">{passwordError}</p>
               </div>
               <div>
                 <label>New Password</label>
