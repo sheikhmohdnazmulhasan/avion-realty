@@ -36,19 +36,33 @@ const UserProfile = ({ user, mutate }) => {
     const newPassword = event.target.newPassword.value;
     const confirmNewPassword = event.target.confirmNewPassword.value;
 
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+
+    if (!passwordRegex.test(newPassword)) {
+
+      toast.error('Password must be at least 8 characters long and contain at least one letter, one digit, and one special character.', {
+        style: {
+          background: '#333',
+          color: '#fff'
+        }
+      });
+
+      return;
+    }
+
     try {
       const validCurrentPassword = await bcrypt.compare(currentPassword, user.password);
 
-      if (validCurrentPassword) {
+      if (!validCurrentPassword) {
 
-        alert('valid Pass');
+
 
       } else {
         alert('invalid Pass');
 
       }
     } catch (error) {
-      
+
       console.log(error);
     }
 
