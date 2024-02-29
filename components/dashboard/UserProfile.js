@@ -46,8 +46,9 @@ const UserProfile = ({ user, mutate }) => {
             color: "#fff",
           },
         });
-
+        
         mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
+
       }
     } catch (error) {
       console.log(error);
@@ -143,9 +144,8 @@ const UserProfile = ({ user, mutate }) => {
             defaultValue={currentUser?.bio}
             disabled={!editBio}
             placeholder="Write your bio within 200 letters."
-            className={`bg-black ${
-              editBio && "border border-dotted"
-            }  rounded-md text-xs w-full p-4`}
+            className={`bg-black ${editBio && "border border-dotted"
+              }  rounded-md text-xs w-full p-4`}
           />
           {editBio && (
             <button

@@ -10,6 +10,7 @@ import { MdLogout } from "react-icons/md";
 import { IoNotificationsOutline } from "react-icons/io5";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";
+import axios from "axios";
 
 const Navbar = ({ title }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -25,6 +26,8 @@ const Navbar = ({ title }) => {
     `http://localhost:3000/api/users?email=${user?.data?.user?.email}`,
     fetcher
   );
+
+  console.log(data);
 
   const profile = data?.image;
 
