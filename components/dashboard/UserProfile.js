@@ -6,7 +6,7 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { PiKeyLight } from "react-icons/pi";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import connectMongoDB from "@/libs/mongodb";
+import bcrypt from "bcryptjs"
 
 const UserProfile = ({ user, mutate }) => {
   const currentUser = user;
@@ -37,11 +37,20 @@ const UserProfile = ({ user, mutate }) => {
     const confirmNewPassword = event.target.confirmNewPassword.value;
 
     try {
-      await connectMongoDB();
+      const validCurrentPassword = await bcrypt.compare(currentPassword, user.password);
+
+      if (validCurrentPassword) {
+
+        alert('valid Pass');
+
+      } else {
+        alert('invalid Pass');
+
+      }
     } catch (error) {
-
+      
+      console.log(error);
     }
-
 
   }
 
