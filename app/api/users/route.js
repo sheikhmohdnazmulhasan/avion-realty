@@ -13,6 +13,8 @@ export async function GET(request) {
     return NextResponse.json(result);
 };
 
+// 
+
 
 export async function POST(request) {
     await connectMongoDB();
