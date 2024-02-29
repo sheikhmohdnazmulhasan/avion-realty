@@ -73,6 +73,11 @@ const UserProfile = ({ user, mutate }) => {
 
       } else {
 
+        const password = await bcrypt.hash(newPassword, 10);
+
+        const dataWithNewPassword = { ...user, password };
+
+
         //  All checked are done here. now we will call a API for change password;
 
       }
