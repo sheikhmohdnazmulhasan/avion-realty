@@ -67,9 +67,21 @@ const UserProfile = ({ user, mutate }) => {
 
     try {
       const validCurrentPassword = await bcrypt.compare(currentPassword, user.password);
+      const checkSamePassword = await bcrypt.compare(newPassword, user.password);
 
       if (!validCurrentPassword) {
         setPasswordError('Wrong Password');
+
+      } else if (checkSamePassword) {
+
+        toast('New password is same as current password!', {
+          style: {
+            background: '#333',
+            color: '#fff'
+          }
+        });
+
+        return;
 
       } else {
 
@@ -79,7 +91,21 @@ const UserProfile = ({ user, mutate }) => {
 
         const serverResponse = await axios.put(`http://localhost:3000/api/users?email=${currentUser.email}`, dataWithNewPassword);
 
-        console.log(serverResponse.data);
+        if (serverResponse.data.success) {
+
+          toast('Password Changed',
+            {
+              icon: '👏',
+              style: {
+                borderRadius: '10px',
+                background: '#333',
+                color: '#fff',
+              },
+            }
+          );
+
+          setOpenModal(false);
+        }
 
       }
     } catch (error) {
