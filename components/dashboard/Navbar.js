@@ -7,6 +7,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { FaRegUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
+import { IoNotificationsOutline } from "react-icons/io5";
 
 const Navbar = ({ title, user }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -16,6 +17,7 @@ const Navbar = ({ title, user }) => {
     <div className="px-12 py-10 flex justify-between items-center ">
       <h2 className="text-2xl font-semibold">{title}</h2>
       <div className="flex justify-end items-center">
+        <IoNotificationsOutline size={32} className="mr-8 mt-2" />
         <div className="w-12  rounded-full ">
           {profile ? (
             <Image src={profile} alt={user?.name} className="rounded-full" />
