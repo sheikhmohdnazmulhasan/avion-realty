@@ -1,7 +1,9 @@
 "use client";
 
 import Navbar from "@/components/dashboard/Navbar";
+import axios from "axios";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { PiKeyLight } from "react-icons/pi";
@@ -9,9 +11,61 @@ import { PiKeyLight } from "react-icons/pi";
 const Agents = () => {
   const [openModal, setOpenModal] = useState(false);
 
+  async function handleAddAgent(event) {
+    event.preventDefault();
+    const form = event.target;
+    const agentName = form.agentName.value;
+    const agentEmail = form.agentEmail.value;
+    const newPassword = form.newPassword.value;
+    const confirmNewPassword = form.confirmNewPassword.value;
+    const agentDesignation = form.agentDesignation.value;
+    const agentWhatsApp = form.agentWhatsApp.value;
+
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+    const newAgentData = { name: agentName, email: agentEmail, password: newPassword, designation: agentDesignation, wpNum: agentWhatsApp, role: 'agent' };
+
+    if (!passwordRegex.test(newPassword)) {
+
+      toast.error('Password must be at least 8 characters long and contain at least one letter, one digit, and one special character.', {
+        style: {
+          background: '#333',
+          color: '#fff'
+        }
+      });
+
+      return;
+
+    } else if (newPassword !== confirmNewPassword) {
+
+      toast.error(' Password did not match!', {
+        style: {
+          background: '#333',
+          color: '#fff'
+        }
+      });
+
+      return;
+
+    } else {
+
+      try {
+        const res = await axios.post('http://localhost:3000/api/users', newAgentData);
+        console.log(res.data);
+
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+
+
+  }
+
   return (
     <div>
       <Navbar title="Agents" />
+      <Toaster position="bottom-right" reverseOrder={false} />
       <div className=" mt-12 flex justify-end">
         <button
           onClick={() => setOpenModal(true)}
@@ -31,7 +85,7 @@ const Agents = () => {
           </div>
           <div className="p-8 rounded-lg shadow shadow-gray-500 ">
             <h2 className="mb-6 text-xl font-semibold">Add Agent</h2>
-            <form className="mt-4 text-sm">
+            <form className="mt-4 text-sm" onSubmit={handleAddAgent}>
               <div className="flex justify-between w-full gap-12 mb-6">
                 {/* name */}
                 <div className="w-1/2">
@@ -51,7 +105,6 @@ const Agents = () => {
                   <input
                     type="email"
                     name="agentEmail"
-                    disabled
                     placeholder="Write email address"
                     className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
                   />

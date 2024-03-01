@@ -19,7 +19,7 @@ export async function GET(request) {
 export async function POST(request) {
     await connectMongoDB();
 
-    const { name, email, password } = await request.json();
+    const { name, email, password, designation, wpNum, role } = await request.json();
     const encryptedPassword = await bcrypt.hash(password, 10);
     const isExist = await User.findOne({ email });
 
@@ -27,7 +27,7 @@ export async function POST(request) {
         return NextResponse.json({ message: 'User Already Exist!' }, { status: 200 })
     }
 
-    await User.create({ name, email, password: encryptedPassword });
+    await User.create({ name, email, password: encryptedPassword, designation, wpNum, role });
     return NextResponse.json({ message: "The user has been successfully saved to the database" }, { status: 201 })
 
 };

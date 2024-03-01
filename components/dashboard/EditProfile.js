@@ -14,8 +14,6 @@ const EditProfile = ({ user, mutate }) => {
     const reraID = form.reraID.value;
     const specializes = form.specializes.value;
 
-    console.log(reraID);
-
     const updatedData = {
       email: currentUser.email,
       wpNum,
