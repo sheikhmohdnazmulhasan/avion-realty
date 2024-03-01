@@ -9,7 +9,7 @@ export default function AdminLayout({ children }) {
       </div>
       <div className="w-3/4">
         {/* dynamic content */}
-        <div>{children}</div>
+        <div className="py-8 px-12">{children}</div>
       </div>
     </div>
   );

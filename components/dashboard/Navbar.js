@@ -19,7 +19,7 @@ const Navbar = ({ title }) => {
   const fetcher = (url) => axios.get(url).then((res) => res.data);
 
   const {
-    data = [], 
+    data = [],
     error,
     mutate,
   } = useSWR(
@@ -27,11 +27,10 @@ const Navbar = ({ title }) => {
     fetcher
   );
 
-
   const profile = data?.image;
 
   return (
-    <div className="px-12 py-10 flex justify-between items-center ">
+    <div className="flex justify-between items-center ">
       <h2 className="text-2xl font-semibold">{title}</h2>
       <div className="flex justify-end items-center">
         <IoNotificationsOutline size={32} className="mr-8 mt-2" />
@@ -58,7 +57,10 @@ const Navbar = ({ title }) => {
                 </Link>
               </li>
               <li>
-                <div className="flex gap-3 cursor-pointer items-center" onClick={() => signOut({ redirect: false })}>
+                <div
+                  className="flex gap-3 cursor-pointer items-center"
+                  onClick={() => signOut({ redirect: false })}
+                >
                   <MdLogout className=" text-[#E4B649]" size={24} />
                   <span>Log Out</span>
                 </div>

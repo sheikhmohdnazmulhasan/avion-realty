@@ -23,7 +23,7 @@ const Profile = () => {
   return (
     <div className="max-h-screen overflow-hidden">
       <Navbar title="My Profile" />
-      <div className="flex py-8 px-12 gap-8 h-full ">
+      <div className="flex mt-12 gap-8 h-full ">
         <div className="w-1/3">
           <UserProfile user={data} mutate={mutate} />
         </div>
