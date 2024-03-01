@@ -18,7 +18,7 @@ const Areas = () => {
   const [openModal, setOpenModal] = useState(false);
 
   // get all data from api using swr
-  const { data = [], error, } = useSWR(
+  const { data = [], error } = useSWR(
     "http://localhost:3000/api/admin/items/area",
     fetcher
   );
@@ -31,29 +31,25 @@ const Areas = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
-
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:3000/api/admin/items/area?id=${_id}`)
+          .then((res) => {
+            if (res.data.success) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Area has been deleted.",
+                icon: "success",
+              });
 
-
-        axios.delete(`http://localhost:3000/api/admin/items/area?id=${_id}`).then(res => {
-
-          if (res.data.success) {
-            Swal.fire({
-              title: "Deleted!",
-              text: "Area has been deleted.",
-              icon: "success"
-            });
-
-            mutate(`http://localhost:3000/api/admin/items/area`);
-          }
-
-        }).catch(err => console.log(err))
-
+              mutate(`http://localhost:3000/api/admin/items/area`);
+            }
+          })
+          .catch((err) => console.log(err));
       }
     });
-
   }
 
   async function handleAddNew(event) {
@@ -108,7 +104,7 @@ const Areas = () => {
           toast.success("Area Successfully Added", { id: toastId });
           setOpenModal(false);
 
-          mutate(`http://localhost:3000/api/admin/items/area`)
+          mutate(`http://localhost:3000/api/admin/items/area`);
         }
       }
     } catch (error) {
@@ -123,38 +119,47 @@ const Areas = () => {
       <h2 className="text-xl font-semibold">Add/Remove Areas</h2>
       <div className="my-10 h-[60vh]  overflow-y-scroll pr-2">
         <ul className="h-full">
-          {!data.length ? <>
-            <div className="flex justify-center flex-col items-center h-full">
-              <p className="font-bold mb-5">No Data Found</p>
-              <button
-                onClick={() => setOpenModal(true)}
-                className="bg-[#835C00] rounded-3xl px-3 py-1 flex items-center justify-center"
-              >
-                <FaPlus size={16} />
-                <span className="mt-1 ml-1">Add One</span>
-              </button>
-            </div>
-          </> : <>
-            {data?.map((area) => (
-              <li key={area?._id} className="flex  items-center justify-between">
-                <span>{area?.itemName}</span>
-                <button onClick={() => handleDeleteArea(area?._id)}>
-                  <IoMdCloseCircle className="text-red-600 text-xl" />
+          {!data.length ? (
+            <>
+              <div className="flex justify-center flex-col items-center h-full">
+                <p className="font-bold mb-5">No Data Found</p>
+                <button
+                  onClick={() => setOpenModal(true)}
+                  className="bg-[#835C00] rounded-3xl px-3 py-1 flex items-center justify-center"
+                >
+                  <FaPlus size={16} />
+                  <span className="mt-1 ml-1">Add One</span>
                 </button>
-              </li>
-            ))}
-          </>}
+              </div>
+            </>
+          ) : (
+            <>
+              {data?.map((area) => (
+                <li
+                  key={area?._id}
+                  className="flex  items-center justify-between"
+                >
+                  <span>{area?.itemName}</span>
+                  <button onClick={() => handleDeleteArea(area?._id)}>
+                    <IoMdCloseCircle className="text-red-600 text-xl" />
+                  </button>
+                </li>
+              ))}
+            </>
+          )}
         </ul>
       </div>
-      {data.length && <div className="flex justify-center">
-        <button
-          onClick={() => setOpenModal(true)}
-          className="bg-[#835C00] rounded-3xl px-3 py-1 flex items-center justify-center"
-        >
-          <FaPlus size={16} />
-          <span className="mt-1 ml-1">Add More</span>
-        </button>
-      </div>}
+      {data.length && (
+        <div className="flex justify-center">
+          <button
+            onClick={() => setOpenModal(true)}
+            className="bg-[#835C00] rounded-3xl px-3 py-1 flex items-center justify-center"
+          >
+            <FaPlus size={16} />
+            <span className="mt-1 ml-1">Add More</span>
+          </button>
+        </div>
+      )}
 
       {/* modal for add more items */}
       {openModal && (
