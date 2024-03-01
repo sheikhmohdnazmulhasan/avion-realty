@@ -7,6 +7,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { PiKeyLight } from "react-icons/pi";
+import { resolve } from "styled-jsx/css";
+import Swal from "sweetalert2";
 
 const Agents = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -21,44 +23,74 @@ const Agents = () => {
     const agentDesignation = form.agentDesignation.value;
     const agentWhatsApp = form.agentWhatsApp.value;
 
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to add new agent?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Do It!"
 
-    const newAgentData = { name: agentName, email: agentEmail, password: newPassword, designation: agentDesignation, wpNum: agentWhatsApp, role: 'agent' };
+    }).then(async (result) => {
 
-    if (!passwordRegex.test(newPassword)) {
+      if (result.isConfirmed) {
 
-      toast.error('Password must be at least 8 characters long and contain at least one letter, one digit, and one special character.', {
-        style: {
-          background: '#333',
-          color: '#fff'
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+        const newAgentData = { name: agentName, email: agentEmail, password: newPassword, designation: agentDesignation, wpNum: agentWhatsApp, role: 'agent', };
+
+        if (!passwordRegex.test(newPassword)) {
+
+          toast.error('Password must be at least 8 characters long and contain at least one letter, one digit, and one special character.', {
+            style: {
+              background: '#333',
+              color: '#fff'
+            }
+          });
+
+          return;
+
+        } else if (newPassword !== confirmNewPassword) {
+
+          toast.error(' Password did not match!', {
+            style: {
+              background: '#333',
+              color: '#fff'
+            }
+          });
+
+          return;
+
+        } else {
+
+          try {
+            const res = await axios.post('http://localhost:3000/api/users', newAgentData);
+
+            if (res.data.message !== "User Already Exist!") {
+
+              Swal.fire({
+
+                title: "Agent Created",
+                text: `You have successfully created a new agent. Email: ${agentEmail},  Password: ${newPassword}. Please note it down!`,
+                icon: "success",
+              });
+
+            } else {
+              Swal.fire({
+                title: "Email Exist",
+                text: "The agent's email already exists in the database!",
+                icon: "error"
+              });
+            }
+
+          } catch (error) {
+            console.log(error);
+          }
+
         }
-      });
-
-      return;
-
-    } else if (newPassword !== confirmNewPassword) {
-
-      toast.error(' Password did not match!', {
-        style: {
-          background: '#333',
-          color: '#fff'
-        }
-      });
-
-      return;
-
-    } else {
-
-      try {
-        const res = await axios.post('http://localhost:3000/api/users', newAgentData);
-        console.log(res.data);
-
-      } catch (error) {
-        console.log(error);
       }
-
-    }
-
+    });
 
   }
 
