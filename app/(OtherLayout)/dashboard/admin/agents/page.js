@@ -1,6 +1,7 @@
 "use client";
 
 import Navbar from "@/components/dashboard/Navbar";
+import AgentCard from "@/components/dashboard/admin/AgentCard";
 import axios from "axios";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -9,9 +10,22 @@ import { IoMdClose } from "react-icons/io";
 import { PiKeyLight } from "react-icons/pi";
 import { resolve } from "styled-jsx/css";
 import Swal from "sweetalert2";
+import useSWR from "swr";
 
 const Agents = () => {
   const [openModal, setOpenModal] = useState(false);
+  // const [agents, setAgents] = useState([]);
+
+  // get all agent using swr
+  const fetcher = (url) => axios.get(url).then((res) => res.data);
+
+  const {
+    data = [],
+    error,
+    mutate,
+  } = useSWR("http://localhost:3000/api/users?agent=all", fetcher);
+
+  console.log(data);
 
   async function handleAddAgent(event) {
     event.preventDefault();
@@ -30,69 +44,68 @@ const Agents = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Do It!"
-
+      confirmButtonText: "Yes, Do It!",
     }).then(async (result) => {
-
       if (result.isConfirmed) {
+        const passwordRegex =
+          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-
-        const newAgentData = { name: agentName, email: agentEmail, password: newPassword, designation: agentDesignation, wpNum: agentWhatsApp, role: 'agent', };
+        const newAgentData = {
+          name: agentName,
+          email: agentEmail,
+          password: newPassword,
+          designation: agentDesignation,
+          wpNum: agentWhatsApp,
+          role: "agent",
+        };
 
         if (!passwordRegex.test(newPassword)) {
-
-          toast.error('Password must be at least 8 characters long and contain at least one letter, one digit, and one special character.', {
-            style: {
-              background: '#333',
-              color: '#fff'
+          toast.error(
+            "Password must be at least 8 characters long and contain at least one letter, one digit, and one special character.",
+            {
+              style: {
+                background: "#333",
+                color: "#fff",
+              },
             }
-          });
+          );
 
           return;
-
         } else if (newPassword !== confirmNewPassword) {
-
-          toast.error(' Password did not match!', {
+          toast.error(" Password did not match!", {
             style: {
-              background: '#333',
-              color: '#fff'
-            }
+              background: "#333",
+              color: "#fff",
+            },
           });
 
           return;
-
         } else {
-
           try {
-            const res = await axios.post('http://localhost:3000/api/users', newAgentData);
+            const res = await axios.post(
+              "http://localhost:3000/api/users",
+              newAgentData
+            );
 
             if (res.data.message !== "User Already Exist!") {
-
               Swal.fire({
-
                 title: "Agent Created",
                 text: `You have successfully created a new agent. Email: ${agentEmail},  Password: ${newPassword}. Please note it down!`,
                 icon: "success",
               });
-
-
             } else {
               Swal.fire({
                 title: "Email Exist",
                 text: "The agent's email already exists in the database!",
-                icon: "error"
+                icon: "error",
               });
             }
-
           } catch (error) {
             console.log(error);
           }
-
         }
       }
     });
-
   }
 
   return (
@@ -209,6 +222,11 @@ const Agents = () => {
           </div>
         </div>
       )}
+      <div className="mt-8 grid grid-cols-3 gap-6">
+        {data.map((agent) => (
+          <AgentCard key={agent._id} agent={agent} />
+        ))}
+      </div>
     </div>
   );
 };
