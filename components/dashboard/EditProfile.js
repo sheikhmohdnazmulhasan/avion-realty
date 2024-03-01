@@ -2,7 +2,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
 const EditProfile = ({ user, mutate }) => {
-  const currentUser = user
+  const currentUser = user;
 
   const handleProfileEdit = async (event) => {
     event.preventDefault();
@@ -11,44 +11,48 @@ const EditProfile = ({ user, mutate }) => {
     const languagesSpeak = form.langs.value;
     const wpNum = form.whatsApp.value;
     const about = form.about.value;
+    const reraID = form.reraID.value;
+    const specializes = form.specializes.value;
 
-    const updatedData = { email: currentUser.email, wpNum, name, languagesSpeak, about }
+    console.log(reraID);
+
+    const updatedData = {
+      email: currentUser.email,
+      wpNum,
+      name,
+      reraID,
+      specializes,
+      languagesSpeak,
+      about,
+    };
 
     try {
-      const res = await axios.put(`http://localhost:3000/api/users?email=${currentUser.email}`, updatedData);
+      const res = await axios.put(
+        `http://localhost:3000/api/users?email=${currentUser.email}`,
+        updatedData
+      );
 
       if (res.data.success) {
-
-        toast.success('Profile Info Updated',
-          {
-            icon: '👏',
-            style: {
-              borderRadius: '10px',
-              background: '#333',
-              color: '#fff',
-            },
-          }
-        );
-        mutate(`http://localhost:3000/api/users?email=${currentUser.email}`)
-
+        toast.success("Profile Info Updated", {
+          icon: "👏",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+        mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
       } else {
-        alert('Something wrong, check console');
+        alert("Something wrong, check console");
       }
-
-
-
     } catch (error) {
       console.log(error);
     }
-
-  }
+  };
 
   return (
     <div className="bg-[#161616] p-12 rounded-2xl">
-      <Toaster
-        position="bottom-right"
-        reverseOrder={false}
-      />
+      <Toaster position="bottom-right" reverseOrder={false} />
       <h2 className="text-2xl font-semibold">Edit Profile</h2>
 
       <form className="mt-4 text-sm" onSubmit={handleProfileEdit}>
@@ -101,6 +105,33 @@ const EditProfile = ({ user, mutate }) => {
             />
           </div>
         </div>
+        {/* for agent only  */}
+        {currentUser?.role !== "admin" && (
+          <div className="flex justify-between w-full gap-12 mb-6">
+            <div className="w-1/2">
+              <label>RERA ID</label>
+              <br />
+              <input
+                type="number"
+                name="reraID"
+                defaultValue={currentUser?.reraID}
+                placeholder="Write RERA number"
+                className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+              />
+            </div>
+            <div className="w-1/2">
+              <label>Specializes</label>
+              <br />
+              <input
+                type="text"
+                name="specializes"
+                defaultValue={currentUser?.specializes}
+                placeholder="Write your specializes"
+                className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted"
+              />
+            </div>
+          </div>
+        )}
         <div className="w-full">
           <label>About Me</label>
           <br />
