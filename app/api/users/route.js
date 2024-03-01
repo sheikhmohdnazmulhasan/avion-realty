@@ -7,13 +7,19 @@ export async function GET(request) {
     await connectMongoDB();
 
     const { searchParams } = new URL(request.url);
+
     const email = searchParams.get('email');
 
-    const result = await User.findOne({ email });
-    return NextResponse.json(result);
-};
+    if (email) {
+        const result = await User.findOne({ email });
+        return NextResponse.json(result);
 
-// 
+    } else {
+        const result = await User.find({ role: 'agent' });
+        return NextResponse.json(result);
+    }
+
+};
 
 
 export async function POST(request) {
