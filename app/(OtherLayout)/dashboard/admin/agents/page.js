@@ -14,7 +14,6 @@ import useSWR from "swr";
 
 const Agents = () => {
   const [openModal, setOpenModal] = useState(false);
-  // const [agents, setAgents] = useState([]);
 
   // get all agent using swr
   const fetcher = (url) => axios.get(url).then((res) => res.data);
