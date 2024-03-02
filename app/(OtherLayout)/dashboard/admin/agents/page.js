@@ -3,7 +3,7 @@
 import Navbar from "@/components/dashboard/Navbar";
 import AgentCard from "@/components/dashboard/admin/AgentCard";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
@@ -14,6 +14,8 @@ import useSWR from "swr";
 
 const Agents = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [isScroll, setIsScroll] = useState(false);
+
 
   // get all agent using swr
   const fetcher = (url) => axios.get(url).then((res) => res.data);
@@ -107,11 +109,13 @@ const Agents = () => {
     });
   }
 
+ 
+
   return (
     <div className="px-12 py-12">
       <Navbar title="Agents" />
       <Toaster position="bottom-right" reverseOrder={false} />
-      <div className=" mt-6 flex justify-end">
+      <div className=" mt-12 flex justify-end" id="scrollID">
         <button
           onClick={() => setOpenModal(true)}
           className="bg-[#835C00] rounded-xl py-2 px-3 flex items-center gap-2 justify-center "
@@ -163,7 +167,7 @@ const Agents = () => {
                   <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
                     <PiKeyLight className="text-xl rotate-180 ml-2" />
                     <input
-                      type="text"
+                      type="password"
                       name="newPassword"
                       placeholder="New PassWord"
                       className="bg-black w-full p-2 outline-none"
@@ -177,7 +181,7 @@ const Agents = () => {
                   <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
                     <PiKeyLight className="text-xl rotate-180 ml-2" />
                     <input
-                      type="text"
+                      type="password"
                       name="confirmNewPassword"
                       placeholder="Re-type New Password"
                       className="bg-black w-full p-2 outline-none"
@@ -226,6 +230,20 @@ const Agents = () => {
           <AgentCard key={agent._id} agent={agent} />
         ))}
       </div>
+
+      {/* scroll add agent feature */}
+      {
+        isScroll && (
+          <div className="fixed bottom-4 right-8">
+      <button
+          onClick={() => setOpenModal(true)}
+          className="bg-[#835C00] rounded-full p-3 "
+        >
+          <FaPlus size={20} />
+        </button>
+      </div>
+        )
+      }
     </div>
   );
 };
