@@ -110,7 +110,7 @@ const EditProfile = ({ user, mutate }) => {
               <label>RERA ID</label>
               <br />
               <input
-                type="number"
+                type="text"
                 name="reraID"
                 defaultValue={currentUser?.reraID}
                 placeholder="Write RERA number"
