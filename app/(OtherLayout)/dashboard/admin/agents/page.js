@@ -232,7 +232,7 @@ const Agents = () => {
           </div>
         </div>
       )}
-      <div className="mt-4 grid grid-cols-3 gap-6">
+      <div className="pt-4 pb-12 grid grid-cols-3 gap-6">
         {data.map((agent) => (
           <AgentCard key={agent._id} agent={agent} />
         ))}
