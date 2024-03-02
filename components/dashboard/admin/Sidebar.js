@@ -1,6 +1,7 @@
 import logo from "@/public/images/dashboard/d-logo.svg";
 import Image from "next/image";
 import Link from "next/link";
+import offPlanIcon from "@/public/images/off-plan.svg"
 
 import { VscGraph } from "react-icons/vsc";
 import { TiThListOutline } from "react-icons/ti";
@@ -16,7 +17,7 @@ const Sidebar = () => {
       {/* logo */}
       <Image src={logo} alt="Avion Realty" />
       {/* nav links */}
-      <ul className="text-xl font-bold mt-16 space-y-6">
+      <ul className=" font-bold mt-16 space-y-6">
         <li>
           <Link href="/" className="flex gap-4 items-center">
             <VscGraph size={24} />
@@ -49,7 +50,7 @@ const Sidebar = () => {
         </li>
         <li>
           <Link href="/" className="flex gap-4 items-center">
-            <GrVideo size={24} />
+            <Image src={offPlanIcon} alt="off-plan"/>
             <span>Add-Off-plan</span>
           </Link>
         </li>

@@ -8,6 +8,8 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import bcrypt from "bcryptjs"
 import { IoMdClose } from "react-icons/io";
+import { CiCamera } from "react-icons/ci";
+import { FileUploader } from "react-drag-drop-files";
 
 const UserProfile = ({ user, mutate }) => {
   const currentUser = user;
@@ -17,6 +19,18 @@ const UserProfile = ({ user, mutate }) => {
   const [bio, setBio] = useState("");
   const [designation, setDesignation] = useState("");
   const [passwordError, setPasswordError] = useState('');
+  const [isHover, setIsHover] = useState(false);
+  const [uploadImage, setUploadImage] = useState(false);
+  const [file, setFile] = useState(null);
+
+//  ensure file type must be for image
+  const fileTypes = ["JPEG", "PNG", "JPG"];
+
+  // store image
+  const handleChange = (file) => {
+    setFile(file);
+  };
+  console.log(file);
 
   const dataWithBio = { ...user, bio };
   const dataWithDesignation = { ...user, designation };
@@ -175,7 +189,7 @@ const UserProfile = ({ user, mutate }) => {
 
       {/* profile */}
       <div className="my-8 flex items-center gap-4">
-        <div className="w-16  rounded-full ">
+        <div className="w-24 rounded-full hover:opacity-40 relative bg-black" onMouseOver={()=>setIsHover(true)} onMouseLeave={()=>setIsHover(false)} >
           {currentUser?.image ? (
             <Image
               src={currentUser?.image}
@@ -183,8 +197,16 @@ const UserProfile = ({ user, mutate }) => {
               className="rounded-full"
             />
           ) : (
-            <FaUserCircle size={60} />
+            <FaUserCircle size={96} color="gray"/>
           )}
+          {
+            isHover && 
+            <button onClick={()=>setUploadImage(!uploadImage)}
+            className="absolute bottom-4 z-20 opacity-100 left-2 right-2">
+              <CiCamera size={24} className="w-2/3 mx-auto mb-1"/>
+              <p className="text-[10px] font-semibold">Upload Image</p>
+            </button>
+          }
         </div>
         <div>
           <h2 className="text-xl font-semibold">{currentUser?.name}</h2>
@@ -347,6 +369,31 @@ const UserProfile = ({ user, mutate }) => {
             </div>
         )}
       </div>
+
+      {/* for uploading profile */}
+      
+          {
+            uploadImage && (
+              <div className="w-2/5 absolute top-1/3 left-1/4 ">
+                <div className="text-right">
+                  <button onClick={() => setUploadImage(false)}>
+                    <IoMdClose size={24} />
+                  </button>
+                </div>
+                <div className="bg-black p-16 rounded-lg shadow-gray-800 shadow-md text-white">
+                  <h2 className="font-semibold mb-4">Upload Profile Here</h2>
+                <FileUploader
+                  handleChange={handleChange}
+                  name="image"
+                  types={fileTypes}
+                  className="text-white"
+                  
+                />
+                <p className="mt-4 text-center">{file ? `File name: ${file.name}` : "no files uploaded yet"}</p>
+                </div>
+              </div>
+            )
+          }
     </div>
   );
 };
