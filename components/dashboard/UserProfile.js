@@ -17,6 +17,7 @@ const UserProfile = ({ user, mutate }) => {
   const [bio, setBio] = useState("");
   const [designation, setDesignation] = useState("");
   const [passwordError, setPasswordError] = useState('');
+  const [uploadImage, setUploadImage] = useState(false)
 
   const dataWithBio = { ...user, bio };
   const dataWithDesignation = { ...user, designation };
@@ -175,7 +176,7 @@ const UserProfile = ({ user, mutate }) => {
 
       {/* profile */}
       <div className="my-8 flex items-center gap-4">
-        <div className="w-16  rounded-full ">
+        <div className="w-16 rounded-full hover:opacity-40" onMouseOver={()=>setUploadImage(!uploadImage)}>
           {currentUser?.image ? (
             <Image
               src={currentUser?.image}
@@ -185,6 +186,9 @@ const UserProfile = ({ user, mutate }) => {
           ) : (
             <FaUserCircle size={60} />
           )}
+          {
+            uploadImage && <p>Upload</p>
+          }
         </div>
         <div>
           <h2 className="text-xl font-semibold">{currentUser?.name}</h2>
