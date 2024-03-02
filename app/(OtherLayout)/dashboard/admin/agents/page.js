@@ -3,12 +3,11 @@
 import Navbar from "@/components/dashboard/Navbar";
 import AgentCard from "@/components/dashboard/admin/AgentCard";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { PiKeyLight } from "react-icons/pi";
-import { resolve } from "styled-jsx/css";
 import Swal from "sweetalert2";
 import useSWR from "swr";
 
@@ -16,6 +15,18 @@ const Agents = () => {
   const [openModal, setOpenModal] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
 
+  const handleScroll = () => {
+    const scrollContainer = document.getElementById("scrollID");
+
+    if (scrollContainer.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      setIsScroll(true);
+    } else {
+      setIsScroll(false);
+    }
+  };
+
+  // Attach the handleScroll function to the scroll event
+  window.onscroll = handleScroll;
 
   // get all agent using swr
   const fetcher = (url) => axios.get(url).then((res) => res.data);
@@ -25,8 +36,6 @@ const Agents = () => {
     error,
     mutate,
   } = useSWR("http://localhost:3000/api/users?agent=all", fetcher);
-
-  console.log(data);
 
   async function handleAddAgent(event) {
     event.preventDefault();
@@ -40,7 +49,7 @@ const Agents = () => {
 
     Swal.fire({
       title: "Are you sure?",
-      text: "Do you want to add new agent?",
+      text: "Do you want to add a new agent?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -70,16 +79,14 @@ const Agents = () => {
               },
             }
           );
-
           return;
         } else if (newPassword !== confirmNewPassword) {
-          toast.error(" Password did not match!", {
+          toast.error("Password did not match!", {
             style: {
               background: "#333",
               color: "#fff",
             },
           });
-
           return;
         } else {
           try {
@@ -109,13 +116,13 @@ const Agents = () => {
     });
   }
 
- 
-
   return (
-    <div className="px-12 py-12">
+    <div className="px-12 py-12 max-h-screen">
       <Navbar title="Agents" />
       <Toaster position="bottom-right" reverseOrder={false} />
-      <div className=" mt-12 flex justify-end" id="scrollID">
+      <div id="scrollID">
+
+      <div className=" mt-12 flex justify-end">
         <button
           onClick={() => setOpenModal(true)}
           className="bg-[#835C00] rounded-xl py-2 px-3 flex items-center gap-2 justify-center "
@@ -208,7 +215,7 @@ const Agents = () => {
                   <input
                     type="number"
                     name="agentWhatsApp"
-                    placeholder="Write your whatsapp number"
+                    placeholder="Write your WhatsApp number"
                     className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted"
                   />
                 </div>
@@ -230,20 +237,19 @@ const Agents = () => {
           <AgentCard key={agent._id} agent={agent} />
         ))}
       </div>
+      </div>
 
       {/* scroll add agent feature */}
-      {
-        isScroll && (
-          <div className="fixed bottom-4 right-8">
-      <button
-          onClick={() => setOpenModal(true)}
-          className="bg-[#835C00] rounded-full p-3 "
-        >
-          <FaPlus size={20} />
-        </button>
-      </div>
-        )
-      }
+      {isScroll && (
+        <div className="fixed bottom-4 right-8 z-20">
+          <button
+            onClick={() => setOpenModal(true)}
+            className="bg-[#835C00] rounded-full p-3 "
+          >
+            <FaPlus size={20} />
+          </button>
+        </div>
+      )}
     </div>
   );
 };
