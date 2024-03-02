@@ -108,10 +108,10 @@ const Agents = () => {
   }
 
   return (
-    <div>
+    <div className="px-12 py-12">
       <Navbar title="Agents" />
       <Toaster position="bottom-right" reverseOrder={false} />
-      <div className=" mt-12 flex justify-end">
+      <div className=" mt-6 flex justify-end">
         <button
           onClick={() => setOpenModal(true)}
           className="bg-[#835C00] rounded-xl py-2 px-3 flex items-center gap-2 justify-center "
@@ -122,13 +122,13 @@ const Agents = () => {
       </div>
       {/* modal for add more items */}
       {openModal && (
-        <div className="w-2/5 absolute top-1/4 left-1/3">
+        <div className="w-2/5 absolute top-1/4 left-1/3 ">
           <div className="text-right">
             <button onClick={() => setOpenModal(false)}>
               <IoMdClose size={24} />
             </button>
           </div>
-          <div className="p-8 rounded-lg shadow shadow-gray-500 ">
+          <div className="p-8 rounded-lg shadow shadow-gray-500 bg-black">
             <h2 className="mb-6 text-xl font-semibold">Add Agent</h2>
             <form className="mt-4 text-sm" onSubmit={handleAddAgent}>
               <div className="flex justify-between w-full gap-12 mb-6">
@@ -221,7 +221,7 @@ const Agents = () => {
           </div>
         </div>
       )}
-      <div className="mt-8 grid grid-cols-3 gap-6">
+      <div className="mt-4 grid grid-cols-3 gap-6">
         {data.map((agent) => (
           <AgentCard key={agent._id} agent={agent} />
         ))}

@@ -30,11 +30,13 @@ const Navbar = ({ title }) => {
   const profile = data?.image;
 
   return (
-    <div className="flex justify-between items-center ">
+    <div className=" fixed top-0 w-full bg-black">
+      <div className="pt-8 pb-4 flex justify-between items-center z-20  ">
       <h2 className="text-2xl font-semibold">{title}</h2>
+      <div className="fixed right-0 px-16">
       <div className="flex justify-end items-center">
         <IoNotificationsOutline size={32} className="mr-8 mt-2" />
-        <div className="w-12  rounded-full ">
+        <div className="w-10  rounded-full ">
           {profile ? (
             <Image src={profile} alt={data?.name} className="rounded-full" />
           ) : (
@@ -68,6 +70,8 @@ const Navbar = ({ title }) => {
             </ul>
           </div>
         )}
+      </div>
+      </div>
       </div>
     </div>
   );

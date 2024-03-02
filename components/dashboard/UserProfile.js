@@ -7,6 +7,7 @@ import { PiKeyLight } from "react-icons/pi";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import bcrypt from "bcryptjs"
+import { IoMdClose } from "react-icons/io";
 
 const UserProfile = ({ user, mutate }) => {
   const currentUser = user;
@@ -277,7 +278,13 @@ const UserProfile = ({ user, mutate }) => {
         </button>
 
         {openModal && (
-          <div className="bg-[#161616] p-12 w-1/3 rounded-lg shadow-md shadow-gray-500 absolute top-1/4 left-1/3 text-left">
+          <div className="w-2/5 absolute top-1/4 left-1/3">
+            <div className="text-right">
+            <button onClick={() => setOpenModal(false)}>
+              <IoMdClose size={24} />
+            </button>
+          </div>
+          <div className="bg-black p-12 rounded-lg shadow-md shadow-gray-800  text-left">
             <h2 className="mb-6 text-xl font-semibold">
               Change Your Password Here
             </h2>
@@ -337,6 +344,7 @@ const UserProfile = ({ user, mutate }) => {
               </div>
             </form>
           </div>
+            </div>
         )}
       </div>
     </div>
