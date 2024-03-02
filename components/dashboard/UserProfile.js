@@ -8,6 +8,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import bcrypt from "bcryptjs"
 import { IoMdClose } from "react-icons/io";
+import { CiCamera } from "react-icons/ci";
 
 const UserProfile = ({ user, mutate }) => {
   const currentUser = user;
@@ -176,7 +177,7 @@ const UserProfile = ({ user, mutate }) => {
 
       {/* profile */}
       <div className="my-8 flex items-center gap-4">
-        <div className="w-16 rounded-full hover:opacity-40" onMouseOver={()=>setUploadImage(!uploadImage)}>
+        <div className="w-24 rounded-full hover:opacity-40 relative bg-black" onMouseOver={()=>setUploadImage(true)} onMouseLeave={()=>setUploadImage(false)} >
           {currentUser?.image ? (
             <Image
               src={currentUser?.image}
@@ -184,10 +185,14 @@ const UserProfile = ({ user, mutate }) => {
               className="rounded-full"
             />
           ) : (
-            <FaUserCircle size={60} />
+            <FaUserCircle size={96} color="gray"/>
           )}
           {
-            uploadImage && <p>Upload</p>
+            uploadImage && 
+            <button className="absolute bottom-4 z-20 opacity-100 left-2 right-2">
+              <CiCamera size={24} className="w-2/3 mx-auto mb-1"/>
+              <p className="text-[10px] font-semibold">Upload Image</p>
+            </button>
           }
         </div>
         <div>
