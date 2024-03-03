@@ -30,48 +30,52 @@ const Navbar = ({ title }) => {
   const profile = data?.image;
 
   return (
-    <div className=" fixed top-0 w-full bg-black">
+    <div className=" fixed top-0 w-full ">
       <div className="pt-8 pb-4 flex justify-between items-center z-20  ">
-      <h2 className="text-2xl font-semibold">{title}</h2>
-      <div className="fixed right-0 px-16">
-      <div className="flex justify-end items-center">
-        <IoNotificationsOutline size={32} className="mr-8 mt-2" />
-        <div className="w-10  rounded-full ">
-          {profile ? (
-            <Image src={profile} alt={data?.name} className="rounded-full" />
-          ) : (
-            <FaUserCircle size={40} />
-          )}
-        </div>
-        <button
-          onClick={() => setOpenModal(!openModal)}
-          className="mt-2 relative"
-        >
-          {openModal ? <FaAngleUp size={12} /> : <FaAngleDown size={12} />}
-        </button>
-        {openModal && (
-          <div className="bg-[#0A0909] border border-[#3b2d0c] p-8 font-semibold absolute top-24">
-            <ul className="space-y-3">
-              <li>
-                <Link href="/" className="flex gap-3 items-center">
-                  <FaRegUser className=" text-[#E4B649]" size={20} />
-                  <span>My Profile</span>
-                </Link>
-              </li>
-              <li>
-                <div
-                  className="flex gap-3 cursor-pointer items-center"
-                  onClick={() => signOut({ redirect: false })}
-                >
-                  <MdLogout className=" text-[#E4B649]" size={24} />
-                  <span>Log Out</span>
-                </div>
-              </li>
-            </ul>
+        <h2 className="text-2xl font-semibold">{title}</h2>
+        <div className="fixed right-0 px-16">
+          <div className="flex justify-end items-center">
+            <IoNotificationsOutline size={32} className="mr-8 mt-2" />
+            <div className="w-10  rounded-full ">
+              {profile ? (
+                <Image
+                  src={profile}
+                  alt={data?.name}
+                  className="rounded-full"
+                />
+              ) : (
+                <FaUserCircle size={40} />
+              )}
+            </div>
+            <button
+              onClick={() => setOpenModal(!openModal)}
+              className="mt-2 relative"
+            >
+              {openModal ? <FaAngleUp size={12} /> : <FaAngleDown size={12} />}
+            </button>
+            {openModal && (
+              <div className="bg-[#0A0909] border border-[#3b2d0c] p-8 font-semibold absolute top-24">
+                <ul className="space-y-3">
+                  <li>
+                    <Link href="/" className="flex gap-3 items-center">
+                      <FaRegUser className=" text-[#E4B649]" size={20} />
+                      <span>My Profile</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <div
+                      className="flex gap-3 cursor-pointer items-center"
+                      onClick={() => signOut({ redirect: false })}
+                    >
+                      <MdLogout className=" text-[#E4B649]" size={24} />
+                      <span>Log Out</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      </div>
+        </div>
       </div>
     </div>
   );

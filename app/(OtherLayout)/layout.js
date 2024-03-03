@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
       <body className={kaleko.className}>
         <AuthProvider>
           {" "}
-          <div className="">
+          <div className="bg-[#0A0909]">
             {/* dynamic content */}
             <div className="min-h-screen">{children}</div>
           </div>{" "}
