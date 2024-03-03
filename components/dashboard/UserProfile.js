@@ -188,6 +188,7 @@ const UserProfile = ({ user, mutate }) => {
           ) : (
             <FaUserCircle size={96} color="gray" />
           )}
+          {/* upload profile */}
           {isHover && (
             <form className="absolute bottom-4 z-20 left-3">
               <input
