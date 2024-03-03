@@ -6,10 +6,9 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { PiKeyLight } from "react-icons/pi";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
 import { IoMdClose } from "react-icons/io";
 import { CiCamera } from "react-icons/ci";
-import { FileUploader } from "react-drag-drop-files";
 
 const UserProfile = ({ user, mutate }) => {
   const currentUser = user;
@@ -18,19 +17,8 @@ const UserProfile = ({ user, mutate }) => {
   const [openModal, setOpenModal] = useState(false);
   const [bio, setBio] = useState("");
   const [designation, setDesignation] = useState("");
-  const [passwordError, setPasswordError] = useState('');
+  const [passwordError, setPasswordError] = useState("");
   const [isHover, setIsHover] = useState(false);
-  const [uploadImage, setUploadImage] = useState(false);
-  const [file, setFile] = useState(null);
-
-//  ensure file type must be for image
-  const fileTypes = ["JPEG", "PNG", "JPG"];
-
-  // store image
-  const handleChange = (file) => {
-    setFile(file);
-  };
-  console.log(file);
 
   const dataWithBio = { ...user, bio };
   const dataWithDesignation = { ...user, designation };
@@ -45,89 +33,87 @@ const UserProfile = ({ user, mutate }) => {
     });
   }
 
-
   async function handleChangePassword(event) {
     event.preventDefault();
     const currentPassword = event.target.currentPassword.value;
     const newPassword = event.target.newPassword.value;
     const confirmNewPassword = event.target.confirmNewPassword.value;
 
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    const passwordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
-    setPasswordError('');
+    setPasswordError("");
 
     if (!passwordRegex.test(newPassword)) {
-
-      toast.error('Password must be at least 8 characters long and contain at least one letter, one digit, and one special character.', {
-        style: {
-          background: '#333',
-          color: '#fff'
+      toast.error(
+        "Password must be at least 8 characters long and contain at least one letter, one digit, and one special character.",
+        {
+          style: {
+            background: "#333",
+            color: "#fff",
+          },
         }
-      });
+      );
 
       return;
-
     } else if (newPassword !== confirmNewPassword) {
-
-      toast.error(' Password did not match!', {
+      toast.error(" Password did not match!", {
         style: {
-          background: '#333',
-          color: '#fff'
-        }
+          background: "#333",
+          color: "#fff",
+        },
       });
 
       return;
-
     }
 
     try {
-      const validCurrentPassword = await bcrypt.compare(currentPassword, user.password);
-      const checkSamePassword = await bcrypt.compare(newPassword, user.password);
+      const validCurrentPassword = await bcrypt.compare(
+        currentPassword,
+        user.password
+      );
+      const checkSamePassword = await bcrypt.compare(
+        newPassword,
+        user.password
+      );
 
       if (!validCurrentPassword) {
-        setPasswordError('Wrong Password');
-
+        setPasswordError("Wrong Password");
       } else if (checkSamePassword) {
-
-        toast('New password is same as current password!', {
+        toast("New password is same as current password!", {
           style: {
-            background: '#333',
-            color: '#fff'
-          }
+            background: "#333",
+            color: "#fff",
+          },
         });
 
         return;
-
       } else {
-
         const password = await bcrypt.hash(newPassword, 10);
 
         const dataWithNewPassword = { ...user, password };
 
-        const serverResponse = await axios.put(`http://localhost:3000/api/users?email=${currentUser.email}`, dataWithNewPassword);
+        const serverResponse = await axios.put(
+          `http://localhost:3000/api/users?email=${currentUser.email}`,
+          dataWithNewPassword
+        );
 
         if (serverResponse.data.success) {
-
-          toast('Password Changed',
-            {
-              icon: '👏',
-              style: {
-                borderRadius: '10px',
-                background: '#333',
-                color: '#fff',
-              },
-            }
-          );
+          toast("Password Changed", {
+            icon: "👏",
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+            },
+          });
 
           setOpenModal(false);
         }
-
       }
     } catch (error) {
-
       console.log(error);
     }
-
   }
 
   async function handleChangeDesignation() {
@@ -150,7 +136,6 @@ const UserProfile = ({ user, mutate }) => {
         });
 
         mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
-
       }
     } catch (error) {
       console.log(error);
@@ -189,7 +174,11 @@ const UserProfile = ({ user, mutate }) => {
 
       {/* profile */}
       <div className="my-8 flex items-center gap-4">
-        <div className="w-24 rounded-full hover:opacity-40 relative bg-black" onMouseOver={()=>setIsHover(true)} onMouseLeave={()=>setIsHover(false)} >
+        <div
+          className="w-24 rounded-full hover:opacity-60 relative bg-black"
+          onMouseOver={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+        >
           {currentUser?.image ? (
             <Image
               src={currentUser?.image}
@@ -197,16 +186,23 @@ const UserProfile = ({ user, mutate }) => {
               className="rounded-full"
             />
           ) : (
-            <FaUserCircle size={96} color="gray"/>
+            <FaUserCircle size={96} color="gray" />
           )}
-          {
-            isHover && 
-            <button onClick={()=>setUploadImage(!uploadImage)}
-            className="absolute bottom-4 z-20 opacity-100 left-2 right-2">
-              <CiCamera size={24} className="w-2/3 mx-auto mb-1"/>
-              <p className="text-[10px] font-semibold">Upload Image</p>
-            </button>
-          }
+          {isHover && (
+            <form className="absolute bottom-4 z-20 left-3">
+              <input
+                type="file"
+                accept="image/*"
+                name="image"
+                id="image-input"
+                className="hidden"
+              />
+              <label for="image-input">
+                <CiCamera size={24} className="w-2/3 mx-auto mb-1" />
+                <p className="text-[10px] font-semibold">Upload Image</p>
+              </label>
+            </form>
+          )}
         </div>
         <div>
           <h2 className="text-xl font-semibold">{currentUser?.name}</h2>
@@ -254,8 +250,9 @@ const UserProfile = ({ user, mutate }) => {
             defaultValue={currentUser?.bio}
             disabled={!editBio}
             placeholder="Write your bio within 200 letters."
-            className={`bg-black ${editBio && "border border-dotted"
-              }  rounded-md text-xs w-full p-4`}
+            className={`bg-black ${
+              editBio && "border border-dotted"
+            }  rounded-md text-xs w-full p-4`}
           />
           {editBio && (
             <button
@@ -302,98 +299,73 @@ const UserProfile = ({ user, mutate }) => {
         {openModal && (
           <div className="w-2/5 absolute top-1/4 left-1/3">
             <div className="text-right">
-            <button onClick={() => setOpenModal(false)}>
-              <IoMdClose size={24} />
-            </button>
-          </div>
-          <div className="bg-black p-12 rounded-lg shadow-md shadow-gray-800  text-left">
-            <h2 className="mb-6 text-xl font-semibold">
-              Change Your Password Here
-            </h2>
-            <form className=" space-y-3" onSubmit={handleChangePassword}>
-              <div>
-                <label>Old Password</label>
-                <br />
-                <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
-                  <PiKeyLight className="text-xl rotate-180 ml-2" />
-                  <input
-                    type="text"
-                    name="currentPassword"
-                    placeholder="Old PassWord"
-                    className="bg-black w-full p-2 outline-none"
-                  />
-                </div>
-                <p className="text-red-600 mt-2">{passwordError}</p>
-              </div>
-              <div>
-                <label>New Password</label>
-                <br />
-                <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
-                  <PiKeyLight className="text-xl rotate-180 ml-2" />
-                  <input
-                    type="text"
-                    name="newPassword"
-                    placeholder="New PassWord"
-                    className="bg-black w-full p-2 outline-none"
-                  />
-                </div>
-              </div>
-              <div>
-                <label>Re-type New Password</label>
-                <br />
-                <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
-                  <PiKeyLight className="text-xl rotate-180 ml-2" />
-                  <input
-                    type="text"
-                    name="confirmNewPassword"
-                    placeholder="Re-type New Password"
-                    className="bg-black w-full p-2 outline-none"
-                  />
-                </div>
-              </div>
-              <div className="flex justify-between pt-4">
-                <button
-                  onClick={() => setOpenModal(!openModal)}
-                  className="bg-red-600 px-6 py-2 rounded-md font-semibold"
-                >
-                  Cancel
-                </button>
-                <input
-                  type="submit"
-                  value="Save Changes"
-                  className="bg-[#835C00] px-8 py-2 rounded-md"
-                />
-              </div>
-            </form>
-          </div>
+              <button onClick={() => setOpenModal(false)}>
+                <IoMdClose size={24} />
+              </button>
             </div>
+            <div className="bg-black p-12 rounded-lg shadow-md shadow-gray-800  text-left">
+              <h2 className="mb-6 text-xl font-semibold">
+                Change Your Password Here
+              </h2>
+              <form className=" space-y-3" onSubmit={handleChangePassword}>
+                <div>
+                  <label>Old Password</label>
+                  <br />
+                  <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
+                    <PiKeyLight className="text-xl rotate-180 ml-2" />
+                    <input
+                      type="text"
+                      name="currentPassword"
+                      placeholder="Old PassWord"
+                      className="bg-black w-full p-2 outline-none"
+                    />
+                  </div>
+                  <p className="text-red-600 mt-2">{passwordError}</p>
+                </div>
+                <div>
+                  <label>New Password</label>
+                  <br />
+                  <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
+                    <PiKeyLight className="text-xl rotate-180 ml-2" />
+                    <input
+                      type="text"
+                      name="newPassword"
+                      placeholder="New PassWord"
+                      className="bg-black w-full p-2 outline-none"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label>Re-type New Password</label>
+                  <br />
+                  <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
+                    <PiKeyLight className="text-xl rotate-180 ml-2" />
+                    <input
+                      type="text"
+                      name="confirmNewPassword"
+                      placeholder="Re-type New Password"
+                      className="bg-black w-full p-2 outline-none"
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-between pt-4">
+                  <button
+                    onClick={() => setOpenModal(!openModal)}
+                    className="bg-red-600 px-6 py-2 rounded-md font-semibold"
+                  >
+                    Cancel
+                  </button>
+                  <input
+                    type="submit"
+                    value="Save Changes"
+                    className="bg-[#835C00] px-8 py-2 rounded-md"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
         )}
       </div>
-
-      {/* for uploading profile */}
-      
-          {
-            uploadImage && (
-              <div className="w-2/5 absolute top-1/3 left-1/4 ">
-                <div className="text-right">
-                  <button onClick={() => setUploadImage(false)}>
-                    <IoMdClose size={24} />
-                  </button>
-                </div>
-                <div className="bg-black p-16 rounded-lg shadow-gray-800 shadow-md text-white">
-                  <h2 className="font-semibold mb-4">Upload Profile Here</h2>
-                <FileUploader
-                  handleChange={handleChange}
-                  name="image"
-                  types={fileTypes}
-                  className="text-white"
-                  
-                />
-                <p className="mt-4 text-center">{file ? `File name: ${file.name}` : "no files uploaded yet"}</p>
-                </div>
-              </div>
-            )
-          }
     </div>
   );
 };
