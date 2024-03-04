@@ -40,25 +40,25 @@ const UploadPodcast = () => {
             className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             rows={12}
           />
-          <div>
-            <label>Select Agents</label>
-            <br />
-            <select
-              name="selectedAgents"
-              // multiple
-              placeholder="Select multiple agents"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted my-2"
-            >
-              <option value="" disabled>
-                Select multiple agents
+        </div>
+        <div>
+          <label>Select Agents</label>
+          <br />
+          <select
+            name="selectedAgents"
+            // multiple
+            placeholder="Select multiple agents"
+            className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted my-2"
+          >
+            <option value="" disabled selected>
+              Select multiple agents
+            </option>
+            {data.map((agent) => (
+              <option key={agent._id} value={agent.email}>
+                {agent.name}
               </option>
-              {data.map((agent) => (
-                <option key={agent._id} value={agent.email}>
-                  {agent.name}
-                </option>
-              ))}
-            </select>
-          </div>
+            ))}
+          </select>
         </div>
         <div className="flex justify-end mt-6">
           <button className="bg-[#835C00] rounded-2xl px-3 py-1 flex items-center gap-1 justify-center ">
