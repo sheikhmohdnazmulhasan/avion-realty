@@ -40,15 +40,18 @@ const UploadPodcast = () => {
             className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             rows={12}
           />
-
           <div>
             <label>Select Agents</label>
             <br />
             <select
               name="selectedAgents"
-              multiple
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+              // multiple
+              placeholder="Select multiple agents"
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted my-2"
             >
+              <option value="" disabled>
+                Select multiple agents
+              </option>
               {data.map((agent) => (
                 <option key={agent._id} value={agent.email}>
                   {agent.name}
