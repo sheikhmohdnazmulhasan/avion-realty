@@ -2,6 +2,7 @@
 
 import Navbar from "@/components/dashboard/Navbar";
 import AgentCard from "@/components/dashboard/admin/AgentCard";
+import useAgents from "@/hooks/useAgents";
 import axios from "axios";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -9,16 +10,19 @@ import { FaPlus } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { PiKeyLight } from "react-icons/pi";
 import Swal from "sweetalert2";
-import useSWR from "swr";
 
 const Agents = () => {
+  const agents = useAgents();
   const [openModal, setOpenModal] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
 
   const handleScroll = () => {
     const scrollContainer = document.getElementById("scrollID");
 
-    if (scrollContainer.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    if (
+      scrollContainer.scrollTop > 20 ||
+      document.documentElement.scrollTop > 20
+    ) {
       setIsScroll(true);
     } else {
       setIsScroll(false);
@@ -27,15 +31,6 @@ const Agents = () => {
 
   // Attach the handleScroll function to the scroll event
   window.onscroll = handleScroll;
-
-  // get all agent using swr
-  const fetcher = (url) => axios.get(url).then((res) => res.data);
-
-  const {
-    data = [],
-    error,
-    mutate,
-  } = useSWR("http://localhost:3000/api/users?agent=all", fetcher);
 
   async function handleAddAgent(event) {
     event.preventDefault();
@@ -121,122 +116,121 @@ const Agents = () => {
       <Navbar title="Agents" />
       <Toaster position="bottom-right" reverseOrder={false} />
       <div id="scrollID">
-
-      <div className=" mt-12 flex justify-end">
-        <button
-          onClick={() => setOpenModal(true)}
-          className="bg-[#835C00] rounded-xl py-2 px-3 flex items-center gap-2 justify-center "
-        >
-          <FaPlus />
-          <span className="mt-1">Add Agent</span>
-        </button>
-      </div>
-      {/* modal for add more items */}
-      {openModal && (
-        <div className="w-2/5 absolute top-1/4 left-1/3 ">
-          <div className="text-right">
-            <button onClick={() => setOpenModal(false)}>
-              <IoMdClose size={24} />
-            </button>
-          </div>
-          <div className="p-8 rounded-lg shadow shadow-gray-500 bg-black">
-            <h2 className="mb-6 text-xl font-semibold">Add Agent</h2>
-            <form className="mt-4 text-sm" onSubmit={handleAddAgent}>
-              <div className="flex justify-between w-full gap-12 mb-6">
-                {/* name */}
-                <div className="w-1/2">
-                  <label>Agent Name</label>
-                  <br />
-                  <input
-                    type="text"
-                    name="agentName"
-                    placeholder="Write agent name"
-                    className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
-                  />
-                </div>
-                {/* email */}
-                <div className="w-1/2">
-                  <label>Email Address</label>
-                  <br />
-                  <input
-                    type="email"
-                    name="agentEmail"
-                    placeholder="Write email address"
-                    className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
-                  />
-                </div>
-              </div>
-              <div className="flex justify-between w-full gap-12 mb-6">
-                {/* password */}
-                <div className="w-1/2">
-                  <label>New Password</label>
-                  <br />
-                  <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
-                    <PiKeyLight className="text-xl rotate-180 ml-2" />
-                    <input
-                      type="password"
-                      name="newPassword"
-                      placeholder="New PassWord"
-                      className="bg-black w-full p-2 outline-none"
-                    />
-                  </div>
-                </div>
-                {/* re type pass */}
-                <div className="w-1/2">
-                  <label>Re-type New Password</label>
-                  <br />
-                  <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
-                    <PiKeyLight className="text-xl rotate-180 ml-2" />
-                    <input
-                      type="password"
-                      name="confirmNewPassword"
-                      placeholder="Re-type New Password"
-                      className="bg-black w-full p-2 outline-none"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="flex justify-between w-full gap-12 mb-6">
-                {/* designation */}
-                <div className="w-1/2">
-                  <label>Designation</label>
-                  <br />
-                  <input
-                    type="text"
-                    name="agentDesignation"
-                    placeholder="Write agent designation"
-                    className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
-                  />
-                </div>
-                {/* whats app number */}
-                <div className="w-1/2">
-                  <label>WhatsApp Number</label>
-                  <br />
-                  <input
-                    type="number"
-                    name="agentWhatsApp"
-                    placeholder="Write your WhatsApp number"
-                    className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted"
-                  />
-                </div>
-              </div>
-
-              <div className="flex justify-end mt-6">
-                <input
-                  type="submit"
-                  value="Add Agent"
-                  className="bg-[#835C00] hover:cursor-pointer px-8 py-2 rounded-md"
-                />
-              </div>
-            </form>
-          </div>
+        <div className=" mt-12 flex justify-end">
+          <button
+            onClick={() => setOpenModal(true)}
+            className="bg-[#835C00] rounded-xl py-2 px-3 flex items-center gap-2 justify-center "
+          >
+            <FaPlus />
+            <span className="mt-1">Add Agent</span>
+          </button>
         </div>
-      )}
-      <div className="pt-4 pb-12 grid grid-cols-3 gap-6">
-        {data.map((agent) => (
-          <AgentCard key={agent._id} agent={agent} />
-        ))}
-      </div>
+        {/* modal for add more items */}
+        {openModal && (
+          <div className="w-2/5 absolute top-1/4 left-1/3 ">
+            <div className="text-right">
+              <button onClick={() => setOpenModal(false)}>
+                <IoMdClose size={24} />
+              </button>
+            </div>
+            <div className="p-8 rounded-lg shadow shadow-gray-500 bg-black">
+              <h2 className="mb-6 text-xl font-semibold">Add Agent</h2>
+              <form className="mt-4 text-sm" onSubmit={handleAddAgent}>
+                <div className="flex justify-between w-full gap-12 mb-6">
+                  {/* name */}
+                  <div className="w-1/2">
+                    <label>Agent Name</label>
+                    <br />
+                    <input
+                      type="text"
+                      name="agentName"
+                      placeholder="Write agent name"
+                      className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+                    />
+                  </div>
+                  {/* email */}
+                  <div className="w-1/2">
+                    <label>Email Address</label>
+                    <br />
+                    <input
+                      type="email"
+                      name="agentEmail"
+                      placeholder="Write email address"
+                      className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-between w-full gap-12 mb-6">
+                  {/* password */}
+                  <div className="w-1/2">
+                    <label>New Password</label>
+                    <br />
+                    <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
+                      <PiKeyLight className="text-xl rotate-180 ml-2" />
+                      <input
+                        type="password"
+                        name="newPassword"
+                        placeholder="New PassWord"
+                        className="bg-black w-full p-2 outline-none"
+                      />
+                    </div>
+                  </div>
+                  {/* re type pass */}
+                  <div className="w-1/2">
+                    <label>Re-type New Password</label>
+                    <br />
+                    <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
+                      <PiKeyLight className="text-xl rotate-180 ml-2" />
+                      <input
+                        type="password"
+                        name="confirmNewPassword"
+                        placeholder="Re-type New Password"
+                        className="bg-black w-full p-2 outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="flex justify-between w-full gap-12 mb-6">
+                  {/* designation */}
+                  <div className="w-1/2">
+                    <label>Designation</label>
+                    <br />
+                    <input
+                      type="text"
+                      name="agentDesignation"
+                      placeholder="Write agent designation"
+                      className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+                    />
+                  </div>
+                  {/* whats app number */}
+                  <div className="w-1/2">
+                    <label>WhatsApp Number</label>
+                    <br />
+                    <input
+                      type="number"
+                      name="agentWhatsApp"
+                      placeholder="Write your WhatsApp number"
+                      className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex justify-end mt-6">
+                  <input
+                    type="submit"
+                    value="Add Agent"
+                    className="bg-[#835C00] hover:cursor-pointer px-8 py-2 rounded-md"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+        <div className="pt-4 pb-12 grid grid-cols-3 gap-6">
+          {agents.map((agent) => (
+            <AgentCard key={agent._id} agent={agent} />
+          ))}
+        </div>
       </div>
 
       {/* scroll add agent feature */}

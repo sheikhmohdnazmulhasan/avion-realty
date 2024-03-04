@@ -1,20 +1,11 @@
 "use client";
 
 import Navbar from "@/components/dashboard/Navbar";
-import axios from "axios";
+import useAgents from "@/hooks/useAgents";
 import { FaPlus } from "react-icons/fa6";
-import useSWR from "swr";
 
 const UploadPodcast = () => {
-  // fetch all agent
-  const fetcher = (url) => axios.get(url).then((res) => res.data);
-
-  const {
-    data = [],
-    error,
-    mutate,
-  } = useSWR("http://localhost:3000/api/users?agent=all", fetcher);
-  console.log(data);
+  const agents = useAgents();
 
   return (
     <div className="px-12 py-12">
@@ -53,7 +44,7 @@ const UploadPodcast = () => {
             <option value="" disabled selected>
               Select multiple agents
             </option>
-            {data.map((agent) => (
+            {agents.map((agent) => (
               <option key={agent._id} value={agent.email}>
                 {agent.name}
               </option>
