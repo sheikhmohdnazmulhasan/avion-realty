@@ -1,5 +1,5 @@
 import Sidebar from "@/components/dashboard/admin/Sidebar";
-import "../../../globals.css";
+import "../../globals.css";
 
 export default function AdminLayout({ children }) {
   return (

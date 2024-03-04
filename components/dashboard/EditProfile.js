@@ -49,11 +49,11 @@ const EditProfile = ({ user, mutate }) => {
   };
 
   return (
-    <div className="bg-[#161616] p-12 rounded-2xl">
+    <div className="bg-[#161616] px-12 py-8 rounded-2xl">
       <Toaster position="bottom-right" reverseOrder={false} />
       <h2 className="text-2xl font-semibold">Edit Profile</h2>
 
-      <form className="mt-4 text-sm" onSubmit={handleProfileEdit}>
+      <form className="mt-8 text-sm" onSubmit={handleProfileEdit}>
         <div className="flex justify-between w-full gap-12 mb-6">
           <div className="w-1/2">
             <label>User Name</label>
