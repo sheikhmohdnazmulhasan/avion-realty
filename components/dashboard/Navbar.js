@@ -30,7 +30,7 @@ const Navbar = ({ title }) => {
   const profile = data?.image;
 
   return (
-    <div className=" fixed top-0 w-full ">
+    <div className=" fixed top-0 w-full z-50 bg-[#0A0909]">
       <div className="pt-8 pb-4 flex justify-between items-center z-20  ">
         <h2 className="text-2xl font-semibold">{title}</h2>
         <div className="fixed right-0 px-16">
