@@ -5,9 +5,9 @@ import Propertiy from "@/components/dashboard/admin/items/Propertiy";
 
 const page = () => {
   return (
-    <div>
+    <div className="px-12 py-8">
       <Navbar title="Items" />
-      <div className="pt-8 grid grid-cols-3 gap-8">
+      <div className="mt-20 grid grid-cols-3 gap-8">
         <Areas />
         <Propertiy />
         <Developers />

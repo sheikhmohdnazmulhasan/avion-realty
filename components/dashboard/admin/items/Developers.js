@@ -105,7 +105,7 @@ const Developers = () => {
     <div className="bg-[#161616] p-6 rounded-2xl">
       <Toaster />
       <h2 className="text-xl font-semibold">Developers</h2>
-      <div className="my-10 h-[60vh]  overflow-y-scroll pr-2">
+      <div className="my-8 h-[55vh]  overflow-y-scroll pr-2">
         <ul className="h-full">
           {!data.length ? (
             <>
