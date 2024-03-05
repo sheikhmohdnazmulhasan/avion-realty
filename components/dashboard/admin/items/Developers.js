@@ -1,5 +1,6 @@
 "use client";
 
+import useGetDevelopers from "@/hooks/useGetDevelopers";
 // import connectMongoDB from "@/libs/mongodb";
 // import AreaItem from "@/models/items/area";
 import axios from "axios";
@@ -18,10 +19,7 @@ const Developers = () => {
   const [openModal, setOpenModal] = useState(false);
 
   // get all data from api using swr
-  const { data = [], error } = useSWR(
-    "http://localhost:3000/api/admin/items/dev",
-    fetcher
-  );
+  const {data, error, mutate} = useGetDevelopers();
 
   async function handleDeleteItem(_id) {
     Swal.fire({
