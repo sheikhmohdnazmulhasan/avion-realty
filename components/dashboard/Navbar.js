@@ -54,7 +54,7 @@ const Navbar = ({ title }) => {
               {openModal ? <FaAngleUp size={12} /> : <FaAngleDown size={12} />}
             </button>
             {openModal && (
-              <div className="bg-[#0A0909] border border-[#3b2d0c] p-8 font-semibold absolute top-24">
+              <div className="bg-[#0A0909] border border-[#3b2d0c] p-8 font-semibold absolute top-12">
                 <ul className="space-y-3">
                   <li>
                     <Link href="/" className="flex gap-3 items-center">

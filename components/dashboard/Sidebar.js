@@ -12,19 +12,23 @@ import { CgProfile } from "react-icons/cg";
 import { HiOutlineHomeModern } from "react-icons/hi2";
 import { GrVideo } from "react-icons/gr";
 import { FaUserCircle } from "react-icons/fa";
-import { FaPlus } from "react-icons/fa6";
+import { FaAngleDown, FaAngleUp, FaPlus } from "react-icons/fa6";
 import { GoGraph } from "react-icons/go";
 import { BsCollection } from "react-icons/bs";
 import { RiFileList3Line } from "react-icons/ri";
+import { useState } from "react";
 
 const Sidebar = () => {
   const {data} = useUser();
+
+  const [isDropdown , setDropdown] = useState(false);
+
   return (
     <nav className="p-16  min-h-screen">
       {/* logo */}
       <Image src={logo} alt="Avion Realty" />
       {/* nav links */}
-      <ul className=" font-bold mt-16 space-y-6">
+      <ul className=" font-bold mt-16 space-y-4">
         <li>
           <Link href="/" className="flex gap-4 items-center">
             <VscGraph size={24} />
@@ -33,15 +37,36 @@ const Sidebar = () => {
         </li>
         {/* role based nav links */}
         {
-          data.role !== "admin" ?(
+          data?.role !== "admin" ?(
             // for agent nav links
             <>
-            <li>
-          <Link href="/" className="flex gap-4 items-center">
+            <li className="flex gap-4 items-center">
+          
             <TiThListOutline size={24} />
-            <span>Listings</span>
-          </Link>
+            <button
+              onClick={() => setDropdown(!isDropdown)}
+              className=" flex items-center justify-between w-full"
+            >
+              <span>Listings</span>
+              {isDropdown ? <FaAngleUp size={12} /> : <FaAngleDown size={12} />}
+            </button>
+            
         </li>
+        {isDropdown && (
+              
+              <ul className=" ml-8 space-y-1">
+                <li>
+                  <Link href="/">
+                    <span>Manage Listing</span>
+                  </Link>
+                </li>
+                <li>
+                <Link href="/">
+                    <span>Private Inventory</span>
+                  </Link>
+                </li>
+              </ul>
+          )}
         <li>
           <Link href="/" className="flex gap-4 items-center">
             <GoGraph size={24} />
