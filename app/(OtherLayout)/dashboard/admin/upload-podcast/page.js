@@ -56,7 +56,7 @@ const UploadPodcast = () => {
           <br />
           <input
             type="text"
-            name="podcastTitle"
+            name="podcastUrl"
             placeholder="Write url of podcast video"
             className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted "
           />
