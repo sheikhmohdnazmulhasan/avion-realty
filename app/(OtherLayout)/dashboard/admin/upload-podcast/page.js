@@ -8,7 +8,7 @@ const UploadPodcast = () => {
   const agents = useAgents();
 
   return (
-    <div className="px-12 py-12">
+    <div className="px-12 py-10">
       <Navbar title="Upload A Podcast" />
       <form className="mt-20 mb-8 pr-24 text-sm space-y-6">
         <div>
@@ -17,8 +17,8 @@ const UploadPodcast = () => {
           <input
             type="text"
             name="podcastTitle"
-            placeholder="Write podcast tile"
-            className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+            placeholder="Write podcast title"
+            className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted "
           />
         </div>
 
@@ -28,7 +28,7 @@ const UploadPodcast = () => {
           <textarea
             name="podcastDescription"
             placeholder="Write description"
-            className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+            className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted "
             rows={12}
           />
         </div>
@@ -39,7 +39,7 @@ const UploadPodcast = () => {
             name="selectedAgents"
             // multiple
             placeholder="Select multiple agents"
-            className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted my-2"
+            className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
           >
             <option value="" disabled selected>
               Select multiple agents
@@ -51,9 +51,19 @@ const UploadPodcast = () => {
             ))}
           </select>
         </div>
+        <div>
+          <label>Add Video</label>
+          <br />
+          <input
+            type="text"
+            name="podcastTitle"
+            placeholder="Write url of podcast video"
+            className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted "
+          />
+        </div>
         <div className="flex justify-end mt-6">
-          <button className="bg-[#835C00] rounded-2xl px-3 py-1 flex items-center gap-1 justify-center ">
-            <FaPlus className="mt-1" />
+          <button className="bg-[#835C00] rounded-3xl px-4 py-2 flex items-center gap-1 justify-center ">
+            <FaPlus className="" />
             <span className="font-bold">Submit</span>
           </button>
         </div>
