@@ -4,6 +4,8 @@ import Navbar from "@/components/dashboard/Navbar";
     return (
         <div>
             <Navbar title="Amenities"/>
+            
+
         </div>
     );
  };
