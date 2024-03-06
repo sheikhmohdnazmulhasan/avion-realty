@@ -7,9 +7,9 @@ export default function AdminLayout({ children }) {
       <div className="w-1/4 shadow-gray-500 shadow-xl">
         <Sidebar />
       </div>
-      <div className="w-3/4 max-h-screen overflow-y-scroll">
+      <div className="w-3/4 max-h-screen overflow-y-scroll bg-[#0A0909] shadow-gray-500 shadow-xl">
         {/* dynamic content */}
-        <div>{children}</div>
+        <div className="px-12 py-12">{children}</div>
       </div>
     </div>
   );

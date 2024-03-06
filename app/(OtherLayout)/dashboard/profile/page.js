@@ -23,7 +23,7 @@ const Profile = () => {
   // );
 
   return (
-    <div className=" px-12 py-12">
+    <div>
       <Navbar title="My Profile" />
       <div className="flex mt-12 gap-8 h-full ">
         <div className="w-1/3">
