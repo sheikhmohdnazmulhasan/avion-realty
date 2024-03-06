@@ -8,7 +8,7 @@ const UploadPodcast = () => {
   const agents = useAgents();
 
   return (
-    <div className="px-12 py-10">
+    <div>
       <Navbar title="Upload A Podcast" />
       <form className="mt-20 mb-8 pr-24 text-sm space-y-6">
         <div>

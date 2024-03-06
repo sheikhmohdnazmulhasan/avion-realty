@@ -116,7 +116,7 @@ const Agents = () => {
   }
 
   return (
-    <div className="px-12 py-12 max-h-screen">
+    <div className="max-h-screen">
       <Navbar title="Agents" />
       <Toaster position="bottom-right" reverseOrder={false} />
       <div id="scrollID">
