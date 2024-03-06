@@ -1,5 +1,6 @@
 "use client";
 
+import useGetProperties from "@/hooks/useGetProperties";
 // import connectMongoDB from "@/libs/mongodb";
 // import AreaItem from "@/models/items/area";
 import axios from "axios";
@@ -9,19 +10,17 @@ import { FaPlus } from "react-icons/fa6";
 import { IoMdCloseCircle } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
-import useSWR, { mutate } from "swr";
+import { mutate } from "swr";
 
 // define fetcher to fetch data in json format
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+// const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Property = () => {
+  // get all data 
+  const data= useGetProperties();
+  
   const [openModal, setOpenModal] = useState(false);
 
-  // get all data from api using swr
-  const { data = [], error } = useSWR(
-    "http://localhost:3000/api/admin/items/property",
-    fetcher
-  );
 
   async function handleDeleteItem(_id) {
     Swal.fire({
