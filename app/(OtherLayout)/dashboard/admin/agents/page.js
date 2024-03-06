@@ -10,9 +10,10 @@ import { FaPlus } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { PiKeyLight } from "react-icons/pi";
 import Swal from "sweetalert2";
+import { mutate } from "swr";
 
 const Agents = () => {
-  const agents = useAgents();
+  const data = useAgents();
   const [openModal, setOpenModal] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
 
@@ -96,6 +97,8 @@ const Agents = () => {
                 text: `You have successfully created a new agent. Email: ${agentEmail},  Password: ${newPassword}. Please note it down!`,
                 icon: "success",
               });
+              mutate("http://localhost:3000/api/users");
+              setOpenModal(false);
             } else {
               Swal.fire({
                 title: "Email Exist",
@@ -107,6 +110,7 @@ const Agents = () => {
             console.log(error);
           }
         }
+        
       }
     });
   }
@@ -227,7 +231,7 @@ const Agents = () => {
           </div>
         )}
         <div className="pt-4 pb-12 grid grid-cols-3 gap-6">
-          {agents.map((agent) => (
+          {data?.map((agent) => (
             <AgentCard key={agent._id} agent={agent} />
           ))}
         </div>
