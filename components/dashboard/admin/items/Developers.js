@@ -10,16 +10,12 @@ import { FaPlus } from "react-icons/fa6";
 import { IoMdCloseCircle } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
-import useSWR, { mutate } from "swr";
+import { mutate } from "swr";
 
-// define fetcher to fetch data in json format
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Developers = () => {
+  const data = useGetDevelopers();
   const [openModal, setOpenModal] = useState(false);
-
-  // get all data from api using swr
-  const {data, error, mutate} = useGetDevelopers();
 
   async function handleDeleteItem(_id) {
     Swal.fire({
