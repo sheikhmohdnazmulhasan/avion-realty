@@ -2,6 +2,22 @@ import connectMongoDB from "@/libs/mongodb";
 import Amenities from "@/models/amenities";
 import { NextResponse } from "next/server";
 
+// amenities Get
+export async function GET() {
+  await connectMongoDB();
+  const result = await Amenities.find();
+
+  if (!result.length) {
+    return NextResponse.json(
+      { message: "no data found", success: true },
+      { status: 501 }
+    );
+  } else {
+    return NextResponse.json(result);
+  }
+}
+
+// amenities post
 export async function POST(request) {
   await connectMongoDB();
   const data = await request.json();
