@@ -25,7 +25,7 @@ const Amenities = () => {
       // const imgbbAPI = process.env.IMGBB_API;
       // console.log(imgbbAPI);
       const imgBbResponse = await axios.post(
-        `https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`,
+        `https://api.imgbb.com/1/upload?key=1b9645a0c9d0c40edbb7d243c9167c7c`,
         image
       );
       console.log(imgBbResponse);
