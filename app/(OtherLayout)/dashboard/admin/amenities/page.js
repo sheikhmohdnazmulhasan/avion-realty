@@ -24,10 +24,11 @@ const Amenities = () => {
       // host icon to imgbb
       // const imgbbAPI = process.env.IMGBB_API;
       // console.log(imgbbAPI);
-      const imgBbResponse = axios.post(
+      const imgBbResponse = await axios.post(
         `https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`,
         image
       );
+      console.log(imgBbResponse);
     } catch (error) {
       console.log(error);
       throw new Error("Something wrong");
