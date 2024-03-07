@@ -10,7 +10,7 @@ import { mutate } from "swr";
 
 const Amenities = () => {
   const [openModal, setOpenModal] = useState(false);
-  const { data } = useGetAmenities();
+  const data = useGetAmenities();
 
   console.log(data);
 
