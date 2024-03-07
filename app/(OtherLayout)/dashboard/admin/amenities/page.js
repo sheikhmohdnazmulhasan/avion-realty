@@ -1,11 +1,38 @@
 "use client";
 import Navbar from "@/components/dashboard/Navbar";
+import axios from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 
 const Amenities = () => {
   const [openModal, setOpenModal] = useState(false);
+
+  async function handleAddNew(event) {
+    event.preventDefault();
+    const name = event.target.name.value;
+    const icon = event.target.icon.files[0];
+
+    // console.log(name, icon);
+    const image = new FormData();
+    image.append(image, icon);
+
+    const toastId = toast.loading("Working...");
+
+    try {
+      // host icon to imgbb
+      // const imgbbAPI = process.env.IMGBB_API;
+      // console.log(imgbbAPI);
+      const imgBbResponse = axios.post(
+        `https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`,
+        image
+      );
+    } catch (error) {
+      console.log(error);
+      throw new Error("Something wrong");
+    }
+  }
 
   return (
     <div className="relative">
@@ -30,7 +57,7 @@ const Amenities = () => {
           </div>
           <div className="bg-[#161616] p-8 rounded-lg shadow shadow-gray-500  text-center">
             <h2 className="mb-6 text-xl font-semibold">Add New Amenity</h2>
-            <form className=" space-y-6 ">
+            <form className=" space-y-6" onSubmit={handleAddNew}>
               <input
                 type="text"
                 name="name"

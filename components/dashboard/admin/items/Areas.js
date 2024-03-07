@@ -12,12 +12,9 @@ import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
 import { mutate } from "swr";
 
-
 const Areas = () => {
-  const data  = useGetAreas();
+  const data = useGetAreas();
   const [openModal, setOpenModal] = useState(false);
-
-  
 
   async function handleDeleteArea(_id) {
     Swal.fire({
