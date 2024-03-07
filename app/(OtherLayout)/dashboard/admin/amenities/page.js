@@ -1,5 +1,6 @@
 "use client";
 import Navbar from "@/components/dashboard/Navbar";
+import useGetAmenities from "@/hooks/useGetAmenities";
 import axios from "axios";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -9,6 +10,9 @@ import { mutate } from "swr";
 
 const Amenities = () => {
   const [openModal, setOpenModal] = useState(false);
+  const { data } = useGetAmenities();
+
+  console.log(data);
 
   async function handleAddNew(event) {
     event.preventDefault();
