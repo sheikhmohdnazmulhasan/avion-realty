@@ -36,3 +36,25 @@ export async function POST(request) {
     );
   }
 }
+
+// delete one amenities
+export async function DELETE(request) {
+  await connectMongoDB();
+
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get("id");
+
+  const result = await Amenities.findByIdAndDelete(id);
+
+  if (!result) {
+    return NextResponse.json(
+      { message: "Something Wrong", success: false },
+      { status: 500 }
+    );
+  } else {
+    return NextResponse.json(
+      { message: "Data successfully deleted from database", success: true },
+      { status: 200 }
+    );
+  }
+}

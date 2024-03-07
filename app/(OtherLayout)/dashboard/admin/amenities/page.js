@@ -5,14 +5,42 @@ import axios from "axios";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa6";
-import { IoMdClose } from "react-icons/io";
+import { IoMdClose, IoMdCloseCircle } from "react-icons/io";
+import Swal from "sweetalert2";
 import { mutate } from "swr";
 
 const Amenities = () => {
   const [openModal, setOpenModal] = useState(false);
   const data = useGetAmenities();
 
-  console.log(data);
+  async function handleDelete(_id) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:3000/api/admin/amenities?id=${_id}`)
+          .then((res) => {
+            if (res.data.success) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Amenity has been deleted.",
+                icon: "success",
+              });
+
+              mutate(`http://localhost:3000/api/admin/amenities`);
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+    });
+  }
 
   async function handleAddNew(event) {
     event.preventDefault();
@@ -60,14 +88,46 @@ const Amenities = () => {
     <div className="relative">
       <Toaster />
       <Navbar title="Amenities" />
-      <div className="mt-12 flex justify-end">
-        <button
-          onClick={() => setOpenModal(true)}
-          className="bg-[#835C00] rounded-xl px-3 py-1 flex items-center justify-center"
-        >
-          <FaPlus size={16} />
-          <span className="mt-1 ml-1">Add New</span>
-        </button>
+      {data.length && (
+        <div className="mt-12 flex justify-end">
+          <button
+            onClick={() => setOpenModal(true)}
+            className="bg-[#835C00] rounded-xl px-3 py-1 flex items-center justify-center"
+          >
+            <FaPlus size={16} />
+            <span className="mt-1 ml-1">Add New</span>
+          </button>
+        </div>
+      )}
+
+      {/* show data */}
+      <div className="my-8 bg-[#161616] rounded-2xl p-8">
+        {!data.length ? (
+          <div className="h-[70vh] w-full flex flex-col items-center justify-center text-center">
+            <h2 className="font-bold mb-5">No Data Found</h2>
+            <button
+              onClick={() => setOpenModal(true)}
+              className="bg-[#835C00] rounded-xl px-3 py-1 flex items-center justify-center"
+            >
+              <FaPlus size={16} />
+              <span className="mt-1 ml-1">Add One</span>
+            </button>
+          </div>
+        ) : (
+          <ul className=" grid grid-cols-3 gap-8 h-[60vh] overflow-y-scroll ">
+            {data?.map((amenity) => (
+              <li
+                key={amenity?._id}
+                className="flex items-center gap-2 text-xl bg-[#171717] p-4 rounded-lg shadow-md shadow-gray-800"
+              >
+                <button onClick={() => handleDelete(amenity?._id)}>
+                  <IoMdCloseCircle className="text-red-600 text-2xl" />
+                </button>
+                <h2>{amenity?.name}</h2>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       {/* form for add new amenities */}
