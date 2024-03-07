@@ -2,9 +2,10 @@
 import Navbar from "@/components/dashboard/Navbar";
 import axios from "axios";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
+import { mutate } from "swr";
 
 const Amenities = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -16,7 +17,7 @@ const Amenities = () => {
 
     // console.log(name, icon);
     const image = new FormData();
-    image.append(image, icon);
+    image.append("image", icon);
 
     const toastId = toast.loading("Working...");
 
@@ -25,10 +26,26 @@ const Amenities = () => {
       // const imgbbAPI = process.env.IMGBB_API;
       // console.log(imgbbAPI);
       const imgBbResponse = await axios.post(
-        `https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`,
+        `https://api.imgbb.com/1/upload?key=1b9645a0c9d0c40edbb7d243c9167c7c`,
         image
       );
-      console.log(imgBbResponse);
+      if (imgBbResponse.data.success) {
+        const dataForBackend = {
+          name,
+          icon: imgBbResponse.data.data.display_url,
+        };
+
+        // post data to database
+        const serverResponse = await axios.post(
+          "http://localhost:3000/api/admin/amenities",
+          dataForBackend
+        );
+        if (serverResponse.data.success) {
+          toast.success("Amenity Successfully Added", { id: toastId });
+          setOpenModal(false);
+          mutate(`http://localhost:3000/api/admin/amenities`);
+        }
+      }
     } catch (error) {
       console.log(error);
       throw new Error("Something wrong");
@@ -37,6 +54,7 @@ const Amenities = () => {
 
   return (
     <div className="relative">
+      <Toaster />
       <Navbar title="Amenities" />
       <div className="mt-12 flex justify-end">
         <button
