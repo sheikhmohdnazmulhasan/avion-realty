@@ -21,13 +21,13 @@ const AddOffPlan = () => {
             <input
               type="text"
               name="title"
-              placeholder="write listing tittle"
+              placeholder="write listing title"
               className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
           </div>
           {/* starting price AED */}
           <div className="w-2/5">
-            <label>write listing tittle</label>
+            <label>Starting Price AED</label>
             <br />
             <input
               type="number"
@@ -44,7 +44,6 @@ const AddOffPlan = () => {
             <br />
             <select
               name="propertyType"
-              placeholder="Select Property type"
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
               <option value="" disabled selected>
@@ -59,25 +58,39 @@ const AddOffPlan = () => {
           </div>
           {/* area */}
           <div>
-            <label>Languages</label>
+            <label>Area</label>
             <br />
-            <input
-              type="text"
-              name="langs"
-              placeholder="Write your language"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
-            />
+            <select
+              name="area"
+              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
+            >
+              <option value="" disabled selected>
+                Select Property location
+              </option>
+              {areas.map((area) => (
+                <option key={area._id} value={area.itemName}>
+                  {area.itemName}
+                </option>
+              ))}
+            </select>
           </div>
           {/* developer */}
           <div>
-            <label>Languages</label>
+            <label>Developer</label>
             <br />
-            <input
-              type="text"
-              name="langs"
-              placeholder="Write your language"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
-            />
+            <select
+              name="developer"
+              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
+            >
+              <option value="" disabled selected>
+                Developer name
+              </option>
+              {developers.map((developer) => (
+                <option key={developer._id} value={developer.devName}>
+                  {developer.devName}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label>Languages</label>
