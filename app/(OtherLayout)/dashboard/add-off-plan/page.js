@@ -25,6 +25,7 @@ const AddOffPlan = () => {
               className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-500 "
             />
           </div>
+
           {/* starting price AED */}
           <div className="w-2/5">
             <label>Starting Price AED</label>
@@ -56,6 +57,7 @@ const AddOffPlan = () => {
               ))}
             </select>
           </div>
+
           {/* area */}
           <div>
             <label>Area</label>
@@ -74,6 +76,7 @@ const AddOffPlan = () => {
               ))}
             </select>
           </div>
+
           {/* developer */}
           <div>
             <label>Developer</label>
@@ -92,15 +95,22 @@ const AddOffPlan = () => {
               ))}
             </select>
           </div>
+
+          {/* bedroom */}
           <div>
-            <label>Languages</label>
+            <label>Bedrooms</label>
             <br />
-            <input
-              type="text"
-              name="langs"
-              placeholder="Write your language"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-500 "
-            />
+            <div className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-500 flex justify-between">
+              <span>BR</span>
+              <input
+                type="number"
+                min="1"
+                max="7"
+                defaultValue="1"
+                name="bedroom"
+                className="bg-transparent outline-none w-12"
+              />
+            </div>
           </div>
           <div>
             <label>Languages</label>
