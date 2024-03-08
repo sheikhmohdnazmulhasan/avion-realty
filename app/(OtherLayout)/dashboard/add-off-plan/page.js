@@ -40,14 +40,22 @@ const AddOffPlan = () => {
         <div className="grid grid-cols-3 gap-12 ">
           {/* property type */}
           <div>
-            <label>Languages</label>
+            <label>Property Type</label>
             <br />
-            <input
-              type="text"
-              name="langs"
-              placeholder="Write your language"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
-            />
+            <select
+              name="propertyType"
+              placeholder="Select Property type"
+              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
+            >
+              <option value="" disabled selected>
+                Select Property type
+              </option>
+              {properties.map((property) => (
+                <option key={property._id} value={property.propertyName}>
+                  {property.propertyName}
+                </option>
+              ))}
+            </select>
           </div>
           {/* area */}
           <div>
