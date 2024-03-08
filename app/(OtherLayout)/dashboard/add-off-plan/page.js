@@ -4,17 +4,20 @@ import useAgents from "@/hooks/useAgents";
 import useGetAreas from "@/hooks/useGetAreas";
 import useGetDevelopers from "@/hooks/useGetDevelopers";
 import useGetProperties from "@/hooks/useGetProperties";
+import useUser from "@/hooks/useUser";
 
 const AddOffPlan = () => {
   const properties = useGetProperties();
   const areas = useGetAreas();
   const developers = useGetDevelopers();
   const agents = useAgents();
+  const user = useUser();
+  console.log(user);
   return (
     <div>
       <Navbar title="Add Off-Plan Property" />
       {/* add off plan form */}
-      <form className="mt-16 space-y-8 mr-8">
+      <form className="mt-16 space-y-8 mr-8 ">
         <div className="flex justify-between w-full gap-12 ">
           {/* title */}
           <div className="w-3/5">
@@ -151,25 +154,27 @@ const AddOffPlan = () => {
             />
           </div>
 
-          {/* agent */}
-          <div>
-            <label>Select Agent</label>
-            <br />
-            <select
-              name="agent"
-              placeholder="Select agent"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-500 "
-            >
-              <option value="" disabled selected>
-                Select agent
-              </option>
-              {agents.map((agent) => (
-                <option key={agent._id} value={agent.email}>
-                  {agent.name}
+          {/* only for admin role */}
+          {user.data.role === "admin" && (
+            <div>
+              <label>Select Agent</label>
+              <br />
+              <select
+                name="agent"
+                placeholder="Select agent"
+                className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-500 "
+              >
+                <option value="" disabled selected>
+                  Select agent
                 </option>
-              ))}
-            </select>
-          </div>
+                {agents.map((agent) => (
+                  <option key={agent._id} value={agent.email}>
+                    {agent.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
         </div>
 
         {/* <div className="flex justify-end mt-6">
