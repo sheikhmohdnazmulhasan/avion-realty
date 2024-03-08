@@ -1,5 +1,6 @@
 "use client";
 import Navbar from "@/components/dashboard/Navbar";
+import useAgents from "@/hooks/useAgents";
 import useGetAreas from "@/hooks/useGetAreas";
 import useGetDevelopers from "@/hooks/useGetDevelopers";
 import useGetProperties from "@/hooks/useGetProperties";
@@ -8,6 +9,7 @@ const AddOffPlan = () => {
   const properties = useGetProperties();
   const areas = useGetAreas();
   const developers = useGetDevelopers();
+  const agents = useAgents();
   return (
     <div>
       <Navbar title="Add Off-Plan Property" />
@@ -112,25 +114,71 @@ const AddOffPlan = () => {
               />
             </div>
           </div>
+
+          {/* Starting Area Sq.ft. */}
           <div>
-            <label>Languages</label>
+            <label>Starting Area Sq.ft.</label>
             <br />
             <input
-              type="text"
-              name="langs"
-              placeholder="Write your language"
+              type="number"
+              name="areaSqFt"
+              placeholder="write property area (sq.ft.)"
               className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-500 "
             />
           </div>
+
+          {/* Estimated Completion */}
+          <div>
+            <label>Estimated Completion</label>
+            <br />
+            <input
+              type="text"
+              name="completion"
+              placeholder="write completion"
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-500 "
+            />
+          </div>
+
+          {/* Views */}
+          <div>
+            <label>Views</label>
+            <br />
+            <input
+              type="text"
+              name="views"
+              placeholder="Eg. (Sea View)"
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-500 "
+            />
+          </div>
+
+          {/* agent */}
+          <div>
+            <label>Select Agent</label>
+            <br />
+            <select
+              name="agent"
+              placeholder="Select agent"
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-500 "
+            >
+              <option value="" disabled selected>
+                Select agent
+              </option>
+              {agents.map((agent) => (
+                <option key={agent._id} value={agent.email}>
+                  {agent.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
-        <div className="flex justify-end mt-6">
+        {/* <div className="flex justify-end mt-6">
           <input
             type="submit"
             value="Save Changes"
             className="bg-[#835C00] hover:cursor-pointer px-8 py-2 rounded-md"
           />
-        </div>
+        </div> */}
       </form>
     </div>
   );
