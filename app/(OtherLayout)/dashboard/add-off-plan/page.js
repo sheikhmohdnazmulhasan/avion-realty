@@ -22,7 +22,7 @@ const AddOffPlan = () => {
               type="text"
               name="title"
               placeholder="write listing title"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-500 "
             />
           </div>
           {/* starting price AED */}
@@ -33,7 +33,7 @@ const AddOffPlan = () => {
               type="number"
               name="price"
               placeholder="write property price"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-500 "
             />
           </div>
         </div>
@@ -44,7 +44,7 @@ const AddOffPlan = () => {
             <br />
             <select
               name="propertyType"
-              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
+              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted border-gray-500 my-2"
             >
               <option value="" disabled selected>
                 Select Property type
@@ -62,7 +62,7 @@ const AddOffPlan = () => {
             <br />
             <select
               name="area"
-              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
+              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted border-gray-500 my-2"
             >
               <option value="" disabled selected>
                 Select Property location
@@ -80,7 +80,7 @@ const AddOffPlan = () => {
             <br />
             <select
               name="developer"
-              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
+              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted border-gray-500 my-2"
             >
               <option value="" disabled selected>
                 Developer name
@@ -99,7 +99,7 @@ const AddOffPlan = () => {
               type="text"
               name="langs"
               placeholder="Write your language"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-500 "
             />
           </div>
           <div>
@@ -109,7 +109,7 @@ const AddOffPlan = () => {
               type="text"
               name="langs"
               placeholder="Write your language"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-500 "
             />
           </div>
         </div>
