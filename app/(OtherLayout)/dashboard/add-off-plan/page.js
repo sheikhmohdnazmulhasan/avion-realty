@@ -1,6 +1,7 @@
 "use client";
 import Navbar from "@/components/dashboard/Navbar";
 import useAgents from "@/hooks/useAgents";
+import useGetAmenities from "@/hooks/useGetAmenities";
 import useGetAreas from "@/hooks/useGetAreas";
 import useGetDevelopers from "@/hooks/useGetDevelopers";
 import useGetProperties from "@/hooks/useGetProperties";
@@ -11,6 +12,7 @@ const AddOffPlan = () => {
   const areas = useGetAreas();
   const developers = useGetDevelopers();
   const agents = useAgents();
+  const amenities = useGetAmenities();
   const user = useUser();
   console.log(user);
   return (
