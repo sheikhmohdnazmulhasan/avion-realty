@@ -5,7 +5,8 @@ import Navbar from "@/components/dashboard/Navbar";
         <div>
             <Navbar title="Amenities"/>
             
-
+            {/* modal for add new amenities */}
+            
         </div>
     );
  };
