@@ -179,6 +179,7 @@ const AddOffPlan = () => {
             </div>
           )}
         </div>
+        {/* description */}
         <div>
           <label>Description</label>
           <textarea
@@ -188,6 +189,17 @@ const AddOffPlan = () => {
               className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-400 "
             />
         </div>
+        {/* location input field */}
+        <div>
+            <label>Location</label>
+            <br />
+            <input
+              type="text"
+              name="location"
+              placeholder="write location (eg. Address downtown, Burj Khalifa)"
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-400 "
+            />
+          </div>
 
         {/* <div className="flex justify-end mt-6">
           <input
