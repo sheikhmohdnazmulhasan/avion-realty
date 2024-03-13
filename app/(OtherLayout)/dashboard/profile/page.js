@@ -3,24 +3,10 @@ import EditProfile from "@/components/dashboard/EditProfile";
 import Navbar from "@/components/dashboard/Navbar";
 import UserProfile from "@/components/dashboard/UserProfile";
 import useUser from "@/hooks/useUser";
-// import axios from "axios";
-// import { useSession } from "next-auth/react";
-// import useSWR from "swr";
 
 const Profile = () => {
   const { data, error, mutate } = useUser();
-  // const user = useSession();
 
-  // const fetcher = (url) => axios.get(url).then((res) => res.data);
-
-  // const {
-  //   data = [],
-  //   error,
-  //   mutate,
-  // } = useSWR(
-  //   `http://localhost:3000/api/users?email=${user?.data?.user?.email}`,
-  //   fetcher
-  // );
 
   return (
     <div>

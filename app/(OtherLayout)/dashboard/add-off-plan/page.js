@@ -8,6 +8,7 @@ import useGetProperties from "@/hooks/useGetProperties";
 import useUser from "@/hooks/useUser";
 
 const AddOffPlan = () => {
+  document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
   const properties = useGetProperties();
   const areas = useGetAreas();
   const developers = useGetDevelopers();
