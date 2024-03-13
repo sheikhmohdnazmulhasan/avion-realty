@@ -56,6 +56,7 @@ const UserProfile = ({ user, mutate }) => {
       );
 
       return;
+
     } else if (newPassword !== confirmNewPassword) {
       toast.error(" Password did not match!", {
         style: {
@@ -88,6 +89,7 @@ const UserProfile = ({ user, mutate }) => {
         });
 
         return;
+
       } else {
         const password = await bcrypt.hash(newPassword, 10);
 
@@ -160,11 +162,57 @@ const UserProfile = ({ user, mutate }) => {
             color: "#fff",
           },
         });
+
         mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
       }
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async function handleChangeProfilePicture(data) {
+    const image = new FormData();
+    image.append('image', data);
+
+    const toastId = toast.loading("Profile Picture Updating...", {
+      style: {
+        borderRadius: "10px",
+        background: "#333",
+        color: "#fff",
+      },
+
+    });
+
+    try {
+      const imgBbResponse = await axios.post(`https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`, image);
+
+      if (imgBbResponse.data.success) {
+        const dataForBackend = { ...user, photo: imgBbResponse.data.data.display_url };
+
+        const serverResponse = await axios.put(`http://localhost:3000/api/users?email=${user?.email}`, dataForBackend);
+
+        if (serverResponse.data.success) {
+          toast("Profile Picture Updated", {
+            icon: "👏",
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+
+            }, id: toastId,
+
+          },);
+
+          mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
+        }
+
+      }
+
+
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
   return (
@@ -179,9 +227,11 @@ const UserProfile = ({ user, mutate }) => {
           onMouseOver={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
         >
-          {currentUser?.image ? (
+          {currentUser?.photo ? (
             <Image
-              src={currentUser?.image}
+              width={800}
+              height={200}
+              src={currentUser?.photo}
               alt={currentUser?.name}
               className="rounded-full"
             />
@@ -192,6 +242,7 @@ const UserProfile = ({ user, mutate }) => {
           {isHover && (
             <form className="absolute bottom-4 z-20 left-3">
               <input
+                onChange={(event) => handleChangeProfilePicture(event.target.files[0])}
                 type="file"
                 accept="image/*"
                 name="image"
@@ -251,9 +302,8 @@ const UserProfile = ({ user, mutate }) => {
             defaultValue={currentUser?.bio}
             disabled={!editBio}
             placeholder="Write your bio within 200 letters."
-            className={`bg-black ${
-              editBio && "border border-dotted"
-            }  rounded-md text-xs w-full p-4`}
+            className={`bg-black ${editBio && "border border-dotted"
+              }  rounded-md text-xs w-full p-4`}
           />
           {editBio && (
             <button
