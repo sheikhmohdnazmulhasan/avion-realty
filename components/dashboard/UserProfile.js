@@ -229,8 +229,8 @@ const UserProfile = ({ user, mutate }) => {
         >
           {currentUser?.photo ? (
             <Image
-              width={100}
-              height={100}
+              width={800}
+              height={200}
               src={currentUser?.photo}
               alt={currentUser?.name}
               className="rounded-full"
