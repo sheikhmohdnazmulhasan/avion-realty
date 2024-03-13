@@ -162,6 +162,7 @@ const UserProfile = ({ user, mutate }) => {
             color: "#fff",
           },
         });
+
         mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
       }
     } catch (error) {
@@ -172,6 +173,45 @@ const UserProfile = ({ user, mutate }) => {
   async function handleChangeProfilePicture(data) {
     const image = new FormData();
     image.append('image', data);
+
+    const toastId = toast.loading("Profile Picture Updating...", {
+      style: {
+        borderRadius: "10px",
+        background: "#333",
+        color: "#fff",
+      },
+
+    });
+
+    try {
+      const imgBbResponse = await axios.post(`https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`, image);
+
+      if (imgBbResponse.data.success) {
+        const dataForBackend = { ...user, photo: imgBbResponse.data.data.display_url };
+
+        const serverResponse = await axios.put(`http://localhost:3000/api/users?email=${user?.email}`, dataForBackend);
+
+        if (serverResponse.data.success) {
+          toast("Profile Picture Updated", {
+            icon: "👏",
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+
+            }, id: toastId,
+
+          },);
+
+          mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
+        }
+
+      }
+
+
+    } catch (error) {
+      console.log(error);
+    }
 
   }
 
@@ -187,9 +227,11 @@ const UserProfile = ({ user, mutate }) => {
           onMouseOver={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
         >
-          {currentUser?.image ? (
+          {currentUser?.photo ? (
             <Image
-              src={currentUser?.image}
+              width={100}
+              height={100}
+              src={currentUser?.photo}
               alt={currentUser?.name}
               className="rounded-full"
             />
