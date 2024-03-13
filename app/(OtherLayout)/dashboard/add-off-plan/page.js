@@ -199,6 +199,23 @@ const AddOffPlan = () => {
               placeholder="write location (eg. Address downtown, Burj Khalifa)"
               className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-400 "
             />
+        </div>
+
+        {/* amenities */}
+        <div>
+            <label className="text-xl">Amenities</label>
+            <br />
+            <div className="grid grid-cols-3 gap-6 mt-3">
+              {
+                amenities.map(amenity => (
+                <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
+                  <input type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
+                  <label>{amenity.name}</label>
+                </div>
+                )
+                )
+              }
+            </div>
           </div>
 
         {/* <div className="flex justify-end mt-6">
