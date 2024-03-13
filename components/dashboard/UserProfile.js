@@ -56,6 +56,7 @@ const UserProfile = ({ user, mutate }) => {
       );
 
       return;
+
     } else if (newPassword !== confirmNewPassword) {
       toast.error(" Password did not match!", {
         style: {
@@ -88,6 +89,7 @@ const UserProfile = ({ user, mutate }) => {
         });
 
         return;
+
       } else {
         const password = await bcrypt.hash(newPassword, 10);
 
@@ -167,6 +169,12 @@ const UserProfile = ({ user, mutate }) => {
     }
   }
 
+  async function handleChangeProfilePicture(data) {
+    const image = new FormData();
+    image.append('image', data);
+
+  }
+
   return (
     <div className="bg-[#161616] p-8 rounded-2xl ">
       <Toaster position="bottom-right" reverseOrder={false} />
@@ -192,6 +200,7 @@ const UserProfile = ({ user, mutate }) => {
           {isHover && (
             <form className="absolute bottom-4 z-20 left-3">
               <input
+                onChange={(event) => handleChangeProfilePicture(event.target.files[0])}
                 type="file"
                 accept="image/*"
                 name="image"
@@ -251,9 +260,8 @@ const UserProfile = ({ user, mutate }) => {
             defaultValue={currentUser?.bio}
             disabled={!editBio}
             placeholder="Write your bio within 200 letters."
-            className={`bg-black ${
-              editBio && "border border-dotted"
-            }  rounded-md text-xs w-full p-4`}
+            className={`bg-black ${editBio && "border border-dotted"
+              }  rounded-md text-xs w-full p-4`}
           />
           {editBio && (
             <button

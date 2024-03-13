@@ -53,6 +53,8 @@ const Areas = () => {
     const image = new FormData();
     image.append("image", areaImage);
 
+    console.log(image);
+
     const toastId = toast.loading("Working...");
 
     try {
@@ -100,6 +102,7 @@ const Areas = () => {
           mutate(`http://localhost:3000/api/admin/items/area`);
         }
       }
+      
     } catch (error) {
       console.log(error);
       throw new Error("Something wrong");
