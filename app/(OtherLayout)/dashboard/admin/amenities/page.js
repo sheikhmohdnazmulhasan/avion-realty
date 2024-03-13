@@ -24,8 +24,7 @@ const Amenities = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .delete(`http://localhost:3000/api/admin/amenities?id=${_id}`)
+        axios.delete(`http://localhost:3000/api/admin/amenities?id=${_id}`)
           .then((res) => {
             if (res.data.success) {
               Swal.fire({

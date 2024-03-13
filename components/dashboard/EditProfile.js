@@ -11,15 +11,28 @@ const EditProfile = ({ user, mutate }) => {
     const languagesSpeak = form.langs.value;
     const wpNum = form.whatsApp.value;
     const about = form.about.value;
-    const reraID = form.reraID.value;
-    const specializes = form.specializes.value;
 
-    const updatedData = {
+    let updatedData = {};
+
+    if(currentUser.role !== 'admin'){
+      const reraID = form.reraID.value ;
+      const specializes = form.specializes.value ;
+
+       updatedData = {
+        email: currentUser.email,
+        wpNum,
+        name,
+        reraID,
+        specializes,
+        languagesSpeak,
+        about,
+      };
+    }
+
+     updatedData = {
       email: currentUser.email,
       wpNum,
       name,
-      reraID,
-      specializes,
       languagesSpeak,
       about,
     };
