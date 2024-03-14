@@ -248,11 +248,11 @@ const UserProfile = ({ user, mutate }) => {
         >
           {currentUser?.photo ? (
             <Image
-              width={800}
-              height={200}
+              width={96}
+              height={96}
               src={currentUser?.photo}
               alt={currentUser?.name}
-              className="rounded-full"
+              className="rounded-full h-24 w-24 object-fill"
             />
           ) : (
             <FaUserCircle size={96} color="gray" />
