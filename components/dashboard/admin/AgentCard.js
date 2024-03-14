@@ -3,6 +3,7 @@
 import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { FaUserCircle } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
@@ -20,13 +21,28 @@ const AgentCard = ({ agent }) => {
     const reraID = event.target.reraID.value;
     const specializes = event.target.specializes.value;
 
-    const newData = {name, email, designation, wpNum, reraID, specializes };
+    const newData = { name, email, designation, wpNum, reraID, specializes };
 
     try {
 
       const serverResponse = await axios.put(`http://localhost:3000/api/users?email=${agent.email}`, newData);
 
-      console.log(serverResponse.data);
+      if (serverResponse.data.success) {
+
+        toast.success(`${agent.name}'s Info Updated`,
+          {
+            icon: '👏',
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        );
+
+        mutate('http://localhost:3000/api/users?agent=all');
+        setOpenModal(false);
+      }
 
     } catch (error) {
       console.log(error);
@@ -57,8 +73,9 @@ const AgentCard = ({ agent }) => {
               text: `${name} has been deleted.`,
               icon: "success"
             });
+
+            mutate('http://localhost:3000/api/users?agent=all')
           }
-          mutate('http://localhost:3000/api/users?agent=all')
 
         } catch (error) {
 
@@ -71,6 +88,10 @@ const AgentCard = ({ agent }) => {
 
   return (
     <div className="bg-[#171717] p-4 shadow-md shadow-gray-800 rounded-md">
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+      />
       <div className="flex gap-2">
         <div className="w-12 rounded-full ">
           {agent?.image ? (
