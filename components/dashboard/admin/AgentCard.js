@@ -8,6 +8,10 @@ import { IoMdClose } from "react-icons/io";
 const AgentCard = ({ agent }) => {
   const [openModal, setOpenModal] = useState(false);
 
+  async function handleDeleteAgent(_id) {
+
+  }
+
   return (
     <div className="bg-[#171717] p-4 shadow-md shadow-gray-800 rounded-md">
       <div className="flex gap-2">
@@ -45,7 +49,7 @@ const AgentCard = ({ agent }) => {
             >
               Edit Agent
             </button>
-            <button className="bg-red-600 py-1 px-2 rounded-2xl mt-4 ">
+            <button className="bg-red-600 py-1 px-2 rounded-2xl mt-4" onClick={() => handleDeleteAgent(agent._id)}>
               Delete Agent
             </button>
           </div>

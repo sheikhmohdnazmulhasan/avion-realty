@@ -56,3 +56,18 @@ export async function PUT(request) {
 
     return NextResponse.json({ message: 'Data Updated', success: true }, { status: 200 });
 }
+
+export async function DELETE(request) {
+    await connectMongoDB();
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    const result = await User.findByIdAndDelete(id);
+
+    if (!result) {
+        return NextResponse.json({ message: 'Something is wrong', success: false }, { status: 402 })
+    }
+
+    return NextResponse.json({ message: 'User Deleted', success: true }, { status: 200 });
+
+}
