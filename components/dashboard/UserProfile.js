@@ -146,37 +146,46 @@ const UserProfile = ({ user, mutate }) => {
 
   async function handleChangeBio() {
 
-    if (bio.length > 5) {
-      console.log('limit hited');
+    if (bio.length > 150) {
+
+      toast.error("Write your bio within 150 letters.", {
+
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+
+      return;
 
     } else {
-      console.log('okk');
+
+      try {
+        const dataWithBio = { ...user, bio };
+        const serverResponse = await axios.put(
+          `http://localhost:3000/api/users?email=${user?.email}`,
+          dataWithBio
+        );
+
+        if (serverResponse.data.success) {
+          setEditBio(false);
+
+          toast.success("Bio Updated", {
+            icon: "👏",
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+            },
+          });
+
+          mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
-
-    // try {
-    //   const dataWithBio = { ...user, bio };
-    //   const serverResponse = await axios.put(
-    //     `http://localhost:3000/api/users?email=${user?.email}`,
-    //     dataWithBio
-    //   );
-
-    //   if (serverResponse.data.success) {
-    //     setEditBio(false);
-
-    //     toast.success("Bio Updated", {
-    //       icon: "👏",
-    //       style: {
-    //         borderRadius: "10px",
-    //         background: "#333",
-    //         color: "#fff",
-    //       },
-    //     });
-
-    //     mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
 
   }
 
@@ -311,7 +320,7 @@ const UserProfile = ({ user, mutate }) => {
             onChange={(event) => setBio(event.target.value)}
             defaultValue={currentUser?.bio}
             disabled={!editBio}
-            placeholder="Write your bio within 200 letters."
+            placeholder="Write your bio within 150 letters."
             className={`bg-black ${editBio && "border border-dotted"
               }  rounded-md text-xs w-full p-4`}
           />
