@@ -20,7 +20,7 @@ const UserProfile = ({ user, mutate }) => {
   const [passwordError, setPasswordError] = useState("");
   const [isHover, setIsHover] = useState(false);
 
-  const dataWithBio = { ...user, bio };
+
   const dataWithDesignation = { ...user, designation };
 
   function handleToast() {
@@ -145,29 +145,48 @@ const UserProfile = ({ user, mutate }) => {
   }
 
   async function handleChangeBio() {
-    try {
-      const serverResponse = await axios.put(
-        `http://localhost:3000/api/users?email=${user?.email}`,
-        dataWithBio
-      );
 
-      if (serverResponse.data.success) {
-        setEditBio(false);
+    if (bio.length > 150) {
 
-        toast.success("Bio Updated", {
-          icon: "👏",
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        });
+      toast.error("Write your bio within 150 letters.", {
 
-        mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+
+      return;
+
+    } else {
+
+      try {
+        const dataWithBio = { ...user, bio };
+        const serverResponse = await axios.put(
+          `http://localhost:3000/api/users?email=${user?.email}`,
+          dataWithBio
+        );
+
+        if (serverResponse.data.success) {
+          setEditBio(false);
+
+          toast.success("Bio Updated", {
+            icon: "👏",
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+            },
+          });
+
+          mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
+
   }
 
   async function handleChangeProfilePicture(data) {
@@ -301,7 +320,7 @@ const UserProfile = ({ user, mutate }) => {
             onChange={(event) => setBio(event.target.value)}
             defaultValue={currentUser?.bio}
             disabled={!editBio}
-            placeholder="Write your bio within 200 letters."
+            placeholder="Write your bio within 150 letters."
             className={`bg-black ${editBio && "border border-dotted"
               }  rounded-md text-xs w-full p-4`}
           />
