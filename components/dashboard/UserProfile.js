@@ -9,6 +9,7 @@ import toast, { Toaster } from "react-hot-toast";
 import bcrypt from "bcryptjs";
 import { IoMdClose } from "react-icons/io";
 import { CiCamera } from "react-icons/ci";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
 const UserProfile = ({ user, mutate }) => {
   const currentUser = user;
@@ -19,6 +20,9 @@ const UserProfile = ({ user, mutate }) => {
   const [designation, setDesignation] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [isHover, setIsHover] = useState(false);
+  const [showOldPassword , setShowOldPassword] = useState(false);
+  const [showPassword , setShowPassword] = useState(false);
+  const [showRetypePassword , setShowRetypePassword] = useState(false);
 
 
   async function handleChangePassword(event) {
@@ -403,11 +407,16 @@ const UserProfile = ({ user, mutate }) => {
                   <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
                     <PiKeyLight className="text-xl rotate-180 ml-2" />
                     <input
-                      type="text"
+                      type={showOldPassword ? "text" : "password"}
                       name="currentPassword"
                       placeholder="Old PassWord"
                       className="bg-black w-full p-2 outline-none"
                     />
+                    <button type="button" onClick={()=>setShowOldPassword(!showOldPassword)} className="mr-2">
+                        {
+                          showOldPassword ? <IoEyeOffOutline size={20}/> : <IoEyeOutline size={20}/>
+                        }
+                      </button>
                   </div>
                   <p className="text-red-600 mt-2">{passwordError}</p>
                 </div>
@@ -417,11 +426,16 @@ const UserProfile = ({ user, mutate }) => {
                   <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
                     <PiKeyLight className="text-xl rotate-180 ml-2" />
                     <input
-                      type="text"
+                      type={showPassword ? "text" : "password"}
                       name="newPassword"
                       placeholder="New PassWord"
                       className="bg-black w-full p-2 outline-none"
                     />
+                    <button type="button" onClick={()=>setShowPassword(!showPassword)} className="mr-2">
+                        {
+                          showPassword ? <IoEyeOffOutline size={20}/> : <IoEyeOutline size={20}/>
+                        }
+                      </button>
                   </div>
                 </div>
                 <div>
@@ -430,11 +444,16 @@ const UserProfile = ({ user, mutate }) => {
                   <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
                     <PiKeyLight className="text-xl rotate-180 ml-2" />
                     <input
-                      type="text"
+                      type={showRetypePassword ? "text" : "password"}
                       name="confirmNewPassword"
                       placeholder="Re-type New Password"
                       className="bg-black w-full p-2 outline-none"
                     />
+                    <button type="button" onClick={()=>setShowRetypePassword(!showRetypePassword)} className="mr-2">
+                        {
+                          showRetypePassword ? <IoEyeOffOutline size={20}/> : <IoEyeOutline size={20}/>
+                        }
+                      </button>
                   </div>
                 </div>
                 <div className="flex justify-between pt-4">
