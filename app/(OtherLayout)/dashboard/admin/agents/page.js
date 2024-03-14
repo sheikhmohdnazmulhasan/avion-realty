@@ -7,7 +7,8 @@ import axios from "axios";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaPlus } from "react-icons/fa6";
-import { IoMdClose } from "react-icons/io";
+import { IoMdClose } from "react-icons/io"
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";;
 import { PiKeyLight } from "react-icons/pi";
 import Swal from "sweetalert2";
 import { mutate } from "swr";
@@ -16,7 +17,9 @@ const Agents = () => {
   const data = useAgents();
   const [openModal, setOpenModal] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
-
+  const [showPassword , setShowPassword] = useState(false);
+  const [showRetypePassword , setShowRetypePassword] = useState(false);
+  
   const handleScroll = () => {
     const scrollContainer = document.getElementById("scrollID");
 
@@ -131,7 +134,7 @@ const Agents = () => {
         </div>
         {/* modal for add more items */}
         {openModal && (
-          <div className="w-2/5 absolute top-1/4 left-1/3 ">
+          <div className="w-2/5 absolute top-1/4 left-1/3 z-30 ">
             <div className="text-right">
               <button onClick={() => setOpenModal(false)}>
                 <IoMdClose size={24} />
@@ -172,11 +175,16 @@ const Agents = () => {
                     <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
                       <PiKeyLight className="text-xl rotate-180 ml-2" />
                       <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         name="newPassword"
                         placeholder="New PassWord"
                         className="bg-black w-full p-2 outline-none"
                       />
+                      <button type="button" onClick={()=>setShowPassword(!showPassword)} className="mr-2">
+                        {
+                          showPassword ? <IoEyeOffOutline size={20}/> : <IoEyeOutline size={20}/>
+                        }
+                      </button>
                     </div>
                   </div>
                   {/* re type pass */}
@@ -186,11 +194,16 @@ const Agents = () => {
                     <div className="bg-black rounded-lg mt-1 w-full flex items-center gap-1 border border-dotted">
                       <PiKeyLight className="text-xl rotate-180 ml-2" />
                       <input
-                        type="password"
+                        type={showRetypePassword ? "text" : "password"}
                         name="confirmNewPassword"
                         placeholder="Re-type New Password"
                         className="bg-black w-full p-2 outline-none"
                       />
+                      <button type="button" onClick={()=>setShowRetypePassword(!showRetypePassword)} className="mr-2">
+                        {
+                          showRetypePassword ? <IoEyeOffOutline size={20}/> : <IoEyeOutline size={20}/>
+                        }
+                      </button>
                     </div>
                   </div>
                 </div>
