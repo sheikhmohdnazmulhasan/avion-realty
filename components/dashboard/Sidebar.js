@@ -16,6 +16,8 @@ import { FaAngleDown, FaAngleUp, FaPlus } from "react-icons/fa6";
 import { GoGraph } from "react-icons/go";
 import { BsCollection } from "react-icons/bs";
 import { RiFileList3Line } from "react-icons/ri";
+import { BsHouseCheck } from "react-icons/bs";
+
 import { useState } from "react";
 
 const Sidebar = () => {
@@ -30,7 +32,7 @@ const Sidebar = () => {
       {/* nav links */}
       <ul className=" font-bold mt-16 space-y-4">
         <li>
-          <Link href="/" className="flex gap-4 items-center">
+          <Link href="/dashboard" className="flex gap-4 items-center">
             <VscGraph size={24} />
             <span>Overview</span>
           </Link>
@@ -56,31 +58,31 @@ const Sidebar = () => {
               
               <ul className=" ml-8 space-y-1">
                 <li>
-                  <Link href="/">
+                  <Link href="/dashboard/agent/listing/manage-listing">
                     <span>Manage Listing</span>
                   </Link>
                 </li>
                 <li>
-                <Link href="/">
+                <Link href="/dashboard/agent/listing/private-inventory">
                     <span>Private Inventory</span>
                   </Link>
                 </li>
               </ul>
           )}
         <li>
-          <Link href="/" className="flex gap-4 items-center">
+          <Link href="/dashboard/agent/Insights" className="flex gap-4 items-center">
             <GoGraph size={24} />
             <span>Insights</span>
           </Link>
         </li>
         <li>
-          <Link href="/" className="flex gap-4 items-center">
+          <Link href="/dashboard/agent/leads" className="flex gap-4 items-center">
             <BsCollection size={24} />
             <span>Leads</span>
           </Link>
         </li>
         <li>
-          <Link href="/" className="flex gap-4 items-center">
+          <Link href="/dashboard/agent/blog" className="flex gap-4 items-center">
             <RiFileList3Line size={24} />
             <span>Blog</span>
           </Link>
@@ -91,25 +93,31 @@ const Sidebar = () => {
           // for admin nav links
           <>
           <li>
-          <Link href="/" className="flex gap-4 items-center">
+          <Link href="/dashboard/admin/items" className="flex gap-4 items-center">
             <TiThListOutline size={24} />
             <span>Items</span>
           </Link>
         </li>
-        <li>
-          <Link href="/" className="flex gap-4 items-center">
-            <CgProfile size={24} />
-            <span>Agent</span>
+          <li>
+          <Link href="/dashboard/admin/amenities" className="flex gap-4 items-center">
+            <BsHouseCheck size={24} />
+            <span>amenities</span>
           </Link>
         </li>
         <li>
-          <Link href="/" className="flex gap-4 items-center">
+          <Link href="/dashboard/admin/agents" className="flex gap-4 items-center">
+            <CgProfile size={24} />
+            <span>Agents</span>
+          </Link>
+        </li>
+        <li>
+          <Link href="/dashboard/admin/listings" className="flex gap-4 items-center">
             <HiOutlineHomeModern size={24} />
             <span>Listings</span>
           </Link>
         </li>
         <li>
-          <Link href="/" className="flex gap-4 items-center">
+          <Link href="/dashboard/admin/upload-podcast" className="flex gap-4 items-center">
             <GrVideo size={24} />
             <span>Podcasts</span>
           </Link>
@@ -117,13 +125,13 @@ const Sidebar = () => {
           </>
         }
         <li>
-          <Link href="/" className="flex gap-4 items-center">
+          <Link href="/dashboard/add-off-plan" className="flex gap-4 items-center">
             <Image src={offPlanIcon} alt="off-plan"/>
             <span>Add-Off-plan</span>
           </Link>
         </li>
         <li>
-          <Link href="/" className="flex gap-4 items-center">
+          <Link href="/dashboard/profile" className="flex gap-4 items-center">
             <FaUserCircle size={24} />
             <span>My Profile</span>
           </Link>
