@@ -21,18 +21,6 @@ const UserProfile = ({ user, mutate }) => {
   const [isHover, setIsHover] = useState(false);
 
 
-  const dataWithDesignation = { ...user, designation };
-
-  function handleToast() {
-    toast("Click to Update Designation", {
-      style: {
-        borderRadius: "10px",
-        background: "#333",
-        color: "#fff",
-      },
-    });
-  }
-
   async function handleChangePassword(event) {
     event.preventDefault();
     const currentPassword = event.target.currentPassword.value;
@@ -119,36 +107,59 @@ const UserProfile = ({ user, mutate }) => {
   }
 
   async function handleChangeDesignation() {
-    try {
-      const serverResponse = await axios.put(
-        `http://localhost:3000/api/users?email=${user?.email}`,
-        dataWithDesignation
-      );
 
-      if (serverResponse.data.success) {
-        setEditDesignation(false);
+    if (designation.length > 20) {
 
-        toast.success("Designation Updated", {
-          icon: "👏",
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        });
+      toast.error("Write your Designation within 20 character.", {
 
-        mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+
+      return;
+
+    } else {
+
+      const dataWithDesignation = { ...user, designation };
+
+      try {
+        const serverResponse = await axios.put(
+          `http://localhost:3000/api/users?email=${user?.email}`,
+          dataWithDesignation
+        );
+
+        if (serverResponse.data.success) {
+          setEditDesignation(false);
+
+          toast.success("Designation Updated", {
+            icon: "👏",
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+            },
+          });
+
+          mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+
     }
+
+
+
   }
 
   async function handleChangeBio() {
 
     if (bio.length > 150) {
 
-      toast.error("Write your bio within 150 letters.", {
+      toast.error("Write your bio within 150 character.", {
 
         style: {
           borderRadius: "10px",
@@ -280,7 +291,7 @@ const UserProfile = ({ user, mutate }) => {
           {!editDesignation && (
             <p
               onClick={() => setEditDesignation(!editDesignation)}
-              onMouseEnter={handleToast}
+              
             >
               {currentUser?.designation
                 ? currentUser.designation
