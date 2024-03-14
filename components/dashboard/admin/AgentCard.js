@@ -3,6 +3,7 @@
 import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { FaUserCircle } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
@@ -10,6 +11,43 @@ import { mutate } from "swr";
 
 const AgentCard = ({ agent }) => {
   const [openModal, setOpenModal] = useState(false);
+
+  async function handleUpdateAgent(event) {
+    event.preventDefault();
+    const name = event.target.name.value;
+    const email = event.target.email.value;
+    const designation = event.target.designation.value;
+    const wpNum = event.target.wpNum.value;
+    const reraID = event.target.reraID.value;
+    const specializes = event.target.specializes.value;
+
+    const newData = { name, email, designation, wpNum, reraID, specializes };
+
+    try {
+
+      const serverResponse = await axios.put(`http://localhost:3000/api/users?email=${agent.email}`, newData);
+
+      if (serverResponse.data.success) {
+
+        toast.success(`${agent.name}'s Info Updated`,
+          {
+            icon: '👏',
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        );
+
+        mutate('http://localhost:3000/api/users?agent=all');
+        setOpenModal(false);
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async function handleDeleteAgent(_id, name) {
 
@@ -35,8 +73,9 @@ const AgentCard = ({ agent }) => {
               text: `${name} has been deleted.`,
               icon: "success"
             });
+
+            mutate('http://localhost:3000/api/users?agent=all')
           }
-          mutate('http://localhost:3000/api/users?agent=all')
 
         } catch (error) {
 
@@ -49,6 +88,10 @@ const AgentCard = ({ agent }) => {
 
   return (
     <div className="bg-[#171717] p-4 shadow-md shadow-gray-800 rounded-md">
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+      />
       <div className="flex gap-2">
         <div className="w-12 rounded-full ">
           {agent?.image ? (
@@ -90,6 +133,7 @@ const AgentCard = ({ agent }) => {
           </div>
         </div>
       </div>
+
       {/* modal for add more items */}
       {openModal && (
         <div className="w-2/5 absolute top-1/4 left-1/3 ">
@@ -100,7 +144,8 @@ const AgentCard = ({ agent }) => {
           </div>
           <div className="p-8 rounded-lg shadow shadow-gray-500 bg-black">
             <h2 className="mb-6 text-xl font-semibold">Edit Agent</h2>
-            <form className="mt-4 text-sm">
+
+            <form className="mt-4 text-sm" onSubmit={handleUpdateAgent}>
               <div className="flex justify-between w-full gap-12 mb-6">
                 {/* name */}
                 <div className="w-1/2">
@@ -108,7 +153,7 @@ const AgentCard = ({ agent }) => {
                   <br />
                   <input
                     type="text"
-                    name="agentName"
+                    name="name"
                     defaultValue={agent?.name}
                     placeholder="Write agent name"
                     className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
@@ -120,7 +165,7 @@ const AgentCard = ({ agent }) => {
                   <br />
                   <input
                     type="email"
-                    name="agentEmail"
+                    name="email"
                     defaultValue={agent?.email}
                     placeholder="Write email address"
                     className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
@@ -134,7 +179,7 @@ const AgentCard = ({ agent }) => {
                   <br />
                   <input
                     type="text"
-                    name="agentDesignation"
+                    name="designation"
                     defaultValue={agent?.designation}
                     placeholder="Write agent designation"
                     className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
@@ -146,12 +191,13 @@ const AgentCard = ({ agent }) => {
                   <br />
                   <input
                     type="number"
-                    name="agentWhatsApp"
+                    name="wpNum"
                     defaultValue={agent?.wpNum}
                     placeholder="Write agent WhatsApp number"
                     className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted"
                   />
                 </div>
+
               </div>
               <div className="flex justify-between w-full gap-12 mb-6">
                 {/* RERA ID */}
