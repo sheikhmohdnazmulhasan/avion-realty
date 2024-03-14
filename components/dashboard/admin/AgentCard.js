@@ -6,6 +6,7 @@ import { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
+import { mutate } from "swr";
 
 const AgentCard = ({ agent }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -35,6 +36,7 @@ const AgentCard = ({ agent }) => {
               icon: "success"
             });
           }
+          mutate('http://localhost:3000/api/users?agent=all')
 
         } catch (error) {
 
