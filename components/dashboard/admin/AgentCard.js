@@ -1,12 +1,49 @@
 "use client";
 
+import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
+import Swal from "sweetalert2";
 
 const AgentCard = ({ agent }) => {
   const [openModal, setOpenModal] = useState(false);
+
+  async function handleDeleteAgent(_id, name) {
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete Agent!"
+
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+
+
+        try {
+          const serverResponse = await axios.delete(`http://localhost:3000/api/users?id=${_id}`);
+
+          if (serverResponse.data.success) {
+            Swal.fire({
+              title: "Deleted!",
+              text: `${name} has been deleted.`,
+              icon: "success"
+            });
+          }
+
+        } catch (error) {
+
+          console.log(error);
+        }
+      }
+    });
+
+  }
 
   return (
     <div className="bg-[#171717] p-4 shadow-md shadow-gray-800 rounded-md">
@@ -45,7 +82,7 @@ const AgentCard = ({ agent }) => {
             >
               Edit Agent
             </button>
-            <button className="bg-red-600 py-1 px-2 rounded-2xl mt-4 ">
+            <button className="bg-red-600 py-1 px-2 rounded-2xl mt-4" onClick={() => handleDeleteAgent(agent._id, agent.name)}>
               Delete Agent
             </button>
           </div>
