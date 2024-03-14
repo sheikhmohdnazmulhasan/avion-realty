@@ -14,11 +14,11 @@ const EditProfile = ({ user, mutate }) => {
 
     let updatedData = {};
 
-    if(currentUser.role !== 'admin'){
-      const reraID = form.reraID.value ;
-      const specializes = form.specializes.value ;
+    if (currentUser.role !== 'admin') {
+      const reraID = form.reraID.value;
+      const specializes = form.specializes.value;
 
-       updatedData = {
+      updatedData = {
         email: currentUser.email,
         wpNum,
         name,
@@ -29,7 +29,7 @@ const EditProfile = ({ user, mutate }) => {
       };
     }
 
-     updatedData = {
+    updatedData = {
       email: currentUser.email,
       wpNum,
       name,
