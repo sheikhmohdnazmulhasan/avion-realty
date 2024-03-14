@@ -20,7 +20,7 @@ const UserProfile = ({ user, mutate }) => {
   const [passwordError, setPasswordError] = useState("");
   const [isHover, setIsHover] = useState(false);
 
-  const dataWithBio = { ...user, bio };
+
   const dataWithDesignation = { ...user, designation };
 
   function handleToast() {
@@ -145,29 +145,39 @@ const UserProfile = ({ user, mutate }) => {
   }
 
   async function handleChangeBio() {
-    try {
-      const serverResponse = await axios.put(
-        `http://localhost:3000/api/users?email=${user?.email}`,
-        dataWithBio
-      );
 
-      if (serverResponse.data.success) {
-        setEditBio(false);
+    if (bio.length > 5) {
+      console.log('limit hited');
 
-        toast.success("Bio Updated", {
-          icon: "👏",
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        });
-
-        mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
-      }
-    } catch (error) {
-      console.log(error);
+    } else {
+      console.log('okk');
     }
+
+    // try {
+    //   const dataWithBio = { ...user, bio };
+    //   const serverResponse = await axios.put(
+    //     `http://localhost:3000/api/users?email=${user?.email}`,
+    //     dataWithBio
+    //   );
+
+    //   if (serverResponse.data.success) {
+    //     setEditBio(false);
+
+    //     toast.success("Bio Updated", {
+    //       icon: "👏",
+    //       style: {
+    //         borderRadius: "10px",
+    //         background: "#333",
+    //         color: "#fff",
+    //       },
+    //     });
+
+    //     mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
   }
 
   async function handleChangeProfilePicture(data) {
