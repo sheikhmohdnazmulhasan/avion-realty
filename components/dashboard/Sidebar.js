@@ -101,7 +101,7 @@ const Sidebar = () => {
           <li>
           <Link href="/dashboard/admin/amenities" className="flex gap-4 items-center">
             <BsHouseCheck size={24} />
-            <span>amenities</span>
+            <span>Amenities</span>
           </Link>
         </li>
         <li>
