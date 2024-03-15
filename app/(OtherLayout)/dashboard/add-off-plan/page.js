@@ -13,6 +13,7 @@ import { AiOutlineCheckCircle, AiOutlineCloudUpload } from "react-icons/ai"
 import './drag-drop.css';
 import { useEffect, useState } from "react";
 import { MdClear } from "react-icons/md";
+import Image from "next/image";
 
 const AddOffPlan = () => {
   document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
@@ -23,6 +24,7 @@ const AddOffPlan = () => {
   const amenities = useGetAmenities();
   const user = useUser();
   const [files, setFiles] = useState([]);
+  const [preview, setPreview] = useState([])
 
   const handleFileChange = (event) => {
     const selectedFiles = event.target.files;
@@ -44,11 +46,16 @@ const AddOffPlan = () => {
     setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
   };
 
+  // preview files
   useEffect(() => {
-    setFiles(files);
+    if (files.length) {
+      const previewUrl = files.map((file) => URL.createObjectURL(file));
+      setPreview(previewUrl);
+    }
   }, [files]);
 
   console.log(files);
+  console.log(preview);
 
   return (
     <div>
@@ -286,20 +293,29 @@ const AddOffPlan = () => {
               
             </>
 
+            {/* preview of selected images */}
+
             {files.length > 0 && (
-              <div className="file-list text-white">
-                <div className="file-list__container grid grid-cols-5 gap-4">
-                  {files.map((file, index) => (
-                    <div className="file-item" key={index}>
-                      <div className="file-info">
-                        <p className="text-white">{file.name}</p>
-                      </div>
-                      <div className="file-actions">
-                        <MdClear onClick={() => handleRemoveFile(index)} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              // <div className="file-list text-white">
+              //   <div className="file-list__container grid grid-cols-5 gap-4">
+              //     {files.map((file, index) => (
+              //       <div className="file-item" key={index}>
+              //         <div className="file-info">
+              //           <p className="text-white">{file.name}</p>
+              //         </div>
+              //         <div className="file-actions">
+              //           <MdClear onClick={() => handleRemoveFile(index)} />
+              //         </div>
+              //       </div>
+              //     ))}
+              //   </div>
+              // </div>
+              <div className="grid grid-cols-5 gap-4 my-4">
+                {
+                  preview.map((url, ind) =>( <div key={ind} url={url}>
+                    <Image src={url} alt={url} width={200} height={120} className="w-[200px] h-[120px] object-cover"/>
+                  </div>))
+                }
               </div>
             )}
 
