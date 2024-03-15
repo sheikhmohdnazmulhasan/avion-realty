@@ -296,37 +296,17 @@ const AddOffPlan = () => {
             {/* preview of selected images */}
 
             {files.length > 0 && (
-              // <div className="file-list text-white">
-              //   <div className="file-list__container grid grid-cols-5 gap-4">
-              //     {files.map((file, index) => (
-              //       <div className="file-item" key={index}>
-              //         <div className="file-info">
-              //           <p className="text-white">{file.name}</p>
-              //         </div>
-              //         <div className="file-actions">
-              //           <MdClear onClick={() => handleRemoveFile(index)} />
-              //         </div>
-              //       </div>
-              //     ))}
-              //   </div>
-              // </div>
-              <div className="grid grid-cols-5 gap-4 my-4">
+              <div className="grid grid-cols-5 gap-8 my-4">
                 {
-                  preview.map((url, ind) =>( <div key={ind} url={url}>
+                  preview.map((url, ind) =>( <div key={ind} url={url} className="relative">
                     <Image src={url} alt={url} width={200} height={120} className="w-[200px] h-[120px] object-cover"/>
+                    <div className="bg-white text-[#835C00] absolute p-1 border border-[#835C00] rounded-full -top-2 -right-3">
+                      <MdClear onClick={() => handleRemoveFile(ind)} size={20} color="#835C00"/>
+                    </div>
                   </div>))
                 }
               </div>
             )}
-
-            {/* {files.length > 0 && (
-              <div className="success-file">
-                <AiOutlineCheckCircle
-                  style={{ color: "#FFD167", marginRight: 1 }}
-                />
-                <p>{files.length} file(s) selected</p>
-              </div>
-            )} */}
           </div>
         </div>
         
