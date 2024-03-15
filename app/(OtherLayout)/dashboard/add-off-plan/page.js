@@ -6,6 +6,14 @@ import useGetAreas from "@/hooks/useGetAreas";
 import useGetDevelopers from "@/hooks/useGetDevelopers";
 import useGetProperties from "@/hooks/useGetProperties";
 import useUser from "@/hooks/useUser";
+import { CiCamera } from "react-icons/ci";
+import { AiOutlineCheckCircle, AiOutlineCloudUpload } from "react-icons/ai"
+
+// import '@/app/(OtherLayout)/dashboard/add-off-plan/drar-drop.css';
+import './drag-drop.css';
+import { useEffect, useState } from "react";
+import { MdClear } from "react-icons/md";
+import Image from "next/image";
 
 const AddOffPlan = () => {
   document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
@@ -15,6 +23,36 @@ const AddOffPlan = () => {
   const agents = useAgents();
   const amenities = useGetAmenities();
   const user = useUser();
+  const [files, setFiles] = useState([]);
+  const [preview, setPreview] = useState([])
+
+  const handleFileChange = (event) => {
+    const selectedFiles = event.target.files;
+    if (selectedFiles && selectedFiles.length > 0) {
+      const newFiles = Array.from(selectedFiles);
+      setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+    }
+  };
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const droppedFiles = event.dataTransfer.files;
+    if (droppedFiles.length > 0) {
+      const newFiles = Array.from(droppedFiles);
+      setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+    }
+  };
+
+  const handleRemoveFile = (index) => {
+    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  };
+
+  // preview files
+  useEffect(() => {
+    if (files.length) {
+      const previewUrl = files.map((file) => URL.createObjectURL(file));
+      setPreview(previewUrl);
+    }
+  }, [files]);
 
 
   return (
@@ -218,6 +256,58 @@ const AddOffPlan = () => {
               }
             </div>
           </div>
+        
+        {/* payment */}
+
+        {/* add picture */}
+        <div className="drag-drop w-full h-auto bg-transparent" >
+          <div
+            className={`document-uploader ${
+              files.length > 0 ? "upload-box active" : "upload-box"
+            }`}
+            onDrop={handleDrop}
+            onDragOver={(event) => event.preventDefault()}
+          >
+            <>
+              <div className="upload-info">
+                <div className="text-xl font-bold flex items-center  justify-center">
+                  <h2 className="mt-2">Add Pictures </h2>
+                  <CiCamera size={32}/>
+                </div>
+              </div>
+              <div className="flex items-center gap-1">
+                <span>Drag or drop your pictures here</span>
+                <label htmlFor="browse" className="browse-btn text-[#FFD167]">
+                  {`"Browse"`}
+                </label>
+                <input
+                  type="file"
+                  hidden
+                  id="browse"
+                  onChange={handleFileChange}
+                  multiple
+                />
+              </div>
+              
+            </>
+
+            {/* preview of selected images */}
+
+            {files.length > 0 && (
+              <div className="grid grid-cols-5 gap-8 my-4">
+                {
+                  preview.map((url, ind) =>( <div key={ind} url={url} className="relative">
+                    <Image src={url} alt={url} width={200} height={120} className="w-[200px] h-[120px] object-cover"/>
+                    <div className="bg-white text-[#835C00] absolute p-1 border border-[#835C00] rounded-full -top-2 -right-3">
+                      <MdClear onClick={() => handleRemoveFile(ind)} size={20} color="#835C00"/>
+                    </div>
+                  </div>))
+                }
+              </div>
+            )}
+          </div>
+        </div>
+        
 
         {/* <div className="flex justify-end mt-6">
           <input
