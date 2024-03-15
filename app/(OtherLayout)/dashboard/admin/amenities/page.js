@@ -22,6 +22,7 @@ const Amenities = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
+
     }).then((result) => {
       if (result.isConfirmed) {
         axios.delete(`http://localhost:3000/api/admin/amenities?id=${_id}`)
@@ -60,7 +61,7 @@ const Amenities = () => {
       return
 
     } else {
-      
+
       try {
 
         const imgBbResponse = await axios.post(
