@@ -49,50 +49,42 @@ const Developers = () => {
   async function handleAddNew(event) {
     event.preventDefault();
     const dev = event.target.dev.value;
-
     const toastId = toast.loading("Working...");
 
-    try {
-      // ***TODO: With this logic I used to match all the previous area names with the new area given by the admin.
-      // If that data was already there, I would not have added it.
-      // But when trying to do this (TypeError: Cannot read properties of undefined (reading 'models')) it shows this error!!
+    const isExist = data.find(devs => devs.devName === dev);
 
-      // ***logic begging
+    if (isExist) {
 
-      // await connectMongoDB();
-      // const isExist = await AreaItem.findOne({ itemName: area });
-      // console.log(isExist);
+      toast.error('Developer Already Exist.', { id: toastId });
 
-      // if (isExist) {
-      //   toast.error('Area Already Exist!', { id: toastId });
-      // return
-      // }
+      return
 
-      // ***logic end
+    } else {
 
-      // (import commented! line: 3 and 4)
+      try {
 
-      // ***
+        const dataForBackend = {
+          devName: dev,
+        };
 
-      const dataForBackend = {
-        devName: dev,
-      };
+        const serverResponse = await axios.post(
+          "http://localhost:3000/api/admin/items/dev",
+          dataForBackend
+        );
 
-      const serverResponse = await axios.post(
-        "http://localhost:3000/api/admin/items/dev",
-        dataForBackend
-      );
+        if (serverResponse.data.success) {
+          toast.success("Developer Successfully Added", { id: toastId });
+          setOpenModal(false);
 
-      if (serverResponse.data.success) {
-        toast.success("Developer Successfully Added", { id: toastId });
-        setOpenModal(false);
-
-        mutate(`http://localhost:3000/api/admin/items/dev`);
+          mutate(`http://localhost:3000/api/admin/items/dev`);
+        }
+      } catch (error) {
+        console.log(error);
+        throw new Error("Something wrong");
       }
-    } catch (error) {
-      console.log(error);
-      throw new Error("Something wrong");
     }
+
+
   }
 
   return (
