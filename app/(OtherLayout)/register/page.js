@@ -23,7 +23,7 @@ const Register = () => {
 
     return (
         <div>
-            <form className='flex flex-col gap-3 max-w-3xl mx-auto mt-10' onSubmit={handleRegister}>
+            <form className='flex flex-col gap-3 max-w-3xl mx-auto' onSubmit={handleRegister}>
                 <input className='py-2 px-3 bg-black border' placeholder="Enter Your Name" type="text" name="name" id="" />
 
                 <input className='py-2 px-3 bg-black border' placeholder="Enter Your Email Address" type="email" name="email" id="" />
