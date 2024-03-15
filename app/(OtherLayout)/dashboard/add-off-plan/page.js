@@ -48,6 +48,7 @@ const AddOffPlan = () => {
     setFiles(files);
   }, [files]);
 
+  console.log(files);
 
   return (
     <div>
@@ -287,7 +288,7 @@ const AddOffPlan = () => {
 
             {files.length > 0 && (
               <div className="file-list text-white">
-                <div className="file-list__container">
+                <div className="file-list__container grid grid-cols-5 gap-4">
                   {files.map((file, index) => (
                     <div className="file-item" key={index}>
                       <div className="file-info">
