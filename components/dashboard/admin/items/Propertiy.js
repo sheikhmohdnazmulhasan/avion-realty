@@ -1,8 +1,7 @@
 "use client";
 
 import useGetProperties from "@/hooks/useGetProperties";
-// import connectMongoDB from "@/libs/mongodb";
-// import AreaItem from "@/models/items/area";
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -12,13 +11,10 @@ import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
 import { mutate } from "swr";
 
-// define fetcher to fetch data in json format
-// const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Property = () => {
-  // get all data 
-  const data= useGetProperties();
-  
+  const data = useGetProperties();
+
   const [openModal, setOpenModal] = useState(false);
 
 
@@ -54,50 +50,40 @@ const Property = () => {
   async function handleAddNew(event) {
     event.preventDefault();
     const property = event.target.property.value;
-
     const toastId = toast.loading("Working...");
 
-    try {
-      // ***TODO: With this logic I used to match all the previous area names with the new area given by the admin.
-      // If that data was already there, I would not have added it.
-      // But when trying to do this (TypeError: Cannot read properties of undefined (reading 'models')) it shows this error!!
+    const isExist = data.find(properties => properties.propertyName === property);
 
-      // ***logic begging
+    if (isExist) {
+      toast.error('Property Already Exist.', { id: toastId });
 
-      // await connectMongoDB();
-      // const isExist = await AreaItem.findOne({ itemName: area });
-      // console.log(isExist);
+      return
 
-      // if (isExist) {
-      //   toast.error('Area Already Exist!', { id: toastId });
-      // return
-      // }
+    } else {
 
-      // ***logic end
+      try {
 
-      // (import commented! line: 3 and 4)
+        const dataForBackend = {
+          propertyName: property,
+        };
 
-      // ***
+        const serverResponse = await axios.post(
+          "http://localhost:3000/api/admin/items/property",
+          dataForBackend
+        );
 
-      const dataForBackend = {
-        propertyName: property,
-      };
+        if (serverResponse.data.success) {
+          toast.success("Property Type Successfully Added", { id: toastId });
+          setOpenModal(false);
 
-      const serverResponse = await axios.post(
-        "http://localhost:3000/api/admin/items/property",
-        dataForBackend
-      );
-
-      if (serverResponse.data.success) {
-        toast.success("Property Type Successfully Added", { id: toastId });
-        setOpenModal(false);
-
-        mutate(`http://localhost:3000/api/admin/items/property`);
+          mutate(`http://localhost:3000/api/admin/items/property`);
+        }
+      } catch (error) {
+        console.log(error);
+        throw new Error("Something wrong");
       }
-    } catch (error) {
-      console.log(error);
-      throw new Error("Something wrong");
     }
+    
   }
 
   return (

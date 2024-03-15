@@ -54,8 +54,6 @@ const AddOffPlan = () => {
     }
   }, [files]);
 
-  console.log(files);
-  console.log(preview);
 
   return (
     <div>
