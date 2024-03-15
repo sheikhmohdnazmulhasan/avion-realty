@@ -16,7 +16,7 @@ const AddOffPlan = () => {
   const amenities = useGetAmenities();
   const user = useUser();
 
-  console.log(user);
+
   return (
     <div>
       <Navbar title="Add Off-Plan Property" />

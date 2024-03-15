@@ -16,6 +16,64 @@ const Areas = () => {
   const data = useGetAreas();
   const [openModal, setOpenModal] = useState(false);
 
+
+
+  async function handleAddNew(event) {
+    event.preventDefault();
+    const area = event.target.area.value;
+    const areaImage = event.target.areaImage.files[0];
+
+    const image = new FormData();
+    image.append("image", areaImage);
+
+    const toastId = toast.loading("Working...");
+
+    const dataExist = data.find(areas => areas.itemName === area);
+
+    if (dataExist) {
+
+      toast.error('Area Already Exist.', { id: toastId });
+
+      return
+
+    } else {
+
+      try {
+
+        const imgBbResponse = await axios.post(
+          `https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`,
+          image
+        );
+
+        if (imgBbResponse.data.success) {
+          const dataForBackend = {
+            itemName: area,
+            itemImg: imgBbResponse.data.data.display_url,
+          };
+
+          const serverResponse = await axios.post(
+            "http://localhost:3000/api/admin/items/area",
+            dataForBackend
+          );
+
+          if (serverResponse.data.success) {
+            toast.success("Area Successfully Added", { id: toastId });
+            setOpenModal(false);
+
+            mutate(`http://localhost:3000/api/admin/items/area`);
+          }
+        }
+
+      } catch (error) {
+        console.log(error);
+        throw new Error("Something wrong");
+      }
+    }
+
+
+  }
+
+
   async function handleDeleteArea(_id) {
     Swal.fire({
       title: "Are you sure?",
@@ -43,70 +101,6 @@ const Areas = () => {
           .catch((err) => console.log(err));
       }
     });
-  }
-
-  async function handleAddNew(event) {
-    event.preventDefault();
-    const area = event.target.area.value;
-    const areaImage = event.target.areaImage.files[0];
-
-    const image = new FormData();
-    image.append("image", areaImage);
-
-    console.log(image);
-
-    const toastId = toast.loading("Working...");
-
-    try {
-      // ***TODO: With this logic I used to match all the previous area names with the new area given by the admin.
-      // If that data was already there, I would not have added it.
-      // But when trying to do this (TypeError: Cannot read properties of undefined (reading 'models')) it shows this error!!
-
-      // ***logic begging
-
-      // await connectMongoDB();
-      // const isExist = await AreaItem.findOne({ itemName: area });
-      // console.log(isExist);
-
-      // if (isExist) {
-      //   toast.error('Area Already Exist!', { id: toastId });
-      // return
-      // }
-
-      // ***logic end
-
-      // (import commented! line: 3 and 4)
-
-      // ***
-
-      const imgBbResponse = await axios.post(
-        `https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`,
-        image
-      );
-
-      if (imgBbResponse.data.success) {
-        const dataForBackend = {
-          itemName: area,
-          itemImg: imgBbResponse.data.data.display_url,
-        };
-
-        const serverResponse = await axios.post(
-          "http://localhost:3000/api/admin/items/area",
-          dataForBackend
-        );
-
-        if (serverResponse.data.success) {
-          toast.success("Area Successfully Added", { id: toastId });
-          setOpenModal(false);
-
-          mutate(`http://localhost:3000/api/admin/items/area`);
-        }
-      }
-      
-    } catch (error) {
-      console.log(error);
-      throw new Error("Something wrong");
-    }
   }
 
   return (
