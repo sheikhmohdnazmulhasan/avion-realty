@@ -26,7 +26,7 @@ const AddOffPlan = () => {
   const [files, setFiles] = useState([]);
   const [preview, setPreview] = useState([]);
   const [showAll, setShowAll] = useState(true);
-  
+
 
   const handleFileChange = (event) => {
     const selectedFiles = event.target.files;
@@ -224,36 +224,36 @@ const AddOffPlan = () => {
         <div>
           <label>Description</label>
           <textarea
-              name="description"
-              placeholder="write description"
-              rows={12}
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-400 "
-            />
+            name="description"
+            placeholder="write description"
+            rows={12}
+            className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-400 "
+          />
         </div>
         {/* location input field */}
         <div>
-            <label>Location</label>
-            <br />
-            <input
-              type="text"
-              name="location"
-              placeholder="write location (eg. Address downtown, Burj Khalifa)"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-400 "
-            />
+          <label>Location</label>
+          <br />
+          <input
+            type="text"
+            name="location"
+            placeholder="write location (eg. Address downtown, Burj Khalifa)"
+            className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-400 "
+          />
         </div>
 
         {/* amenities */}
         <div>
-            <label className="text-xl">Amenities</label>
-            <br />
-            <div className="grid grid-cols-3 gap-6 mt-3">
-              {
-                showAll ?
+          <label className="text-xl">Amenities</label>
+          <br />
+          <div className="grid grid-cols-3 gap-6 mt-3">
+            {
+              showAll ?
                 (amenities.slice(0, 12).map(amenity => (
-                <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
-                  <input type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
-                  <label>{amenity.name}</label>
-                </div>
+                  <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
+                    <input type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
+                    <label>{amenity.name}</label>
+                  </div>
                 )
                 ))
                 :
@@ -262,24 +262,23 @@ const AddOffPlan = () => {
                     <input type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
                     <label>{amenity.name}</label>
                   </div>
-                  )
-                  ))
-              }
-            </div>
-            {
-              showAll ? <button onClick={()=>setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show All</button> : <button onClick={()=>setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show Less</button>
-              
+                )
+                ))
             }
           </div>
-        
+          {
+            showAll ? <button onClick={() => setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show All</button> : <button onClick={() => setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show Less</button>
+
+          }
+        </div>
+
         {/* payment */}
 
         {/* add picture */}
         <div className="drag-drop w-full h-auto bg-transparent" >
           <div
-            className={`document-uploader ${
-              files.length > 0 ? "upload-box active" : "upload-box"
-            }`}
+            className={`document-uploader ${files.length > 0 ? "upload-box active" : "upload-box"
+              }`}
             onDrop={handleDrop}
             onDragOver={(event) => event.preventDefault()}
           >
@@ -287,7 +286,7 @@ const AddOffPlan = () => {
               <div className="upload-info">
                 <div className="text-xl font-bold flex items-center  justify-center">
                   <h2 className="mt-2">Add Pictures </h2>
-                  <CiCamera size={32}/>
+                  <CiCamera size={32} />
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -303,7 +302,7 @@ const AddOffPlan = () => {
                   multiple
                 />
               </div>
-              
+
             </>
 
             {/* preview of selected images */}
@@ -311,10 +310,10 @@ const AddOffPlan = () => {
             {files.length > 0 && (
               <div className="grid grid-cols-5 gap-8 my-4">
                 {
-                  preview.map((url, ind) =>( <div key={ind} url={url} className="relative">
-                    <Image src={url} alt={url} width={200} height={120} className="w-[200px] h-[120px] object-cover"/>
+                  preview.map((url, ind) => (<div key={ind} url={url} className="relative">
+                    <Image src={url} alt={url} width={200} height={120} className="w-[200px] h-[120px] object-cover" />
                     <div className="bg-white text-[#835C00] absolute p-1 border border-[#835C00] rounded-full -top-2 -right-3">
-                      <MdClear onClick={() => handleRemoveFile(ind)} size={20} color="#835C00"/>
+                      <MdClear onClick={() => handleRemoveFile(ind)} size={20} color="#835C00" />
                     </div>
                   </div>))
                 }
@@ -322,7 +321,7 @@ const AddOffPlan = () => {
             )}
           </div>
         </div>
-        
+
 
         {/* <div className="flex justify-end mt-6">
           <input
