@@ -7,10 +7,26 @@ import { FaPlus } from "react-icons/fa6";
 const UploadPodcast = () => {
   const agents = useAgents();
 
+  function handleAddPodcast(event) {
+    event.preventDefault();
+    const videoUrl = event.target.videoUrl.value;
+
+    const urlRegex = new RegExp('^(https?|ftp|file):\\/\\/[\\w\\d\\-\\.%\\?\\=\\+\\&\\/]+', 'i');
+
+    if (!urlRegex.test(videoUrl)) {
+      console.log('invalid');
+
+    } else {
+      console.log('valid');
+    }
+
+
+  }
+
   return (
     <div>
       <Navbar title="Upload A Podcast" />
-      <form className="mt-20 mb-8 pr-24 text-sm space-y-6">
+      <form className="mt-20 mb-8 pr-24 text-sm space-y-6" onSubmit={handleAddPodcast}>
         <div>
           <label>Title</label>
           <br />
@@ -56,7 +72,7 @@ const UploadPodcast = () => {
           <br />
           <input
             type="text"
-            name="podcastUrl"
+            name="videoUrl"
             placeholder="Write url of podcast video"
             className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted "
           />
