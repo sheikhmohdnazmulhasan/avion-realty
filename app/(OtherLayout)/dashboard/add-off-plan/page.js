@@ -24,7 +24,9 @@ const AddOffPlan = () => {
   const amenities = useGetAmenities();
   const user = useUser();
   const [files, setFiles] = useState([]);
-  const [preview, setPreview] = useState([])
+  const [preview, setPreview] = useState([]);
+  const [showAll, setShowAll] = useState(true);
+  
 
   const handleFileChange = (event) => {
     const selectedFiles = event.target.files;
@@ -246,15 +248,28 @@ const AddOffPlan = () => {
             <br />
             <div className="grid grid-cols-3 gap-6 mt-3">
               {
-                amenities.map(amenity => (
+                showAll ?
+                (amenities.slice(0, 12).map(amenity => (
                 <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
                   <input type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
                   <label>{amenity.name}</label>
                 </div>
                 )
-                )
+                ))
+                :
+                (amenities.map(amenity => (
+                  <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
+                    <input type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
+                    <label>{amenity.name}</label>
+                  </div>
+                  )
+                  ))
               }
             </div>
+            {
+              showAll ? <button onClick={()=>setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show All</button> : <button onClick={()=>setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show Less</button>
+              
+            }
           </div>
         
         {/* payment */}
