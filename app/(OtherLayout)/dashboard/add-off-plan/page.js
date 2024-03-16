@@ -71,7 +71,7 @@ const AddOffPlan = () => {
               type="text"
               name="title"
               placeholder="write listing title"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-400 "
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
           </div>
 
@@ -83,7 +83,7 @@ const AddOffPlan = () => {
               type="number"
               name="price"
               placeholder="write property price"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-400 "
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
           </div>
         </div>
@@ -94,7 +94,7 @@ const AddOffPlan = () => {
             <br />
             <select
               name="propertyType"
-              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted border-gray-400 my-2"
+              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
               <option value="" disabled selected>
                 Select Property type
@@ -113,7 +113,7 @@ const AddOffPlan = () => {
             <br />
             <select
               name="area"
-              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted border-gray-400 my-2"
+              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
               <option value="" disabled selected>
                 Select Property location
@@ -132,7 +132,7 @@ const AddOffPlan = () => {
             <br />
             <select
               name="developer"
-              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted border-gray-400 my-2"
+              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
               <option value="" disabled selected>
                 Developer name
@@ -149,7 +149,7 @@ const AddOffPlan = () => {
           <div>
             <label>Bedrooms</label>
             <br />
-            <div className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-400 flex justify-between">
+            <div className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted flex justify-between">
               <span>BR</span>
               <input
                 type="number"
@@ -170,7 +170,7 @@ const AddOffPlan = () => {
               type="number"
               name="areaSqFt"
               placeholder="write property area (sq.ft.)"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-400 "
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
           </div>
 
@@ -182,7 +182,7 @@ const AddOffPlan = () => {
               type="text"
               name="completion"
               placeholder="write completion"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-400 "
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
           </div>
 
@@ -194,7 +194,7 @@ const AddOffPlan = () => {
               type="text"
               name="views"
               placeholder="Eg. (Sea View)"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-400 "
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
           </div>
 
@@ -206,7 +206,7 @@ const AddOffPlan = () => {
               <select
                 name="agent"
                 placeholder="Select agent"
-                className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-400 "
+                className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
               >
                 <option value="" disabled selected>
                   Select agent
@@ -227,7 +227,7 @@ const AddOffPlan = () => {
               name="description"
               placeholder="write description"
               rows={12}
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-400 "
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
         </div>
         {/* location input field */}
@@ -238,7 +238,7 @@ const AddOffPlan = () => {
               type="text"
               name="location"
               placeholder="write location (eg. Address downtown, Burj Khalifa)"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted border-gray-400 "
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
         </div>
 
