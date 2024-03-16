@@ -7,13 +7,11 @@ import useGetDevelopers from "@/hooks/useGetDevelopers";
 import useGetProperties from "@/hooks/useGetProperties";
 import useUser from "@/hooks/useUser";
 import { CiCamera } from "react-icons/ci";
-import { AiOutlineCheckCircle, AiOutlineCloudUpload } from "react-icons/ai"
-
-// import '@/app/(OtherLayout)/dashboard/add-off-plan/drar-drop.css';
-import './drag-drop.css';
 import { useEffect, useState } from "react";
 import { MdClear } from "react-icons/md";
 import Image from "next/image";
+import './drag-drop.css';
+import { RiEditBoxFill } from "react-icons/ri";
 
 const AddOffPlan = () => {
   document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
@@ -244,7 +242,7 @@ const AddOffPlan = () => {
 
         {/* amenities */}
         <div>
-            <label className="text-xl">Amenities</label>
+            <label>Amenities</label>
             <br />
             <div className="grid grid-cols-3 gap-6 mt-3">
               {
@@ -270,9 +268,43 @@ const AddOffPlan = () => {
               showAll ? <button onClick={()=>setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show All</button> : <button onClick={()=>setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show Less</button>
               
             }
-          </div>
+        </div>
         
         {/* payment */}
+        <div>
+          <label>Payment Plan</label>
+          <br />
+          <div className="my-3 space-y-2">
+            {/* tiltle bar */}
+            <div className="text-[#E4B649] font-medium grid grid-cols-3 p-3 border justify-items-center">
+              <h3>Installment</h3>
+              <h3>Milestone</h3>
+              <h3>Payment %</h3>
+            </div>
+            {/* first installment */}
+            <div className="font-medium grid grid-cols-3 items-center p-1 border justify-items-center">
+              <h3 className="text-[#E4B649]">1st Installment</h3>
+              <div>
+                <input
+                  type="text"
+                  name="milestone"
+                  placeholder="write Milestone here"
+                  className="bg-black text-xs p-2 text-center rounded-md w-full border border-dotted "
+                />
+              </div>
+              <div className="flex gap-1 items-center justify-center">
+                <input
+                  type="number"
+                  name="paymentPercent"
+                  placeholder="00 %"
+                  className="bg-black text-xs p-2 text-center rounded-md w-1/3 ml-4 border border-dotted "
+                />
+                <h3 className="text-[#E4B649] mr-1">+4% DLD</h3>
+                <RiEditBoxFill size={24} className="-mt-1"/>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* add picture */}
         <div className="drag-drop w-full h-auto bg-transparent" >
