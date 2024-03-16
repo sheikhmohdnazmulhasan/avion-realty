@@ -16,8 +16,6 @@ const Areas = () => {
   const data = useGetAreas();
   const [openModal, setOpenModal] = useState(false);
 
-
-
   async function handleAddNew(event) {
     event.preventDefault();
     const area = event.target.area.value;
@@ -31,9 +29,11 @@ const Areas = () => {
     const dataExist = data.find(areas => areas.itemName === area);
 
     if (dataExist) {
-
       toast.error('Area Already Exist.', { id: toastId });
+      return
 
+    } else if (!areaImage) {
+      toast.error('Places Select One Area Image.', { id: toastId });
       return
 
     } else {
@@ -65,8 +65,8 @@ const Areas = () => {
         }
 
       } catch (error) {
-        console.log(error);
-        throw new Error("Something wrong");
+        toast.error("Something Wrong!", { id: toastId });
+
       }
     }
 
