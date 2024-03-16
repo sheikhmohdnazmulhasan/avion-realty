@@ -12,6 +12,7 @@ export async function GET() {
       { message: "no data found", success: true },
       { status: 501 }
     );
+
   } else {
     return NextResponse.json(result);
   }
@@ -29,7 +30,9 @@ export async function POST(request) {
       { message: "Something Wrong", success: false },
       { status: 500 }
     );
+
   } else {
+
     return NextResponse.json(
       { message: "Data successfully saved in database", success: true },
       { status: 200 }
@@ -51,7 +54,9 @@ export async function DELETE(request) {
       { message: "Something Wrong", success: false },
       { status: 500 }
     );
+
   } else {
+    
     return NextResponse.json(
       { message: "Data successfully deleted from database", success: true },
       { status: 200 }

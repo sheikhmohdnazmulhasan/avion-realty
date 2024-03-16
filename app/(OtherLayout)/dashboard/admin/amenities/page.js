@@ -22,6 +22,7 @@ const Amenities = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
+
     }).then((result) => {
       if (result.isConfirmed) {
         axios.delete(`http://localhost:3000/api/admin/amenities?id=${_id}`)
@@ -46,41 +47,52 @@ const Amenities = () => {
     const name = event.target.name.value;
     const icon = event.target.icon.files[0];
 
-    // console.log(name, icon);
     const image = new FormData();
     image.append("image", icon);
 
     const toastId = toast.loading("Working...");
 
-    try {
-      // host icon to imgbb
-      // const imgbbAPI = process.env.IMGBB_API;
-      // console.log(imgbbAPI);
-      const imgBbResponse = await axios.post(
-        `https://api.imgbb.com/1/upload?key=1b9645a0c9d0c40edbb7d243c9167c7c`,
-        image
-      );
-      if (imgBbResponse.data.success) {
-        const dataForBackend = {
-          name,
-          icon: imgBbResponse.data.data.display_url,
-        };
+    const isExist = data.find(amenities => amenities.name === name);
 
-        // post data to database
-        const serverResponse = await axios.post(
-          "http://localhost:3000/api/admin/amenities",
-          dataForBackend
+    if (isExist) {
+
+      toast.error('Amenities Already Exist.', { id: toastId });
+
+      return
+
+    } else {
+
+      try {
+
+        const imgBbResponse = await axios.post(
+          `https://api.imgbb.com/1/upload?key=1b9645a0c9d0c40edbb7d243c9167c7c`,
+          image
         );
-        if (serverResponse.data.success) {
-          toast.success("Amenity Successfully Added", { id: toastId });
-          setOpenModal(false);
-          mutate(`http://localhost:3000/api/admin/amenities`);
+        if (imgBbResponse.data.success) {
+          const dataForBackend = {
+            name,
+            icon: imgBbResponse.data.data.display_url,
+          };
+
+          // post data to database
+          const serverResponse = await axios.post(
+            "http://localhost:3000/api/admin/amenities",
+            dataForBackend
+          );
+          if (serverResponse.data.success) {
+            toast.success("Amenity Successfully Added", { id: toastId });
+            setOpenModal(false);
+            mutate(`http://localhost:3000/api/admin/amenities`);
+          }
         }
+      } catch (error) {
+        console.log(error);
+        throw new Error("Something wrong");
       }
-    } catch (error) {
-      console.log(error);
-      throw new Error("Something wrong");
     }
+
+
+
   }
 
   return (
