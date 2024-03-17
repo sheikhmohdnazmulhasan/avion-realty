@@ -25,8 +25,7 @@ const AddOffPlan = () => {
   const [files, setFiles] = useState([]);
   const [preview, setPreview] = useState([]);
   const [showAll, setShowAll] = useState(true);
-  const [installmentElement, setInstalmentElement] = useState([<div key={0} className="font-medium grid grid-cols-3 items-center p-1 border justify-items-center">
-  <h3 className="text-[#E4B649]">1st Installment</h3>
+  const [installmentElement, setInstalmentElement] = useState([<>
   <div>
     <input
       type="text"
@@ -45,9 +44,9 @@ const AddOffPlan = () => {
     <h3 className="text-[#E4B649] mr-1">+4% DLD</h3>
     <RiEditBoxFill size={24} className="-mt-1"/>
   </div>
-</div>])
+</>])
 
-  const installmentOrder = ['2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th'];
+  const installmentOrder = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th'];
 
   const handleAddInstallment = ()=>{
 
@@ -55,8 +54,8 @@ const AddOffPlan = () => {
       console.log('Dont cross the limit');
       return;
     }
-    setInstalmentElement(prevElement => [...prevElement, <div key={prevElement.length} className="font-medium grid grid-cols-3 items-center p-1 border justify-items-center">
-    <h3>{installmentOrder[installmentElement.length - 1]} Installment</h3>
+    setInstalmentElement(prevElement => [...prevElement, <>
+    
     <div>
       <input
         type="text"
@@ -78,7 +77,7 @@ const AddOffPlan = () => {
         <IoMdCloseCircle className="text-red-600 text-xl" />
       </button>
     </div>
-  </div>]);
+  </>]);
 
    
   }
@@ -343,7 +342,9 @@ const AddOffPlan = () => {
               <h3>Payment %</h3>
             </div>
             {
-              installmentElement.map((installment, index)=><>{installment}</>)
+              installmentElement.map((installment, index)=><div key={index} className="font-medium grid grid-cols-3 items-center py-2 border justify-items-center">
+              <h3>{installmentOrder[index]} Installment</h3>
+              {installment}</div>)
             }
           </div>
           {/* add new installment  */}
