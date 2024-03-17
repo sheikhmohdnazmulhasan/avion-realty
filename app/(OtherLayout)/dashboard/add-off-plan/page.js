@@ -24,7 +24,7 @@ const AddOffPlan = () => {
   const [files, setFiles] = useState([]);
   const [preview, setPreview] = useState([]);
   const [showAll, setShowAll] = useState(true);
-  
+
 
   const handleFileChange = (event) => {
     const selectedFiles = event.target.files;
@@ -248,10 +248,10 @@ const AddOffPlan = () => {
               {
                 showAll ?
                 (amenities.slice(0, 12).map(amenity => (
-                <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
-                  <input type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
-                  <label>{amenity.name}</label>
-                </div>
+                  <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
+                    <input type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
+                    <label>{amenity.name}</label>
+                  </div>
                 )
                 ))
                 :
@@ -309,9 +309,8 @@ const AddOffPlan = () => {
         {/* add picture */}
         <div className="drag-drop w-full h-auto bg-transparent" >
           <div
-            className={`document-uploader ${
-              files.length > 0 ? "upload-box active" : "upload-box"
-            }`}
+            className={`document-uploader ${files.length > 0 ? "upload-box active" : "upload-box"
+              }`}
             onDrop={handleDrop}
             onDragOver={(event) => event.preventDefault()}
           >
@@ -319,7 +318,7 @@ const AddOffPlan = () => {
               <div className="upload-info">
                 <div className="text-xl font-bold flex items-center  justify-center">
                   <h2 className="mt-2">Add Pictures </h2>
-                  <CiCamera size={32}/>
+                  <CiCamera size={32} />
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -335,7 +334,7 @@ const AddOffPlan = () => {
                   multiple
                 />
               </div>
-              
+
             </>
 
             {/* preview of selected images */}
@@ -343,10 +342,10 @@ const AddOffPlan = () => {
             {files.length > 0 && (
               <div className="grid grid-cols-5 gap-8 my-4">
                 {
-                  preview.map((url, ind) =>( <div key={ind} url={url} className="relative">
-                    <Image src={url} alt={url} width={200} height={120} className="w-[200px] h-[120px] object-cover"/>
+                  preview.map((url, ind) => (<div key={ind} url={url} className="relative">
+                    <Image src={url} alt={url} width={200} height={120} className="w-[200px] h-[120px] object-cover" />
                     <div className="bg-white text-[#835C00] absolute p-1 border border-[#835C00] rounded-full -top-2 -right-3">
-                      <MdClear onClick={() => handleRemoveFile(ind)} size={20} color="#835C00"/>
+                      <MdClear onClick={() => handleRemoveFile(ind)} size={20} color="#835C00" />
                     </div>
                   </div>))
                 }
@@ -354,7 +353,7 @@ const AddOffPlan = () => {
             )}
           </div>
         </div>
-        
+
 
         {/* <div className="flex justify-end mt-6">
           <input
