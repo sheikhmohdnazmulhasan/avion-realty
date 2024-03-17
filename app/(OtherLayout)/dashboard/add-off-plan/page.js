@@ -348,7 +348,9 @@ const AddOffPlan = () => {
             }
           </div>
           {/* add new installment  */}
-          <button onClick={handleAddInstallment} type="button">Add More</button>
+          <div className="flex mt-1 justify-end">
+            <button onClick={handleAddInstallment} type="button" className="bg-[#835C00] py-2 px-4 font-semibold rounded-2xl"> + Add More Terms</button>
+          </div>
         </div>
 
         {/* add picture */}
