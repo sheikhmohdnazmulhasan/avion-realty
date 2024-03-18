@@ -13,6 +13,7 @@ import Image from "next/image";
 import './drag-drop.css';
 import { RiEditBoxFill } from "react-icons/ri";
 import { IoMdCloseCircle } from "react-icons/io";
+import axios from "axios";
 
 const AddOffPlan = () => {
   document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
@@ -125,7 +126,7 @@ const AddOffPlan = () => {
   }
 
   // handle submission of off plan form
-  const handleSubmitPlan = (event) =>{
+  const handleSubmitPlan = async (event) =>{
     event.preventDefault();
     const form = event.target;
     const title = form.title.value;
@@ -141,8 +142,20 @@ const AddOffPlan = () => {
     const description = form.description.value;
     const location = form.location.value;
     const amenities = selectedAmenities;
+    let images = [];
 
-    const formData = {title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, agent, description, location, amenities};
+    // iteration for host images in imgbb
+    for(let i = 0; i < files.length; i++){
+      const image = new FormData();
+      image.append("image", files[i]);
+
+      const imgBbResponse = await axios.post(`https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`, image);
+
+      images.push(imgBbResponse.data.data.display_url);
+    }
+    
+
+    const formData = {title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, agent, description, location, amenities, images};
     console.log(formData);
     
 
