@@ -133,7 +133,7 @@ const AddOffPlan = () => {
     const propertyType = form.propertyType.value;
     const area = form.area.value;
     const developer = form.developer.value;
-    const bedroom = form.bedroom.value;
+    const bedroom = parseInt(form.bedroom.value);
     const areaSqFt = parseFloat(form.areaSqFt.value);
     const completion = form.completion.value;
     const views = form.views.value;
