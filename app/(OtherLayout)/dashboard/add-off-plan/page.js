@@ -13,6 +13,7 @@ import Image from "next/image";
 import './drag-drop.css';
 import { RiEditBoxFill } from "react-icons/ri";
 import { IoMdCloseCircle } from "react-icons/io";
+import axios from "axios";
 
 const AddOffPlan = () => {
   document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
@@ -25,6 +26,7 @@ const AddOffPlan = () => {
   const [files, setFiles] = useState([]);
   const [preview, setPreview] = useState([]);
   const [showAll, setShowAll] = useState(true);
+  const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [installmentElement, setInstalmentElement] = useState([<>
   <div>
     <input
@@ -114,12 +116,57 @@ const AddOffPlan = () => {
     }
   }, [files]);
 
+  const handleCheckboxChanged = (event)=> {
+    const value = event.target.value;
+    if(event.target.checked){
+      setSelectedAmenities(prevAmenities => [...prevAmenities, value]);
+    }else{
+      setSelectedAmenities(selectedAmenities.filter(amenity => amenity !== value));
+    }
+  }
+
+  // handle submission of off plan form
+  const handleSubmitPlan = async (event) =>{
+    event.preventDefault();
+    const form = event.target;
+    const title = form.title.value;
+    const startingPrice = parseFloat(form.startingPrice.value);
+    const propertyType = form.propertyType.value;
+    const area = form.area.value;
+    const developer = form.developer.value;
+    const bedroom = parseInt(form.bedroom.value);
+    const areaSqFt = parseFloat(form.areaSqFt.value);
+    const completion = form.completion.value;
+    const views = form.views.value;
+    const agent = form.agent.value || '';
+    const description = form.description.value;
+    const location = form.location.value;
+    const amenities = selectedAmenities;
+    let images = [];
+
+    // iteration for host images in imgbb
+    for(let i = 0; i < files.length; i++){
+      const image = new FormData();
+      image.append("image", files[i]);
+
+      const imgBbResponse = await axios.post(`https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`, image);
+
+      images.push(imgBbResponse.data.data.display_url);
+    }
+    
+
+    const formData = {title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, agent, description, location, amenities, images};
+    console.log(formData);
+    
+
+  }
+
 
   return (
     <div>
       <Navbar title="Add Off-Plan Property" />
       {/* add off plan form */}
-      <form className="mt-16 space-y-8 mr-8 ">
+      <form onSubmit={handleSubmitPlan} className="mt-16 space-y-8 mr-8 ">
         <div className="flex justify-between w-full gap-12 ">
           {/* title */}
           <div className="w-3/5">
@@ -139,7 +186,7 @@ const AddOffPlan = () => {
             <br />
             <input
               type="number"
-              name="price"
+              name="startingPrice"
               placeholder="write property price"
               className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
@@ -309,7 +356,7 @@ const AddOffPlan = () => {
                 showAll ?
                 (amenities.slice(0, 12).map(amenity => (
                 <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
-                  <input type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
+                  <input onChange={handleCheckboxChanged} type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
                   <label>{amenity.name}</label>
                 </div>
                 )
@@ -317,7 +364,7 @@ const AddOffPlan = () => {
                 :
                 (amenities.map(amenity => (
                   <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
-                    <input type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
+                    <input onChange={handleCheckboxChanged} type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
                     <label>{amenity.name}</label>
                   </div>
                   )
@@ -325,7 +372,7 @@ const AddOffPlan = () => {
               }
             </div>
             {
-              showAll ? <button onClick={()=>setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show All</button> : <button onClick={()=>setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show Less</button>
+              amenities.length > 12 && (showAll ? <button onClick={()=>setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show All</button> : <button onClick={()=>setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show Less</button>)
               
             }
         </div>
@@ -403,13 +450,13 @@ const AddOffPlan = () => {
         </div>
         
 
-        {/* <div className="flex justify-end mt-6">
+        <div className="flex justify-end mt-6">
           <input
             type="submit"
             value="Save Changes"
             className="bg-[#835C00] hover:cursor-pointer px-8 py-2 rounded-md"
           />
-        </div> */}
+        </div>
       </form>
     </div>
   );
