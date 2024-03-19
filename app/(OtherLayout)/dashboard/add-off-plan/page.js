@@ -16,7 +16,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import axios from "axios";
 
 const AddOffPlan = () => {
-  document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
+  // document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
   const properties = useGetProperties();
   const areas = useGetAreas();
   const developers = useGetDevelopers();
@@ -28,36 +28,6 @@ const AddOffPlan = () => {
   const [showAll, setShowAll] = useState(true);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [installmentElement, setInstalmentElement] = useState([<>
-  <div>
-    <input
-      type="text"
-      name="milestone"
-      placeholder="write Milestone here"
-      className="bg-black text-xs p-2 text-center rounded-md w-full border border-dotted "
-    />
-  </div>
-  <div className="flex gap-1 items-center justify-center">
-    <input
-      type="number"
-      name="paymentPercent"
-      placeholder="00 %"
-      className="bg-black text-xs p-2 text-center rounded-md w-1/3 ml-4 border border-dotted "
-    />
-    <h3 className="text-[#E4B649] mr-1">+4% DLD</h3>
-    <RiEditBoxFill size={24} className="-mt-1"/>
-  </div>
-</>])
-
-  const installmentOrder = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th'];
-
-  const handleAddInstallment = ()=>{
-
-    if(installmentElement.length > 8){
-      console.log('Dont cross the limit');
-      return;
-    }
-    setInstalmentElement(prevElement => [...prevElement, <>
-    
     <div>
       <input
         type="text"
@@ -73,19 +43,49 @@ const AddOffPlan = () => {
         placeholder="00 %"
         className="bg-black text-xs p-2 text-center rounded-md w-1/3 ml-4 border border-dotted "
       />
-      
-      <RiEditBoxFill size={24} className="-mt-1"/>
-      <button onClick={()=>removeInstallment(prevElement.length)} type="button">
-        <IoMdCloseCircle className="text-red-600 text-xl" />
-      </button>
+      <h3 className="text-[#E4B649] mr-1">+4% DLD</h3>
+      <RiEditBoxFill size={24} className="-mt-1" />
     </div>
-  </>]);
+  </>])
 
-   
+  const installmentOrder = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th'];
+
+  const handleAddInstallment = () => {
+
+    if (installmentElement.length > 8) {
+      console.log('Dont cross the limit');
+      return;
+    }
+    setInstalmentElement(prevElement => [...prevElement, <>
+
+      <div>
+        <input
+          type="text"
+          name="milestone"
+          placeholder="write Milestone here"
+          className="bg-black text-xs p-2 text-center rounded-md w-full border border-dotted "
+        />
+      </div>
+      <div className="flex gap-1 items-center justify-center">
+        <input
+          type="number"
+          name="paymentPercent"
+          placeholder="00 %"
+          className="bg-black text-xs p-2 text-center rounded-md w-1/3 ml-4 border border-dotted "
+        />
+
+        <RiEditBoxFill size={24} className="-mt-1" />
+        <button onClick={() => removeInstallment(prevElement.length)} type="button">
+          <IoMdCloseCircle className="text-red-600 text-xl" />
+        </button>
+      </div>
+    </>]);
+
+
   }
 
-  const removeInstallment = (indexOfRemoveItem)=>{
-    setInstalmentElement(prevElement=>prevElement.filter((item, index)=>(index !== indexOfRemoveItem)));
+  const removeInstallment = (indexOfRemoveItem) => {
+    setInstalmentElement(prevElement => prevElement.filter((item, index) => (index !== indexOfRemoveItem)));
   }
 
   const handleFileChange = (event) => {
@@ -116,17 +116,17 @@ const AddOffPlan = () => {
     }
   }, [files]);
 
-  const handleCheckboxChanged = (event)=> {
+  const handleCheckboxChanged = (event) => {
     const value = event.target.value;
-    if(event.target.checked){
+    if (event.target.checked) {
       setSelectedAmenities(prevAmenities => [...prevAmenities, value]);
-    }else{
+    } else {
       setSelectedAmenities(selectedAmenities.filter(amenity => amenity !== value));
     }
   }
 
   // handle submission of off plan form
-  const handleSubmitPlan = async (event) =>{
+  const handleSubmitPlan = async (event) => {
     event.preventDefault();
     const form = event.target;
     const title = form.title.value;
@@ -145,7 +145,7 @@ const AddOffPlan = () => {
     let images = [];
 
     // iteration for host images in imgbb
-    for(let i = 0; i < files.length; i++){
+    for (let i = 0; i < files.length; i++) {
       const image = new FormData();
       image.append("image", files[i]);
 
@@ -153,11 +153,10 @@ const AddOffPlan = () => {
 
       images.push(imgBbResponse.data.data.display_url);
     }
-    
 
-    const formData = {title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, agent, description, location, amenities, images};
-    console.log(formData);
-    
+    const dataForBackend = { title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, agent, description, location, amenities, images };
+
+    console.log(dataForBackend);
 
   }
 
@@ -329,36 +328,36 @@ const AddOffPlan = () => {
         <div>
           <label>Description</label>
           <textarea
-              name="description"
-              placeholder="write description"
-              rows={12}
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
-            />
+            name="description"
+            placeholder="write description"
+            rows={12}
+            className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+          />
         </div>
         {/* location input field */}
         <div>
-            <label>Location</label>
-            <br />
-            <input
-              type="text"
-              name="location"
-              placeholder="write location (eg. Address downtown, Burj Khalifa)"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
-            />
+          <label>Location</label>
+          <br />
+          <input
+            type="text"
+            name="location"
+            placeholder="write location (eg. Address downtown, Burj Khalifa)"
+            className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+          />
         </div>
 
         {/* amenities */}
         <div>
-            <label>Amenities</label>
-            <br />
-            <div className="grid grid-cols-3 gap-6 mt-3">
-              {
-                showAll ?
+          <label>Amenities</label>
+          <br />
+          <div className="grid grid-cols-3 gap-6 mt-3">
+            {
+              showAll ?
                 (amenities.slice(0, 12).map(amenity => (
-                <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
-                  <input onChange={handleCheckboxChanged} type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
-                  <label>{amenity.name}</label>
-                </div>
+                  <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
+                    <input onChange={handleCheckboxChanged} type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
+                    <label>{amenity.name}</label>
+                  </div>
                 )
                 ))
                 :
@@ -367,16 +366,16 @@ const AddOffPlan = () => {
                     <input onChange={handleCheckboxChanged} type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
                     <label>{amenity.name}</label>
                   </div>
-                  )
-                  ))
-              }
-            </div>
-            {
-              amenities.length > 12 && (showAll ? <button onClick={()=>setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show All</button> : <button onClick={()=>setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show Less</button>)
-              
+                )
+                ))
             }
+          </div>
+          {
+            amenities.length > 12 && (showAll ? <button onClick={() => setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show All</button> : <button onClick={() => setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show Less</button>)
+
+          }
         </div>
-        
+
         {/* payment */}
         <div>
           <label>Payment Plan</label>
@@ -389,9 +388,9 @@ const AddOffPlan = () => {
               <h3>Payment %</h3>
             </div>
             {
-              installmentElement.map((installment, index)=><div key={index} className="font-medium grid grid-cols-3 items-center py-2 border justify-items-center">
-              <h3>{installmentOrder[index]} Installment</h3>
-              {installment}</div>)
+              installmentElement.map((installment, index) => <div key={index} className="font-medium grid grid-cols-3 items-center py-2 border justify-items-center">
+                <h3>{installmentOrder[index]} Installment</h3>
+                {installment}</div>)
             }
           </div>
           {/* add new installment  */}
@@ -403,9 +402,8 @@ const AddOffPlan = () => {
         {/* add picture */}
         <div className="drag-drop w-full h-auto bg-transparent" >
           <div
-            className={`document-uploader ${
-              files.length > 0 ? "upload-box active" : "upload-box"
-            }`}
+            className={`document-uploader ${files.length > 0 ? "upload-box active" : "upload-box"
+              }`}
             onDrop={handleDrop}
             onDragOver={(event) => event.preventDefault()}
           >
@@ -413,7 +411,7 @@ const AddOffPlan = () => {
               <div className="upload-info">
                 <div className="text-xl font-bold flex items-center  justify-center">
                   <h2 className="mt-2">Add Pictures </h2>
-                  <CiCamera size={32}/>
+                  <CiCamera size={32} />
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -429,7 +427,7 @@ const AddOffPlan = () => {
                   multiple
                 />
               </div>
-              
+
             </>
 
             {/* preview of selected images */}
@@ -437,10 +435,10 @@ const AddOffPlan = () => {
             {files.length > 0 && (
               <div className="grid grid-cols-5 gap-8 my-4">
                 {
-                  preview.map((url, ind) =>( <div key={ind} url={url} className="relative">
-                    <Image src={url} alt={url} width={200} height={120} className="w-[200px] h-[120px] object-cover"/>
+                  preview.map((url, ind) => (<div key={ind} url={url} className="relative">
+                    <Image src={url} alt={url} width={200} height={120} className="w-[200px] h-[120px] object-cover" />
                     <div className="bg-white text-[#835C00] absolute p-1 border border-[#835C00] rounded-full -top-2 -right-3">
-                      <MdClear onClick={() => handleRemoveFile(ind)} size={20} color="#835C00"/>
+                      <MdClear onClick={() => handleRemoveFile(ind)} size={20} color="#835C00" />
                     </div>
                   </div>))
                 }
@@ -448,7 +446,7 @@ const AddOffPlan = () => {
             )}
           </div>
         </div>
-        
+
 
         <div className="flex justify-end mt-6">
           <input
