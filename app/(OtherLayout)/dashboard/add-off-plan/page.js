@@ -168,7 +168,11 @@ const AddOffPlan = () => {
     try {
       const serverResponse = await axios.post('http://localhost:3000/api/offplans', dataForBackend);
 
-      console.log(serverResponse.data);
+      if (serverResponse.data.success) {
+
+        toast.success(`${title} added`, { id: toastId
+        })
+      }
 
     } catch (error) {
 
