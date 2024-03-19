@@ -170,8 +170,9 @@ const AddOffPlan = () => {
 
       if (serverResponse.data.success) {
 
-        toast.success(`${title} added`, { id: toastId
-        })
+        toast.success(`${title} added`, { id: toastId });
+        form.reset();
+        setPreview([]);
       }
 
     } catch (error) {
