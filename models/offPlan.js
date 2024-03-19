@@ -14,7 +14,9 @@ const offPlanSchema = new Schema({
     description: String,
     location: String,
     amenities: [String],
-    images: [String]
+    images: [String],
+    status: String,
+    leads: Number
 }, { timestamps: true });
 
 const OffPlan = mongoose.models.OffPlans || mongoose.model('OffPlans', offPlanSchema);
