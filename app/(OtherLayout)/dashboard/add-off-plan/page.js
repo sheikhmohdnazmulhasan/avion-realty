@@ -14,6 +14,7 @@ import './drag-drop.css';
 import { RiEditBoxFill } from "react-icons/ri";
 import { IoMdCloseCircle } from "react-icons/io";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const AddOffPlan = () => {
   // document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
@@ -144,6 +145,14 @@ const AddOffPlan = () => {
     const amenities = selectedAmenities;
     let images = [];
 
+    const toastId = toast.loading('Working...', {
+      style: {
+        borderRadius: '10px',
+        background: '#333',
+        color: '#fff'
+      }
+    })
+
     // iteration for host images in imgbb
     for (let i = 0; i < files.length; i++) {
       const image = new FormData();
@@ -156,14 +165,25 @@ const AddOffPlan = () => {
 
     const dataForBackend = { title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, agent, description, location, amenities, images };
 
-    console.log(dataForBackend);
+    try {
+      const serverResponse = await axios.post('http://localhost:3000/api/offplans', dataForBackend);
+
+      console.log(serverResponse.data);
+
+    } catch (error) {
+
+      console.log(error);
+    }
 
   }
-
 
   return (
     <div>
       <Navbar title="Add Off-Plan Property" />
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+      />
       {/* add off plan form */}
       <form onSubmit={handleSubmitPlan} className="mt-16 space-y-8 mr-8 ">
         <div className="flex justify-between w-full gap-12 ">
