@@ -163,7 +163,7 @@ const AddOffPlan = () => {
       images.push(imgBbResponse.data.data.display_url);
     }
 
-    const dataForBackend = { title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, agent, description, location, amenities, images };
+    const dataForBackend = { leads: 0, status: 'Off-Plan', title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, agent, description, location, amenities, images };
 
     try {
       const serverResponse = await axios.post('http://localhost:3000/api/offplans', dataForBackend);
