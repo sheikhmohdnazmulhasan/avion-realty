@@ -51,7 +51,7 @@ const UploadPodcast = () => {
     <div>
       <Navbar title="Manage Podcast" />
       <div className="border border-[#E4B649] mt-20 ">
-        <div className=" grid grid-cols-5 text-center items-center border-b border-[#E4B649] py-3">
+        <div className=" grid grid-cols-5 text-center items-center border-b border-[#E4B649] py-3 font-semibold">
           <h2 className="border-r border-[#E4B649] col-span-2">Title</h2>
           <h2 className="border-r border-[#E4B649]">Agent</h2>
           <h2 className="border-r border-[#E4B649]">Updated On</h2>
@@ -60,7 +60,7 @@ const UploadPodcast = () => {
         {podcasts.map((podcast) => (
           <div
             key={podcast._id}
-            className=" mx-4 border-b border-[#E4B649] grid grid-cols-5 text-center items-center p-2"
+            className=" mx-4 border-b border-[#E4B649] border-opacity-50 grid grid-cols-5 text-center items-center p-2"
           >
             <div className="col-span-2 flex items-center gap-4">
               <Image
@@ -68,7 +68,7 @@ const UploadPodcast = () => {
                 alt={podcast.title}
                 className="h-24 w-24 object-fill rounded-md"
               />
-              <h2>{podcast.title}</h2>
+              <h2 className="font-semibold">{podcast.title}</h2>
             </div>
             <h2>{podcast.agent}</h2>
             <h2>{podcast.updatedAt}</h2>

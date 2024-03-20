@@ -396,7 +396,7 @@ const EditList = ({ params }) => {
                             showAll ?
                                 (amenities.slice(0, 12).map(amenity => (
                                     <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
-                                        <input onChange={handleCheckboxChanged} type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
+                                        <input onChange={handleCheckboxChanged} type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" checked={data.amenities.find(item => item === amenity.name)} />
                                         <label>{amenity.name}</label>
                                     </div>
                                 )
