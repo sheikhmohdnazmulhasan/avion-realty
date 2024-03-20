@@ -2,6 +2,22 @@ import connectMongoDB from "@/libs/mongodb"
 import OffPlan from "@/models/offPlan";
 import { NextResponse } from "next/server";
 
+export async function GET(request) {
+    await connectMongoDB();
+
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (id) {
+        const result = await OffPlan.findById(id);
+        return NextResponse.json(result);
+
+    } else {
+        const result = await OffPlan.find();
+        return NextResponse.json(result);
+    }
+}
+
 export async function POST(request) {
     await connectMongoDB();
     const data = await request.json();
