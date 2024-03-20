@@ -3,8 +3,8 @@ import Image from "next/image";
 
 const Inquiry = () => {
     return (
-        <div className='px-4 md:px-12 lg:px-20 py-8 md:py-24 text-center'>
-            <div className='uppercase font-light pb-8'>
+        <div className='px-4 md:px-12 lg:px-20 py-8 md:py-16 text-center'>
+            <div className='uppercase font-light pb-6'>
             <h2 className='text-xl md:text-2xl lg:text-3xl '>
                 Immediate Assistance With Your Inquiry
             </h2>
@@ -21,13 +21,13 @@ const Inquiry = () => {
                 <input type="submit" value="Send" className='bg-[#FFD980] text-xl font-extrabold text-black py-2 px-10 rounded-2xl'/>
             </form>
 
-            <div className='mt-16 flex justify-center gap-2 items-center'>
+            <div className='mt-12 flex justify-center gap-1 items-center'>
 
                 <span className="w-8 md:w-12">
                 <Image src={whatsapp} alt="whatsapp" />
                 </span>
 
-                <span className='text-xl md:text-2xl font-light'>Get your inquiry on <span className='bg-clip-text text-transparent bg-gradient-to-r from-[#FFD87C] to-[#A27100]'>WhatsApp</span></span>
+                <span className=' md:text-2xl'>Get your inquiry on <span className='bg-clip-text text-transparent bg-gradient-to-r from-[#FFD87C] to-[#A27100]'>WhatsApp</span></span>
             </div>
             
 
