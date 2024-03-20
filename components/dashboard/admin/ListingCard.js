@@ -11,6 +11,7 @@ import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { mutate } from "swr";
+import Link from "next/link";
 
 const ListingCard = ({ list }) => {
     const { title, bedroom, bathroom, areaSqFt, location, images, agent, status, leads, } = list;
@@ -37,6 +38,7 @@ const ListingCard = ({ list }) => {
                             text: `${title} has been deleted.`,
                             icon: "success"
                         });
+
                         mutate(`http://localhost:3000/api/offplans`);
                     }
 
@@ -103,7 +105,7 @@ const ListingCard = ({ list }) => {
                     {/* Leads */}
                     <div className="w-[15%] text-center gap-3 flex items-center justify-center">
                         <Image src={live} alt="Live svg" className="w-4 cursor-pointer hover:scale-125 transition-all" />
-                        <Image src={edit} alt="Live svg" className="w-4 cursor-pointer hover:scale-125 transition-all" />
+                        <Link href={`listings/edit/${list._id}`}>  <Image src={edit} alt="Live svg" className="w-4 cursor-pointer hover:scale-125 transition-all" /></Link>
                         <MdDelete size={20} className="text-red-500 hover:text-red-600 cursor-pointer hover:scale-125 transition-all" onClick={() => handleDeleteList(list._id)} />
                     </div>
                 </div>
