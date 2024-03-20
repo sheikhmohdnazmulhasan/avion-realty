@@ -1,3 +1,5 @@
+'use client'
+
 import Image from "next/image";
 import bed from '@/public/images/dashboard/listing/bed.svg';
 import bathroomSvg from '@/public/images/dashboard/listing/bathroom.svg';
@@ -9,6 +11,10 @@ import { MdDelete } from "react-icons/md";
 
 const ListingCard = ({ list }) => {
     const { title, bedroom, bathroom, areaSqFt, location, images, agent, status, leads, } = list;
+
+    async function handleDeleteList(_id) {
+      
+    };
 
     return (
         <div>
@@ -68,7 +74,7 @@ const ListingCard = ({ list }) => {
                     <div className="w-[15%] text-center gap-3 flex items-center justify-center">
                         <Image src={live} alt="Live svg" className="w-4 cursor-pointer hover:scale-125 transition-all" />
                         <Image src={edit} alt="Live svg" className="w-4 cursor-pointer hover:scale-125 transition-all" />
-                        <MdDelete size={20} className="text-red-500 hover:text-red-600 cursor-pointer hover:scale-125 transition-all" />
+                        <MdDelete size={20} className="text-red-500 hover:text-red-600 cursor-pointer hover:scale-125 transition-all" onClick={() => handleDeleteList(list._id)} />
                     </div>
                 </div>
                 <div className="mx-3">
