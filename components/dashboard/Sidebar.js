@@ -158,7 +158,7 @@ const Sidebar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/dashboard/admin/listing/manage-podcast">
+                  <Link href="/dashboard/admin/podcast/manage-podcast">
                     <span>Manage Podcast</span>
                   </Link>
                 </li>
