@@ -8,12 +8,42 @@ import locationSvg from '@/public/images/dashboard/listing/location.svg';
 import live from '@/public/images/dashboard/listing/live.svg';
 import edit from '@/public/images/dashboard/listing/edit.svg';
 import { MdDelete } from "react-icons/md";
+import Swal from "sweetalert2";
+import axios from "axios";
+import { mutate } from "swr";
 
 const ListingCard = ({ list }) => {
     const { title, bedroom, bathroom, areaSqFt, location, images, agent, status, leads, } = list;
 
     async function handleDeleteList(_id) {
-      
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                axios.delete(`http://localhost:3000/api/offplans?id=${_id}`).then(res => {
+
+                    if (res.data.success) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: `${title} has been deleted.`,
+                            icon: "success"
+                        });
+                        mutate(`http://localhost:3000/api/offplans`);
+                    }
+
+                }).catch(err => console.log(err))
+
+            }
+        });
     };
 
     return (

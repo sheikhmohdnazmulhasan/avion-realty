@@ -172,6 +172,7 @@ const AddOffPlan = () => {
 
         toast.success(`${title} added`, { id: toastId });
         form.reset();
+        setFiles([])
         setPreview([]);
       }
 
