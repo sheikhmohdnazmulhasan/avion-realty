@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import offPlanIcon from "@/public/images/off-plan.svg";
 import useUser from "@/hooks/useUser";
-
 import { VscGraph } from "react-icons/vsc";
 import { TiThListOutline } from "react-icons/ti";
 import { CgProfile } from "react-icons/cg";
