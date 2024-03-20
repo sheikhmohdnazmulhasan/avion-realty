@@ -1,14 +1,14 @@
 import Image from "next/image";
-import img from '@/public/images/banner.png';
 import bed from '@/public/images/dashboard/listing/bed.svg';
-import bathroom from '@/public/images/dashboard/listing/bathroom.svg';
+import bathroomSvg from '@/public/images/dashboard/listing/bathroom.svg';
 import sqft from '@/public/images/dashboard/listing/sqft.svg';
-import location from '@/public/images/dashboard/listing/location.svg';
+import locationSvg from '@/public/images/dashboard/listing/location.svg';
 import live from '@/public/images/dashboard/listing/live.svg';
 import edit from '@/public/images/dashboard/listing/edit.svg';
 import { MdDelete } from "react-icons/md";
 
-const ListingCard = () => {
+const ListingCard = ({ list }) => {
+    const { title, bedroom, bathroom, areaSqFt, location, images, agent, status, leads, } = list;
 
     return (
         <div>
@@ -16,34 +16,34 @@ const ListingCard = () => {
                 <div className="flex items-center">
                     <div className="w-[40%] p-5">
                         <div className="flex items-center gap-3">
-                            <Image width={96} height={96} src={img} alt="Listing image" className="w-16 h-16 rounded-md" />
+                            <Image width={96} height={96} src={images[0]} alt="Listing image" className="w-16 h-16 rounded-md" />
                             <div className="">
-                                <h3 className="text-[20px] font-bold mb-2">Apartment for Rent</h3>
+                                <h3 className="text-[20px] font-bold mb-2">{title}</h3>
                                 <div className="flex gap-5">
 
                                     {/* bed */}
                                     <div className="flex items-center gap-2">
                                         <Image src={bed} alt="Bedroom svg" />
-                                        <span>12</span>
+                                        <span>{bedroom}</span>
                                     </div>
 
                                     {/* bathroom */}
                                     <div className="flex items-center gap-2">
-                                        <Image src={bathroom} alt="bathroom svg" />
-                                        <span>12</span>
+                                        <Image src={bathroomSvg} alt="bathroom svg" />
+                                        <span>{bathroom}</span>
                                     </div>
 
                                     {/* sqft */}
                                     <div className="flex items-center gap-2">
                                         <Image src={sqft} alt="scale svg" />
-                                        <span>12 sq. ft.</span>
+                                        <span>{areaSqFt} sq. ft.</span>
                                     </div>
                                 </div>
 
                                 {/* location */}
                                 <div className="flex items-center gap-2">
-                                    <Image src={location} alt="Apartment Location svg" />
-                                    <span className="mt-2">3811 Ditmars Blvd</span>
+                                    <Image src={locationSvg} alt="Apartment Location svg" />
+                                    <span className="mt-2">{location}</span>
                                 </div>
                             </div>
                         </div>
@@ -51,17 +51,17 @@ const ListingCard = () => {
 
                     {/* Agent */}
                     <div className="w-[15%] text-center ">
-                        <span className="font-semibold"> Nazmul </span>
+                        <span className="font-semibold"> {agent} </span>
                     </div>
 
                     {/* Status */}
                     <div className="w-[15%] text-center ">
-                        <span className="font-semibold">Ready </span>
+                        <span className="font-semibold"> {status} </span>
                     </div>
 
                     {/* Leads */}
                     <div className="w-[15%] text-center ">
-                        <span className="font-semibold">5 Leads </span>
+                        <span className="font-semibold">{leads} Leads </span>
                     </div>
 
                     {/* Leads */}
