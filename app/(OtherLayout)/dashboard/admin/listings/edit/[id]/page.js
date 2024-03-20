@@ -166,16 +166,16 @@ const EditList = ({ params }) => {
             images.push(imgBbResponse.data.data.display_url);
         }
 
-        const dataForBackend = { status: 'Off-Plan', title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, agent, description, location, amenities, images };
+        const dataForBackend = { title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, agent, description, location, amenities, images };
 
         try {
-            const serverResponse = await axios.post('http://localhost:3000/api/offplans', dataForBackend);
+            const serverResponse = await axios.put(`http://localhost:3000/api/offplans?id=${params.id}`, dataForBackend);
 
             if (serverResponse.data.success) {
 
                 toast.success(`${title} added`, { id: toastId });
                 form.reset();
-                setFiles([])
+                setFiles([]);
                 setPreview([]);
             }
 
