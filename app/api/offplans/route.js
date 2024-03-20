@@ -40,6 +40,7 @@ export async function PUT(request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const data = await request.json();
+    console.log(data);
 
     const result = await OffPlan.findByIdAndUpdate(id, data);
 

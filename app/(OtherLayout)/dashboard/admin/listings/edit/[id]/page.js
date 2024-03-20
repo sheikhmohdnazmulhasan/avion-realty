@@ -21,7 +21,7 @@ const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 const EditList = ({ params }) => {
 
-    const { data = [] } = useSWR(`http://localhost:3000/api/offplans?id=${params.id}`, fetcher);
+    const { data = [] , isLoading} = useSWR(`http://localhost:3000/api/offplans?id=${params.id}`, fetcher);
 
     const properties = useGetProperties();
     const areas = useGetAreas();
@@ -30,6 +30,7 @@ const EditList = ({ params }) => {
     const amenities = useGetAmenities();
     const user = useUser();
     const [files, setFiles] = useState([]);
+    const [previousFile, setPreviousFile] = useState(!isLoading ? data.images : []);
     const [preview, setPreview] = useState([]);
     const [showAll, setShowAll] = useState(true);
     const [selectedAmenities, setSelectedAmenities] = useState([]);
@@ -54,6 +55,7 @@ const EditList = ({ params }) => {
         </div>
     </>])
 
+    
     const installmentOrder = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th'];
 
     const handleAddInstallment = () => {
@@ -92,6 +94,14 @@ const EditList = ({ params }) => {
         setInstalmentElement(prevElement => prevElement.filter((item, index) => (index !== indexOfRemoveItem)));
     }
 
+    const handleRemovePrevFile = url =>{
+        const newImages = previousFile.filter(file => file !== url);
+        setPreviousFile(newImages);
+        // const images = [...previousFile]
+
+        // axios.put(`http://localhost:3000/api/offplans?id=${params.id}`, images).then(res => console.log(res.data)).catch(err => console.log(err))
+    }
+
     const handleFileChange = (event) => {
         const selectedFiles = event.target.files;
         if (selectedFiles && selectedFiles.length > 0) {
@@ -120,6 +130,10 @@ const EditList = ({ params }) => {
         }
     }, [files]);
 
+    // useEffect(()=>{
+    //     setPreviousFile(data?.images);
+    // }, [])
+
     const handleCheckboxChanged = (event) => {
         const value = event.target.value;
         if (event.target.checked) {
@@ -146,7 +160,9 @@ const EditList = ({ params }) => {
         const description = form.description.value;
         const location = form.location.value;
         const amenities = selectedAmenities;
-        let images = [];
+        let images = [...previousFile];
+
+        console.log(images);
 
         const toastId = toast.loading('Working...', {
             style: {
@@ -396,7 +412,7 @@ const EditList = ({ params }) => {
                             showAll ?
                                 (amenities.slice(0, 12).map(amenity => (
                                     <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
-                                        <input onChange={handleCheckboxChanged} type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
+                                        <input onChange={handleCheckboxChanged} type="checkbox" value={amenity?.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" checked={data?.amenities?.find(item => item === amenity.name)} />
                                         <label>{amenity.name}</label>
                                     </div>
                                 )
@@ -472,6 +488,18 @@ const EditList = ({ params }) => {
                         </>
 
                         {/* preview of selected images */}
+                        {previousFile?.length > 0 && (
+                            <div className="grid grid-cols-5 gap-8 my-4">
+                                {
+                                    previousFile.map((url, ind) => (<div key={ind} url={url} className="relative">
+                                        <Image src={url} alt={url} width={200} height={120} className="w-[200px] h-[120px] object-cover" />
+                                        <div className="bg-white text-[#835C00] absolute p-1 border border-[#835C00] rounded-full -top-2 -right-3">
+                                            <MdClear onClick={() => handleRemovePrevFile(url)} size={20} color="#835C00" />
+                                        </div>
+                                    </div>))
+                                }
+                            </div>
+                        )}
 
                         {files.length > 0 && (
                             <div className="grid grid-cols-5 gap-8 my-4">
