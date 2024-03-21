@@ -125,14 +125,14 @@ const PodcastCard = ({podcast}) => {
               {/* for edit , modal of form */}
               {
                openModal && 
-               (<div className="w-2/3 absolute top-8 left-12 px-8 py-4 rounded-lg shadow shadow-gray-500 bg-black">
+               (<div className="w-2/3 absolute top-1/4 left-1/5 px-8 py-3 rounded-lg shadow shadow-gray-500 bg-black">
                     <div className="text-right">
                         <button onClick={() => setOpenModal(false)}>
                         <IoMdClose size={24} />
                         </button>
                     </div>
                     <h2 className="mb-6 text-xl font-semibold text-left">Edit Podcast</h2>
-                    <form onSubmit={handleUpdatePodcast} className="mt-4 text-sm text-left space-y-3">
+                    <form onSubmit={handleUpdatePodcast} className="mt-3 text-sm text-left space-y-3">
                        <div>
                         <label>Title</label>
                         <br />
@@ -153,7 +153,7 @@ const PodcastCard = ({podcast}) => {
                             defaultValue={podcast.description}
                             placeholder="Write description"
                             className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted "
-                            rows={8}
+                            rows={6}
                         />
                         </div>
                         <div>
