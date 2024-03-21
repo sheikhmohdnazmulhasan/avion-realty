@@ -1,14 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import { IoMdCloseCircle } from "react-icons/io";
+import { IoMdClose, IoMdCloseCircle } from "react-icons/io";
 import { RiEditBoxFill } from "react-icons/ri";
 
 import dummyImg from "@/public/images/dashboard/dummy.svg";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { mutate } from "swr";
+import { useState } from "react";
+import useAgents from "@/hooks/useAgents";
 
 const PodcastCard = ({podcast}) => {
+    const agents = useAgents();
+    const [openModal, setOpenModal] = useState(false);
+
     async function handleDeletePodcast(id){
         Swal.fire({
           title: "Are you sure?",
@@ -58,11 +63,84 @@ const PodcastCard = ({podcast}) => {
                 <button onClick={()=>handleDeletePodcast(podcast._id)}>
                   <IoMdCloseCircle className="text-red-600 text-xl" />
                 </button>
-                <Link href="/">
+                <button onClick={()=>setOpenModal(!openModal)}>
                   <RiEditBoxFill />
-                </Link>
+                </button>
               </div>
+
+              {/* for edit , modal of form */}
+              {
+               openModal && 
+               (<div className="w-2/3 absolute top-8 left-12 px-8 py-4 rounded-lg shadow shadow-gray-500 bg-black">
+                    <div className="text-right">
+                        <button onClick={() => setOpenModal(false)}>
+                        <IoMdClose size={24} />
+                        </button>
+                    </div>
+                    <h2 className="mb-6 text-xl font-semibold text-left">Edit Podcast</h2>
+                    <form className="mt-4 text-sm text-left space-y-3">
+                       <div>
+                        <label>Title</label>
+                        <br />
+                        <input
+                            type="text"
+                            name="title"
+                            defaultValue={podcast.title}
+                            placeholder="Write podcast title"
+                            className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted "
+                        />
+                        </div>
+
+                        <div>
+                        <label>Description</label>
+                        <br />
+                        <textarea
+                            name="description"
+                            defaultValue={podcast.description}
+                            placeholder="Write description"
+                            className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted "
+                            rows={8}
+                        />
+                        </div>
+                        <div>
+                        <label>Select Agents</label>
+                        <br />
+                        <select
+                            name="agent"
+                            // multiple
+                            placeholder="Select multiple agents"
+                            className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
+                        >
+                            <option value=""  selected>
+                            {podcast.agent}
+                            </option>
+                            {agents.map((agent) => (
+                            <option key={agent._id} value={agent.name}>
+                                {agent.name}
+                            </option>
+                            ))}
+                        </select>
+                        </div>
+                        <div>
+                        <label>Add Video</label>
+                        <br />
+                        <input
+                            type="text"
+                            name="videoUrl"
+                            defaultValue={podcast.videoUrl}
+                            placeholder="Write url of podcast video"
+                            className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted "
+                        />
+                        </div>
+                        <div className="flex justify-end mt-6">
+                        <button className="bg-[#835C00] rounded-3xl px-4 py-2 flex items-center gap-1 justify-center font-bold ">
+                            Save Changes
+                        </button>
+                        </div>
+                    </form>
+                </div>)}
         </div>
+    
     );
 };
 

@@ -16,7 +16,7 @@ const UploadPodcast = () => {
 
   } else {
     return (
-      <div>
+      <div className="relative">
         <Navbar title="Manage Podcast" />
         <div className="border border-[#E4B649] mt-20 ">
           <div className=" grid grid-cols-5 text-center items-center border-b border-[#E4B649] py-3 font-semibold">
