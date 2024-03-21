@@ -114,7 +114,7 @@ const UploadPodcast = () => {
               Select Agent
             </option>
             {agents.map((agent) => (
-              <option key={agent._id} value={agent.email}>
+              <option key={agent._id} value={agent.name}>
                 {agent.name}
               </option>
             ))}
