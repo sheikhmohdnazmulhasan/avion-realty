@@ -125,7 +125,7 @@ const PodcastCard = ({podcast}) => {
               {/* for edit , modal of form */}
               {
                openModal && 
-               (<div className="w-2/3 absolute top-1/4 left-1/5 px-8 py-3 rounded-lg shadow shadow-gray-500 bg-black">
+               (<div className="w-2/3 absolute top-[2%] left-[15%] px-8 py-3 rounded-lg shadow shadow-gray-500 bg-black">
                     <div className="text-right">
                         <button onClick={() => setOpenModal(false)}>
                         <IoMdClose size={24} />
