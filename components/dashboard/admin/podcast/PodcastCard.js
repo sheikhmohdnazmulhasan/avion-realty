@@ -9,6 +9,7 @@ import axios from "axios";
 import { mutate } from "swr";
 import { useState } from "react";
 import useAgents from "@/hooks/useAgents";
+import toast, { Toaster } from "react-hot-toast";
 
 const PodcastCard = ({podcast}) => {
     const agents = useAgents();
@@ -44,11 +45,64 @@ const PodcastCard = ({podcast}) => {
             }
           }
         });
-      }
+    }
+
+    async function handleUpdatePodcast(event) {
+        event.preventDefault();
+        const title = event.target.title.value;
+        const description = event.target.description.value;
+        const agent = event.target.agent.value;
+        const videoUrl = event.target.videoUrl.value;
+
+        const newData = { title, description, agent, videoUrl };
+
+        const urlRegex = new RegExp('^(https?|ftp|file):\\/\\/[\\w\\d\\-\\.%\\?\\=\\+\\&\\/]+', 'i');
+
+        if (!urlRegex.test(videoUrl)) {
+
+            toast.error('Places Provide Valid Video URL',
+              {
+                icon: '👏',
+                style: {
+                  borderRadius: '10px',
+                  background: '#333',
+                  color: '#fff',
+                },
+              }
+            );
+      
+            return
+      
+          } else {
+            try {
+                const serverResponse = await axios.put(
+                  `http://localhost:3000/api/admin/podcast?id=${podcast._id}`,
+                  newData
+                );
+          
+                if (serverResponse.data.success) {
+                  toast.success(`Podcast Updated`, {
+                    icon: "👏",
+                    style: {
+                      borderRadius: "10px",
+                      background: "#333",
+                      color: "#fff",
+                    },
+                  });
+          
+                  mutate("http://localhost:3000/api/admin/podcast");
+                  setOpenModal(false);
+                }
+              } catch (error) {
+                console.log(error);
+              }
+            }
+    }
 
     return (
         <div className=" mx-4 py-2 border-b border-[#E4B649] border-opacity-50 grid grid-cols-5 text-center items-center p-2"
         >
+            <Toaster position="bottom-right" reverseOrder={false} />
             <div className="col-span-2 flex items-center gap-4">
                 <Image
                   src={dummyImg}
@@ -78,7 +132,7 @@ const PodcastCard = ({podcast}) => {
                         </button>
                     </div>
                     <h2 className="mb-6 text-xl font-semibold text-left">Edit Podcast</h2>
-                    <form className="mt-4 text-sm text-left space-y-3">
+                    <form onSubmit={handleUpdatePodcast} className="mt-4 text-sm text-left space-y-3">
                        <div>
                         <label>Title</label>
                         <br />
