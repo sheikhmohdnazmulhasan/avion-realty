@@ -33,7 +33,7 @@ const EditList = ({ params }) => {
     const [previousFile, setPreviousFile] = useState(!isLoading ? data.images : []);
     const [preview, setPreview] = useState([]);
     const [showAll, setShowAll] = useState(true);
-    const [selectedAmenities, setSelectedAmenities] = useState([]);
+    const [selectedAmenities, setSelectedAmenities] = useState(!isLoading ? data.amenities : []);
     const [installmentElement, setInstalmentElement] = useState([<>
         <div>
             <input
