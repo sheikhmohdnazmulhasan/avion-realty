@@ -16,12 +16,13 @@ import { IoMdCloseCircle } from "react-icons/io";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import useSWR from "swr";
+import { useRouter } from "next/navigation";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 const EditList = ({ params }) => {
 
-    const { data = [] , isLoading} = useSWR(`http://localhost:3000/api/offplans?id=${params.id}`, fetcher);
+    const { data = [], isLoading } = useSWR(`http://localhost:3000/api/offplans?id=${params.id}`, fetcher);
 
     const properties = useGetProperties();
     const areas = useGetAreas();
@@ -30,10 +31,11 @@ const EditList = ({ params }) => {
     const amenities = useGetAmenities();
     const user = useUser();
     const [files, setFiles] = useState([]);
-    const [previousFile, setPreviousFile] = useState(!isLoading ? data.images : []);
+    const [previousFile, setPreviousFile] = useState(!isLoading ? data?.images : []);
     const [preview, setPreview] = useState([]);
     const [showAll, setShowAll] = useState(true);
-    const [selectedAmenities, setSelectedAmenities] = useState(!isLoading ? data.amenities : []);
+    const router = useRouter()
+    const [selectedAmenities, setSelectedAmenities] = useState([]);
     const [installmentElement, setInstalmentElement] = useState([<>
         <div>
             <input
@@ -55,7 +57,7 @@ const EditList = ({ params }) => {
         </div>
     </>])
 
-    
+
     const installmentOrder = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th'];
 
     const handleAddInstallment = () => {
@@ -94,12 +96,9 @@ const EditList = ({ params }) => {
         setInstalmentElement(prevElement => prevElement.filter((item, index) => (index !== indexOfRemoveItem)));
     }
 
-    const handleRemovePrevFile = url =>{
+    const handleRemovePrevFile = url => {
         const newImages = previousFile.filter(file => file !== url);
         setPreviousFile(newImages);
-        // const images = [...previousFile]
-
-        // axios.put(`http://localhost:3000/api/offplans?id=${params.id}`, images).then(res => console.log(res.data)).catch(err => console.log(err))
     }
 
     const handleFileChange = (event) => {
@@ -130,14 +129,13 @@ const EditList = ({ params }) => {
         }
     }, [files]);
 
-    // useEffect(()=>{
-    //     setPreviousFile(data?.images);
-    // }, [])
-
     const handleCheckboxChanged = (event) => {
         const value = event.target.value;
         if (event.target.checked) {
             setSelectedAmenities(prevAmenities => [...prevAmenities, value]);
+
+            console.log(selectedAmenities);
+
         } else {
             setSelectedAmenities(selectedAmenities.filter(amenity => amenity !== value));
         }
@@ -189,10 +187,11 @@ const EditList = ({ params }) => {
 
             if (serverResponse.data.success) {
 
-                toast.success(`${title} added`, { id: toastId });
-                form.reset();
-                setFiles([]);
-                setPreview([]);
+                toast.success(`${title} Updated`, { id: toastId });
+
+                setTimeout(() => {
+                    router.push('/dashboard/admin/listings')
+                }, 1000)
             }
 
         } catch (error) {
