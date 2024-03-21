@@ -161,13 +161,12 @@ const PodcastCard = ({podcast}) => {
                         <br />
                         <select
                             name="agent"
-                            // multiple
                             placeholder="Select multiple agents"
+                            defaultValue={podcast.agent}
+                            defaultChecked={podcast.agent}
                             className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
                         >
-                            <option value=""  selected>
-                            {podcast.agent}
-                            </option>
+                            
                             {agents.map((agent) => (
                             <option key={agent._id} value={agent.name}>
                                 {agent.name}
