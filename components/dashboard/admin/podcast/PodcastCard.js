@@ -122,28 +122,28 @@ const PodcastCard = ({ podcast }) => {
         </button>
       </div>
 
-      {/* for edit , modal of form */}
-      {
-        openModal &&
-        (<div className="w-2/3 absolute top-10 px-8 py-3 rounded-lg shadow shadow-gray-500 bg-black">
-          <div className="text-right">
-            <button onClick={() => setOpenModal(false)}>
-              <IoMdClose size={24} />
-            </button>
-          </div>
-          <h2 className="mb-6 text-xl font-semibold text-left">Edit Podcast</h2>
-          <form onSubmit={handleUpdatePodcast} className="mt-3 text-sm text-left space-y-3">
-            <div>
-              <label>Title</label>
-              <br />
-              <input
-                type="text"
-                name="title"
-                defaultValue={podcast.title}
-                placeholder="Write podcast title"
-                className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted "
-              />
-            </div>
+              {/* for edit , modal of form */}
+              {
+               openModal && 
+               (<div className="w-2/3 absolute top-[2%] left-[15%] px-8 py-3 rounded-lg shadow shadow-gray-500 bg-black">
+                    <div className="text-right">
+                        <button onClick={() => setOpenModal(false)}>
+                        <IoMdClose size={24} />
+                        </button>
+                    </div>
+                    <h2 className="mb-6 text-xl font-semibold text-left">Edit Podcast</h2>
+                    <form onSubmit={handleUpdatePodcast} className="mt-3 text-sm text-left space-y-3">
+                       <div>
+                        <label>Title</label>
+                        <br />
+                        <input
+                            type="text"
+                            name="title"
+                            defaultValue={podcast.title}
+                            placeholder="Write podcast title"
+                            className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted "
+                        />
+                        </div>
 
             <div>
               <label>Description</label>
