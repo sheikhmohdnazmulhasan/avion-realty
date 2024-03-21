@@ -27,6 +27,7 @@ const AddOffPlan = () => {
   const [files, setFiles] = useState([]);
   const [preview, setPreview] = useState([]);
   const [showAll, setShowAll] = useState(true);
+  const [clickedButton, setClickedButton] = useState(null);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [installmentElement, setInstalmentElement] = useState([<>
     <div>
@@ -127,7 +128,7 @@ const AddOffPlan = () => {
   }
 
   // handle submission of off plan form
-  const handleSubmitPlan = async (event) => {
+  const handleSubmitPlan = async (event, clickedButton) => {
     event.preventDefault();
     const form = event.target;
     const title = form.title.value;
@@ -165,22 +166,41 @@ const AddOffPlan = () => {
 
     const dataForBackend = { leads: 0, status: 'Off-Plan', title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, agent, description, location, amenities, images };
 
-    try {
-      const serverResponse = await axios.post('http://localhost:3000/api/offplans', dataForBackend);
+    if (clickedButton === 'button1') {
+      try {
+        const serverResponse = await axios.post('http://localhost:3000/api/offplans', dataForBackend);
 
-      if (serverResponse.data.success) {
+        if (serverResponse.data.success) {
 
-        toast.success(`${title} added`, { id: toastId });
-        form.reset();
-        setFiles([])
-        setPreview([]);
+          toast.success(`${title} added`, { id: toastId });
+          form.reset();
+          setFiles([])
+          setPreview([]);
+        }
+
+      } catch (error) {
+
+        console.log(error);
       }
 
-    } catch (error) {
+    } else {
 
-      console.log(error);
+      try {
+        const serverResponse = await axios.post('http://localhost:3000/api/inventory', dataForBackend);
+
+        if (serverResponse.data.success) {
+
+          toast.success(`${title} is saved in Inventory`, { id: toastId });
+          form.reset();
+          setFiles([])
+          setPreview([]);
+        }
+
+      } catch (error) {
+
+        console.log(error);
+      }
     }
-
   }
 
   return (
@@ -191,7 +211,11 @@ const AddOffPlan = () => {
         reverseOrder={false}
       />
       {/* add off plan form */}
-      <form onSubmit={handleSubmitPlan} className="mt-16 space-y-8 mr-8 ">
+      <form onSubmit={(event) => {
+        if (clickedButton) {
+          handleSubmitPlan(event, clickedButton)
+        }
+      }} className="mt-16 space-y-8 mr-8 ">
         <div className="flex justify-between w-full gap-12 ">
           {/* title */}
           <div className="w-3/5">
@@ -476,9 +500,17 @@ const AddOffPlan = () => {
 
         <div className="flex justify-end mt-6">
           <input
+            onClick={() => setClickedButton('button1')}
             type="submit"
             value="Save Changes"
             className="bg-[#835C00] hover:cursor-pointer px-8 py-2 rounded-md"
+          />
+
+          <input
+            onClick={() => setClickedButton('button2')}
+            type="submit"
+            value="Btn 2"
+            className="bg-[#835C00] ml-2 hover:cursor-pointer px-8 py-2 rounded-md"
           />
         </div>
       </form>
