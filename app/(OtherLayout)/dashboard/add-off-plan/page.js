@@ -9,12 +9,14 @@ import useUser from "@/hooks/useUser";
 import { CiCamera } from "react-icons/ci";
 import { useEffect, useState } from "react";
 import { MdClear } from "react-icons/md";
+import { LuClipboardCheck } from "react-icons/lu";
 import Image from "next/image";
 import './drag-drop.css';
 import { RiEditBoxFill } from "react-icons/ri";
 import { IoMdCloseCircle } from "react-icons/io";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import publish from "@/public/images/dashboard/listing/publish.svg"
 
 const AddOffPlan = () => {
   // document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
@@ -498,20 +500,24 @@ const AddOffPlan = () => {
         </div>
 
 
-        <div className="flex justify-end mt-6">
-          <input
-            onClick={() => setClickedButton('button1')}
+        <div className="flex justify-between my-8 font-semibold">
+        <button onClick={() => setClickedButton('button2')}
             type="submit"
-            value="Save Changes"
-            className="bg-[#835C00] hover:cursor-pointer px-8 py-2 rounded-md"
-          />
+            className="bg-white text-black ml-2 hover:cursor-pointer px-24 py-2 rounded-md flex gap-2 items-center"
+          >
+          <span>Add to Inventory</span>
+          <LuClipboardCheck/>
+        </button>
+        <button onClick={() => setClickedButton('button1')}
+            type="submit"
+            className="bg-[#835C00] ml-2 hover:cursor-pointer px-24 py-2 rounded-md flex gap-2 items-center"
+          >
+          <span>Publish Listing</span>
+          <Image src={publish} alt="publish" height={16} width={16}/>
+        </button>
+          
 
-          <input
-            onClick={() => setClickedButton('button2')}
-            type="submit"
-            value="Btn 2"
-            className="bg-[#835C00] ml-2 hover:cursor-pointer px-8 py-2 rounded-md"
-          />
+          
         </div>
       </form>
     </div>
