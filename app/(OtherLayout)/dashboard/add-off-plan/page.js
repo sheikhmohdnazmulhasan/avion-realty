@@ -366,7 +366,7 @@ const AddOffPlan = () => {
                   Select agent
                 </option>
                 {agents.map((agent) => (
-                  <option key={agent._id} value={agent.name}>
+                  <option key={agent._id} value={agent.email}>
                     {agent.name}
                   </option>
                 ))}
