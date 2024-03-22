@@ -25,6 +25,7 @@ const AddOffPlan = () => {
   const amenities = useGetAmenities();
   const user = useUser();
   const [files, setFiles] = useState([]);
+  const [agent, setAgent] = useState(user?.data?.email);
   const [preview, setPreview] = useState([]);
   const [showAll, setShowAll] = useState(true);
   const [clickedButton, setClickedButton] = useState(null);
@@ -140,7 +141,12 @@ const AddOffPlan = () => {
     const areaSqFt = parseFloat(form.areaSqFt.value);
     const completion = form.completion.value;
     const views = form.views.value;
-    const agent = form.agent.value || '';
+
+    if (user?.data?.role !== 'agent') {
+      setAgent(form.agent.value)
+      console.log(agent);
+    }
+
     const description = form.description.value;
     const location = form.location.value;
     const amenities = selectedAmenities;

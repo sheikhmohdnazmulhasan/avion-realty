@@ -154,7 +154,6 @@ const EditList = ({ params }) => {
         const areaSqFt = parseFloat(form.areaSqFt.value);
         const completion = form.completion.value;
         const views = form.views.value;
-        const agent = form.agent.value || '';
         const description = form.description.value;
         const location = form.location.value;
         const amenities = selectedAmenities;
@@ -180,7 +179,7 @@ const EditList = ({ params }) => {
             images.push(imgBbResponse.data.data.display_url);
         }
 
-        const dataForBackend = { title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, agent, description, location, amenities, images };
+        const dataForBackend = { title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, description, location, amenities, images };
 
         try {
             const serverResponse = await axios.put(`http://localhost:3000/api/offplans?id=${params.id}`, dataForBackend);
@@ -190,7 +189,7 @@ const EditList = ({ params }) => {
                 toast.success(`${title} Updated`, { id: toastId });
 
                 setTimeout(() => {
-                    router.push('/dashboard/admin/listings')
+                    router.push('/dashboard/agent/listing/manage-listing')
                 }, 1000)
             }
 
