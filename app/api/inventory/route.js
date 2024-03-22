@@ -6,17 +6,34 @@ export async function GET(request) {
     await connectMongoDB();
 
     const { searchParams } = new URL(request.url);
-    const agent = searchParams.get('agent')
+    const agent = searchParams.get('agent');
+    const id = searchParams.get('id');
 
-    const result = await Inventory.find({ agent })
+    if (id) {
+        const result = await Inventory.findById(id);
 
-    if (!result) {
-        return NextResponse.json({ message: 'Something Wrong', success: false }, { status: 500 });
+        if (!result) {
+            return NextResponse.json({ message: 'Something Wrong', success: false }, { status: 500 });
+
+        } else {
+
+            return NextResponse.json(result);
+        };
 
     } else {
+        const result = await Inventory.find({ agent })
 
-        return NextResponse.json(result);
-    };
+        if (!result) {
+            return NextResponse.json({ message: 'Something Wrong', success: false }, { status: 500 });
+
+        } else {
+
+            return NextResponse.json(result);
+        };
+    }
+
+
+
 
 }
 
