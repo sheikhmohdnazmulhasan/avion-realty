@@ -146,7 +146,6 @@ const AddOffPlan = () => {
 
     if (user?.data?.role !== 'agent') {
       setAgent(form.agent.value)
-      console.log(agent);
     }
 
     const description = form.description.value;
