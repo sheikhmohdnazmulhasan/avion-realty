@@ -106,7 +106,7 @@ const InventoryCard = ({ list }) => {
                         {/* action */}
                         <div className="w-[15%] text-center gap-3 flex items-center justify-center">
                             <Image src={live} alt="Live svg" className="w-4 cursor-pointer hover:scale-125 transition-all" />
-                            <Link href={`manage-listing/edit/${list._id}`}>  <Image src={edit} alt="Live svg" className="w-4 cursor-pointer hover:scale-125 transition-all" /></Link>
+                            <Link href={`private-inventory/edit/${list._id}`}>  <Image src={edit} alt="Live svg" className="w-4 cursor-pointer hover:scale-125 transition-all" /></Link>
                             <MdDelete size={20} className="text-red-500 hover:text-red-600 cursor-pointer hover:scale-125 transition-all" onClick={() => handleDeleteList(list._id)} />
                         </div>
                     </div>
