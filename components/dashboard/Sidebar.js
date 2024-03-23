@@ -23,6 +23,7 @@ const Sidebar = () => {
   const { data } = useUser();
 
   const [isDropdown, setDropdown] = useState(false);
+  const [isDropdown2, setDropdown2] = useState(false);
 
   return (
     <nav className="p-16  min-h-screen">
@@ -86,15 +87,33 @@ const Sidebar = () => {
                 <span>Leads</span>
               </Link>
             </li>
-            <li>
-              <Link
-                href="/dashboard/agent/blog"
-                className="flex gap-4 items-center"
+            <li className="flex gap-4 items-center">
+              <RiFileList3Line size={24} />
+              <button
+                onClick={() => setDropdown2(!isDropdown2)}
+                className=" flex items-center justify-between w-full"
               >
-                <RiFileList3Line size={24} />
-                <span>Blog</span>
-              </Link>
+                <span>Blogs</span>
+                {isDropdown2 ? (
+                  <FaAngleUp size={12} />
+                ) : (
+                  <FaAngleDown size={12} />
+                )}
+              </button>
             </li>
+
+            {isDropdown2 && <ul className=" ml-8 space-y-1">
+              <li>
+                <Link href="/dashboard/agent/blog/publish-blog">
+                  <span>Publish Blog</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/dashboard/agent/blog/manage-blog">
+                  <span>Manage Blog</span>
+                </Link>
+              </li>
+            </ul>}
           </>
         ) : (
           // for admin nav links
