@@ -15,9 +15,10 @@ import "./drag-drop.css";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import publish from "@/public/images/dashboard/listing/publish.svg";
+import useViews from "@/hooks/useViews";
 
 const AddProperty = () => {
-  // document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
+  const [views] = useViews();
   const properties = useGetProperties();
   const areas = useGetAreas();
   const amenities = useGetAmenities();
@@ -27,7 +28,7 @@ const AddProperty = () => {
   const [showAll, setShowAll] = useState(true);
   const [clickedButton, setClickedButton] = useState(null);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
-  
+
 
   const handleFileChange = (event) => {
     const selectedFiles = event.target.files;
@@ -86,7 +87,7 @@ const AddProperty = () => {
     const agent = user?.data?.email;
     const furnishing = form.furnishing.value;
 
-    
+
 
     const description = form.description.value;
     const location = form.location.value;
@@ -130,8 +131,8 @@ const AddProperty = () => {
     // if (result.data.status == "ok") {
     //   alert("Uploaded Successfully!!!");
     // }
-  
-  
+
+
 
     const dataForBackend = {
       leads: 0,
@@ -256,7 +257,7 @@ const AddProperty = () => {
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
               <option value="" disabled selected>
-               Ready/Rental
+                Ready/Rental
               </option>
               <option value="Ready">Ready</option>
               <option value="Rental">Rental</option>
@@ -267,12 +268,10 @@ const AddProperty = () => {
           <div>
             <label>Views</label>
             <br />
-            <input
-              type="text"
-              name="views"
-              placeholder="Eg. (Sea View)"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
-            />
+            <select name="view" id="" className="bg-black  text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2">
+              <option value="" selected disabled>Select View</option>
+              {views.map(view => <option value={view.name} key={view._id}>{view.name}</option>)}
+            </select>
           </div>
 
           {/* bedroom */}
@@ -339,8 +338,8 @@ const AddProperty = () => {
             </select>
           </div>
 
-           {/* Furnishing */}
-           <div>
+          {/* Furnishing */}
+          <div>
             <label>Furnishing</label>
             <br />
             <select
@@ -348,7 +347,7 @@ const AddProperty = () => {
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
               <option value="" disabled selected>
-               Select
+                Select
               </option>
               <option value="Furnished">Furnished</option>
               <option value="Unfurnished">Unfurnished</option>
@@ -366,7 +365,7 @@ const AddProperty = () => {
               className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
           </div>
-          
+
         </div>
         {/* description */}
         <div>
@@ -397,37 +396,37 @@ const AddProperty = () => {
           <div className="grid grid-cols-3 gap-6 mt-3">
             {showAll
               ? amenities.slice(0, 12).map((amenity) => (
-                  <div
-                    key={amenity._id}
-                    amenity={amenity}
-                    className="flex items-center gap-4"
-                  >
-                    <input
-                      onChange={handleCheckboxChanged}
-                      type="checkbox"
-                      value={amenity.name}
-                      name="amenity"
-                      className="toggle bg-[#FFD673] border-4 border-[#CB9107]"
-                    />
-                    <label>{amenity.name}</label>
-                  </div>
-                ))
+                <div
+                  key={amenity._id}
+                  amenity={amenity}
+                  className="flex items-center gap-4"
+                >
+                  <input
+                    onChange={handleCheckboxChanged}
+                    type="checkbox"
+                    value={amenity.name}
+                    name="amenity"
+                    className="toggle bg-[#FFD673] border-4 border-[#CB9107]"
+                  />
+                  <label>{amenity.name}</label>
+                </div>
+              ))
               : amenities.map((amenity) => (
-                  <div
-                    key={amenity._id}
-                    amenity={amenity}
-                    className="flex items-center gap-4"
-                  >
-                    <input
-                      onChange={handleCheckboxChanged}
-                      type="checkbox"
-                      value={amenity.name}
-                      name="amenity"
-                      className="toggle bg-[#FFD673] border-4 border-[#CB9107]"
-                    />
-                    <label>{amenity.name}</label>
-                  </div>
-                ))}
+                <div
+                  key={amenity._id}
+                  amenity={amenity}
+                  className="flex items-center gap-4"
+                >
+                  <input
+                    onChange={handleCheckboxChanged}
+                    type="checkbox"
+                    value={amenity.name}
+                    name="amenity"
+                    className="toggle bg-[#FFD673] border-4 border-[#CB9107]"
+                  />
+                  <label>{amenity.name}</label>
+                </div>
+              ))}
           </div>
           {amenities.length > 12 &&
             (showAll ? (
@@ -452,9 +451,8 @@ const AddProperty = () => {
         {/* add picture */}
         <div className="drag-drop w-full h-auto bg-transparent">
           <div
-            className={`document-uploader ${
-              files.length > 0 ? "upload-box active" : "upload-box"
-            }`}
+            className={`document-uploader ${files.length > 0 ? "upload-box active" : "upload-box"
+              }`}
             onDrop={handleDrop}
             onDragOver={(event) => event.preventDefault()}
           >
