@@ -20,12 +20,9 @@ const AddProperty = () => {
   // document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
   const properties = useGetProperties();
   const areas = useGetAreas();
-  const developers = useGetDevelopers();
-  const agents = useAgents();
   const amenities = useGetAmenities();
   const user = useUser();
   const [files, setFiles] = useState([]);
-  const [agent, setAgent] = useState(user?.data?.email);
   const [preview, setPreview] = useState([]);
   const [showAll, setShowAll] = useState(true);
   const [clickedButton, setClickedButton] = useState(null);
@@ -79,16 +76,17 @@ const AddProperty = () => {
     const title = form.title.value;
     const startingPrice = parseFloat(form.startingPrice.value);
     const propertyType = form.propertyType.value;
+    const propertyStatus = form.propertyStatus.value;
     const area = form.area.value;
-    const developer = form.developer.value;
     const bedroom = parseInt(form.bedroom.value);
+    const bathroom = parseInt(form.bathroom.value);
     const areaSqFt = parseFloat(form.areaSqFt.value);
     const completion = form.completion.value;
     const views = form.views.value;
+    const agent = user?.data?.email;
+    const furnishing = form.furnishing.value;
 
-    if (user?.data?.role !== "agent") {
-      setAgent(form.agent.value);
-    }
+    
 
     const description = form.description.value;
     const location = form.location.value;
@@ -137,17 +135,18 @@ const AddProperty = () => {
 
     const dataForBackend = {
       leads: 0,
-      status: "Off-Plan",
+      status: propertyStatus,
       title,
       startingPrice,
       propertyType,
       area,
-      developer,
       bedroom,
+      bathroom,
       areaSqFt,
       completion,
       views,
       agent,
+      furnishing,
       description,
       location,
       amenities,
@@ -222,7 +221,7 @@ const AddProperty = () => {
             <br />
             <input
               type="number"
-              name="propertyPrice"
+              name="startingPrice"
               placeholder="write property price"
               className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
