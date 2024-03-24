@@ -32,7 +32,7 @@ const AddOffPlan = () => {
   const [showAll, setShowAll] = useState(true);
   const [clickedButton, setClickedButton] = useState(null);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
-  const [installmentElement, setInstalmentElement] = useState([<>
+  const [installmentElement, setInstalmentElement] = useState([<form key={0}>
     <div>
       <input
         type="text"
@@ -50,8 +50,12 @@ const AddOffPlan = () => {
       />
       <h3 className="text-[#E4B649] mr-1">+4% DLD</h3>
       <RiEditBoxFill size={24} className="-mt-1" />
+      <div>
+      <button type="button">Save</button>
     </div>
-  </>])
+    </div>
+    
+  </form>])
 
   const installmentOrder = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th'];
 
