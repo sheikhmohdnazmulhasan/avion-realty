@@ -17,6 +17,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import publish from "@/public/images/dashboard/listing/publish.svg";
+import useViews from "@/hooks/useViews";
 
 const AddOffPlan = () => {
   // document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
@@ -25,6 +26,7 @@ const AddOffPlan = () => {
   const developers = useGetDevelopers();
   const agents = useAgents();
   const amenities = useGetAmenities();
+  const [views] = useViews();
   const user = useUser();
   const [files, setFiles] = useState([]);
   const [agent, setAgent] = useState(user?.data?.email);
@@ -408,12 +410,19 @@ const AddOffPlan = () => {
           <div>
             <label>Views</label>
             <br />
-            <input
-              type="text"
+            <select
               name="views"
-              placeholder="Eg. (Sea View)"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
-            />
+              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
+            >
+              <option value="" disabled selected>
+              Eg. (Sea View)
+              </option>
+              {views.map((view) => (
+                <option key={view._id} value={view.name}>
+                  {view.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* only for admin role to select agent*/}
