@@ -205,7 +205,7 @@ const Sidebar = () => {
       {/* add property */}
       {data?.role !== 'admin' && <div className="mt-12">
         <Link
-          href="/"
+          href="/dashboard/agent/add-property"
           className="bg-[#835C00] rounded-2xl p-3 flex items-center gap-2 text-xl justify-center"
         >
           <FaPlus />
