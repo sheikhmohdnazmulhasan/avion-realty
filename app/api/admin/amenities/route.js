@@ -56,7 +56,7 @@ export async function DELETE(request) {
     );
 
   } else {
-    
+
     return NextResponse.json(
       { message: "Data successfully deleted from database", success: true },
       { status: 200 }
