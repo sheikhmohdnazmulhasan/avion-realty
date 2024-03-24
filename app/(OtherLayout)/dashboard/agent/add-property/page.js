@@ -12,13 +12,11 @@ import { MdClear } from "react-icons/md";
 import { LuClipboardCheck } from "react-icons/lu";
 import Image from "next/image";
 import "./drag-drop.css";
-import { RiEditBoxFill } from "react-icons/ri";
-import { IoMdCloseCircle } from "react-icons/io";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import publish from "@/public/images/dashboard/listing/publish.svg";
 
-const AddOffPlan = () => {
+const AddProperty = () => {
   // document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
   const properties = useGetProperties();
   const areas = useGetAreas();
@@ -32,83 +30,7 @@ const AddOffPlan = () => {
   const [showAll, setShowAll] = useState(true);
   const [clickedButton, setClickedButton] = useState(null);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
-  // const [file, setFile] = useState("");
-  const [installmentElement, setInstalmentElement] = useState([
-    <>
-      <div>
-        <input
-          type="text"
-          name="milestone"
-          placeholder="write Milestone here"
-          className="bg-black text-xs p-2 text-center rounded-md w-full border border-dotted "
-        />
-      </div>
-      <div className="flex gap-1 items-center justify-center">
-        <input
-          type="number"
-          name="paymentPercent"
-          placeholder="00 %"
-          className="bg-black text-xs p-2 text-center rounded-md w-1/3 ml-4 border border-dotted "
-        />
-        <h3 className="text-[#E4B649] mr-1">+4% DLD</h3>
-        <RiEditBoxFill size={24} className="-mt-1" />
-      </div>
-    </>,
-  ]);
-
-  const installmentOrder = [
-    "1st",
-    "2nd",
-    "3rd",
-    "4th",
-    "5th",
-    "6th",
-    "7th",
-    "8th",
-    "9th",
-  ];
-
-  const handleAddInstallment = () => {
-    if (installmentElement.length > 8) {
-      console.log("Dont cross the limit");
-      return;
-    }
-    setInstalmentElement((prevElement) => [
-      ...prevElement,
-      <>
-        <div>
-          <input
-            type="text"
-            name="milestone"
-            placeholder="write Milestone here"
-            className="bg-black text-xs p-2 text-center rounded-md w-full border border-dotted "
-          />
-        </div>
-        <div className="flex gap-1 items-center justify-center">
-          <input
-            type="number"
-            name="paymentPercent"
-            placeholder="00 %"
-            className="bg-black text-xs p-2 text-center rounded-md w-1/3 ml-4 border border-dotted "
-          />
-
-          <RiEditBoxFill size={24} className="-mt-1" />
-          <button
-            onClick={() => removeInstallment(prevElement.length)}
-            type="button"
-          >
-            <IoMdCloseCircle className="text-red-600 text-xl" />
-          </button>
-        </div>
-      </>,
-    ]);
-  };
-
-  const removeInstallment = (indexOfRemoveItem) => {
-    setInstalmentElement((prevElement) =>
-      prevElement.filter((item, index) => index !== indexOfRemoveItem)
-    );
-  };
+  
 
   const handleFileChange = (event) => {
     const selectedFiles = event.target.files;
@@ -117,6 +39,7 @@ const AddOffPlan = () => {
       setFiles((prevFiles) => [...prevFiles, ...newFiles]);
     }
   };
+
   const handleDrop = (event) => {
     event.preventDefault();
     const droppedFiles = event.dataTransfer.files;
@@ -269,7 +192,7 @@ const AddOffPlan = () => {
 
   return (
     <div>
-      <Navbar title="Add Off-Plan Property" />
+      <Navbar title="Add Property" />
       <Toaster position="bottom-right" reverseOrder={false} />
       {/* add off plan form */}
       <form
@@ -293,13 +216,13 @@ const AddOffPlan = () => {
             />
           </div>
 
-          {/* starting price AED */}
+          {/* property price AED */}
           <div className="w-2/5">
-            <label>Starting Price AED</label>
+            <label>Property Price AED</label>
             <br />
             <input
               type="number"
-              name="startingPrice"
+              name="propertyPrice"
               placeholder="write property price"
               className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
@@ -325,6 +248,79 @@ const AddOffPlan = () => {
             </select>
           </div>
 
+          {/* property status */}
+          <div>
+            <label>Property Status</label>
+            <br />
+            <select
+              name="propertyStatus"
+              className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
+            >
+              <option value="" disabled selected>
+               Ready/Rental
+              </option>
+              <option value="Ready">Ready</option>
+              <option value="Rental">Rental</option>
+            </select>
+          </div>
+
+          {/* Views */}
+          <div>
+            <label>Views</label>
+            <br />
+            <input
+              type="text"
+              name="views"
+              placeholder="Eg. (Sea View)"
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+            />
+          </div>
+
+          {/* bedroom */}
+          <div>
+            <label>Bedrooms</label>
+            <br />
+            <div className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted flex justify-between">
+              <span>BR</span>
+              <input
+                type="number"
+                min="1"
+                max="7"
+                defaultValue="1"
+                name="bedroom"
+                className="bg-transparent outline-none w-12"
+              />
+            </div>
+          </div>
+          {/* Bathroom */}
+          <div>
+            <label>Bathrooms</label>
+            <br />
+            <div className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted flex justify-between">
+              <span>BR</span>
+              <input
+                type="number"
+                min="1"
+                max="7"
+                defaultValue="1"
+                name="bathroom"
+                className="bg-transparent outline-none w-12"
+              />
+            </div>
+          </div>
+
+          {/* Area Sq.ft. */}
+          <div>
+            <label>Area Sq.ft.</label>
+            <br />
+            <input
+              type="number"
+              name="areaSqFt"
+              placeholder="write property area (sq.ft.)"
+              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+            />
+          </div>
+
           {/* area */}
           <div>
             <label>Area</label>
@@ -344,99 +340,34 @@ const AddOffPlan = () => {
             </select>
           </div>
 
-          {/* developer */}
-          <div>
-            <label>Developer</label>
+           {/* Furnishing */}
+           <div>
+            <label>Furnishing</label>
             <br />
             <select
-              name="developer"
+              name="furnishing"
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
               <option value="" disabled selected>
-                Developer name
+               Select
               </option>
-              {developers.map((developer) => (
-                <option key={developer._id} value={developer.devName}>
-                  {developer.devName}
-                </option>
-              ))}
+              <option value="Furnished">Furnished</option>
+              <option value="Unfurnished">Unfurnished</option>
             </select>
           </div>
 
-          {/* bedroom */}
+          {/* Completion */}
           <div>
-            <label>Bedrooms</label>
-            <br />
-            <div className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted flex justify-between">
-              <span>BR</span>
-              <input
-                type="number"
-                min="1"
-                max="7"
-                defaultValue="1"
-                name="bedroom"
-                className="bg-transparent outline-none w-12"
-              />
-            </div>
-          </div>
-
-          {/* Starting Area Sq.ft. */}
-          <div>
-            <label>Starting Area Sq.ft.</label>
-            <br />
-            <input
-              type="number"
-              name="areaSqFt"
-              placeholder="write property area (sq.ft.)"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
-            />
-          </div>
-
-          {/* Estimated Completion */}
-          <div>
-            <label>Estimated Completion</label>
+            <label> Completion Status</label>
             <br />
             <input
               type="text"
               name="completion"
-              placeholder="write completion"
+              placeholder="write completion status (optional)"
               className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
             />
           </div>
-
-          {/* Views */}
-          <div>
-            <label>Views</label>
-            <br />
-            <input
-              type="text"
-              name="views"
-              placeholder="Eg. (Sea View)"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
-            />
-          </div>
-
-          {/* only for admin role to select agent*/}
-          {user?.data?.role === "admin" && (
-            <div>
-              <label>Select Agent</label>
-              <br />
-              <select
-                name="agent"
-                placeholder="Select agent"
-                className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
-              >
-                <option value="" disabled selected>
-                  Select agent
-                </option>
-                {agents.map((agent) => (
-                  <option key={agent._id} value={agent.email}>
-                    {agent.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
+          
         </div>
         {/* description */}
         <div>
@@ -517,40 +448,6 @@ const AddOffPlan = () => {
                 Show Less
               </button>
             ))}
-        </div>
-
-        {/* payment */}
-        <div>
-          <label>Payment Plan</label>
-          <br />
-          <div className="my-3 space-y-2">
-            {/* tiltle bar */}
-            <div className="text-[#E4B649] font-medium grid grid-cols-3 p-3 border justify-items-center">
-              <h3>Installment</h3>
-              <h3>Milestone</h3>
-              <h3>Payment %</h3>
-            </div>
-            {installmentElement.map((installment, index) => (
-              <div
-                key={index}
-                className="font-medium grid grid-cols-3 items-center py-2 border justify-items-center"
-              >
-                <h3>{installmentOrder[index]} Installment</h3>
-                {installment}
-              </div>
-            ))}
-          </div>
-          {/* add new installment  */}
-          <div className="flex mt-1 justify-end">
-            <button
-              onClick={handleAddInstallment}
-              type="button"
-              className="bg-[#835C00] py-2 px-4 font-semibold rounded-2xl"
-            >
-              {" "}
-              + Add More Terms
-            </button>
-          </div>
         </div>
 
         {/* add picture */}
@@ -647,4 +544,4 @@ const AddOffPlan = () => {
   );
 };
 
-export default AddOffPlan;
+export default AddProperty;
