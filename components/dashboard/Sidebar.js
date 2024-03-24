@@ -16,6 +16,7 @@ import { GoGraph } from "react-icons/go";
 import { BsCollection } from "react-icons/bs";
 import { RiFileList3Line } from "react-icons/ri";
 import { BsHouseCheck } from "react-icons/bs";
+import { TbLiveView } from "react-icons/tb";
 
 import { useState } from "react";
 
@@ -134,6 +135,15 @@ const Sidebar = () => {
               >
                 <BsHouseCheck size={24} />
                 <span>Amenities</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/dashboard/admin/views"
+                className="flex gap-4 items-center"
+              >
+                <TbLiveView size={24} />
+                <span>Views</span>
               </Link>
             </li>
             <li>
