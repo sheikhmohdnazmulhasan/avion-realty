@@ -17,6 +17,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import useSWR from "swr";
 import { useRouter } from "next/navigation";
+import useViews from "@/hooks/useViews";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
@@ -29,6 +30,7 @@ const EditList = ({ params }) => {
     const developers = useGetDevelopers();
     const agents = useAgents();
     const amenities = useGetAmenities();
+    const [views] = useViews();
     const user = useUser();
     const [files, setFiles] = useState([]);
     const [previousFile, setPreviousFile] = useState(!isLoading ? data?.images : []);
@@ -346,13 +348,20 @@ const EditList = ({ params }) => {
                     <div>
                         <label>Views</label>
                         <br />
-                        <input
-                            type="text"
-                            name="views"
-                            placeholder="Eg. (Sea View)"
-                            defaultValue={data.views}
-                            className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
-                        />
+                        <select
+                        name="views"
+                        className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
+                        >
+                        <option value="" disabled selected>
+                        Eg. (Sea View)
+                        </option>
+                        <option selected value={data.views}>{data.views}</option>
+                        {views.map((view) => (
+                            <option key={view._id} value={view.name}>
+                            {view.name}
+                            </option>
+                        ))}
+                        </select>
                     </div>
 
                     {/* only for admin role to select agent*/}
