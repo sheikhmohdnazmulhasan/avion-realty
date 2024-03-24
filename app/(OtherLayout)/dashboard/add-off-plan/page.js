@@ -11,12 +11,12 @@ import { useEffect, useState } from "react";
 import { MdClear } from "react-icons/md";
 import { LuClipboardCheck } from "react-icons/lu";
 import Image from "next/image";
-import './drag-drop.css';
+import "./drag-drop.css";
 import { RiEditBoxFill } from "react-icons/ri";
 import { IoMdCloseCircle } from "react-icons/io";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import publish from "@/public/images/dashboard/listing/publish.svg"
+import publish from "@/public/images/dashboard/listing/publish.svg";
 
 const AddOffPlan = () => {
   // document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
@@ -32,37 +32,10 @@ const AddOffPlan = () => {
   const [showAll, setShowAll] = useState(true);
   const [clickedButton, setClickedButton] = useState(null);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
-  const [installmentElement, setInstalmentElement] = useState([<>
-    <div>
-      <input
-        type="text"
-        name="milestone"
-        placeholder="write Milestone here"
-        className="bg-black text-xs p-2 text-center rounded-md w-full border border-dotted "
-      />
-    </div>
-    <div className="flex gap-1 items-center justify-center">
-      <input
-        type="number"
-        name="paymentPercent"
-        placeholder="00 %"
-        className="bg-black text-xs p-2 text-center rounded-md w-1/3 ml-4 border border-dotted "
-      />
-      <h3 className="text-[#E4B649] mr-1">+4% DLD</h3>
-      <RiEditBoxFill size={24} className="-mt-1" />
-    </div>
-  </>])
-
-  const installmentOrder = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th'];
-
-  const handleAddInstallment = () => {
-
-    if (installmentElement.length > 8) {
-      console.log('Dont cross the limit');
-      return;
-    }
-    setInstalmentElement(prevElement => [...prevElement, <>
-
+  const [file, setFile] = useState("");
+  const [nameOfFile, setNameOfFile] = useState("");
+  const [installmentElement, setInstalmentElement] = useState([
+    <>
       <div>
         <input
           type="text"
@@ -78,20 +51,65 @@ const AddOffPlan = () => {
           placeholder="00 %"
           className="bg-black text-xs p-2 text-center rounded-md w-1/3 ml-4 border border-dotted "
         />
-
+        <h3 className="text-[#E4B649] mr-1">+4% DLD</h3>
         <RiEditBoxFill size={24} className="-mt-1" />
-        <button onClick={() => removeInstallment(prevElement.length)} type="button">
-          <IoMdCloseCircle className="text-red-600 text-xl" />
-        </button>
       </div>
-    </>]);
+    </>,
+  ]);
 
+  const installmentOrder = [
+    "1st",
+    "2nd",
+    "3rd",
+    "4th",
+    "5th",
+    "6th",
+    "7th",
+    "8th",
+    "9th",
+  ];
 
-  }
+  const handleAddInstallment = () => {
+    if (installmentElement.length > 8) {
+      console.log("Dont cross the limit");
+      return;
+    }
+    setInstalmentElement((prevElement) => [
+      ...prevElement,
+      <>
+        <div>
+          <input
+            type="text"
+            name="milestone"
+            placeholder="write Milestone here"
+            className="bg-black text-xs p-2 text-center rounded-md w-full border border-dotted "
+          />
+        </div>
+        <div className="flex gap-1 items-center justify-center">
+          <input
+            type="number"
+            name="paymentPercent"
+            placeholder="00 %"
+            className="bg-black text-xs p-2 text-center rounded-md w-1/3 ml-4 border border-dotted "
+          />
+
+          <RiEditBoxFill size={24} className="-mt-1" />
+          <button
+            onClick={() => removeInstallment(prevElement.length)}
+            type="button"
+          >
+            <IoMdCloseCircle className="text-red-600 text-xl" />
+          </button>
+        </div>
+      </>,
+    ]);
+  };
 
   const removeInstallment = (indexOfRemoveItem) => {
-    setInstalmentElement(prevElement => prevElement.filter((item, index) => (index !== indexOfRemoveItem)));
-  }
+    setInstalmentElement((prevElement) =>
+      prevElement.filter((item, index) => index !== indexOfRemoveItem)
+    );
+  };
 
   const handleFileChange = (event) => {
     const selectedFiles = event.target.files;
@@ -124,11 +142,13 @@ const AddOffPlan = () => {
   const handleCheckboxChanged = (event) => {
     const value = event.target.value;
     if (event.target.checked) {
-      setSelectedAmenities(prevAmenities => [...prevAmenities, value]);
+      setSelectedAmenities((prevAmenities) => [...prevAmenities, value]);
     } else {
-      setSelectedAmenities(selectedAmenities.filter(amenity => amenity !== value));
+      setSelectedAmenities(
+        selectedAmenities.filter((amenity) => amenity !== value)
+      );
     }
-  }
+  };
 
   // handle submission of off plan form
   const handleSubmitPlan = async (event, clickedButton) => {
@@ -144,8 +164,8 @@ const AddOffPlan = () => {
     const completion = form.completion.value;
     const views = form.views.value;
 
-    if (user?.data?.role !== 'agent') {
-      setAgent(form.agent.value)
+    if (user?.data?.role !== "agent") {
+      setAgent(form.agent.value);
     }
 
     const description = form.description.value;
@@ -153,76 +173,115 @@ const AddOffPlan = () => {
     const amenities = selectedAmenities;
     let images = [];
 
-    const toastId = toast.loading('Working...', {
+    const toastId = toast.loading("Working...", {
       style: {
-        borderRadius: '10px',
-        background: '#333',
-        color: '#fff'
-      }
-    })
+        borderRadius: "10px",
+        background: "#333",
+        color: "#fff",
+      },
+    });
 
     // iteration for host images in imgbb
     for (let i = 0; i < files.length; i++) {
       const image = new FormData();
       image.append("image", files[i]);
 
-      const imgBbResponse = await axios.post(`https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`, image);
+      const imgBbResponse = await axios.post(
+        `https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`,
+        image
+      );
 
       images.push(imgBbResponse.data.data.display_url);
     }
 
-    const dataForBackend = { leads: 0, status: 'Off-Plan', title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, agent, description, location, amenities, images };
+    // upload file
+    const floorPlan = new FormData();
+    floorPlan.append("title", nameOfFile);
+    floorPlan.append("file", file);
+    console.log(nameOfFile, file);
 
-    if (clickedButton === 'button1') {
+    const result = await axios.post(
+      "http://localhost:3000/upload-files",
+      floorPlan,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+    console.log(result);
+    if (result.data.status == "ok") {
+      alert("Uploaded Successfully!!!");
+    }
+  };
+  
+
+    const dataForBackend = {
+      leads: 0,
+      status: "Off-Plan",
+      title,
+      startingPrice,
+      propertyType,
+      area,
+      developer,
+      bedroom,
+      areaSqFt,
+      completion,
+      views,
+      agent,
+      description,
+      location,
+      amenities,
+      images,
+      floorplan
+    };
+
+    if (clickedButton === "button1") {
       try {
-        const serverResponse = await axios.post('http://localhost:3000/api/offplans', dataForBackend);
+        const serverResponse = await axios.post(
+          "http://localhost:3000/api/offplans",
+          dataForBackend
+        );
 
         if (serverResponse.data.success) {
-
           toast.success(`${title} added`, { id: toastId });
           form.reset();
-          setFiles([])
+          setFiles([]);
           setPreview([]);
         }
-
       } catch (error) {
-
         console.log(error);
       }
-
     } else {
-
       try {
-        const serverResponse = await axios.post('http://localhost:3000/api/inventory', dataForBackend);
+        const serverResponse = await axios.post(
+          "http://localhost:3000/api/inventory",
+          dataForBackend
+        );
 
         if (serverResponse.data.success) {
-
           toast.success(`${title} is saved in Inventory`, { id: toastId });
           form.reset();
-          setFiles([])
+          setFiles([]);
           setPreview([]);
         }
-
       } catch (error) {
-
         console.log(error);
       }
     }
-  }
+  };
 
   return (
     <div>
       <Navbar title="Add Off-Plan Property" />
-      <Toaster
-        position="bottom-right"
-        reverseOrder={false}
-      />
+      <Toaster position="bottom-right" reverseOrder={false} />
       {/* add off plan form */}
-      <form onSubmit={(event) => {
-        if (clickedButton) {
-          handleSubmitPlan(event, clickedButton)
-        }
-      }} className="mt-16 space-y-8 mr-8 ">
+      <form
+        onSubmit={(event) => {
+          if (clickedButton) {
+            handleSubmitPlan(event, clickedButton);
+          }
+        }}
+        className="mt-16 space-y-8 mr-8 "
+      >
         <div className="flex justify-between w-full gap-12 ">
           {/* title */}
           <div className="w-3/5">
@@ -408,29 +467,58 @@ const AddOffPlan = () => {
           <label>Amenities</label>
           <br />
           <div className="grid grid-cols-3 gap-6 mt-3">
-            {
-              showAll ?
-                (amenities.slice(0, 12).map(amenity => (
-                  <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
-                    <input onChange={handleCheckboxChanged} type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
+            {showAll
+              ? amenities.slice(0, 12).map((amenity) => (
+                  <div
+                    key={amenity._id}
+                    amenity={amenity}
+                    className="flex items-center gap-4"
+                  >
+                    <input
+                      onChange={handleCheckboxChanged}
+                      type="checkbox"
+                      value={amenity.name}
+                      name="amenity"
+                      className="toggle bg-[#FFD673] border-4 border-[#CB9107]"
+                    />
                     <label>{amenity.name}</label>
                   </div>
-                )
                 ))
-                :
-                (amenities.map(amenity => (
-                  <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
-                    <input onChange={handleCheckboxChanged} type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
+              : amenities.map((amenity) => (
+                  <div
+                    key={amenity._id}
+                    amenity={amenity}
+                    className="flex items-center gap-4"
+                  >
+                    <input
+                      onChange={handleCheckboxChanged}
+                      type="checkbox"
+                      value={amenity.name}
+                      name="amenity"
+                      className="toggle bg-[#FFD673] border-4 border-[#CB9107]"
+                    />
                     <label>{amenity.name}</label>
                   </div>
-                )
-                ))
-            }
+                ))}
           </div>
-          {
-            amenities.length > 12 && (showAll ? <button onClick={() => setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show All</button> : <button onClick={() => setShowAll(!showAll)} type="button" className="text-[#E4B649] my-2">Show Less</button>)
-
-          }
+          {amenities.length > 12 &&
+            (showAll ? (
+              <button
+                onClick={() => setShowAll(!showAll)}
+                type="button"
+                className="text-[#E4B649] my-2"
+              >
+                Show All
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowAll(!showAll)}
+                type="button"
+                className="text-[#E4B649] my-2"
+              >
+                Show Less
+              </button>
+            ))}
         </div>
 
         {/* payment */}
@@ -444,23 +532,35 @@ const AddOffPlan = () => {
               <h3>Milestone</h3>
               <h3>Payment %</h3>
             </div>
-            {
-              installmentElement.map((installment, index) => <div key={index} className="font-medium grid grid-cols-3 items-center py-2 border justify-items-center">
+            {installmentElement.map((installment, index) => (
+              <div
+                key={index}
+                className="font-medium grid grid-cols-3 items-center py-2 border justify-items-center"
+              >
                 <h3>{installmentOrder[index]} Installment</h3>
-                {installment}</div>)
-            }
+                {installment}
+              </div>
+            ))}
           </div>
           {/* add new installment  */}
           <div className="flex mt-1 justify-end">
-            <button onClick={handleAddInstallment} type="button" className="bg-[#835C00] py-2 px-4 font-semibold rounded-2xl"> + Add More Terms</button>
+            <button
+              onClick={handleAddInstallment}
+              type="button"
+              className="bg-[#835C00] py-2 px-4 font-semibold rounded-2xl"
+            >
+              {" "}
+              + Add More Terms
+            </button>
           </div>
         </div>
 
         {/* add picture */}
-        <div className="drag-drop w-full h-auto bg-transparent" >
+        <div className="drag-drop w-full h-auto bg-transparent">
           <div
-            className={`document-uploader ${files.length > 0 ? "upload-box active" : "upload-box"
-              }`}
+            className={`document-uploader ${
+              files.length > 0 ? "upload-box active" : "upload-box"
+            }`}
             onDrop={handleDrop}
             onDragOver={(event) => event.preventDefault()}
           >
@@ -484,45 +584,65 @@ const AddOffPlan = () => {
                   multiple
                 />
               </div>
-
             </>
 
             {/* preview of selected images */}
 
             {files.length > 0 && (
               <div className="grid grid-cols-5 gap-8 my-4">
-                {
-                  preview.map((url, ind) => (<div key={ind} url={url} className="relative">
-                    <Image src={url} alt={url} width={200} height={120} className="w-[200px] h-[120px] object-cover" />
+                {preview.map((url, ind) => (
+                  <div key={ind} url={url} className="relative">
+                    <Image
+                      src={url}
+                      alt={url}
+                      width={200}
+                      height={120}
+                      className="w-[200px] h-[120px] object-cover"
+                    />
                     <div className="bg-white text-[#835C00] absolute p-1 border border-[#835C00] rounded-full -top-2 -right-3">
-                      <MdClear onClick={() => handleRemoveFile(ind)} size={20} color="#835C00" />
+                      <MdClear
+                        onClick={() => handleRemoveFile(ind)}
+                        size={20}
+                        color="#835C00"
+                      />
                     </div>
-                  </div>))
-                }
+                  </div>
+                ))}
               </div>
             )}
           </div>
         </div>
 
+        {/* upload pdf */}
+        <div>
+          <label>Upload Floorplan</label>
+          <br />
+          <input
+            type="file"
+            name="floorPlan"
+            accept="application/pdf"
+            onChange={(e) => setFile(e.target.files[0])}
+            className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+          />
+        </div>
 
         <div className="flex justify-between my-8 font-semibold">
-        <button onClick={() => setClickedButton('button2')}
+          <button
+            onClick={() => setClickedButton("button2")}
             type="submit"
             className="bg-white text-black ml-2 hover:cursor-pointer px-24 py-2 rounded-md flex gap-2 items-center"
           >
-          <span>Add to Inventory</span>
-          <LuClipboardCheck/>
-        </button>
-        <button onClick={() => setClickedButton('button1')}
+            <span>Add to Inventory</span>
+            <LuClipboardCheck />
+          </button>
+          <button
+            onClick={() => setClickedButton("button1")}
             type="submit"
             className="bg-[#835C00] ml-2 hover:cursor-pointer px-24 py-2 rounded-md flex gap-2 items-center"
           >
-          <span>Publish Listing</span>
-          <Image src={publish} alt="publish" height={16} width={16}/>
-        </button>
-          
-
-          
+            <span>Publish Listing</span>
+            <Image src={publish} alt="publish" height={16} width={16} />
+          </button>
         </div>
       </form>
     </div>
