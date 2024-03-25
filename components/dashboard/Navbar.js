@@ -27,7 +27,7 @@ const Navbar = ({ title }) => {
     fetcher
   );
 
-  const profile = data?.image;
+  const profile = data?.photo;
 
   return (
     <div className=" fixed top-0 w-full z-50 bg-[#0A0909]">
@@ -36,11 +36,13 @@ const Navbar = ({ title }) => {
         <div className="fixed right-0 px-16">
           <div className="flex justify-end items-center">
             <IoNotificationsOutline size={32} className="mr-8 mt-2" />
-            <div className="w-10  rounded-full ">
+            <div className="w-10 rounded-full mr-2">
               {profile ? (
                 <Image
                   src={profile}
                   alt={data?.name}
+                  width={40}
+                  height={40}
                   className="rounded-full"
                 />
               ) : (
