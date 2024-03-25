@@ -27,15 +27,17 @@ const EditProfile = ({ user, mutate }) => {
         languagesSpeak,
         about,
       };
+    }else{
+      updatedData = {
+        email: currentUser.email,
+        wpNum,
+        name,
+        languagesSpeak,
+        about,
+      };
     }
 
-    updatedData = {
-      email: currentUser.email,
-      wpNum,
-      name,
-      languagesSpeak,
-      about,
-    };
+    
 
     try {
       const res = await axios.put(
