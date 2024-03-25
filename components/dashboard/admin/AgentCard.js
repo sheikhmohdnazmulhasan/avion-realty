@@ -83,14 +83,14 @@ const AgentCard = ({ agent }) => {
     <div className="bg-[#171717] p-4 shadow-md shadow-gray-800 rounded-md">
       <Toaster position="bottom-right" reverseOrder={false} />
       <div className="flex gap-2">
-        <div className="w-12 rounded-full ">
+      <div className="w-12 rounded-full ">
           {agent?.photo ? (
             <Image
               src={agent?.photo}
               alt={agent?.name}
-              width={48}
-              height={48}
-              className="rounded-full"
+              width={40}
+              height={40}
+              className="rounded-full object-cover h-8 w-8"
             />
           ) : (
             <FaUserCircle size={48} />
