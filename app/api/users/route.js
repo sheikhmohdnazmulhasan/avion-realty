@@ -8,9 +8,14 @@ export async function GET(request) {
 
     const { searchParams } = new URL(request.url);
 
+    const id = searchParams.get('id');
     const email = searchParams.get('email');
 
-    if (email) {
+    if (id) {
+        const result = await User.findById(id);
+        return NextResponse.json(result);
+
+    } else if (email) {
         const result = await User.findOne({ email });
         return NextResponse.json(result);
 
@@ -18,6 +23,8 @@ export async function GET(request) {
         const result = await User.find({ role: 'agent' });
         return NextResponse.json(result);
     }
+
+
 
 };
 

@@ -10,7 +10,6 @@ import useAgents from "@/hooks/useAgents";
 
 const Agents = () => {
     const data = useAgents();
-    console.log(data);
 
     return (
         <div>
@@ -20,24 +19,24 @@ const Agents = () => {
 
                     {/* Mapping */}
                     {data.map(agent => <div key={agent._id} className="relative">
-                        <Image className="w-full" src={agent?.photo} width={200} height={200} alt="Agent Image" />
+                        <Image className="w-full" src={agent?.photo} width={150} height={120} alt="Agent Image" />
                         <div className="absolute py-2 text-center justify-center bottom-0 w-full h-32 bg-black bg-opacity-60 ">
-                            <h3 className="font-bold text-xl uppercase">Sheikh</h3>
-                            <div className="flex gap-2 justify-center">
-                                <p>Language:</p>
-                                <p>English</p>
+                            <h3 className="font-bold text-xl uppercase">{agent?.name}</h3>
+                            <div className="flex gap-2 justify-center px-2">
+                                <p className="w-fit">Language:</p>
+                                <p> {agent?.languagesSpeak}</p>
                             </div>
                             <div className="flex gap-2 justify-center">
                                 <p>Specialty:</p>
-                                <p>Englishxxxx xx</p>
+                                <p className="w-fit">{agent?.specializes}</p>
                             </div>
 
                             <div className="flex gap-2 justify-between px-3">
-                                <Link href={''} className="flex border p-1 hover:scale-105 transition-all gap-1 border-[#A87600]">
+                                <Link href={`https://wa.me/${agent?.wpNum}`} target="_blank" className="flex border p-1 hover:scale-105 transition-all gap-1 border-[#A87600]">
                                     <Image src={wp} alt="whatsapp icon" />
                                     <p>WhatsApp</p>
                                 </Link>
-                                <Link href={''} className="flex border p-1 hover:scale-105 transition-all gap-1 border-[#A87600]">
+                                <Link href={`/agents/${agent._id}`} className="flex border p-1 hover:scale-105 transition-all gap-1 border-[#A87600]">
 
                                     <p>View Agent</p>
                                 </Link>

@@ -27,7 +27,7 @@ const EditProfile = ({ user, mutate }) => {
         languagesSpeak,
         about,
       };
-    }else{
+    } else {
       updatedData = {
         email: currentUser.email,
         wpNum,
@@ -37,7 +37,7 @@ const EditProfile = ({ user, mutate }) => {
       };
     }
 
-    
+
 
     try {
       const res = await axios.put(
@@ -110,7 +110,7 @@ const EditProfile = ({ user, mutate }) => {
             <label>WhatsApp Number</label>
             <br />
             <input
-              type="number"
+              type="text"
               name="whatsApp"
               defaultValue={currentUser?.wpNum}
               placeholder="Write your whatsapp number"
