@@ -31,7 +31,7 @@ const AgentDetails = ({ params }) => {
             <div className="md:mx-36 md:mt-20">
 
                 {/* hero */}
-                <div className="flex gap-20">
+                <div className="md:flex md:gap-20 p-5">
                     <div className="w-[70%] hidden md:block">
                         <div className="border-b border-[#e4b5499e] pb-8">
                             <h1 className="text-3xl">{agent?.name}</h1>
@@ -59,7 +59,7 @@ const AgentDetails = ({ params }) => {
                                 <Image src={call} alt="Phone Icon" />
                                 <Link href={''}><p>Call Now</p></Link>
                             </div>
-                            
+
                             <div className="flex items-center hover:scale-105 transition-all border-[#e4b5499e] gap-3 border px-2 py-1 rounded-3xl">
                                 <Link href={''}><p>Call Now</p></Link>
                             </div>
@@ -72,7 +72,13 @@ const AgentDetails = ({ params }) => {
                     <div className="w-full md:w-[30%] ">
                         <Image src={agent.photo} height={120} width={150} alt="Agent Picture" className="w-full" />
                     </div>
+                    <div className="mt-3 border-b md:hidden border-[#e4b5499e]">
+                    <h1 className="text-3xl">{agent?.name}</h1>
+                    <h4 className="text-xl text-[#E4B649]">{agent?.designation}</h4>
                 </div>
+
+                </div>
+               
             </div>
         </div>
     );
