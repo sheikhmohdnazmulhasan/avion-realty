@@ -1,7 +1,8 @@
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { mutate } from "swr";
 
-const EditProfile = ({ user, mutate }) => {
+const EditProfile = ({ user}) => {
   const currentUser = user;
 
   const handleProfileEdit = async (event) => {

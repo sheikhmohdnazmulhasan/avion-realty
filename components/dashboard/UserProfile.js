@@ -267,7 +267,7 @@ const UserProfile = ({ user, mutate }) => {
               height={96}
               src={currentUser?.photo}
               alt={currentUser?.name}
-              className="rounded-full h-24 w-24 object-fill"
+              className="rounded-full h-24 w-24 object-cover object-center"
             />
           ) : (
             <FaUserCircle size={96} color="gray" />
