@@ -41,6 +41,7 @@ const ManageListing = () => {
                         </div>
                         <hr />
                     </div>
+                    
                     {data.map(item => <ListingCard key={item._id} list={item} />)}
                 </div>
             </div>
