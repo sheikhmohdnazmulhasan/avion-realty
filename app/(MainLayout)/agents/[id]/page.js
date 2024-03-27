@@ -55,30 +55,30 @@ const AgentDetails = ({ params }) => {
                         </div>
 
                         <div className="flex mt-10 gap-10">
-                            <div className="flex items-center hover:scale-105 transition-all gap-3 border border-[#e4b5499e] px-2 py-1 rounded-3xl">
+                            <Link href={`tel:${agent?.wpNum}`}>  <div className="flex items-center hover:scale-105 transition-all gap-3 border border-[#e4b5499e] px-2 py-1 rounded-3xl">
                                 <Image src={call} alt="Phone Icon" />
-                                <Link href={''}><p>Call Now</p></Link>
-                            </div>
+                                <p>Call Now</p>
+                            </div></Link>
 
-                            <div className="flex items-center hover:scale-105 transition-all border-[#e4b5499e] gap-3 border px-2 py-1 rounded-3xl">
-                                <Link href={''}><p>Call Now</p></Link>
+                            <div className="flex items-center hover:scale-105 transition-all border-[#e4b5499e] gap-3 border px-3 py-1 rounded-3xl">
+                                <Link href={''}><p>Inquiry</p></Link>
                             </div>
-                            <div className="flex items-center hover:scale-105 transition-all gap-3 px-2 py-1 rounded-3xl">
+                            <Link href={`https://wa.me/${agent?.wpNum}`}><div className="flex items-center hover:scale-105 transition-all gap-3 px-2 py-1 rounded-3xl">
                                 <Image src={wp} alt="Phone Icon" />
-                                <Link href={''}><p>Inquiry on <span className="text-[#e4b549]">WhatsApp</span> </p></Link>
-                            </div>
+                                <p>Inquiry on <span className="text-[#e4b549]">WhatsApp</span> </p>
+                            </div></Link>
                         </div>
                     </div>
                     <div className="w-full md:w-[30%] ">
                         <Image src={agent.photo} height={120} width={150} alt="Agent Picture" className="w-full" />
                     </div>
                     <div className="mt-3 border-b md:hidden border-[#e4b5499e]">
-                    <h1 className="text-3xl">{agent?.name}</h1>
-                    <h4 className="text-xl text-[#E4B649]">{agent?.designation}</h4>
-                </div>
+                        <h1 className="text-3xl">{agent?.name}</h1>
+                        <h4 className="text-xl text-[#E4B649]">{agent?.designation}</h4>
+                    </div>
 
                 </div>
-               
+
             </div>
         </div>
     );

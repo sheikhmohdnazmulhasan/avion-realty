@@ -16,6 +16,7 @@ const useUser = () => {
     `http://localhost:3000/api/users?email=${user?.data?.user?.email}`,
     fetcher
   );
+  
   return { data, error, mutate };
 };
 
