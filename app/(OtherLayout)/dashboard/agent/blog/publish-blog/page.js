@@ -5,6 +5,7 @@ import Image from 'next/image';
 import React from 'react';
 import { useRef, useState } from 'react';
 import publish from "@/public/images/dashboard/listing/publish.svg";
+import axios from 'axios';
 
 const PublishBlog = () => {
     const [showName, setShowName] = useState({});
@@ -17,11 +18,18 @@ const PublishBlog = () => {
         fileInputRef.current.value = '';
     };
 
-    async function handleCreateNewBlog(event) {
+    function handleCreateNewBlog(event) {
         event.preventDefault();
         const title = event.target.title.value;
         const description = event.target.description.value;
-      
+
+        const image = new FormData();
+        image.append('image', showName);
+
+        axios.post(`https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`, image).then(res => {
+            console.log(res.data);
+
+        }).catch(err => console.log(err))
     }
 
     return (
