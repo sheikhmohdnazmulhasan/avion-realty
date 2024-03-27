@@ -17,11 +17,18 @@ const PublishBlog = () => {
         fileInputRef.current.value = '';
     };
 
+    async function handleCreateNewBlog(event) {
+        event.preventDefault();
+        const title = event.target.title.value;
+        const description = event.target.description.value;
+      
+    }
+
     return (
         <div>
             <Navbar title={'Publish A Blog'} />
 
-            <form className='mt-16 mr-8 space-y-8'>
+            <form className='mt-16 mr-8 space-y-8' onSubmit={handleCreateNewBlog}>
                 <div className="">
                     <label htmlFor="title">Title</label>
                     <input type="text" name="title" id='title' placeholder="Write Blog Title" className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted" />
@@ -29,7 +36,7 @@ const PublishBlog = () => {
 
                 <div className="">
                     <label htmlFor="description">Description</label>
-                    <textarea name="" id="description" placeholder='Write Your Content Here' className='w-full p-2 h-64 bg-transparent border border-dotted rounded-md mt-1'></textarea>
+                    <textarea name="description" id="description" placeholder='Write Your Content Here' className='w-full p-2 h-64 bg-transparent border border-dotted rounded-md mt-1'></textarea>
                 </div>
 
                 <div className="">
