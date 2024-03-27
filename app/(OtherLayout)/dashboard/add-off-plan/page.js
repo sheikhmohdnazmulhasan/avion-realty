@@ -18,6 +18,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import publish from "@/public/images/dashboard/listing/publish.svg";
 import useViews from "@/hooks/useViews";
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 
 const AddOffPlan = () => {
   // document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
@@ -34,6 +35,16 @@ const AddOffPlan = () => {
   const [showAll, setShowAll] = useState(true);
   const [clickedButton, setClickedButton] = useState(null);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
+  const [location, setLocation] = useState('');
+  const [center, setCenter] = useState({ lat: 0, lng: 0 });
+  const [markerPosition, setMarkerPosition] = useState(null);
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: 'AIzaSyCGYwarV1r9FE_QhBXvvv1r0XwpMAAGOmM'
+  });
+  const containerStyle = {
+    width: '100%',
+    height: '400px'
+  };
   // const [file, setFile] = useState("");
   const [installmentElement, setInstalmentElement] = useState([
     <>
@@ -170,7 +181,7 @@ const AddOffPlan = () => {
     }
 
     const description = form.description.value;
-    const location = form.location.value;
+    // const location = form.location.value;
     const amenities = selectedAmenities;
     let images = [];
 
@@ -267,6 +278,23 @@ const AddOffPlan = () => {
         console.log(error);
       }
     }
+  };
+
+  const handleLocationChange = (event) => {
+    setLocation(event.target.value);
+    handleShowMap();
+  };
+
+  const handleShowMap = () => {
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ address: location }, (results, status) => {
+      if (status === 'OK') {
+        setCenter(results[0].geometry.location);
+        setMarkerPosition(results[0].geometry.location);
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
   };
 
   return (
@@ -464,10 +492,32 @@ const AddOffPlan = () => {
           <input
             type="text"
             name="location"
+            onChange={handleLocationChange}
             placeholder="write location (eg. Address downtown, Burj Khalifa)"
             className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
           />
         </div>
+        {/* location map */}
+        {
+          isLoaded ? (
+            <div className="p-8">
+              
+              {/* <button className="btn btn-primary mb-4" onClick={handleShowMap}>Show Map</button> */}
+              <div style={containerStyle} className="mb-4">
+                <GoogleMap
+                  mapContainerStyle={containerStyle}
+                  center={center}
+                  zoom={8}
+                >
+                  {markerPosition && (
+                    <Marker position={markerPosition} />
+                  )}
+                </GoogleMap>
+              </div>
+            </div>
+          ) : <></>
+        }
+        
 
         {/* amenities */}
         <div>
