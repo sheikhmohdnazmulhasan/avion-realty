@@ -7,6 +7,8 @@ export async function POST(request) {
 
     const data = await request.json();
 
+    console.log(data);
+
     const result = await Blog.create(data);
 
     if (!result) {

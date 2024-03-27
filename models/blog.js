@@ -4,8 +4,9 @@ const blogSchema = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
     blogImg: { type: String, required: true },
-    agent: { type: String, required: true },
-    agentImg: { type: String, required: true },
+    agentEmail: { type: String, required: true },
+    agentName: { type: String, required: true },
+    agentImg: { type: String, required: true }
 
 }, { timestamps: true });
 

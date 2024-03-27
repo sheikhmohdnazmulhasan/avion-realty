@@ -6,9 +6,12 @@ import React from 'react';
 import { useRef, useState } from 'react';
 import publish from "@/public/images/dashboard/listing/publish.svg";
 import axios from 'axios';
+import useUser from '@/hooks/useUser';
+import toast, { Toaster } from 'react-hot-toast';
 
 const PublishBlog = () => {
-    const [showName, setShowName] = useState({});
+    const user = useUser();
+    const [showName, setShowName] = useState(null);
     const [showImagePreview, setShowImagePreview] = useState({});
     const fileInputRef = useRef();
 
@@ -26,25 +29,56 @@ const PublishBlog = () => {
         const image = new FormData();
         image.append('image', showName);
 
-        axios.post(`https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`, image).then(res => {
-            console.log(res.data);
+        const toastId = toast.loading("Working...", {
+            style: {
+                borderRadius: "10px",
+                background: "#333",
+                color: "#fff",
+            },
+        });
 
-        }).catch(err => console.log(err))
+        if (!showName) {
+            toast.error(`Palace Select One Image`, { id: toastId });
+
+        } else {
+            axios.post(`https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`, image).then(res => {
+
+                const dataForBackend = { title, description, blogImg: res.data.data.display_url, agentEmail: user.data.email, agentName: user.data.name, agentImg: user.data.photo };
+
+                axios.post(`http://localhost:3000/api/agent/blog`, dataForBackend).then(res => {
+
+                    if (res.data.success) {
+                        toast.success(`${title} Published!`, { id: toastId })
+                        event.target.reset();
+                        handleClearFile();
+
+                    } else {
+                        toast.error(`Something Wrong!`, { id: toastId })
+                    }
+
+                }).catch(() => toast.error(`Something Wrong!`, { id: toastId }))
+
+            }).catch(() => toast.error(`Something Wrong!`, { id: toastId }))
+        }
     }
 
     return (
         <div>
+            <Toaster
+                position="bottom-right"
+                reverseOrder={false}
+            />
             <Navbar title={'Publish A Blog'} />
 
             <form className='mt-16 mr-8 space-y-8' onSubmit={handleCreateNewBlog}>
                 <div className="">
                     <label htmlFor="title">Title</label>
-                    <input type="text" name="title" id='title' placeholder="Write Blog Title" className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted" />
+                    <input type="text" name="title" id='title' placeholder="Write Blog Title" className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted" required />
                 </div>
 
                 <div className="">
                     <label htmlFor="description">Description</label>
-                    <textarea name="description" id="description" placeholder='Write Your Content Here' className='w-full p-2 h-64 bg-transparent border border-dotted rounded-md mt-1'></textarea>
+                    <textarea name="description" id="description" placeholder='Write Your Content Here' className='w-full p-2 h-64 bg-transparent border border-dotted rounded-md mt-1' required />
                 </div>
 
                 <div className="">
