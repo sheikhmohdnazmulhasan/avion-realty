@@ -19,9 +19,8 @@ export async function GET(request) {
 
     } else {
         return NextResponse.json({ message: 'Unauthorize Request' }, { status: 401 })
-    }
-
-}
+    };
+};
 
 export async function POST(request) {
     await connectMongoDB();
@@ -36,5 +35,5 @@ export async function POST(request) {
     } else {
 
         return NextResponse.json({ message: "Data successfully saved in database", success: true }, { status: 200 });
-    }
-}
+    };
+};
