@@ -8,6 +8,7 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const agent = searchParams.get('agent');
+    const status = searchParams.get('status');
 
     if (id) {
         const result = await OffPlan.findById(id);
@@ -17,6 +18,10 @@ export async function GET(request) {
         const result = await OffPlan.find({ agent });
         return NextResponse.json(result);
 
+    } else if (status) {
+        const result = await OffPlan.find({ status })
+        return NextResponse.json(result);
+        
     } else {
         const result = await OffPlan.find();
         return NextResponse.json(result);
