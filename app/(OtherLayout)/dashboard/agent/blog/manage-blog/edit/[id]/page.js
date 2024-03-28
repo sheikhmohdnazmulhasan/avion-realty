@@ -8,17 +8,16 @@ import publish from "@/public/images/dashboard/listing/publish.svg";
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import useSWR from 'swr';
+import { useRouter } from 'next/navigation';
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const EditBlog = ({ params }) => {
-
     const { data = [] } = useSWR(`http://localhost:3000/api/agent/blog?id=${params.id}`, fetcher);
-
-    console.log(data);
 
     const [showName, setShowName] = useState('prev');
     const [showImagePreview, setShowImagePreview] = useState(null);
     const fileInputRef = useRef();
+    const router = useRouter();
 
     const handleClearFile = () => {
         setShowName('');
@@ -51,9 +50,12 @@ const EditBlog = ({ params }) => {
             axios.put(`http://localhost:3000/api/agent/blog?id=${data._id}`, dataForBackend).then(res => {
 
                 if (res.data.success) {
-                    toast.success(`${title} Published!`, { id: toastId })
-                    event.target.reset();
-                    handleClearFile();
+                    toast.success(`${title} Updated!`, { id: toastId })
+
+                    setTimeout(() => {
+                        router.push('/dashboard/agent/blog/manage-blog');
+
+                    }, 2000);
 
                 } else {
                     toast.error(`Something Wrong!`, { id: toastId })
@@ -70,9 +72,12 @@ const EditBlog = ({ params }) => {
                 axios.put(`http://localhost:3000/api/agent/blog?id=${data._id}`, dataForBackend).then(res => {
 
                     if (res.data.success) {
-                        toast.success(`${title} Published!`, { id: toastId })
-                        event.target.reset();
-                        handleClearFile();
+                        toast.success(`${title} Updated!`, { id: toastId });
+
+                        setTimeout(() => {
+                            router.push('/dashboard/agent/blog/manage-blog');
+
+                        }, 2000);
 
                     } else {
                         toast.error(`Something Wrong!`, { id: toastId })
@@ -128,7 +133,7 @@ const EditBlog = ({ params }) => {
                                 <img className="size-[100px] h-[100px] w-full max-w-[150px] rounded-lg object-cover" src={showImagePreview} alt={showName?.name} />
                                 <div className="flex-1 space-y-1.5 overflow-hidden">
                                     <h5 className=" text-xl font-medium tracking-tight truncate">{showName?.name}</h5>
-                                    {/* <p className=" text-gray-500">{(showName.size / 1024).toFixed(1)} KB</p> */}
+                                    <p className=" text-gray-500">{(showName.size / 1024).toFixed(1)} KB</p>
                                 </div>
                                 <div onClick={handleClearFile}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -163,7 +168,7 @@ const EditBlog = ({ params }) => {
 
                 <div className="flex  justify-end">
                     <button className="bg-[#835C00] ml-2 flex hover:cursor-pointer px-24 py-2 rounded-md  gap-2 items-center" >
-                        <span>Publish Blog</span>
+                        <span>Update Blog</span>
                         <Image src={publish} alt="publish" height={16} width={16} />
                     </button>
                 </div>
