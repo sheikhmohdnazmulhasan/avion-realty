@@ -11,9 +11,9 @@ import { mutate } from 'swr';
 import useUser from '@/hooks/useUser';
 
 const BlogCard = ({ blog }) => {
-    const user = useUser()
     const { title, agentName, blogImg, updatedAt, _id } = blog;
     const updatedDate = new Date(updatedAt).toLocaleDateString();
+    const user = useUser()
 
     function handleDeleteBlog(_id) {
         Swal.fire({

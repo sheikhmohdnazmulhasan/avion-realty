@@ -38,6 +38,25 @@ export async function POST(request) {
     };
 };
 
+export async function PUT(request) {
+    await connectMongoDB();
+
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    const data = await request.json();
+
+    const result = await Blog.findByIdAndUpdate(id, data);
+
+    if (!result) {
+        return NextResponse.json({ message: 'Something is wrong', success: false }, { status: 402 });
+
+    } else {
+        return NextResponse.json({ message: 'Data Updated', success: true }, { status: 200 });
+    };
+
+};
+
 export async function DELETE(request) {
     await connectMongoDB();
 

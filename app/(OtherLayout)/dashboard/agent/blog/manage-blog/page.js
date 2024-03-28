@@ -4,6 +4,7 @@ import Navbar from "@/components/dashboard/Navbar";
 import BlogCard from "@/components/dashboard/agent/BlogCard";
 import useUser from "@/hooks/useUser";
 import axios from "axios";
+import { Toaster } from "react-hot-toast";
 import useSWR from "swr";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
@@ -44,7 +45,7 @@ const ManageBlog = () => {
                         </div>
                         <hr />
                     </div>
-                    
+
                     {data.map(blog => <BlogCard key={blog._id} blog={blog} />)}
 
                 </div>
