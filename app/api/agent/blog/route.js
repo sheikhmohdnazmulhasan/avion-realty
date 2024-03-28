@@ -6,7 +6,7 @@ export async function GET(request) {
     await connectMongoDB();
 
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id')
+    const id = searchParams.get('id');
     const agentEmail = searchParams.get('email');
 
     if (id) {
@@ -18,7 +18,9 @@ export async function GET(request) {
         return NextResponse.json(result);
 
     } else {
-        return NextResponse.json({ message: 'Unauthorize Request' }, { status: 401 })
+        const result = await Blog.find();
+        return NextResponse.json(result);
+        
     };
 };
 
