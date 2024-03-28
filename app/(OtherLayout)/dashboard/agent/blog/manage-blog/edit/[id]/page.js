@@ -47,28 +47,38 @@ const EditBlog = ({ params }) => {
 
         } else if (showName === 'prev') {
             const dataForBackend = { title, description };
-            console.log(dataForBackend);
-            
+
+            axios.put(`http://localhost:3000/api/agent/blog?id=${data._id}`, dataForBackend).then(res => {
+
+                if (res.data.success) {
+                    toast.success(`${title} Published!`, { id: toastId })
+                    event.target.reset();
+                    handleClearFile();
+
+                } else {
+                    toast.error(`Something Wrong!`, { id: toastId })
+                }
+
+            }).catch(() => toast.error(`Something Wrong!`, { id: toastId }))
+
         } else {
 
             axios.post(`https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`, image).then(res => {
 
                 const dataForBackend = { title, description, blogImg: res.data.data.display_url };
 
-                console.log(dataForBackend);
+                axios.put(`http://localhost:3000/api/agent/blog?id=${data._id}`, dataForBackend).then(res => {
 
-                // axios.post(`http://localhost:3000/api/agent/blog`, dataForBackend).then(res => {
+                    if (res.data.success) {
+                        toast.success(`${title} Published!`, { id: toastId })
+                        event.target.reset();
+                        handleClearFile();
 
-                //     if (res.data.success) {
-                //         toast.success(`${title} Published!`, { id: toastId })
-                //         event.target.reset();
-                //         handleClearFile();
+                    } else {
+                        toast.error(`Something Wrong!`, { id: toastId })
+                    }
 
-                //     } else {
-                //         toast.error(`Something Wrong!`, { id: toastId })
-                //     }
-
-                // }).catch(() => toast.error(`Something Wrong!`, { id: toastId }))
+                }).catch(() => toast.error(`Something Wrong!`, { id: toastId }))
 
             }).catch(() => toast.error(`Something Wrong!`, { id: toastId }))
         }
