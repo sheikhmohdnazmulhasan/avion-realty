@@ -1,7 +1,16 @@
+'use client'
+
 import Image from "next/image";
 import img from '@/public/images/root/blog/blog-cover.png';
+import axios from "axios";
+import useSWR from "swr";
+import BlogCard from "@/components/root/BlogCard";
 
+const fetcher = (url) => axios.get(url).then((res) => res.data);
 const Blog = () => {
+    const { data = [] } = useSWR(`http://localhost:3000/api/agent/blog`, fetcher);
+
+    console.log(data);
 
     return (
         <div>
@@ -19,8 +28,8 @@ const Blog = () => {
             </div>
 
             {/* card */}
-            <div className="">
-                
+            <div className="px-5 md:px-36 grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
+                {data.map(blog => <BlogCard key={blog._id} blog={blog} />)}
             </div>
         </div>
     );
