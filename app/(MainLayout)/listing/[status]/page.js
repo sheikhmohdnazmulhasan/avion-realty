@@ -22,6 +22,7 @@ const ListingDetail = ({ params }) => {
     return (
         <div>
                 <div className=' px-4 md:px-12 lg:px-20 py-4 md:py-12 lg:py-16 border-b border-[#262626]'>
+                    {/* description */}
                     {
                         params.status === 'Off-Plan' ? (
                             <>
@@ -43,11 +44,13 @@ const ListingDetail = ({ params }) => {
                     }
                 </div>
                 <div className='px-4 md:px-12 lg:px-20 py-8 lg:py-16 space-y-4'>
+                    {/* section header */}
                     <div className='hidden md:block text-center'>
                         <h2 className='text-[#E4B649] text-3xl font-medium'>Discover a World of Possibilities</h2>
                         <p className='lg:w-1/2 my-4 mx-auto'>Our portfolio of properties is as diverse as your dreams. Explore the following categories to find the perfect property that resonates with your vision of home</p>
                     </div>
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 py-4'>
+                        {/* listing card */}
                         {
                             data.map(item => <div key={item._id} className='border border-[#CC9107]'>
                                 <div>
@@ -105,6 +108,11 @@ const ListingDetail = ({ params }) => {
                             </div>)
                         }
 
+                    </div>
+                    {/*  Strategic Investment */}
+                    <div className='py-4 md:py-12 lg:py-16'>
+                        <h2 className='text-2xl lg:text-3xl'>A Strategic Investment Oasis for Prosperity and Luxury</h2>
+                        <p className='my-4'>Investing in Dubai's real estate market offers a compelling opportunity for astute investors seeking both stability and lucrative returns. Renowned for its dynamic economy and visionary development initiatives, Dubai stands as a global hub for business and luxury living. The city's strategic location, at the crossroads of Europe, Asia, and Africa, positions it as a prime destination for international trade and commerce, fostering a diverse and resilient economy. </p>
                     </div>
                 </div>
             <Inquiry/>
