@@ -124,7 +124,7 @@ const PublishBlog = () => {
 
                 <div className="flex  justify-end">
                     <button className="bg-[#835C00] ml-2 flex hover:cursor-pointer px-24 py-2 rounded-md  gap-2 items-center" >
-                        <span>Publish Listing</span>
+                        <span>Publish Blog</span>
                         <Image src={publish} alt="publish" height={16} width={16} />
                     </button>
                 </div>
