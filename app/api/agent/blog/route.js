@@ -18,7 +18,9 @@ export async function GET(request) {
         return NextResponse.json(result);
 
     } else {
-        return NextResponse.json({ message: 'Unauthorize Request' }, { status: 401 })
+        const result = await Blog.find();
+        return NextResponse.json(result);
+        
     };
 };
 
