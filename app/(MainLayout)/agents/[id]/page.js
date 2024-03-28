@@ -128,7 +128,7 @@ const AgentDetails = ({ params }) => {
 
                 {/* Agent properties */}
                 <div className="md:mx-36 md:mt-20 p-5">
-
+                    {properties.length}
                 </div>
             </div>
         );
