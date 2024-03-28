@@ -6,7 +6,7 @@ export async function GET(request) {
     await connectMongoDB();
 
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id')
+    const id = searchParams.get('id');
     const agentEmail = searchParams.get('email');
 
     if (id) {
