@@ -39,11 +39,9 @@ const BlogCard = ({ blog }) => {
                         mutate(`http://localhost:3000/api/agent/blog?email=${user?.data?.email}`)
                     }
 
-                }).catch(err => toast.error('Something Wrong!'))
-
+                }).catch(() => toast.error('Something Wrong!'))
             }
         });
-
     }
 
     return (
@@ -69,7 +67,7 @@ const BlogCard = ({ blog }) => {
 
                 <div className="w-[15%] text-center gap-3 flex items-center justify-center">
                     <Image src={live} alt="Live svg" className="w-4 cursor-pointer hover:scale-125 transition-all" />
-                    <Link href={''}>  <Image src={edit} alt="Live svg" className="w-4 cursor-pointer hover:scale-125 transition-all" /></Link>
+                    <Link href={`manage-blog/edit/${_id}`}>  <Image src={edit} alt="Live svg" className="w-4 cursor-pointer hover:scale-125 transition-all" /></Link>
                     <MdDelete size={20} className="text-red-500 hover:text-red-600 cursor-pointer hover:scale-125 transition-all" onClick={() => handleDeleteBlog(_id)} />
                 </div>
 
