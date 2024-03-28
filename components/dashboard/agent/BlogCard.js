@@ -7,11 +7,10 @@ import live from '@/public/images/dashboard/listing/live.svg';
 
 const BlogCard = ({ blog }) => {
     const { title, agentName, blogImg, updatedAt } = blog;
-
     const updatedDate = new Date(updatedAt).toLocaleDateString();
 
     return (
-        <div className="">
+        <>
             <div className="flex items-center">
 
                 <div className="w-[45%] p-5">
@@ -41,7 +40,7 @@ const BlogCard = ({ blog }) => {
             <div className="mx-3">
                 <hr className="opacity-20" />
             </div>
-        </div>
+        </>
     );
 };
 

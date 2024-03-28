@@ -20,7 +20,7 @@ const ManageBlog = () => {
         return <h1 className="flex justify-center items-center h-screen font-semibold">Loading!</h1>
 
     } else {
-        
+
         return (
             <div className="">
                 <Navbar title={'Manage Blogs'} />
@@ -44,7 +44,7 @@ const ManageBlog = () => {
                         </div>
                         <hr />
                     </div>
-
+                    
                     {data.map(blog => <BlogCard key={blog._id} blog={blog} />)}
 
                 </div>
