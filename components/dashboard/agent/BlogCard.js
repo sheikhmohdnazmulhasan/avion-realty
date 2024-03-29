@@ -52,7 +52,7 @@ const BlogCard = ({ blog }) => {
                     <div className="flex items-center gap-3">
                         <Image width={96} height={96} src={blogImg} alt="Listing image" className="w-16 h-16 rounded-md" />
                         <div className="">
-                            <h3 className="text-[20px] font-bold mb-2">{title}</h3>
+                            <h3 className="text-[20px] font-bold mb-2">{title?.slice(0, 26)} {title?.length > 26 && '...'}</h3>
                         </div>
                     </div>
                 </div>

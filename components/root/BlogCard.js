@@ -9,7 +9,7 @@ const BlogCard = ({ blog }) => {
         <Link href={`/blogs/${_id}`}><div className=" border border-[#e8bf44a0] h-80 rounded-lg">
             <Image src={blogImg} width={800} height={800} alt="Blog Cover" className="h-52 rounded-t-lg" />
             <div className="p-3">
-                <h3 className="font-semibold">{title}</h3>
+                <h3 className="font-semibold">{title?.slice(0, 32)} {title.length > 32 && '...'} </h3>
                 <p className="mt-2">{publishDate}</p>
             </div>
         </div></Link>
