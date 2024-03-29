@@ -7,6 +7,7 @@ import axios from "axios";
 import useSWR from "swr";
 import BlogCard from "@/components/root/BlogCard";
 import Link from "next/link";
+import Inquiry from "@/components/shared/Inquiry";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const Blog = () => {
@@ -32,6 +33,7 @@ const Blog = () => {
                 {data.map(blog => <BlogCard key={blog._id} blog={blog} />)}
             </div>
 
+            {/* podcast reference */}
             <div className="md:flex px-5 md:px-36 justify-center items-center mt-20 bg-[#0E0E0E]">
                 <div className="flex-1 hidden md:block">
                     <h2 className="text-3xl font-semibold">Delve into our <br /> insightful podcast</h2>
@@ -50,6 +52,7 @@ const Blog = () => {
                     </Link>
                 </div>
             </div>
+            <Inquiry />
         </div>
     );
 };
