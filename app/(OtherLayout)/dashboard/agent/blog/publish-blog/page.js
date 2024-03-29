@@ -43,7 +43,7 @@ const PublishBlog = () => {
         } else {
             axios.post(`https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`, image).then(res => {
 
-                const dataForBackend = { title, description, blogImg: res.data.data.display_url, agentEmail: user.data.email, agentName: user.data.name, agentImg: user.data.photo };
+                const dataForBackend = { title, description, blogImg: res.data.data.display_url, agentEmail: user.data.email, agentName: user.data.name, agentImg: user.data.photo, agentDesignation: user.data.designation, agentId: user.data._id };
 
                 axios.post(`http://localhost:3000/api/agent/blog`, dataForBackend).then(res => {
 
