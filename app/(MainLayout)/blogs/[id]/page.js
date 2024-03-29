@@ -1,7 +1,7 @@
 'use client'
 import axios from 'axios';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import useSWR from 'swr';
 import share from '@/public/images/root/blog/share.svg';
 import Link from 'next/link';
@@ -10,22 +10,46 @@ import Inquiry from '@/components/shared/Inquiry';
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const BlogDetails = ({ params }) => {
+    const [loading, setLoading] = useState(true);
+
     const { data = [] } = useSWR(`http://localhost:3000/api/agent/blog?id=${params.id}`, fetcher);
     const updatedDate = new Date(data?.createdAt).toLocaleDateString();
 
     const { data: allBlog = [] } = useSWR(`http://localhost:3000/api/agent/blog`, fetcher);
     const blogExceptThisBlog = allBlog.filter(blog => blog._id !== data._id);
 
-    // {
-    //     title: 'dhdhhd',
-    //     description: 'dweded',
-    //     blogImg: 'https://i.ibb.co/GHfBJjS/Screenshot-2023-06-07-093917.png',
-    //     agentEmail: 'nazmul123@gmail.com',
-    //     agentName: 'Nazmul X',
-    //     agentImg: 'https://i.ibb.co/TBBFz5F/IMG-6209.jpg',
-    //     agentDesignation: 'hfhfhfhd',
-    //     agentId: '65f1f6aae781bf30e2c85b9c'
-    //   }
+    setTimeout(() => { setLoading(false); }, 1000);
+
+    if (loading) {
+        return (
+            <>
+                <div className="w-[90%] mx-auto my-10 animate-pulse bg-transparent hidden md:flex justify-between  items-center gap-6 p-36 rounded-md shadow-xl ">
+
+
+                    {/* User profile  Skeleton */}
+                    <div className="mt-8 w-full flex  flex-col justify-center">
+                        <div className="w-[60%] rounded-lg bg-[#1f2123] h-7 mb-5"></div>
+                        <div className="w-[100%] rounded-lg bg-[#1f2123] h-5 mb-3"></div>
+                        <div className="w-[40%] rounded-lg bg-[#1f2123] h-[13px] mb-3"></div>
+                        <div className="w-[80%] rounded-lg bg-[#1f2123] h-5 mb-3"></div>
+                        <div className="w-[40%] rounded-lg bg-[#1f2123] h-3 mb-3"></div>
+                        <div className="w-[20%] rounded-lg bg-[#1f2123] h-2 mb-3"></div>
+                        <div className="w-[70%] rounded-lg bg-[#1f2123] h-1 mb-3"></div>
+                        <div className="w-[30%] rounded-lg bg-[#1f2123] h-4 mb-3"></div>
+                    </div>
+
+                    {/* user post skeleton */}
+                    <div className=" flex ">
+                        <div className="w-96 h-96 rounded-lg bg-[#1f2123] animate-pulse"></div>
+                    </div>
+                </div>
+
+                <div className=" min-h-screen flex justify-center items-center">
+                    <div className="w-20 h-20 md:hidden border-l-2 border-green-500 rounded-full flex justify-center items-center animate-[spin_1.8s_linear_infinite]"><div className="w-16 h-16  border-b-2 border-indigo-500 rounded-full flex justify-center items-center animate-[spin_1.8s_linear_infinite]"><div className="w-10 h-10  border-r-2  border-sky-500 rounded-full animate-[spin_1.8s_linear_infinite]"></div></div></div>
+                </div>
+            </>
+        );
+    }
 
     return (
         <div className='px-5 md:px-36 mt-10 '>
