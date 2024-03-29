@@ -59,7 +59,7 @@ const Navbar = ({ title }) => {
               <div className="bg-[#0A0909] border border-[#3b2d0c] p-8 font-semibold absolute top-12">
                 <ul className="space-y-3">
                   <li>
-                    <Link href="/" className="flex gap-3 items-center">
+                    <Link href="/dashboard/profile" className="flex gap-3 items-center">
                       <FaRegUser className=" text-[#E4B649]" size={20} />
                       <span>My Profile</span>
                     </Link>
@@ -84,3 +84,5 @@ const Navbar = ({ title }) => {
 };
 
 export default Navbar;
+
+

@@ -19,7 +19,6 @@ import useGetAreas from '@/hooks/useGetAreas';
 import useGetProperties from '@/hooks/useGetProperties';
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
-
 const ListingDetail = ({ params }) => {
 
     const areas = useGetAreas();
