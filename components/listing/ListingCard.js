@@ -5,10 +5,11 @@ import sqft from '@/public/images/dashboard/listing/sqft.svg';
 import whatsapp from '@/public/images/contact/whatsapp.svg';
 import call from '@/public/images/contact/call.svg';
 import bed from '@/public/images/dashboard/listing/bed.svg';
+import Link from 'next/link';
 
-const ListingCard = ({item}) => {
+const ListingCard = ({item, status}) => {
     return (
-       <div className='border border-[#CC9107]'>
+       <Link href={`/listing/${status}/${item._id}`} className='border border-[#CC9107]'>
                                 <div className='relative'>
                                     <Image src={item.images[0]} alt={item.title} width={100} height={300} className='w-full h-52 object-fill '/>
                                     <div className='bg-black px-4 py-1 rounded-2xl absolute top-4 left-4 text-xs uppercase'><span>{item.status}</span></div>
@@ -66,7 +67,7 @@ const ListingCard = ({item}) => {
                                     </div>
 
                                 </div>
-                            </div>
+                            </Link>
     );
 };
 
