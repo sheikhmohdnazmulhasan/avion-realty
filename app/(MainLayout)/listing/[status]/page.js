@@ -31,12 +31,12 @@ const ListingDetail = ({ params }) => {
                             <>
                                 <h2 className='text-3xl lg:hidden'>Dubai Off-Plan Investment Opportunities</h2>
                                 <h2 className='text-2xl hidden lg:block'>Discover Luxury Off-Plan Investment Potential in Dubai Real Estate</h2>
-                                <p className='text-[#999] my-2 lg:hidden'>The city's cultural fusion is mirrored in its real estate offerings, from waterfront residences to golf course estates. Dubai's inclusive atmosphere and diverse communities create an inviting lifestyle for residents and a robust market for investors.</p>
+                                <p className='text-[#999] my-2 lg:hidden'>The city&apos;s cultural fusion is mirrored in its real estate offerings, from waterfront residences to golf course estates. Dubai&apos;s inclusive atmosphere and diverse communities create an inviting lifestyle for residents and a robust market for investors.</p>
                                 <p className='text-[#999] text-xl my-4 hidden lg:block'>Dubai, nestled between desert and sea, epitomizes modern opulence and enticing investment prospects. Its iconic skyline, adorned with structures like the Burj Khalifa, showcases prime real estate opportunities. Boasting a global business hub, Dubai attracts investors seeking both innovative spaces and thriving communities.
                                 <br/> <br/>
-                                The city's cultural fusion is mirrored in its real estate offerings, from waterfront residences to golf course estates. Dubai's inclusive atmosphere and diverse communities create an inviting lifestyle for residents and a robust market for investors.
+                                The city&apos;s cultural fusion is mirrored in its real estate offerings, from waterfront residences to golf course estates. Dubai&apos;s inclusive atmosphere and diverse communities create an inviting lifestyle for residents and a robust market for investors.
                                 <br/> <br/>
-                                In conclusion, Dubai's real estate landscape unfolds a tapestry of possibilities, where dreams come to life amidst modernity and tradition. It beckons those in search of a property and a lifestyle beyond the ordinary, making every investment an invitation to an extraordinary future.</p>
+                                In conclusion, Dubai&apos;s real estate landscape unfolds a tapestry of possibilities, where dreams come to life amidst modernity and tradition. It beckons those in search of a property and a lifestyle beyond the ordinary, making every investment an invitation to an extraordinary future.</p>
                             </>
                         ) : (
                             <>
@@ -134,7 +134,7 @@ const ListingDetail = ({ params }) => {
                     {/*  Strategic Investment */}
                     <div className='py-4 md:py-12 lg:py-16'>
                         <h2 className='text-2xl lg:text-3xl'>A Strategic Investment Oasis for Prosperity and Luxury</h2>
-                        <p className='my-4'>Investing in Dubai's real estate market offers a compelling opportunity for astute investors seeking both stability and lucrative returns. Renowned for its dynamic economy and visionary development initiatives, Dubai stands as a global hub for business and luxury living. The city's strategic location, at the crossroads of Europe, Asia, and Africa, positions it as a prime destination for international trade and commerce, fostering a diverse and resilient economy. </p>
+                        <p className='my-4'>Investing in Dubai&apos;s real estate market offers a compelling opportunity for astute investors seeking both stability and lucrative returns. Renowned for its dynamic economy and visionary development initiatives, Dubai stands as a global hub for business and luxury living. The city&apos;s strategic location, at the crossroads of Europe, Asia, and Africa, positions it as a prime destination for international trade and commerce, fostering a diverse and resilient economy. </p>
                     </div>
                 </div>
             <Inquiry/>

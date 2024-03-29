@@ -38,9 +38,15 @@ const PublishBlog = () => {
         });
 
         if (!showName) {
-            toast.error(`Palace Select One Image`, { id: toastId });
+            toast.error(`Please Select One Image`, { id: toastId });
 
-        } else {
+        }else if (!user.data.photo){
+            toast.error(`Before publish a blog, you must be set your profile picture.`, { id: toastId });
+        }
+        else if (!user.data.designation){
+            toast.error(`Before publish a blog, you must be set your designation.`, { id: toastId });
+        }
+        else {
             axios.post(`https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`, image).then(res => {
 
                 const dataForBackend = { title, description, blogImg: res.data.data.display_url, agentEmail: user.data.email, agentName: user.data.name, agentImg: user.data.photo, agentDesignation: user.data.designation, agentId: user.data._id };
@@ -56,9 +62,13 @@ const PublishBlog = () => {
                         toast.error(`Something Wrong!`, { id: toastId })
                     }
 
-                }).catch(() => toast.error(`Something Wrong!`, { id: toastId }))
+                }).catch((error) =>{ toast.error(`Something Wrong!`, { id: toastId })
+                console.log(error);
+            })
 
-            }).catch(() => toast.error(`Something Wrong!`, { id: toastId }))
+            }).catch((error) =>{ toast.error(`Something Wrong!`, { id: toastId })
+                console.log(error);
+            })
         }
     }
 
