@@ -6,17 +6,24 @@ import React from 'react';
 import useSWR from 'swr';
 
 import location from '@/public/images/dashboard/listing/location.svg'
+import property from '@/public/images/dashboard/listing/property.svg'
+import price from '@/public/images/dashboard/listing/price.svg'
 import bed from '@/public/images/dashboard/listing/bed.svg';
 import bathroomSvg from '@/public/images/dashboard/listing/bathroom.svg';
 import sqft from '@/public/images/dashboard/listing/sqft.svg';
 import whatsapp from '@/public/images/contact/whatsapp.svg'
 import call from '@/public/images/contact/call.svg'
 import Inquiry from '@/components/shared/Inquiry';
+import { HiOutlineSearch } from 'react-icons/hi';
+import useGetAreas from '@/hooks/useGetAreas';
+import useGetProperties from '@/hooks/useGetProperties';
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 const ListingDetail = ({ params }) => {
 
+    const areas = useGetAreas();
+    const properties = useGetProperties();
     const { data = [], isLoading, error } = useSWR(`http://localhost:3000/api/offplans?status=${params.status}`, fetcher);
 
     return (
@@ -43,9 +50,81 @@ const ListingDetail = ({ params }) => {
                         )
                     }
                 </div>
-                <div className='px-4 md:px-12 lg:px-20 py-8 lg:py-16 space-y-4'>
+                <div className='px-4 md:px-12 lg:px-20 py-4 space-y-4'>
+                    {/* search bar */}
+                    <form className="hidden md:flex items-center bg-[#0F0F0F] w-full pl-8 pr-4 justify-around py-3 rounded-3xl my-8">
+                        <span className="w-1 ">
+                        <HiOutlineSearch />
+                        </span>
+                        <input
+                        type="text"
+                        placeholder="Search For A Property or Location"
+                        className="bg-transparent w-2/3 lg:w-4/5"
+                        />
+                        <button className="bg-[#E4B649] text-black flex items-center font-extrabold gap-2 py-2 px-4 rounded-3xl">
+                        <span>
+                            <HiOutlineSearch />
+                        </span>
+                        <span>Find Property</span>
+                        </button>
+                    </form>
+
+                    {/* multiple search */}
+                    <div className="hidden md:grid grid-cols-4 items-center gap-6 bg-[#0F0F0F] w-full px-6 py-3 rounded-3xl my-8">
+                       {/* area */}
+                        <div className='bg-[#272727] rounded-lg py-2 px-4 flex gap-3'>
+                            <Image src={location} alt='loaction svg' className='w-6'/>
+                            <select
+                                name="area"
+                                className=" w-full border-l bg-transparent px-2 "
+                                >
+                                <option value="" disabled selected>
+                                    Area
+                                </option>
+                                {areas.map((area) => (
+                                    <option key={area._id} value={area.itemName} className='bg-[#272727]'>
+                                    {area.itemName}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                       {/* property */}
+                        <div className='bg-[#272727] rounded-lg py-2 px-4 flex gap-3'>
+                            <Image src={property} alt='property svg' className='w-8' />
+                            <select
+                                name="property"
+                                className=" w-full border-l bg-transparent px-2 "
+                                >
+                                <option value="" disabled selected>
+                                    Property type
+                                </option>
+                                {properties.map((property) => (
+                                    <option key={property._id} value={property.propertyName} className='bg-[#272727]'>
+                                    {property.propertyName}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                       {/* Bedrooms */}
+                        <div className='bg-[#272727] rounded-lg py-2 px-4 flex gap-3'>
+                            <Image src={bed} alt='bed svg' className='w-4 '/>
+                            <div className="bg-transparent px-2 border-l w-full items-center flex justify-between">
+                            <p>Bedrooms</p>
+                            <input
+                                type="number"
+                                min="1"
+                                max="7"
+                                defaultValue="1"
+                                name="bedroom"
+                                className="bg-transparent"
+                            />
+                            </div>      
+                        </div>
+                       
+                    </div>
+
                     {/* section header */}
-                    <div className='hidden md:block text-center'>
+                    <div className='hidden md:block text-center py-4 lg:py-16'>
                         <h2 className='text-[#E4B649] text-3xl font-medium'>Discover a World of Possibilities</h2>
                         <p className='lg:w-1/2 my-4 mx-auto'>Our portfolio of properties is as diverse as your dreams. Explore the following categories to find the perfect property that resonates with your vision of home</p>
                     </div>
