@@ -20,7 +20,7 @@ export async function GET(request) {
     } else {
         const result = await Blog.find();
         return NextResponse.json(result);
-        
+
     };
 };
 
