@@ -5,12 +5,16 @@ import React from 'react';
 import useSWR from 'swr';
 import share from '@/public/images/root/blog/share.svg';
 import Link from 'next/link';
+import BlogCard from '@/components/root/BlogCard';
+import Inquiry from '@/components/shared/Inquiry';
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const BlogDetails = ({ params }) => {
     const { data = [] } = useSWR(`http://localhost:3000/api/agent/blog?id=${params.id}`, fetcher);
+    const updatedDate = new Date(data?.createdAt).toLocaleDateString();
 
-    const updatedDate = new Date(data?.createdAt).toLocaleDateString()
+    const { data: allBlog = [] } = useSWR(`http://localhost:3000/api/agent/blog`, fetcher);
+    const blogExceptThisBlog = allBlog.filter(blog => blog._id !== data._id);
 
     // {
     //     title: 'dhdhhd',
@@ -47,8 +51,21 @@ const BlogDetails = ({ params }) => {
                         <p className='text-sm'>{data?.agentDesignation}</p>
                     </div>
                 </div>
-                <Link href={'/'} className='px-2 pt-3 rounded-md text-center border border-[#e4b549a6]'>View Agent</Link>
+                <Link href={`/agents/${data?.agentId}`} className='px-2 pt-3 rounded-md text-center border border-[#e4b549a6]'>View Agent</Link>
             </div>
+
+            {/* main Content */}
+            <div className="my-16">
+                <p>{data?.description}</p>
+            </div>
+
+            <div className="">
+                <h1 className='text-2xl mb-4'>More News & Blog</h1>
+                <div className=" grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {blogExceptThisBlog.slice(0, 3).map(blog => <BlogCard key={blog._id} blog={blog} />)}
+                </div>
+            </div>
+            <Inquiry />
         </div>
 
     );
