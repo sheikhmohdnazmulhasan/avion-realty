@@ -3,17 +3,17 @@ import Amenities from "@/models/amenities";
 import { NextResponse } from "next/server";
 
 // amenities Get
-export async function GET() {
+export async function GET(request) {
   await connectMongoDB();
-  const result = await Amenities.find();
+  const { searchParams } = new URL(request.url);
+  const name = searchParams.get('name');
 
-  if (!result.length) {
-    return NextResponse.json(
-      { message: "no data found", success: true },
-      { status: 501 }
-    );
-
-  } else {
+  if(name){
+    const result = await Amenities.find({ name });
+    return NextResponse.json(result);
+  }
+  else {
+    const result = await Amenities.find();
     return NextResponse.json(result);
   }
 }
