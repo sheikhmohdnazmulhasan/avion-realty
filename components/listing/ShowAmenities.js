@@ -6,7 +6,7 @@ import useSWR from "swr";
 
 const ShowAmenities = ({amenity}) => {
     const fetcher = url => axios.get(url).then(res => res.data);
-    const {data} = useSWR(`http://localhost:3000/api/admin/amenities?name=${amenity}`, fetcher);
+    const {data ={}} = useSWR(`http://localhost:3000/api/admin/amenities?name=${amenity}`, fetcher);
     
     return (
         <div className="flex gap-4 items-center mb-4">
