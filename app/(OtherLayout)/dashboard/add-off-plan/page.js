@@ -19,6 +19,8 @@ import toast, { Toaster } from "react-hot-toast";
 import publish from "@/public/images/dashboard/listing/publish.svg";
 import useViews from "@/hooks/useViews";
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { MdOutlineFileUpload } from "react-icons/md";
+
 
 const AddOffPlan = () => {
   // document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
@@ -45,7 +47,7 @@ const AddOffPlan = () => {
     width: '100%',
     height: '400px'
   };
-  // const [file, setFile] = useState("");
+  const [editable, setEditable] = useState(true);
   const [installmentElement, setInstalmentElement] = useState([
     <>
       <div>
@@ -60,11 +62,14 @@ const AddOffPlan = () => {
         <input
           type="number"
           name="paymentPercent"
+          disabled = {!editable}
           placeholder="00 %"
           className="bg-black text-xs p-2 text-center rounded-md w-1/3 ml-4 border border-dotted "
         />
         <h3 className="text-[#E4B649] mr-1">+4% DLD</h3>
-        <RiEditBoxFill size={24} className="-mt-1" />
+        { editable ? <button type="button" onClick={()=>setEditable(false)}><MdOutlineFileUpload size={24}    className="-mt-1" /></button> :
+          <button type="button" onClick={()=>setEditable(true)}><RiEditBoxFill size={24} className="-mt-1" /></button>
+        }
       </div>
     </>,
   ]);
@@ -105,7 +110,9 @@ const AddOffPlan = () => {
             className="bg-black text-xs p-2 text-center rounded-md w-1/3 ml-4 border border-dotted "
           />
 
-          <RiEditBoxFill size={24} className="-mt-1" />
+          { editable ? <button type="button" onClick={()=>setEditable(false)}><MdOutlineFileUpload size={24}  className="-mt-1" /></button> :
+            <button type="button" onClick={()=>setEditable(true)}><RiEditBoxFill size={24} className="-mt-1" /></button>
+          }
           <button
             onClick={() => removeInstallment(prevElement.length)}
             type="button"
