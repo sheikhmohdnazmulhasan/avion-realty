@@ -9,6 +9,7 @@ import call from '@/public/images/root/call.svg';
 import wp from '@/public/images/root/wp.svg';
 import profileAlt from '@/public/images/root/male-face.jpg';
 import { useState } from "react";
+import ListingCard from "@/components/listing/ListingCard";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const AgentDetails = ({ params }) => {
@@ -120,15 +121,20 @@ const AgentDetails = ({ params }) => {
 
                 </div>
 
-                {agent?.about && <div className="md:mx-36 md:mt-20 p-5">
+                {agent?.about && <div className="md:mx-36 md:mt-12 p-5">
                     <h3 className="text-xl text-[#E4B649] font-semibold mb-2">About Me</h3>
                     <p className="md:hidden">{showAllAbout ? agent?.about : agent?.about?.slice(0, 100)} <span className="text-[#E4B649] underline" onClick={() => setShowAllAbout(!showAllAbout)}>{showAllAbout ? ' Show less' : 'Read More...'}</span></p>
                     <p className="hidden md:block">{agent?.about}</p>
                 </div>}
 
                 {/* Agent properties */}
-                <div className="md:mx-36 md:mt-20 p-5">
-                    {properties.length}
+                <div className="md:mx-36 md:mt-12 p-5">
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 py-4'>
+                    {
+                        properties.map(item => <ListingCard key={item._id} item={item} />)
+                    }
+
+                    </div>
                 </div>
             </div>
         );
