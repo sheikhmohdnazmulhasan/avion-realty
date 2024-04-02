@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 import location from '@/public/images/dashboard/listing/location.svg'
@@ -17,10 +17,24 @@ import ListingCard from '@/components/listing/ListingCard';
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
+    const { data = [], isLoading, error } = useSWR(`http://localhost:3000/api/offplans?status=${params.status}`, fetcher);
 
     const areas = useGetAreas();
     const properties = useGetProperties();
-    const { data = [], isLoading, error } = useSWR(`http://localhost:3000/api/offplans?status=${params.status}`, fetcher);
+
+    const [listings, setListings] = useState([]);
+
+    const dataFilterByArea = (value) => {
+        axios.get(`http://localhost:3000/api/offplans?area=${value}`).then(res => setListings(res.data)).catch(err => console.log(err))
+    }
+
+    const dataFilterByProperty = (value) => {
+        axios.get(`http://localhost:3000/api/offplans?propertyType=${value}`).then(res => setListings(res.data)).catch(err => console.log(err))
+    }
+
+    useEffect(()=>{
+        setListings(data);
+    },[data])
 
     return (
         <div>
@@ -73,8 +87,9 @@ const ListingDetail = ({ params }) => {
                             <select
                                 name="area"
                                 className=" w-full border-l bg-transparent px-2 "
+                                onChange={(event)=>dataFilterByArea(event.target.value)}
                                 >
-                                <option value="" disabled selected>
+                                <option value="" selected disabled>
                                     Area
                                 </option>
                                 {areas.map((area) => (
@@ -88,10 +103,11 @@ const ListingDetail = ({ params }) => {
                         <div className='bg-[#272727] rounded-lg py-2 px-4 flex gap-3'>
                             <Image src={property} alt='property svg' className='w-8' />
                             <select
-                                name="property"
+                                name="propertyType"
                                 className=" w-full border-l bg-transparent px-2 "
+                                onChange={(event)=>dataFilterByProperty(event.target.value)}
                                 >
-                                <option value="" disabled selected>
+                                <option value="" selected disabled>
                                     Property type
                                 </option>
                                 {properties.map((property) => (
@@ -110,9 +126,9 @@ const ListingDetail = ({ params }) => {
                                 type="number"
                                 min="1"
                                 max="7"
-                                defaultValue="1"
                                 name="bedroom"
                                 className="bg-transparent"
+                                // onChange={(event)=>setListings(data.filter(item => item.bedroom === event.target.value))}
                             />
                             </div>      
                         </div>
@@ -127,7 +143,7 @@ const ListingDetail = ({ params }) => {
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 py-4'>
                         {/* listing card */}
                         {
-                            data.map(item => <ListingCard key={item._id} item={item} status={params.status} />)
+                            listings.map(item => <ListingCard key={item._id} item={item} status={params.status} />)
                         }
 
                     </div>

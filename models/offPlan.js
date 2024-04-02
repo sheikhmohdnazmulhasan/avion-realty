@@ -18,6 +18,7 @@ const offPlanSchema = new Schema({
     amenities: [String],
     images: [String],
     status: String,
+    payment : {String},
     leads: Number
 }, { timestamps: true });
 

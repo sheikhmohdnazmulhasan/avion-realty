@@ -9,6 +9,8 @@ export async function GET(request) {
     const id = searchParams.get('id');
     const agent = searchParams.get('agent');
     const status = searchParams.get('status');
+    const area = searchParams.get('area');
+    const propertyType = searchParams.get('propertyType');
 
     if (id) {
         const result = await OffPlan.findById(id);
@@ -20,6 +22,14 @@ export async function GET(request) {
 
     } else if (status) {
         const result = await OffPlan.find({ status })
+        return NextResponse.json(result);
+        
+    } else if (area) {
+        const result = await OffPlan.find({ area })
+        return NextResponse.json(result);
+        
+    } else if (propertyType) {
+        const result = await OffPlan.find({ propertyType })
         return NextResponse.json(result);
         
     } else {
