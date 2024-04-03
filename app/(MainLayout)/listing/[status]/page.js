@@ -7,7 +7,6 @@ import useSWR from 'swr';
 
 import location from '@/public/images/dashboard/listing/location.svg'
 import property from '@/public/images/dashboard/listing/property.svg'
-import price from '@/public/images/dashboard/listing/price.svg'
 import bed from '@/public/images/dashboard/listing/bed.svg';
 import Inquiry from '@/components/shared/Inquiry';
 import { HiOutlineSearch } from 'react-icons/hi';
