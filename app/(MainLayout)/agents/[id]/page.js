@@ -131,7 +131,7 @@ const AgentDetails = ({ params }) => {
                 <div className="md:mx-36 md:mt-12 p-5">
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 py-4'>
                     {
-                        properties.map(item => <ListingCard key={item._id} item={item} />)
+                        properties.map(item => <ListingCard key={item._id} item={item} status={item.status}/>)
                     }
 
                     </div>
