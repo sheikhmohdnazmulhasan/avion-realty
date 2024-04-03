@@ -11,14 +11,19 @@ const offPlanSchema = new Schema({
     areaSqFt: Number,
     completion: String,
     views: String,
-    furnishing : String,
+    furnishing: String,
     agent: String,
     description: String,
     location: String,
     amenities: [String],
     images: [String],
     status: String,
-    payment : {String},
+    payment: {
+        firstInstallment: String,
+        underConstruction: String,
+        onHandover: String,
+        postHandover: String
+    },
     leads: Number
 }, { timestamps: true });
 
