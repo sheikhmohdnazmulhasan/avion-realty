@@ -23,15 +23,15 @@ export async function GET(request) {
     } else if (status) {
         const result = await OffPlan.find({ status })
         return NextResponse.json(result);
-        
+
     } else if (area) {
         const result = await OffPlan.find({ area })
         return NextResponse.json(result);
-        
+
     } else if (propertyType) {
         const result = await OffPlan.find({ propertyType })
         return NextResponse.json(result);
-        
+
     } else {
         const result = await OffPlan.find();
         return NextResponse.json(result);
@@ -42,6 +42,7 @@ export async function POST(request) {
     await connectMongoDB();
 
     const data = await request.json();
+    console.log(data);
 
     const result = await OffPlan.create(data);
 

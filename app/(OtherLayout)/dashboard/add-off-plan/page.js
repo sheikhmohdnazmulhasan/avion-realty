@@ -106,7 +106,7 @@ const AddOffPlan = () => {
     const onHandover = form.onHandover.value;
     const postHandover = form.postHandover.value;
 
-    const payment = {firstInstallment, underConstruction, onHandover, postHandover};
+    const payment = { firstInstallment, underConstruction, onHandover, postHandover };
 
     if (user?.data?.role !== "agent") {
       setAgent(form.agent.value);
@@ -154,8 +154,8 @@ const AddOffPlan = () => {
     // if (result.data.status == "ok") {
     //   alert("Uploaded Successfully!!!");
     // }
-  
-  
+
+
 
     const dataForBackend = {
       leads: 0,
@@ -376,7 +376,7 @@ const AddOffPlan = () => {
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
               <option value="" disabled selected>
-              Eg. (Sea View)
+                Eg. (Sea View)
               </option>
               {views.map((view) => (
                 <option key={view._id} value={view.name}>
@@ -434,7 +434,7 @@ const AddOffPlan = () => {
         {
           isLoaded ? (
             <div className="p-8">
-              
+
               {/* <button className="btn btn-primary mb-4" onClick={handleShowMap}>Show Map</button> */}
               <div style={containerStyle} className="mb-4">
                 <GoogleMap
@@ -450,7 +450,7 @@ const AddOffPlan = () => {
             </div>
           ) : <></>
         }
-        
+
 
         {/* amenities */}
         <div>
@@ -459,37 +459,37 @@ const AddOffPlan = () => {
           <div className="grid grid-cols-3 gap-6 mt-3">
             {showAll
               ? amenities.slice(0, 12).map((amenity) => (
-                  <div
-                    key={amenity._id}
-                    amenity={amenity}
-                    className="flex items-center gap-4"
-                  >
-                    <input
-                      onChange={handleCheckboxChanged}
-                      type="checkbox"
-                      value={amenity.name}
-                      name="amenity"
-                      className="toggle bg-[#FFD673] border-4 border-[#CB9107]"
-                    />
-                    <label>{amenity.name}</label>
-                  </div>
-                ))
+                <div
+                  key={amenity._id}
+                  amenity={amenity}
+                  className="flex items-center gap-4"
+                >
+                  <input
+                    onChange={handleCheckboxChanged}
+                    type="checkbox"
+                    value={amenity.name}
+                    name="amenity"
+                    className="toggle bg-[#FFD673] border-4 border-[#CB9107]"
+                  />
+                  <label>{amenity.name}</label>
+                </div>
+              ))
               : amenities.map((amenity) => (
-                  <div
-                    key={amenity._id}
-                    amenity={amenity}
-                    className="flex items-center gap-4"
-                  >
-                    <input
-                      onChange={handleCheckboxChanged}
-                      type="checkbox"
-                      value={amenity.name}
-                      name="amenity"
-                      className="toggle bg-[#FFD673] border-4 border-[#CB9107]"
-                    />
-                    <label>{amenity.name}</label>
-                  </div>
-                ))}
+                <div
+                  key={amenity._id}
+                  amenity={amenity}
+                  className="flex items-center gap-4"
+                >
+                  <input
+                    onChange={handleCheckboxChanged}
+                    type="checkbox"
+                    value={amenity.name}
+                    name="amenity"
+                    className="toggle bg-[#FFD673] border-4 border-[#CB9107]"
+                  />
+                  <label>{amenity.name}</label>
+                </div>
+              ))}
           </div>
           {amenities.length > 12 &&
             (showAll ? (
@@ -516,29 +516,29 @@ const AddOffPlan = () => {
           <label>Payment Plan</label>
           <br />
 
-          <div className="grid grid-cols-2 mt-4 gap-6"> 
+          <div className="grid grid-cols-2 mt-4 gap-6">
             <div>
               <label>First Installment</label>
               <input type="number" placeholder="Place your payment in %" name="firstInstallment"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+                className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
               />
             </div>
             <div>
               <label>Under Construction</label>
               <input type="number" placeholder="Place your payment in %" name="underConstruction"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+                className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
               />
             </div>
             <div>
               <label>On Handover</label>
               <input type="number" placeholder="Place your payment in %" name="onHandover"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+                className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
               />
             </div>
             <div>
               <label>Post Handover</label>
               <input type="number" placeholder="Place your payment in %" name="postHandover"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+                className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
               />
             </div>
 
@@ -548,9 +548,8 @@ const AddOffPlan = () => {
         {/* add picture */}
         <div className="drag-drop w-full h-auto bg-transparent">
           <div
-            className={`document-uploader ${
-              files.length > 0 ? "upload-box active" : "upload-box"
-            }`}
+            className={`document-uploader ${files.length > 0 ? "upload-box active" : "upload-box"
+              }`}
             onDrop={handleDrop}
             onDragOver={(event) => event.preventDefault()}
           >
