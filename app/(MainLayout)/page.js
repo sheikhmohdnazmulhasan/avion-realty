@@ -1,4 +1,6 @@
 import ExploreOffPlans from "@/components/home/ExploreOffPlans";
+import ExploreProperties from "@/components/home/ExploreProperties";
+import ExploreRentReady from "@/components/home/ExploreRentReady";
 import HeroRoot from "@/components/home/hero/HeroRoot";
 import Inquiry from "@/components/shared/Inquiry";
 
@@ -11,8 +13,10 @@ export default function Home() {
       {/* <HeroRoot/> */}
 
       <HeroRoot />
-      <div className="px-4 md:px-16 lg:px-40">
+      <div className="px-4 md:px-16 lg:px-40 space-y-16">
         <ExploreOffPlans/>
+        <ExploreProperties/>
+        <ExploreRentReady />
       </div>
       <Inquiry />
     </main>
