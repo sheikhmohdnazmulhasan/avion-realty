@@ -115,23 +115,6 @@ const AddProperty = () => {
       images.push(imgBbResponse.data.data.display_url);
     }
 
-    // upload file
-    // const floorPlan = new FormData();
-    // floorPlan.append("file", file);
-    // console.log(file);
-
-    // const result = await axios.post(
-    //   "http://localhost:3000/upload-files",
-    //   floorPlan,
-    //   {
-    //     headers: { "Content-Type": "multipart/form-data" },
-    //   }
-    // );
-    // console.log(result);
-    // if (result.data.status == "ok") {
-    //   alert("Uploaded Successfully!!!");
-    // }
-
 
 
     const dataForBackend = {
@@ -268,7 +251,7 @@ const AddProperty = () => {
           <div>
             <label>Views</label>
             <br />
-            <select name="view" id="" className="bg-black  text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2">
+            <select name="views" id="" className="bg-black  text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2">
               <option value="" selected disabled>Select View</option>
               {views.map(view => <option value={view.name} key={view._id}>{view.name}</option>)}
             </select>
@@ -536,8 +519,8 @@ const AddProperty = () => {
             <Image src={publish} alt="publish" height={16} width={16} />
           </button>
         </div>
-      </form>
-    </div>
+      </form >
+    </div >
   );
 };
 

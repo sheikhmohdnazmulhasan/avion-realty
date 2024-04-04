@@ -138,25 +138,6 @@ const AddOffPlan = () => {
       images.push(imgBbResponse.data.data.display_url);
     }
 
-    // upload file
-    // const floorPlan = new FormData();
-    // floorPlan.append("file", file);
-    // console.log(file);
-
-    // const result = await axios.post(
-    //   "http://localhost:3000/upload-files",
-    //   floorPlan,
-    //   {
-    //     headers: { "Content-Type": "multipart/form-data" },
-    //   }
-    // );
-    // console.log(result);
-    // if (result.data.status == "ok") {
-    //   alert("Uploaded Successfully!!!");
-    // }
-
-
-
     const dataForBackend = {
       leads: 0,
       status: "Off-Plan",
