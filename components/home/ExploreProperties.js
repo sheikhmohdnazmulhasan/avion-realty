@@ -67,7 +67,7 @@ const ExploreProperties = () => {
                     listings?.slice(currentIndex, currentIndex + 1).map(item => <ListingCard key={item._id} item={item} status={item.status}/>)
                 }
             </div>
-            {/* lg device slieder */}
+            {/* md device slieder */}
             <div className="hidden md:grid grid-cols-2 lg:hidden gap-6">
                 {
                     listings?.slice(currentIndex, currentIndex + 2).map(item => <ListingCard key={item._id} item={item} status={item.status}/>)

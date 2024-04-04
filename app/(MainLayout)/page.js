@@ -1,3 +1,4 @@
+import ExploreAreas from "@/components/home/ExploreAreas";
 import ExploreOffPlans from "@/components/home/ExploreOffPlans";
 import ExploreProperties from "@/components/home/ExploreProperties";
 import ExploreRentReady from "@/components/home/ExploreRentReady";
@@ -17,6 +18,7 @@ export default function Home() {
         <ExploreOffPlans/>
         <ExploreProperties/>
         <ExploreRentReady />
+        <ExploreAreas />
       </div>
       <Inquiry />
     </main>
