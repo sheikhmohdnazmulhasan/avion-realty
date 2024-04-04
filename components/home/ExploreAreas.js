@@ -52,12 +52,10 @@ const ExploreAreas = () => {
                             <div className="  bg-black opacity-70 absolute bottom-0 w-full hover:bg-transparent hover:opacity-100">
                                 <div className="w-full text-center p-4">
                                     <h2 className="text-xl uppercase py-2">{area.itemName}</h2>
-                                    <Link href='/'>Explore More</Link>
+                                    <Link href={`/listing/${area.itemName}`}>Explore More</Link>
                                 </div>
-                                
                             </div>
                         </div>
-                        
                     </div>  )
                 }
             </div>
@@ -70,12 +68,10 @@ const ExploreAreas = () => {
                             <div className="  bg-black opacity-70 absolute bottom-0 w-full hover:bg-transparent hover:opacity-100">
                                 <div className="w-full text-center p-4">
                                     <h2 className="text-xl uppercase py-2">{area.itemName}</h2>
-                                    <Link href='/'>Explore More</Link>
+                                    <Link href={`/listing/${area.itemName}`}>Explore More</Link>
                                 </div>
-                                
                             </div>
                         </div>
-                        
                     </div>  )
                 }
             </div>
@@ -88,12 +84,10 @@ const ExploreAreas = () => {
                             <div className="  bg-black opacity-70 absolute bottom-0 w-full hover:bg-transparent hover:opacity-100">
                                 <div className="w-full text-center p-4">
                                     <h2 className="text-xl uppercase py-2">{area.itemName}</h2>
-                                    <Link href='/'>Explore More</Link>
+                                    <Link href={`/listing/${area.itemName}`}>Explore More</Link>
                                 </div>
-                                
                             </div>
                         </div>
-                        
                     </div> )
                 }
             </div>

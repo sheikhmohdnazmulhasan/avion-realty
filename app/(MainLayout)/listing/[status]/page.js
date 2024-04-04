@@ -16,7 +16,11 @@ import ListingCard from '@/components/listing/ListingCard';
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
-    const { data = [], isLoading, error } = useSWR(`http://localhost:3000/api/offplans?status=${params.status}`, fetcher);
+    // const [data, setData] = useState(null);
+    console.log(params);
+
+    const { data = [], isLoading, error } = useSWR(`http://localhost:3000/api/offplans?${params.status === 'Off-Plan' || params.status === 'Ready' || params.status === 'Rental' ? `status=${params.status}` : `area=${params.status}`}`, fetcher);
+
 
     const areas = useGetAreas();
     const properties = useGetProperties();
