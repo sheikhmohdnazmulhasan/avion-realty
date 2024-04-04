@@ -13,6 +13,7 @@ import { PiKeyLight } from "react-icons/pi";
 import Swal from "sweetalert2";
 import { mutate } from "swr";
 
+
 const Agents = () => {
   const data = useAgents();
   const [openModal, setOpenModal] = useState(false);
@@ -101,8 +102,9 @@ const Agents = () => {
                 text: `You have successfully created a new agent. Email: ${agentEmail},  Password: ${newPassword}. Please note it down!`,
                 icon: "success",
               });
-              mutate("http://localhost:3000/api/users");
+              mutate("http://localhost:3000/api/users?agent=all");
               setOpenModal(false);
+
             } else {
               Swal.fire({
                 title: "Email Exist",
