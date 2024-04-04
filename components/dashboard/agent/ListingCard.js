@@ -30,7 +30,7 @@ const ListingCard = ({ list }) => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                axios.delete(`http://localhost:3000/api/offplans?id=${_id}`).then(res => {
+                axios.delete(`http://localhost:3000/api/offplans?id=${_id}&agent=${agent}`).then(res => {
 
                     if (res.data.success) {
                         Swal.fire({

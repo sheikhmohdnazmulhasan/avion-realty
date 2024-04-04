@@ -36,8 +36,8 @@ export async function GET(request) {
     } else {
         const result = await OffPlan.find();
         return NextResponse.json(result);
-    }
-}
+    };
+};
 
 export async function POST(request) {
     await connectMongoDB();
@@ -68,8 +68,8 @@ export async function POST(request) {
     } else {
 
         return NextResponse.json({ message: 'Something Wrong', success: false }, { status: 500 });
-    }
-    
+    };
+
 };
 
 export async function PUT(request) {
@@ -88,13 +88,14 @@ export async function PUT(request) {
 
         return NextResponse.json({ message: 'Data successfully saved in database', success: true }, { status: 200 });
     };
-}
+};
 
 export async function DELETE(request) {
     await connectMongoDB();
 
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
+    const agent = searchParams.get('agent');
 
     const result = await OffPlan.findByIdAndDelete(id);
 
@@ -103,6 +104,20 @@ export async function DELETE(request) {
 
     } else {
 
-        return NextResponse.json({ message: 'Data successfully Deleted From Database', success: true }, { status: 200 });
+        const user = await User.findOne({ email: agent });
+
+        const prevProperties = user.properties;
+        const newTotalProperties = prevProperties - 1;
+
+        const updateUserProperties = await User.findOneAndUpdate({ email: agent }, { properties: newTotalProperties });
+
+        if (updateUserProperties) {
+
+            return NextResponse.json({ message: 'Data successfully Deleted From Database', success: true }, { status: 200 });
+
+        } else {
+
+            return NextResponse.json({ message: 'Something Wrong', success: false }, { status: 500 });
+        };
     };
-}
+};
