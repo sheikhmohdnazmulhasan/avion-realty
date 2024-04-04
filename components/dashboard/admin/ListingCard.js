@@ -56,7 +56,7 @@ const ListingCard = ({ list }) => {
                         <div className="flex items-center gap-3">
                             <Image width={96} height={96} src={images[0]} alt="Listing image" className="w-16 h-16 rounded-md" />
                             <div className="">
-                                <h3 className="text-[20px] font-bold mb-2">{title}</h3>
+                                <h3 className="text-[20px] font-bold mb-2">{title.slice(0, 23)} {title.length > 23 && '...'}</h3>
                                 <div className="flex gap-5">
 
                                     {/* bed */}

@@ -13,6 +13,7 @@ const userSchema = new Schema(
     reraID: String,
     about: String,
     role: String,
+    properties: Number,
     designation: String,
   },
   { timestamps: true }

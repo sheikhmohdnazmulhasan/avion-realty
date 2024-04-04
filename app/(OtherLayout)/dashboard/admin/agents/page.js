@@ -17,9 +17,9 @@ const Agents = () => {
   const data = useAgents();
   const [openModal, setOpenModal] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
-  const [showPassword , setShowPassword] = useState(false);
-  const [showRetypePassword , setShowRetypePassword] = useState(false);
-  
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRetypePassword, setShowRetypePassword] = useState(false);
+
   const handleScroll = () => {
     const scrollContainer = document.getElementById("scrollID");
 
@@ -66,6 +66,7 @@ const Agents = () => {
           designation: agentDesignation,
           wpNum: agentWhatsApp,
           role: "agent",
+          properties: 0
         };
 
         if (!passwordRegex.test(newPassword)) {
@@ -180,9 +181,9 @@ const Agents = () => {
                         placeholder="New PassWord"
                         className="bg-black w-full p-2 outline-none"
                       />
-                      <button type="button" onClick={()=>setShowPassword(!showPassword)} className="mr-2">
+                      <button type="button" onClick={() => setShowPassword(!showPassword)} className="mr-2">
                         {
-                          showPassword ? <IoEyeOffOutline size={20}/> : <IoEyeOutline size={20}/>
+                          showPassword ? <IoEyeOffOutline size={20} /> : <IoEyeOutline size={20} />
                         }
                       </button>
                     </div>
@@ -199,9 +200,9 @@ const Agents = () => {
                         placeholder="Re-type New Password"
                         className="bg-black w-full p-2 outline-none"
                       />
-                      <button type="button" onClick={()=>setShowRetypePassword(!showRetypePassword)} className="mr-2">
+                      <button type="button" onClick={() => setShowRetypePassword(!showRetypePassword)} className="mr-2">
                         {
-                          showRetypePassword ? <IoEyeOffOutline size={20}/> : <IoEyeOutline size={20}/>
+                          showRetypePassword ? <IoEyeOffOutline size={20} /> : <IoEyeOutline size={20} />
                         }
                       </button>
                     </div>
