@@ -21,7 +21,7 @@ const Podcasts = () => {
             {/* data card's parent */}
             <div className="px-5 mt-20 md:px-36 grid grid-cols-1 md:grid-cols-3 gap-4">
 
-                {data.map(podcast => <Link key={podcast._id} href={'/'}> <div className="h-80  border border-[#956900] rounded-t-xl">
+                {data.map(podcast => <Link key={podcast._id} href={`/podcasts/${podcast._id}`}> <div className="h-80  border border-[#956900] rounded-t-xl">
                     <Image src={podcast?.thumbnail} height={800} width={800} alt={podcast?.title} className="h-52 rounded-t-xl" />
                     <div className="p-4 mt-2">
                         <h3 className="text-xl">{podcast?.title}</h3>
