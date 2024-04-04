@@ -2,6 +2,7 @@
 
 import usePodcast from "@/hooks/usePodcast";
 import banner from '@/public/images/root/podcast/podcast-banner.png';
+import imgX from '@/public/images/root/podcast/podcast2.png';
 import Image from "next/image";
 import Link from "next/link";
 
@@ -29,7 +30,19 @@ const Podcasts = () => {
                         </div>
                     </div>
                 </div> </Link>)}
+            </div>
 
+            {/* blog reference */}
+            <div className=" flex justify-between mx-36 mt-36 items-center bg-[#0E0E0E]">
+
+                <div className=" w-[50%] text-center">
+                    <h3 className="text-xl mb-7">Delve into Latest blog & News of Recent launch</h3>
+                    <Link href={'/blogs'} className="bg-[#835C00] hover:bg-[#6e5a2d] py-2 px-3 transition-all">News & Blogs</Link>
+                </div>
+
+                <div className="w-[50%]">
+                    <Image src={imgX} alt="blog reference image" className="w-full" />
+                </div>
             </div>
         </div>
     );
