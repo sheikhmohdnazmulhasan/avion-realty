@@ -11,7 +11,7 @@ const ListingCard = ({item, status}) => {
     return (
        <Link href={`/listing/${status}/${item._id}`} className='border border-[#CC9107]'>
                                 <div className='relative'>
-                                    <Image src={item.images[0]} alt={item.title} width={100} height={300} className='w-full h-52 object-fill '/>
+                                    <Image src={item?.images[0]} alt={item.title} width={100} height={300} className='w-full h-52 object-fill '/>
                                     <div className='bg-black px-4 py-1 rounded-2xl absolute top-4 left-4 text-xs uppercase'><span>{item.status}</span></div>
                                 </div>
                                 <div className='p-4 text-left space-y-2'>
