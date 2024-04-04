@@ -32,8 +32,6 @@ const UploadPodcast = () => {
     const image = new FormData();
     image.append('image', showName);
 
-    const dataForBackend = { title, description, agent, videoUrl };
-
     const urlRegex = new RegExp('^(https?|ftp|file):\\/\\/[\\w\\d\\-\\.%\\?\\=\\+\\&\\/]+', 'i');
 
     if (!urlRegex.test(videoUrl)) {
