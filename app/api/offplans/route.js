@@ -1,5 +1,6 @@
 import connectMongoDB from "@/libs/mongodb"
 import OffPlan from "@/models/offPlan";
+import User from "@/models/user";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
@@ -42,17 +43,33 @@ export async function POST(request) {
     await connectMongoDB();
 
     const data = await request.json();
-    console.log(data);
 
-    const result = await OffPlan.create(data);
+    const agent = await User.findOne({ email: data.agent });
 
-    if (!result) {
-        return NextResponse.json({ message: 'Something Wrong', success: false }, { status: 500 });
+    if (agent) {
+
+        const prevProperties = agent.properties;
+        const newTotalProperties = prevProperties + 1
+        const updateUser = await User.findOneAndUpdate({ email: data.agent }, { properties: newTotalProperties });
+
+        if (updateUser) {
+
+            const result = await OffPlan.create(data);
+
+            if (!result) {
+                return NextResponse.json({ message: 'Something Wrong', success: false }, { status: 500 });
+
+            } else {
+
+                return NextResponse.json({ message: 'Data successfully saved in database', success: true }, { status: 200 });
+            };
+        }
 
     } else {
 
-        return NextResponse.json({ message: 'Data successfully saved in database', success: true }, { status: 200 });
-    };
+        return NextResponse.json({ message: 'Something Wrong', success: false }, { status: 500 });
+    }
+    
 };
 
 export async function PUT(request) {
