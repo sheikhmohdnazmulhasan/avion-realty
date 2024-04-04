@@ -9,6 +9,7 @@ const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ExploreProperties = () => {
     const [listings, setListings] = useState(null);
     const [isActive, setIsActive] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     const { data = [], isLoading, error } = useSWR(`http://localhost:3000/api/offplans`, fetcher);
 
@@ -19,6 +20,22 @@ const ExploreProperties = () => {
     const handlePropertyType = (propertyType) => {
         setListings(data.filter(item => item.propertyType === propertyType));
         setIsActive(!isActive);
+    }
+
+    const handlePrev = () => {
+
+        if (currentIndex > 0) {
+            setCurrentIndex(currentIndex - 1);
+
+        }
+
+    }
+
+    const handleNext = () => {
+
+        if (currentIndex < data.length - 4) {
+            setCurrentIndex(currentIndex + 1);
+        }
     }
     
     return (
@@ -34,8 +51,15 @@ const ExploreProperties = () => {
 
             <div className="grid grid-cols-4 gap-6">
                 {
-                    listings?.map(item => <ListingCard key={item._id} item={item} status={item.status}/>)
+                    listings?.slice(currentIndex, currentIndex + 4).map(item => <ListingCard key={item._id} item={item} status={item.status}/>)
                 }
+            </div>
+
+            {/* silde controller */}
+            <div className="flex justify-between items-center text-xs px-4 my-6">
+                {<button onClick={handlePrev} className={currentIndex < 1 && 'text-gray-500 cursor-not-allowed'}>PREV</button>}
+                <button onClick={handleNext} className={currentIndex == data.length - 4 && 'text-gray-500 cursor-not-allowed'}>NEXT</button>
+
             </div>
 
         </div>
