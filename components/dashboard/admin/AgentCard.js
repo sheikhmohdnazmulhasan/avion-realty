@@ -83,7 +83,7 @@ const AgentCard = ({ agent }) => {
     <div className="bg-[#171717] p-4 shadow-md shadow-gray-800 rounded-md">
       <Toaster position="bottom-right" reverseOrder={false} />
       <div className="flex gap-2">
-      <div className="w-12 rounded-full ">
+        <div className="w-12 rounded-full ">
           {agent?.photo ? (
             <Image
               src={agent?.photo}
@@ -109,7 +109,7 @@ const AgentCard = ({ agent }) => {
             <p className="mt-2">{agent?.wpNum}</p>
             <p />
             <p className="mt-2">Properties : </p>
-            <p className="mt-2">{agent?.properties || 0} properties</p>
+            <p className="mt-2">{agent?.properties || 0}</p>
             <p />
           </div>
           <div className="flex gap-4 text-xs ">
