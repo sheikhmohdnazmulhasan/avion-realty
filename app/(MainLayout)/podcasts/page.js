@@ -1,5 +1,6 @@
 'use client'
 
+import Inquiry from "@/components/shared/Inquiry";
 import usePodcast from "@/hooks/usePodcast";
 import banner from '@/public/images/root/podcast/podcast-banner.png';
 import imgX from '@/public/images/root/podcast/podcast2.png';
@@ -40,12 +41,13 @@ const Podcasts = () => {
                 </div>
 
                 <div className=" md:w-[50%] text-center flex md:block items-center mt-6 md:mt-0">
-                    <h3  className="text-xl mb-7 w-[60%] md:w-full">Delve into Latest blog & News of Recent launch</h3>
+                    <h3 className="text-xl mb-7 w-[60%] md:w-full font-semibold">Delve into Latest blog & News of Recent launch</h3>
                     <Link href={'/blogs'} className="bg-[#835C00] hover:bg-[#6e5a2d] py-2 h-10 px-3 transition-all">News & Blogs</Link>
                 </div>
 
 
             </div>
+            <Inquiry />
         </div>
     );
 };
