@@ -15,6 +15,7 @@ const UploadPodcast = () => {
   const [showName, setShowName] = useState({});
   const [showImagePreview, setShowImagePreview] = useState({});
   const fileInputRef = useRef();
+
   const handleClearFile = () => {
     setShowName('');
     setShowImagePreview('');
@@ -38,7 +39,7 @@ const UploadPodcast = () => {
 
       toast.error('Places Provide Valid Video URL',
         {
-        
+
           style: {
             borderRadius: '10px',
             background: '#333',
@@ -72,6 +73,8 @@ const UploadPodcast = () => {
             if (res.data.success) {
 
               toast.success(`Podcast Published`, { id: toastId });
+              event.target.reset();
+              handleClearFile();
 
             }
 

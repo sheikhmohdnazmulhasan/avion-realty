@@ -1,0 +1,38 @@
+'use client'
+
+import usePodcast from "@/hooks/usePodcast";
+import banner from '@/public/images/root/podcast/podcast-banner.png';
+import Image from "next/image";
+import Link from "next/link";
+
+const Podcasts = () => {
+    const [data] = usePodcast();
+
+    return (
+        <div>
+
+            {/* banner */}
+            <div className="">
+                <Image src={banner} alt="Podcast banner image" />
+            </div>
+
+            {/* data card's parent */}
+            <div className="px-5 mt-20 md:px-36 grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                {data.map(podcast => <Link key={podcast._id} href={'/'}> <div className="h-80  border border-[#956900] rounded-t-xl">
+                    <Image src={podcast?.thumbnail} height={800} width={800} alt={podcast?.title} className="h-52 rounded-t-xl" />
+                    <div className="p-4 mt-2">
+                        <h3 className="text-xl">{podcast?.title}</h3>
+                        <div className="flex justify-between mt-4">
+                            <p>{new Date(podcast?.createdAt).toDateString()}</p>
+                            <Link href={'/'} className="text-[#E4B649]">Click to view</Link>
+                        </div>
+                    </div>
+                </div> </Link>)}
+
+            </div>
+        </div>
+    );
+};
+
+export default Podcasts;
