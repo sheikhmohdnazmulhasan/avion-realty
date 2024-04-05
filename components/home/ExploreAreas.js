@@ -12,7 +12,6 @@ const ExploreAreas = () => {
 
         if (currentIndex > 0) {
             setCurrentIndex(currentIndex - 1);
-
         }
 
     }
@@ -47,21 +46,21 @@ const ExploreAreas = () => {
                     areas?.slice(currentIndex, currentIndex + 1).map(area => <div key={area._id}>
                         <div className="relative w-full">
                             <div className="bg-no-repeat bg-cover w-full relative " style={{
-                        backgroundImage: `url(${area.itemImg})`,
-                        filter : 'blur(8px)',
-                        height : '342px'
-                        }}></div>
+                                backgroundImage: `url(${area.itemImg})`,
+                                filter: 'blur(8px)',
+                                height: '342px'
+                            }}></div>
                             <div className="w-[85%] mx-auto flex justify-center">
-                                <Image src={area.itemImg} alt={area.itemName} height={360} width={100} className="w-[300px] h-[360px] rounded-t rounded-xl z-10 absolute -top-4  "/>
+                                <Image src={area.itemImg} alt={area.itemName} height={360} width={100} className="w-[300px] h-[360px] rounded-t rounded-xl z-10 absolute -top-4  " />
                             </div>
-                            <div className="  bg-black opacity-70 absolute -bottom-1 w-full hover:bg-transparent hover:opacity-100 z-20">
+                            <div className="  bg-black opacity-70 absolute -bottom-1 w-full hover:opacity-80 z-20">
                                 <div className="w-full text-center p-4">
                                     <h2 className="text-xl uppercase py-2">{area.itemName}</h2>
                                     <Link href={`/listing/${area.itemName}`}>Explore More</Link>
                                 </div>
                             </div>
                         </div>
-                    </div>  )
+                    </div>)
                 }
             </div>
             {/* md device slieder */}
@@ -69,31 +68,31 @@ const ExploreAreas = () => {
                 {
                     areas?.slice(currentIndex, currentIndex + 2).map(area => <div key={area._id}>
                         <div className="relative">
-                            <Image src={area.itemImg} alt={area.itemName} height={360} width={120} className="w-full h-[360px]"/>
-                            <div className="  bg-black opacity-70 absolute bottom-0 w-full hover:bg-transparent hover:opacity-100">
+                            <Image src={area.itemImg} alt={area.itemName} height={360} width={120} className="w-full h-[360px]" />
+                            <div className="  bg-black opacity-70 absolute bottom-0 w-full hover:opacity-80">
                                 <div className="w-full text-center p-4">
                                     <h2 className="text-xl uppercase py-2">{area.itemName}</h2>
                                     <Link href={`/listing/${area.itemName}`}>Explore More</Link>
                                 </div>
                             </div>
                         </div>
-                    </div>  )
+                    </div>)
                 }
             </div>
             {/* lg device slieder */}
             <div className="hidden lg:grid grid-cols-4">
                 {
-                    areas?.slice(currentIndex, currentIndex + 4).map(area => <div key={area._id}>
+                    areas?.slice(currentIndex, currentIndex + 4).map(area => <Link key={area._id} href={`/listing/${area.itemName}`}> <div >
                         <div className="relative">
-                            <Image src={area.itemImg} alt={area.itemName} height={360} width={120} className="w-full h-[360px]"/>
-                            <div className="  bg-black opacity-70 absolute bottom-0 w-full hover:bg-transparent hover:opacity-100">
+                            <Image src={area.itemImg} alt={area.itemName} height={360} width={120} className="w-full h-[360px]" />
+                            <div className="  bg-black opacity-70 absolute bottom-0 w-full hover:opacity-80">
                                 <div className="w-full text-center p-4">
                                     <h2 className="text-xl uppercase py-2">{area.itemName}</h2>
-                                    <Link href={`/listing/${area.itemName}`}>Explore More</Link>
+                                    <p>Explore More</p>
                                 </div>
                             </div>
                         </div>
-                    </div> )
+                    </div></Link>)
                 }
             </div>
 

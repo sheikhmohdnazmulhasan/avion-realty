@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import Image from "next/image";
+import Link from 'next/link';
 import { useState } from "react";
 import useSWR from "swr";
 
@@ -35,13 +36,13 @@ const ExploreOffPlans = () => {
 
     return (
         <div className="">
-            <h2 className="text-xl md:text-2xl lg:text-3xl text-center lg:text-left">Explore Off-Plan Investment Opportunities in Dubai</h2>
+            <h2 className="text-xl  md:text-2xl lg:text-3xl text-center lg:text-left">Explore Off-Plan Investment Opportunities in Dubai</h2>
             <p className="text-xl my-4 hidden lg:block">Explore exclusive off-plan investment opportunities in Dubai. Uncover unrivaled luxury, futuristic architecture, and prime locations. Discover a city where innovation meets opulence, creating a lucrative landscape for smart investors. Secure your stake in Dubai&apos;s dynamic real estate market for promising returns and a lifestyle beyond ordinary. Embrace the future of property investment with confidence. </p>
 
             {/* slider  */}
-            <div className="my-4 md:rounded-xl flex flex-col-reverse md:flex-row justify-between md:p-4 md:bg-[#171717] border border-[#E4B649] md:border-none ">
+            <Link href={`/listing/Off-Plan/${data[currentIndex]?._id}`}> <div className="my-4 md:rounded-xl hover:scale-105 transition-all flex flex-col-reverse md:flex-row justify-between md:p-4 md:bg-[#171717] border border-[#E4B649] md:border-none ">
 
-                <div className="md:m-4 space-y-4">
+                <div className="md:m-4 space-y-4 p-3">
                     {/* status */}
                     <span className='hidden md:block w-24 bg-black px-4 py-2 rounded-xl text-xs uppercase'>{data[currentIndex]?.status}</span>
                     {/* property type */}
@@ -81,7 +82,7 @@ const ExploreOffPlans = () => {
                     <div className='bg-black px-4 py-1 rounded-2xl absolute top-4 left-4 text-xs uppercase md:hidden'><span>{data[currentIndex]?.status}</span></div>
 
                 </div>
-            </div>
+            </div></Link>
 
             {/* silde controller */}
             <div className="flex justify-between items-center text-xs px-4">
