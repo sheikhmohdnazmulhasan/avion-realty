@@ -18,7 +18,7 @@ export async function GET(request) {
         return NextResponse.json(result);
 
     } else {
-        const result = await Blog.find();
+        const result = await Blog.find().sort({createdAt : -1});
         return NextResponse.json(result);
 
     };

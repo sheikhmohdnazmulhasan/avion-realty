@@ -30,7 +30,7 @@ const Blog = () => {
 
             {/* card */}
             <div className="px-5 min-h-screen md:px-36 grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
-                {data.map(blog => <BlogCard key={blog._id} blog={blog} />)}
+                {data?.map(blog => <BlogCard key={blog._id} blog={blog} />)}
             </div>
 
             {/* podcast reference */}
