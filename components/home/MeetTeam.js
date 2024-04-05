@@ -8,7 +8,7 @@ const MeetTeam = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const agents = useAgents().slice(0, 4);
 
-    console.log(agents);
+    // console.log(agents);
 
     const handlePrev = () => {
 
@@ -34,7 +34,7 @@ const MeetTeam = () => {
             {/* sm device slider */}
             <div className="md:hidden pt-8 w-full">
                 {
-                    agents?.slice(currentIndex, currentIndex + 1).map(agent => <div key={agent._id} >
+                    agents?.slice(currentIndex, currentIndex + 1).map(agent => <Link href={`/agents/${agent._id}`} key={agent._id} >
                         <div className="relative w-full">
                             <div className="bg-no-repeat bg-cover w-full relative " style={{
                                 backgroundImage: `url(${agent.photo})`,
@@ -52,7 +52,7 @@ const MeetTeam = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>)
+                    </Link>)
                 }
             </div>
 
@@ -67,7 +67,7 @@ const MeetTeam = () => {
             {/* md and lg devices */}
             <div className='hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6'>
                 {
-                    agents?.map(agent => <Link href={`/agents/${agent._id}`} key={agent._id}> <div>
+                    agents?.map(agent => <Link href={`/agents/${agent._id}`} key={agent._id} className='hover:scale-105 transition-all'> <div>
                         <div className="relative">
                             <Image src={agent.photo} alt={agent.name} height={360} width={120} className="w-full h-[360px]" />
                             <div className="  bg-black opacity-70 absolute bottom-0 w-full hover:opacity-80 hover:cursor-pointer">
