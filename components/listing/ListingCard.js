@@ -9,11 +9,11 @@ import Link from 'next/link';
 
 const ListingCard = ({ item, status }) => {
     return (
-        <Link href={`/listing/${status}/${item._id}`} className='border border-[#CC9107]'>
-            <div className='relative'>
+        <div className='border border-[#CC9107] hover:scale-105 transition-all'>
+            <Link href={`/listing/${status}/${item._id}`} className='relative'>
                 <Image src={item?.images[0]} alt={item.title} width={100} height={300} className='w-full h-52 object-fill ' />
                 <div className='bg-black px-4 py-1 rounded-2xl absolute top-4 left-4 text-xs uppercase'><span>{item.status}</span></div>
-            </div>
+            </Link>
             <div className='p-4 text-left space-y-2'>
                 <h2 className='capitalize text-xl font-medium'>{item.title.slice(0, 20)} {item.title.length > 20 && '...'}</h2>
 
@@ -67,7 +67,7 @@ const ListingCard = ({ item, status }) => {
                 </div>
 
             </div>
-        </Link>
+        </div>
     );
 };
 

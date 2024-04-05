@@ -23,9 +23,7 @@ export async function GET(request) {
         const result = await User.find({ role: 'agent' }).sort({ properties: -1 });
         return NextResponse.json(result);
     }
-
-
-
+    
 };
 
 
