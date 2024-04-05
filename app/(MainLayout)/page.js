@@ -18,8 +18,9 @@ export default function Home() {
         <ExploreOffPlans/>
         <ExploreProperties/>
         <ExploreRentReady />
-        <ExploreAreas />
+        
       </div>
+      <ExploreAreas />
       <Inquiry />
     </main>
   );

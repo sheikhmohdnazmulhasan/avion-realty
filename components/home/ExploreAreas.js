@@ -44,12 +44,19 @@ const ExploreAreas = () => {
             <p className='md:w-1/2 lg:w-2/5 my-4 mx-auto md:text-xl text-center'>Discover the most sought-after neighborhoods and popular areas in Dubai</p>
 
             {/* sm device slieder */}
-            <div className="md:hidden">
+            <div className="md:hidden pt-8">
                 {
                     areas?.slice(currentIndex, currentIndex + 1).map(area => <div key={area._id}>
-                        <div className="relative">
-                            <Image src={area.itemImg} alt={area.itemName} height={360} width={120} className="w-full h-[360px]"/>
-                            <div className="  bg-black opacity-70 absolute bottom-0 w-full hover:bg-transparent hover:opacity-100">
+                        <div className="relative w-full">
+                            <div className="bg-no-repeat bg-cover w-full relative " style={{
+                        backgroundImage: `url(${area.itemImg})`,
+                        filter : 'blur(8px)',
+                        height : '342px'
+                        }}></div>
+                            <div className="px-12">
+                                <Image src={area.itemImg} alt={area.itemName} height={360} width={100} className="w-[300px] h-[360px] rounded-xl z-10 absolute -top-4 shadow-gray-500 shadow-xl "/>
+                            </div>
+                            <div className="  bg-black opacity-70 absolute bottom-0 w-full hover:bg-transparent hover:opacity-100 z-20">
                                 <div className="w-full text-center p-4">
                                     <h2 className="text-xl uppercase py-2">{area.itemName}</h2>
                                     <Link href={`/listing/${area.itemName}`}>Explore More</Link>
