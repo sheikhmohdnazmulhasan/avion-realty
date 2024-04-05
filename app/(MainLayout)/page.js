@@ -2,6 +2,7 @@ import ExploreAreas from "@/components/home/ExploreAreas";
 import ExploreOffPlans from "@/components/home/ExploreOffPlans";
 import ExploreProperties from "@/components/home/ExploreProperties";
 import ExploreRentReady from "@/components/home/ExploreRentReady";
+import MeetTeam from "@/components/home/MeetTeam";
 import HeroRoot from "@/components/home/hero/HeroRoot";
 import Inquiry from "@/components/shared/Inquiry";
 
@@ -20,7 +21,10 @@ export default function Home() {
         <ExploreRentReady />
         
       </div>
-      <ExploreAreas />
+      <div className="md:px-16 lg:px-40 space-y-16">
+        <ExploreAreas />
+        <MeetTeam/>
+      </div>
       <Inquiry />
     </main>
   );
