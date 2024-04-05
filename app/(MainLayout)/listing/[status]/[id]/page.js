@@ -12,18 +12,52 @@ import triangleSqrft from '@/public/images/dashboard/listing/triangleSqrft.svg'
 import floorPlan from '@/public/images/dashboard/listing/floorPlan.svg'
 import location from '@/public/images/dashboard/listing/location.svg'
 import ShowAmenities from '@/components/listing/ShowAmenities';
+import { useEffect, useState } from 'react';
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
 
+    // const [sliders, setSliders] = useState([]);
+
     const { data = [] } = useSWR(`http://localhost:3000/api/offplans?id=${params.id}`, fetcher);
-    console.log(data);
     const { data: agent = [] } = useSWR(`http://localhost:3000/api/users?email=${data.agent}`, fetcher);
+
+    // useEffect(() => {
+    //     setSliders(data?.images);
+
+    // }, [data]);
+
+
+
     return (
         <div >
             <div className='mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen'>
-                {/* image section will be added soon */}
-                <h2 className='text-center'>image section will be added soon </h2>
+
+                {/* desktop */}
+                <div className="h-[500px]  flex gap-4">
+
+                    <div className="w-[65%] border rounded-l-lg">
+
+                        {/* big image */}
+
+                    </div>
+
+                    <div className="w-[35%] space-y-4 ">
+
+                        <div className="h-[48.5%] border  rounded-r-lg">
+
+                            {/* right 1 */}
+
+                        </div>
+
+                        <div className="h-[48.5%] border rounded-r-lg">
+
+                            {/* Right 2 */}
+
+                        </div>
+
+                    </div>
+                </div>
 
                 {/* details  */}
                 <div className='lg:flex justify-between gap-12 mt-8 md:mt-16'>
@@ -77,7 +111,7 @@ const ListingDetail = ({ params }) => {
                                 <span>{data.areaSqFt} Sq.Ft.</span>
                             </div>
                             {/* download floorplan */}
-                            <a className='bg-gradient-to-r from-[#A87601] to-[#835C00] text-sm items-center flex gap-2 px-2 py-2 rounded-md w-2/3 md:w-auto'>
+                            <a className='bg-gradient-to-r from-[#A87601] to-[#835C00] text-sm items-center flex gap-2 px-2 py-2 rounded-md w-2/3 md:w-auto' >
                                 <Image src={floorPlan} alt='floorPlan svg' width={24} height={24} />
                                 <span>Download Floorplan</span>
                             </a>
