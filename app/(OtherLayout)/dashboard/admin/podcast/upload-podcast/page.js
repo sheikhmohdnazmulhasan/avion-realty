@@ -33,11 +33,11 @@ const UploadPodcast = () => {
     const image = new FormData();
     image.append('image', showName);
 
-    const urlRegex = new RegExp('^(https?|ftp|file):\\/\\/[\\w\\d\\-\\.%\\?\\=\\+\\&\\/]+', 'i');
+    const urlRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
 
     if (!urlRegex.test(videoUrl)) {
 
-      toast.error('Places Provide Valid Video URL',
+      toast.error('Places Provide Valid Youtube Video URL',
         {
 
           style: {
@@ -93,7 +93,7 @@ const UploadPodcast = () => {
 
         }
 
-      }).catch(err => console.log(err))
+      }).catch(err => toast.error(`Something Wrong`, { id: toastId }));
 
 
 
@@ -143,7 +143,7 @@ const UploadPodcast = () => {
               Select Agent
             </option>
             {agents.map((agent) => (
-              <option key={agent._id} value={agent.name}>
+              <option key={agent._id} value={agent.email}>
                 {agent.name}
               </option>
             ))}
