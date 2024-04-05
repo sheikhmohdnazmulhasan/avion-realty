@@ -20,7 +20,7 @@ export async function GET(request) {
         return NextResponse.json(result);
 
     } else {
-        const result = await User.find({ role: 'agent' });
+        const result = await User.find({ role: 'agent' }).sort({ properties: -1 });
         return NextResponse.json(result);
     }
 
