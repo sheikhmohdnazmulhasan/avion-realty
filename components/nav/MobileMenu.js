@@ -19,7 +19,7 @@ const MobileMenu = () => {
   const [openMedia, setOpenMedia] = useState(false);
 
   return (
-    <div className="h-screen absolute w-full">
+    <div className=" w-full bg-black ">
       <div className={`flex justify-between px-4 py-4 items-center ${isOpen && 'bg-black'}` }>
         <button
           onClick={() => setIsOpen(!isOpen)}
