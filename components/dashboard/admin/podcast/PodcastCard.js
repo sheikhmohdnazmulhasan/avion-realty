@@ -77,11 +77,11 @@ const PodcastCard = ({ podcast }) => {
       }
     );
 
-    const urlRegex = new RegExp('^(https?|ftp|file):\\/\\/[\\w\\d\\-\\.%\\?\\=\\+\\&\\/]+', 'i');
+    const urlRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
 
     if (!urlRegex.test(videoUrl)) {
 
-      toast.error('Places Provide Valid Video URL', { id: toastId });
+      toast.error('Places Provide Valid YouTube Video URL', { id: toastId });
 
       return
 

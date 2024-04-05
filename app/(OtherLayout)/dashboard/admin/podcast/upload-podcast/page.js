@@ -37,7 +37,7 @@ const UploadPodcast = () => {
 
     if (!urlRegex.test(videoUrl)) {
 
-      toast.error('Places Provide Valid Youtube Video URL',
+      toast.error('Places Provide Valid YouTube Video URL',
         {
 
           style: {
