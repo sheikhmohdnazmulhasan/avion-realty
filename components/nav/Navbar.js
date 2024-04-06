@@ -12,6 +12,7 @@ import { useState } from "react";
 const Navbar = () => {
 
   const [openMedia, setOpenMedia] = useState(false);
+  const [isDrop, setIsDrop] = useState(false);
 
   return (
     <>
@@ -61,12 +62,12 @@ const Navbar = () => {
           </ul>
           {/* social contact */}
           <ul className="flex gap-6 items-center">
-            <li className="uppercase text-xs flex gap-4 items-center relative">
-              <span>Follow Us</span>
-              <Dropdown />
+            <li className="uppercase text-xs flex gap-4 items-center relative" onClick={() => setIsDrop(!isDrop)}>
+              <span className="cursor-pointer">Follow Us</span>
+              <Dropdown isDrop={isDrop} />
             </li>
-            <li className="w-5">
-              <Link href="">
+            <li className="w-5 hover:cursor-pointer hover:scale-110 transition-all">
+              <Link href="https://wa.me/+971504597167" target="_blank">
                 <Image src={whatsapp} alt="avion realty whatsapp" size="16px" />
               </Link>
             </li>

@@ -161,22 +161,22 @@ const MobileMenu = () => {
           <ul className="text-xl px-4 pt-4 flex justify-between" onClick={() => setIsOpen(false)}>
 
             <li>
-              <Link href="/">
+              <Link href="https://www.instagram.com/avionrealtyuae/" target="_blank">
                 <FaInstagram color="#E8BF44" />
               </Link>
             </li>
             <li>
-              <Link href="/">
+              <Link href="https://twitter.com/avionrealtyuae">
                 <FaXTwitter color="#E8BF44" />
               </Link>
             </li>
             <li>
-              <Link href="/">
+              <Link href="http://www.linkedin.com/company/avionrealtyuae/" target="_blank">
                 <FaLinkedin color="#E8BF44" />
               </Link>
             </li>
             <li>
-              <Link href="/">
+              <Link href="https://www.facebook.com/avionrealtyuae/" target="_blank">
                 <FaFacebookF color="#E8BF44" />
               </Link>
             </li>
