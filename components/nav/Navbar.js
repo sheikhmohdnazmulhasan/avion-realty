@@ -43,14 +43,14 @@ const Navbar = () => {
               <Link href="/contact">Contact</Link>
             </li>
             <li className="relative">
-              <button onClick={()=>setOpenMedia(!openMedia)}>Media</button>
+              <button onMouseEnter={() => setOpenMedia(true)}>Media</button>
               {
-                openMedia && <ul className="capitalize absolute top-10 z-20 bg-black text-white w-32 space-y-2 px-4 py-3 ">
+                openMedia && <ul className="capitalize absolute top-10 z-20 bg-black text-white w-32 space-y-2 px-4 py-3 " onMouseLeave={() => setOpenMedia(false)}>
                   <li>
-                    <Link href="/blogs">News & Blog</Link>
+                    <Link href="/blogs" className="hover:text-[#E8BF44]">News & Blog</Link>
                   </li>
                   <li>
-                    <Link href='/podcasts'>Podcast</Link>
+                    <Link href='/podcasts' className="hover:text-[#E8BF44]">Podcast</Link>
                   </li>
                 </ul>
               }
