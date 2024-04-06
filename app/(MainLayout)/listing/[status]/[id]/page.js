@@ -15,14 +15,37 @@ import ShowAmenities from '@/components/listing/ShowAmenities';
 import { ImSwitch } from "react-icons/im";
 import { IoKeyOutline, IoSettingsOutline } from 'react-icons/io5';
 import { FaRegHandshake } from 'react-icons/fa6';
+import { useState } from 'react';
+import Swal from 'sweetalert2'
 
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
+    const [floorPlanModal, setFloorPlanModal] = useState(false)
 
     const { data = [] } = useSWR(`http://localhost:3000/api/offplans?id=${params.id}`, fetcher);
     const { data: agent = [] } = useSWR(`http://localhost:3000/api/users?email=${data.agent}`, fetcher);
-    console.log(data);
+
+    const showFloorplan = ()=> {
+        Swal.fire({
+            icon: "info",
+            title: "Floorplan is not ready yet!",
+            text : "Thank You For Connecting, Stay With Us",
+            showClass: {
+            popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+            `
+            },
+            hideClass: {
+            popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+            `
+            }
+      });}
 
     return (
         <div >
@@ -106,10 +129,12 @@ const ListingDetail = ({ params }) => {
                                 <span>{data.areaSqFt} Sq.Ft.</span>
                             </div>
                             {/* download floorplan */}
-                            <a className='bg-gradient-to-r from-[#A87601] to-[#835C00] text-sm items-center flex gap-2 px-2 py-2 rounded-md w-2/3 md:w-auto' >
+                            <button onClick={showFloorplan} className='bg-gradient-to-r from-[#A87601] to-[#835C00] text-sm items-center flex gap-2 px-2 py-2 rounded-md w-2/3 md:w-auto' >
                                 <Image src={floorPlan} alt='floorPlan svg' width={24} height={24} />
                                 <span>Download Floorplan</span>
-                            </a>
+                            </button>
+
+                            
                         </div>
                         {/* description for mobile */}
                         <div className='mt-12 md:hidden'>
@@ -134,10 +159,15 @@ const ListingDetail = ({ params }) => {
                                     <p>Price Per sq.ft</p>
                                     <p>{parseFloat(data.startingPrice / data.areaSqFt).toFixed(2)} AED</p>
                                 </div>
-                                <div className='flex justify-between border-b'>
-                                    <p>Developer</p>
-                                    <p>{data.developer}</p>
-                                </div>
+                                {
+                                    data?.status === 'Off-Plan' ? (<div className='flex justify-between border-b'>
+                                        <p>Developer</p>
+                                        <p>{data.developer}</p>
+                                    </div>) : (<div className='flex justify-between border-b'>
+                                    <p>Furnishing</p>
+                                    <p>{data.furnishing}</p>
+                                </div>)
+                                }
                                 <div className='flex justify-between border-b'>
                                     <p>Completion Status</p>
                                     <p>{data.completion}</p>
