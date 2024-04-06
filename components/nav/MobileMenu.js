@@ -19,8 +19,8 @@ const MobileMenu = () => {
   const [openMedia, setOpenMedia] = useState(false);
 
   return (
-    <div className=" w-full bg-black ">
-      <div className={`flex justify-between px-4 py-4 items-center ${isOpen && 'bg-black'}` }>
+    <div className=" w-full bg-black fixed z-[100000000000]">
+      <div className={`flex justify-between px-4 py-4 items-center ${isOpen && 'bg-black'}`}>
         <button
           onClick={() => setIsOpen(!isOpen)}
           className={isOpen ? "hidden" : "block"}
@@ -45,7 +45,7 @@ const MobileMenu = () => {
       {isOpen && (
         <div className="px-3 h-screen absolute w-full z-10 bg-black font-extralight">
           <ul className="grid grid-cols-3 gap-2 ">
-            <li className=" bg-[#0E0E0E] rounded-md">
+            <li className=" bg-[#0E0E0E] rounded-md" onClick={() => setIsOpen(false)}>
               <Link
                 href="/"
                 className="flex gap-1 flex-col justify-center text-xs py-2 text-center"
@@ -56,7 +56,7 @@ const MobileMenu = () => {
                 <span>Home</span>
               </Link>
             </li>
-            <li className=" bg-[#0E0E0E] rounded-md">
+            <li className=" bg-[#0E0E0E] rounded-md" onClick={() => setIsOpen(false)}>
               <Link
                 href="/contact"
                 className="flex gap-1 flex-col justify-center text-xs py-2 text-center"
@@ -80,110 +80,113 @@ const MobileMenu = () => {
             </li>
           </ul>
 
-          <ul className="uppercase mt-6 text-xs space-y-3 ">
-            <li>
-              <Link
-                href="/listing/Ready"
-                className="bg-[#0E0E0E] flex items-center justify-between p-3 rounded-md"
-              >
-                <span>Buy</span>
-                <FaChevronRight />
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/listing/Off-Plan"
-                className="bg-[#0E0E0E] flex items-center justify-between p-3 rounded-md"
-              >
-                <span>Off-Plan</span>
-                <FaChevronRight />
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/listing/Ready"
-                className="bg-[#0E0E0E] flex items-center justify-between p-3 rounded-md"
-              >
-                <span>Ready</span>
-                <FaChevronRight />
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/listing/Rent"
-                className="bg-[#0E0E0E] flex items-center justify-between p-3 rounded-md"
-              >
-                <span>Rent</span>
-                <FaChevronRight />
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/about"
-                className="bg-[#0E0E0E] flex items-center justify-between p-3 rounded-md"
-              >
-                <span>About Us</span>
-                <FaChevronRight />
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/contact"
-                className="bg-[#0E0E0E] flex items-center justify-between p-3 rounded-md"
-              >
-                <span>Contact Us</span>
-                <FaChevronRight />
-              </Link>
-            </li>
-            <button onClick={()=>setOpenMedia(!openMedia)} className="relative bg-[#0E0E0E] w-full flex items-center justify-between p-3 rounded-md">
-              <span>Media</span>
-              {
-                openMedia && <ul className="capitalize absolute top-10 right-2  z-20 space-y-2 px-4 py-3 bg-[#0E0E0E]">
-                  <li>
-                    <Link href="/blogs">News & Blog</Link>
-                  </li>
-                  <li>
-                    <Link href='/podcasts'>Podcast</Link>
-                  </li>
-                </ul>
-              }
-              {
-                openMedia ? <FaChevronDown /> : <FaChevronRight />
-              }
-            </button>
-            
+          <div className="" onClick={() => setIsOpen(false)}>
+            <ul className="uppercase mt-6 text-xs space-y-3 ">
+              <li>
+                <Link
+                  href="/listing/Ready"
+                  className="bg-[#0E0E0E] flex items-center justify-between p-3 rounded-md"
+                >
+                  <span>Buy</span>
+                  <FaChevronRight />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/listing/Off-Plan"
+                  className="bg-[#0E0E0E] flex items-center justify-between p-3 rounded-md"
+                >
+                  <span>Off-Plan</span>
+                  <FaChevronRight />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/listing/Ready"
+                  className="bg-[#0E0E0E] flex items-center justify-between p-3 rounded-md"
+                >
+                  <span>Ready</span>
+                  <FaChevronRight />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/listing/Rent"
+                  className="bg-[#0E0E0E] flex items-center justify-between p-3 rounded-md"
+                >
+                  <span>Rent</span>
+                  <FaChevronRight />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/about"
+                  className="bg-[#0E0E0E] flex items-center justify-between p-3 rounded-md"
+                >
+                  <span>About Us</span>
+                  <FaChevronRight />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="bg-[#0E0E0E] flex items-center justify-between p-3 rounded-md"
+                >
+                  <span>Contact Us</span>
+                  <FaChevronRight />
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-            {/* social */}
-      <ul className="text-xl px-4 pt-4 flex justify-between">
-          
-          <li>
-            <Link href="/">
-              <FaInstagram color="#E8BF44" />
-            </Link>
-          </li>
-          <li>
-            <Link href="/">
-              <FaXTwitter color="#E8BF44" />
-            </Link>
-          </li>
-          <li>
-            <Link href="/">
-              <FaLinkedin color="#E8BF44" />
-            </Link>
-          </li>
-          <li>
-            <Link href="/">
-              <FaFacebookF color="#E8BF44" />
-            </Link>
-          </li>
-          
-        </ul>
+          <button onClick={() => setOpenMedia(!openMedia)} className="relative mt-3 bg-[#0E0E0E] w-full flex items-center justify-between p-3 rounded-md">
+            <span>Media</span>
+            {
+              openMedia && <ul className="capitalize absolute top-10 right-2  z-20 space-y-2 px-4 py-3 bg-[#0E0E0E]">
+                <li onClick={() => setIsOpen(false)}>
+                  <Link href="/blogs">News & Blog</Link>
+                </li>
+                <li onClick={() => setIsOpen(false)}>
+                  <Link href='/podcasts'>Podcast</Link>
+                </li>
+              </ul>
+            }
+            {
+              openMedia ? <FaChevronDown /> : <FaChevronRight />
+            }
+          </button>
+
+
+          {/* social */}
+          <ul className="text-xl px-4 pt-4 flex justify-between" onClick={() => setIsOpen(false)}>
+
+            <li>
+              <Link href="/">
+                <FaInstagram color="#E8BF44" />
+              </Link>
+            </li>
+            <li>
+              <Link href="/">
+                <FaXTwitter color="#E8BF44" />
+              </Link>
+            </li>
+            <li>
+              <Link href="/">
+                <FaLinkedin color="#E8BF44" />
+              </Link>
+            </li>
+            <li>
+              <Link href="/">
+                <FaFacebookF color="#E8BF44" />
+              </Link>
+            </li>
           </ul>
         </div>
-      )}
+      )
+      }
 
-      
-    </div>
+
+    </div >
   );
 };
 
