@@ -12,52 +12,80 @@ import triangleSqrft from '@/public/images/dashboard/listing/triangleSqrft.svg'
 import floorPlan from '@/public/images/dashboard/listing/floorPlan.svg'
 import location from '@/public/images/dashboard/listing/location.svg'
 import ShowAmenities from '@/components/listing/ShowAmenities';
+import { ImSwitch } from "react-icons/im";
+import { IoKeyOutline, IoSettingsOutline } from 'react-icons/io5';
+import { FaRegHandshake } from 'react-icons/fa6';
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2'
+
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
-
-    // const [sliders, setSliders] = useState([]);
+    const [photos, setPhotos] = useState([]);
 
     const { data = [] } = useSWR(`http://localhost:3000/api/offplans?id=${params.id}`, fetcher);
     const { data: agent = [] } = useSWR(`http://localhost:3000/api/users?email=${data.agent}`, fetcher);
+    
+    useEffect(()=>{
+        setPhotos(data?.images);
+    },[data])
+    console.log(photos);
 
-    // useEffect(() => {
-    //     setSliders(data?.images);
-
-    // }, [data]);
-
-
+    const showFloorplan = ()=> {
+        Swal.fire({
+            icon: "info",
+            title: "Floorplan is not ready yet!",
+            text : "Thank You For Connecting, Stay With Us",
+            showClass: {
+            popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+            `
+            },
+            hideClass: {
+            popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+            `
+            }
+      });}
 
     return (
         <div >
             <div className='mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen'>
 
                 {/* desktop */}
-                <div className="h-[500px]  flex gap-4">
+                {
+                    photos?.length &&(<div className="h-[500px]  flex gap-4">
 
-                    <div className="w-[65%] border rounded-l-lg">
+                    <div className="w-[65%] rounded-l-lg">
 
                         {/* big image */}
+                        <Image src={photos[0]} alt='avion realty' width={790} height={200} className='w-full h-[500px] object-fill  rounded-l-lg'/>
 
                     </div>
 
                     <div className="w-[35%] space-y-4 ">
 
-                        <div className="h-[48.5%] border  rounded-r-lg">
+                        <div className="h-[48.5%]  rounded-r-lg">
 
                             {/* right 1 */}
+                            <Image src={photos[1]} alt='avion realty' width={790} height={200} className='w-full h-[240px] object-fill rounded-r-lg'/>
 
                         </div>
 
-                        <div className="h-[48.5%] border rounded-r-lg">
+                        <div className="h-[48.5%] rounded-r-lg">
 
                             {/* Right 2 */}
+                            <Image src={photos[2]} alt='avion realty' width={790} height={200} className='w-full h-[240px] object-fill rounded-r-lg'/>
 
                         </div>
 
                     </div>
-                </div>
+                </div>)
+                }
 
                 {/* details  */}
                 <div className='lg:flex justify-between gap-12 mt-8 md:mt-16'>
@@ -111,10 +139,12 @@ const ListingDetail = ({ params }) => {
                                 <span>{data.areaSqFt} Sq.Ft.</span>
                             </div>
                             {/* download floorplan */}
-                            <a className='bg-gradient-to-r from-[#A87601] to-[#835C00] text-sm items-center flex gap-2 px-2 py-2 rounded-md w-2/3 md:w-auto' >
+                            <button onClick={showFloorplan} className='bg-gradient-to-r from-[#A87601] to-[#835C00] text-sm items-center flex gap-2 px-2 py-2 rounded-md w-2/3 md:w-auto' >
                                 <Image src={floorPlan} alt='floorPlan svg' width={24} height={24} />
                                 <span>Download Floorplan</span>
-                            </a>
+                            </button>
+
+                            
                         </div>
                         {/* description for mobile */}
                         <div className='mt-12 md:hidden'>
@@ -139,10 +169,15 @@ const ListingDetail = ({ params }) => {
                                     <p>Price Per sq.ft</p>
                                     <p>{parseFloat(data.startingPrice / data.areaSqFt).toFixed(2)} AED</p>
                                 </div>
-                                <div className='flex justify-between border-b'>
-                                    <p>Developer</p>
-                                    <p>{data.developer}</p>
-                                </div>
+                                {
+                                    data?.status === 'Off-Plan' ? (<div className='flex justify-between border-b'>
+                                        <p>Developer</p>
+                                        <p>{data.developer}</p>
+                                    </div>) : (<div className='flex justify-between border-b'>
+                                    <p>Furnishing</p>
+                                    <p>{data.furnishing}</p>
+                                </div>)
+                                }
                                 <div className='flex justify-between border-b'>
                                     <p>Completion Status</p>
                                     <p>{data.completion}</p>
@@ -159,7 +194,47 @@ const ListingDetail = ({ params }) => {
                         </div>
 
                         {/* payment */}
-                        <div></div>
+                        {
+                            data?.status === 'Off-Plan' && <div className='mt-12 md:mt-16'>
+                                <h2 className='text-xl'>Payment Plan</h2>
+                                <div className='mt-4 grid md:grid-cols-2 gap-8'>
+                                    <div className='shadow-gray-800 shadow px-4 md:px-8 py-4 md:py-6 rounded-md hover:scale-105 transition-all'>
+                                        {/* first installment */}
+                                        <div className='flex justify-end text-[#E4B649]'>
+                                            <ImSwitch size={32}/>
+                                        </div>
+                                        <h2 className='text-xl md:text-3xl font-semibold'>{data?.payment?.firstInstallment} %</h2>
+                                        <p className='md:text-xl text-gray-400 mt-2'>First Installment</p>
+                                    </div>
+                                    {/* under construction */}
+                                    <div className='shadow-gray-800 shadow px-4 md:px-8 py-4 md:py-6 rounded-md hover:scale-105 transition-all'>
+                                        <div className='flex justify-end text-[#E4B649]'>
+                                            <IoSettingsOutline size={32}/>
+                                        </div>
+                                        <h2 className='text-xl md:text-3xl font-semibold'>{data?.payment?.underConstruction} %</h2>
+                                        <p className='md:text-xl text-gray-400 mt-2'>Under Constraction</p>
+                                    </div>
+                                    {/* on handover */}
+                                    <div className='shadow-gray-800 shadow px-4 md:px-8 py-4 md:py-6 rounded-md hover:scale-105 transition-all'>
+                                        <div className='flex justify-end text-[#E4B649]'>
+                                            <IoKeyOutline size={32} className=''/>
+                                        </div>
+                                        <h2 className='text-xl md:text-3xl font-semibold'>{data?.payment?.onHandover} %</h2>
+                                        <p className='md:text-xl text-gray-400 mt-2'>On Handover</p>
+                                    </div>
+                                    {/* post handover */}
+                                   {
+                                    data.payment?.postHandover &&  <div className='shadow-gray-800 shadow px-4 md:px-8 py-4 md:py-6 rounded-md hover:scale-105 transition-all'>
+                                    <div className='flex justify-end text-[#E4B649]'>
+                                        <FaRegHandshake size={32} className=''/>
+                                    </div>
+                                    <h2 className='text-xl md:text-3xl font-semibold'>{data?.payment?.postHandover} %</h2>
+                                    <p className='md:text-xl text-gray-400 mt-2'>Post Handover</p>
+                                </div>
+                                   }
+                                </div>
+                            </div>
+                        }
 
                         {/* amenities */}
                         <div className='mt-12 md:mt-16'>
