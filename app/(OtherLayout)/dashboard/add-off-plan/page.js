@@ -20,10 +20,13 @@ import publish from "@/public/images/dashboard/listing/publish.svg";
 import useViews from "@/hooks/useViews";
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import { MdOutlineFileUpload } from "react-icons/md";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 
 
 const AddOffPlan = () => {
-  // document.title = 'Avion Realty | Dashboard | Add-Off-Plan';
+  const { status } = useSession();
   const properties = useGetProperties();
   const areas = useGetAreas();
   const developers = useGetDevelopers();
@@ -40,6 +43,7 @@ const AddOffPlan = () => {
   const [location, setLocation] = useState('');
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
   const [markerPosition, setMarkerPosition] = useState(null);
+  const router = useRouter();
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: 'AIzaSyCGYwarV1r9FE_QhBXvvv1r0XwpMAAGOmM'
   });
@@ -211,7 +215,12 @@ const AddOffPlan = () => {
     });
   };
 
-  return (
+
+  if (status === 'loading') return <div className="">Loading...</div>
+
+  if (status === 'unauthenticated') return router.push('/login');
+
+  if (status === 'authenticated') return (
     <div>
       <Navbar title="Add Off-Plan Property" />
       <Toaster position="bottom-right" reverseOrder={false} />
