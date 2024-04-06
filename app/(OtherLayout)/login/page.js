@@ -8,15 +8,16 @@ import React, { useState } from 'react';
 import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 
 const Login = () => {
-    const loggedInUser = useSession();
-
     const [showPassword, setShowPassword] = useState(false);
-    const router = useRouter()
+    const [errMsg, setErrMsg] = useState('');
+    const router = useRouter();
+
 
     // Defining an asynchronous function called handleLogin which takes an 'event' parameter
     const handleLogin = async (event) => {
         // Preventing the default form submission behavior
         event.preventDefault();
+        setErrMsg('');
 
         // Extracting email and password from the form fields
         const email = event.target.email.value;
@@ -27,11 +28,10 @@ const Login = () => {
             const res = await signIn('credentials', { email, password, redirect: false });
 
             if (res.ok) {
-                alert('login success');
-                router.replace('/');
+                router.replace('/dashboard');
 
             } else {
-                alert('Invalid Email Of Password');
+                setErrMsg('Invalid Email Or Password!');
             }
             // Logging the result of the sign-in attempt
             console.log(res);
@@ -63,6 +63,7 @@ const Login = () => {
                                 {showPassword ? <IoMdEyeOff size={20} /> : <IoMdEye size={20} />}
                             </div>
                         </div>
+                        <p className='mt-2 text-red-500'>{errMsg}</p>
 
                         <div className="flex items-center mt-4 md:mt-10 gap-3 justify-between">
                             <div className="hidden md:flex gap-2">
