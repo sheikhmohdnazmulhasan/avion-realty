@@ -4,6 +4,7 @@ import axios from 'axios';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import Link from 'next/link';
 
 import location from '@/public/images/dashboard/listing/location.svg'
 import property from '@/public/images/dashboard/listing/property.svg'
@@ -14,6 +15,11 @@ import useGetAreas from '@/hooks/useGetAreas';
 import useGetProperties from '@/hooks/useGetProperties';
 import ListingCard from '@/components/listing/ListingCard';
 
+import call from '@/public/images/root/call.svg';
+import whatsapp from "@/public/images/whatsapp.svg"
+import useAgents from '@/hooks/useAgents';
+import AgentInfo from '@/components/listing/AgentInfo';
+
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
 
@@ -21,6 +27,8 @@ const ListingDetail = ({ params }) => {
 
     const areas = useGetAreas();
     const properties = useGetProperties();
+    const selectedAgent = useAgents().filter(agent => agent.designation === 'Founder & CEO' || agent.designation === 'Sales Director');
+    console.log(selectedAgent);
 
     const [listings, setListings] = useState([]);
 
@@ -140,12 +148,19 @@ const ListingDetail = ({ params }) => {
                     <h2 className='text-[#E4B649] text-3xl font-medium'>Discover a World of Possibilities</h2>
                     <p className='lg:w-1/2 my-4 mx-auto'>Our portfolio of properties is as diverse as your dreams. Explore the following categories to find the perfect property that resonates with your vision of home</p>
                 </div>
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 py-4'>
-                    {/* listing card */}
-                    {
-                        listings.map(item => <ListingCard key={item._id} item={item} status={params.status} />)
-                    }
+                <div className='flex gap-8'>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-4 lg:w-3/4'>
+                        {/* listing card */}
+                        {
+                            listings.map(item => <ListingCard key={item._id} item={item} status={params.status} />)
+                        }
 
+                    </div>
+                    <div className='hidden lg:block'>
+                        {
+                            selectedAgent.map(agent => <AgentInfo key={agent._id} agent={agent}/>)
+                        }
+                    </div>
                 </div>
                 {/*  Strategic Investment */}
                 <div className='py-4 md:py-12 lg:py-16'>
