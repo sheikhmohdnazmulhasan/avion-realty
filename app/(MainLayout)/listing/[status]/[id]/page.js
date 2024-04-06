@@ -12,22 +12,17 @@ import triangleSqrft from '@/public/images/dashboard/listing/triangleSqrft.svg'
 import floorPlan from '@/public/images/dashboard/listing/floorPlan.svg'
 import location from '@/public/images/dashboard/listing/location.svg'
 import ShowAmenities from '@/components/listing/ShowAmenities';
-import { useEffect, useState } from 'react';
+import { ImSwitch } from "react-icons/im";
+import { IoKeyOutline, IoSettingsOutline } from 'react-icons/io5';
+import { FaRegHandshake } from 'react-icons/fa6';
+
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
 
-    // const [sliders, setSliders] = useState([]);
-
     const { data = [] } = useSWR(`http://localhost:3000/api/offplans?id=${params.id}`, fetcher);
     const { data: agent = [] } = useSWR(`http://localhost:3000/api/users?email=${data.agent}`, fetcher);
-
-    // useEffect(() => {
-    //     setSliders(data?.images);
-
-    // }, [data]);
-
-
+    console.log(data);
 
     return (
         <div >
@@ -159,7 +154,47 @@ const ListingDetail = ({ params }) => {
                         </div>
 
                         {/* payment */}
-                        <div></div>
+                        {
+                            data?.status === 'Off-Plan' && <div className='mt-12 md:mt-16'>
+                                <h2 className='text-xl'>Payment Plan</h2>
+                                <div className='mt-4 grid md:grid-cols-2 gap-8'>
+                                    <div className='shadow-gray-800 shadow px-4 md:px-8 py-4 md:py-6 rounded-md hover:scale-105 transition-all'>
+                                        {/* first installment */}
+                                        <div className='flex justify-end text-[#E4B649]'>
+                                            <ImSwitch size={32}/>
+                                        </div>
+                                        <h2 className='text-xl md:text-3xl font-semibold'>{data?.payment?.firstInstallment} %</h2>
+                                        <p className='md:text-xl text-gray-400 mt-2'>First Installment</p>
+                                    </div>
+                                    {/* under construction */}
+                                    <div className='shadow-gray-800 shadow px-4 md:px-8 py-4 md:py-6 rounded-md hover:scale-105 transition-all'>
+                                        <div className='flex justify-end text-[#E4B649]'>
+                                            <IoSettingsOutline size={32}/>
+                                        </div>
+                                        <h2 className='text-xl md:text-3xl font-semibold'>{data?.payment?.underConstruction} %</h2>
+                                        <p className='md:text-xl text-gray-400 mt-2'>Under Constraction</p>
+                                    </div>
+                                    {/* on handover */}
+                                    <div className='shadow-gray-800 shadow px-4 md:px-8 py-4 md:py-6 rounded-md hover:scale-105 transition-all'>
+                                        <div className='flex justify-end text-[#E4B649]'>
+                                            <IoKeyOutline size={32} className=''/>
+                                        </div>
+                                        <h2 className='text-xl md:text-3xl font-semibold'>{data?.payment?.onHandover} %</h2>
+                                        <p className='md:text-xl text-gray-400 mt-2'>On Handover</p>
+                                    </div>
+                                    {/* post handover */}
+                                   {
+                                    data.payment?.postHandover &&  <div className='shadow-gray-800 shadow px-4 md:px-8 py-4 md:py-6 rounded-md hover:scale-105 transition-all'>
+                                    <div className='flex justify-end text-[#E4B649]'>
+                                        <FaRegHandshake size={32} className=''/>
+                                    </div>
+                                    <h2 className='text-xl md:text-3xl font-semibold'>{data?.payment?.postHandover} %</h2>
+                                    <p className='md:text-xl text-gray-400 mt-2'>Post Handover</p>
+                                </div>
+                                   }
+                                </div>
+                            </div>
+                        }
 
                         {/* amenities */}
                         <div className='mt-12 md:mt-16'>
