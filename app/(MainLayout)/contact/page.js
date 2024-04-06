@@ -24,7 +24,7 @@ const Contact = () => {
                 </div>
                 <div className='flex-1 relative mt-12 md:mt-0'>
 
-                    <div className='px-8 py-10 lg:py-16 shadow-md shadow-gray-700 bg-black w-1/2 lg:w-1/3 mt-12 md:mt-0 md:ml-16 lg:ml-28 z-20 absolute -top-12 right-4 lg:right-1/2 md:-top-20 lg:-top-28 '>
+                    <div className='px-8 py-10 lg:py-16 shadow-sm shadow-gray-800 bg-black w-1/2 lg:w-1/3 mt-12 md:mt-0 md:ml-16 lg:ml-28 z-20 absolute -top-12 right-4 lg:right-1/2 md:-top-20 lg:-top-28 '>
                         <Image src={logo} alt='avion realty' />
                     </div>
                     <div className='w-full bg-[#0D0D0D]  mx-auto h-[400px] md:h-80 lg:h-96 flex items-end pb-20' >
