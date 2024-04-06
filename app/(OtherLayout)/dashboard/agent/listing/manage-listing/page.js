@@ -2,11 +2,22 @@
 import Navbar from "@/components/dashboard/Navbar";
 import ListingCard from "@/components/dashboard/agent/ListingCard";
 import useAgentLists from "@/hooks/useAgentLists";
+import useUser from "@/hooks/useUser";
 // import ListingCard from "@/components/dashboard/agent/ListingCard";
 
 
 const ManageListing = () => {
     const [data, isLoading] = useAgentLists();
+    const user = useUser();
+
+    if (user.data.role !== 'agent') {
+
+        return (
+            <div className="grid h-screen place-content-center bg-[#0A0909] px-4">
+                <h1 className="uppercase tracking-widest text-gray-200">401 | Unauthorized</h1>
+            </div>
+        )
+    }
 
     if (!data.length) {
         return <h1 className="flex justify-center items-center h-screen font-semibold">No Data!</h1>
@@ -41,7 +52,7 @@ const ManageListing = () => {
                         </div>
                         <hr />
                     </div>
-                    
+
                     {data.map(item => <ListingCard key={item._id} list={item} />)}
                 </div>
             </div>

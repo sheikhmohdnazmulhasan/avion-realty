@@ -173,6 +173,16 @@ const AddProperty = () => {
     }
   };
 
+
+  if (user.data.role !== 'agent') {
+
+    return (
+      <div className="grid h-screen place-content-center bg-[#0A0909] px-4">
+        <h1 className="uppercase tracking-widest text-gray-200">401 | Unauthorized</h1>
+      </div>
+    )
+  }
+
   return (
     <div>
       <Navbar title="Add Property" />

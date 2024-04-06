@@ -40,10 +40,10 @@ const PublishBlog = () => {
         if (!showName) {
             toast.error(`Please Select One Image`, { id: toastId });
 
-        }else if (!user.data.photo){
+        } else if (!user.data.photo) {
             toast.error(`Before publish a blog, you must be set your profile picture.`, { id: toastId });
         }
-        else if (!user.data.designation){
+        else if (!user.data.designation) {
             toast.error(`Before publish a blog, you must be set your designation.`, { id: toastId });
         }
         else {
@@ -62,14 +62,25 @@ const PublishBlog = () => {
                         toast.error(`Something Wrong!`, { id: toastId })
                     }
 
-                }).catch((error) =>{ toast.error(`Something Wrong!`, { id: toastId })
-                console.log(error);
-            })
+                }).catch((error) => {
+                    toast.error(`Something Wrong!`, { id: toastId })
+                    console.log(error);
+                })
 
-            }).catch((error) =>{ toast.error(`Something Wrong!`, { id: toastId })
+            }).catch((error) => {
+                toast.error(`Something Wrong!`, { id: toastId })
                 console.log(error);
             })
         }
+    }
+
+    if (user.data.role !== 'agent') {
+
+        return (
+            <div className="grid h-screen place-content-center bg-[#0A0909] px-4">
+                <h1 className="uppercase tracking-widest text-gray-200">401 | Unauthorized</h1>
+            </div>
+        )
     }
 
     return (
