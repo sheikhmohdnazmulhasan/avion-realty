@@ -23,7 +23,7 @@ import logo from '@/public/images/icon.svg';
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
     const [photos, setPhotos] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(0)
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     const { data = [] } = useSWR(`http://localhost:3000/api/offplans?id=${params.id}`, fetcher);
     const { data: agent = [] } = useSWR(`http://localhost:3000/api/users?email=${data.agent}`, fetcher);
@@ -38,20 +38,7 @@ const ListingDetail = ({ params }) => {
             icon: "info",
             title: "Floorplan is not ready yet!",
             text: "Thank You For Connecting, Stay With Us",
-            showClass: {
-                popup: `
-                animate__animated
-                animate__fadeInUp
-                animate__faster
-            `
-            },
-            hideClass: {
-                popup: `
-                animate__animated
-                animate__fadeOutDown
-                animate__faster
-            `
-            }
+
         });
     }
 
@@ -63,32 +50,62 @@ const ListingDetail = ({ params }) => {
                 {
                     photos?.length && (<div className="h-[500px]  flex gap-4">
 
-                        <div className="w-[65%] rounded-l-lg">
+                        <div className="w-[65%] flex justify-center items-center rounded-l-lg" style={{
+                            backgroundImage: `url(${photos[currentIndex]})`,
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat'
+                        }}>
 
-                            {/* big image */}
-                            <Image src={photos[0]} alt='avion realty' width={790} height={200} className='w-full h-[500px] object-fill  rounded-l-lg' />
+                            <div className="flex justify-center items-center flex-col opacity-15">
+                                <Image src={logo} alt='logo' className='w-20' />
+                                <h3 className='text-3xl font-serif font-light uppercase'>avion realty</h3>
+                            </div>
+
+                            {/* big image
+                            <Image src={photos[currentIndex]} alt='avion realty' width={790} height={200} className='w-full h-[500px] object-fill  rounded-l-lg' /> */}
 
                         </div>
 
                         <div className="w-[35%] space-y-4 ">
 
-                            <div className="h-[48.5%]  rounded-r-lg">
+                            <div className="h-[48.5%]  rounded-r-lg flex justify-center" style={{
+                                backgroundImage: `url(${photos[currentIndex + 1]})`,
+                                backgroundSize: 'cover',
+                                backgroundRepeat: 'no-repeat'
+                            }}>
 
-                                {/* right 1 */}
-                                <Image src={photos[1]} alt='avion realty' width={790} height={200} className='w-full h-[240px] object-fill rounded-r-lg' />
+                                <div className="flex justify-center items-center flex-col opacity-15">
+                                    <Image src={logo} alt='logo' className='w-12' />
+                                    <h3 className='text-xl font-serif font-light uppercase'>avion realty</h3>
+                                </div>
 
                             </div>
 
-                            <div className="h-[48.5%] rounded-r-lg">
+                            <div className="h-[48.5%]  rounded-r-lg flex justify-center" style={{
+                                backgroundImage: `url(${photos[currentIndex + 2]})`,
+                                backgroundSize: 'cover',
+                                backgroundRepeat: 'no-repeat'
+                            }}>
 
-                                {/* Right 2 */}
-                                <Image src={photos[2]} alt='avion realty' width={790} height={200} className='w-full h-[240px] object-fill rounded-r-lg' />
+                                <div className="flex justify-center items-center flex-col opacity-15">
+                                    <Image src={logo} alt='logo' className='w-12' />
+                                    <h3 className='text-xl font-serif font-light uppercase'>avion realty</h3>
+                                </div>
 
                             </div>
 
                         </div>
                     </div>)
                 }
+
+                <div className="flex justify-end gap-3 mt-4">
+                    
+                    {/* prev */}
+                    <FaArrowAltCircleLeft size={36} className={`hover:text-[#b4914b] cursor-pointer ${currentIndex === 0 && 'text-gray-800 hover:text-gray-800 !cursor-not-allowed'}`} onClick={() => currentIndex >= 3 && setCurrentIndex(currentIndex - 3)} />
+
+                    {/* next */}
+                    <FaArrowAltCircleRight size={36} className={`hover:text-[#b4914b] cursor-pointer ${currentIndex == photos?.length - 3 && 'text-gray-800 hover:text-gray-800 !cursor-not-allowed'} `} onClick={() => currentIndex < photos?.length - 4 && setCurrentIndex(currentIndex + 3)} />
+                </div>
 
                 {/* details  */}
                 <div className='lg:flex justify-between gap-12 mt-8 md:mt-16'>
