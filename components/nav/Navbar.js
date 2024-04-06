@@ -66,8 +66,8 @@ const Navbar = () => {
               <span className="cursor-pointer">Follow Us</span>
               <Dropdown isDrop={isDrop} />
             </li>
-            <li className="w-5">
-              <Link href="">
+            <li className="w-5 hover:cursor-pointer hover:scale-110 transition-all">
+              <Link href="https://wa.me/+971504597167" target="_blank">
                 <Image src={whatsapp} alt="avion realty whatsapp" size="16px" />
               </Link>
             </li>

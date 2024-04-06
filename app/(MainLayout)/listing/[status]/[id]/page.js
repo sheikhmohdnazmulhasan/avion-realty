@@ -17,40 +17,43 @@ import { IoKeyOutline, IoSettingsOutline } from 'react-icons/io5';
 import { FaRegHandshake } from 'react-icons/fa6';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2'
-
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
+import logo from '@/public/images/icon.svg';
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
     const [photos, setPhotos] = useState([]);
+    const [currentIndex, setCurrentIndex] = useState(0)
 
     const { data = [] } = useSWR(`http://localhost:3000/api/offplans?id=${params.id}`, fetcher);
     const { data: agent = [] } = useSWR(`http://localhost:3000/api/users?email=${data.agent}`, fetcher);
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         setPhotos(data?.images);
-    },[data])
+    }, [data])
     console.log(photos);
 
-    const showFloorplan = ()=> {
+    const showFloorplan = () => {
         Swal.fire({
             icon: "info",
             title: "Floorplan is not ready yet!",
-            text : "Thank You For Connecting, Stay With Us",
+            text: "Thank You For Connecting, Stay With Us",
             showClass: {
-            popup: `
+                popup: `
                 animate__animated
                 animate__fadeInUp
                 animate__faster
             `
             },
             hideClass: {
-            popup: `
+                popup: `
                 animate__animated
                 animate__fadeOutDown
                 animate__faster
             `
             }
-      });}
+        });
+    }
 
     return (
         <div >
@@ -58,33 +61,33 @@ const ListingDetail = ({ params }) => {
 
                 {/* desktop */}
                 {
-                    photos?.length &&(<div className="h-[500px]  flex gap-4">
+                    photos?.length && (<div className="h-[500px]  flex gap-4">
 
-                    <div className="w-[65%] rounded-l-lg">
+                        <div className="w-[65%] rounded-l-lg">
 
-                        {/* big image */}
-                        <Image src={photos[0]} alt='avion realty' width={790} height={200} className='w-full h-[500px] object-fill  rounded-l-lg'/>
-
-                    </div>
-
-                    <div className="w-[35%] space-y-4 ">
-
-                        <div className="h-[48.5%]  rounded-r-lg">
-
-                            {/* right 1 */}
-                            <Image src={photos[1]} alt='avion realty' width={790} height={200} className='w-full h-[240px] object-fill rounded-r-lg'/>
+                            {/* big image */}
+                            <Image src={photos[0]} alt='avion realty' width={790} height={200} className='w-full h-[500px] object-fill  rounded-l-lg' />
 
                         </div>
 
-                        <div className="h-[48.5%] rounded-r-lg">
+                        <div className="w-[35%] space-y-4 ">
 
-                            {/* Right 2 */}
-                            <Image src={photos[2]} alt='avion realty' width={790} height={200} className='w-full h-[240px] object-fill rounded-r-lg'/>
+                            <div className="h-[48.5%]  rounded-r-lg">
+
+                                {/* right 1 */}
+                                <Image src={photos[1]} alt='avion realty' width={790} height={200} className='w-full h-[240px] object-fill rounded-r-lg' />
+
+                            </div>
+
+                            <div className="h-[48.5%] rounded-r-lg">
+
+                                {/* Right 2 */}
+                                <Image src={photos[2]} alt='avion realty' width={790} height={200} className='w-full h-[240px] object-fill rounded-r-lg' />
+
+                            </div>
 
                         </div>
-
-                    </div>
-                </div>)
+                    </div>)
                 }
 
                 {/* details  */}
@@ -144,7 +147,7 @@ const ListingDetail = ({ params }) => {
                                 <span>Download Floorplan</span>
                             </button>
 
-                            
+
                         </div>
                         {/* description for mobile */}
                         <div className='mt-12 md:hidden'>
@@ -174,9 +177,9 @@ const ListingDetail = ({ params }) => {
                                         <p>Developer</p>
                                         <p>{data.developer}</p>
                                     </div>) : (<div className='flex justify-between border-b'>
-                                    <p>Furnishing</p>
-                                    <p>{data.furnishing}</p>
-                                </div>)
+                                        <p>Furnishing</p>
+                                        <p>{data.furnishing}</p>
+                                    </div>)
                                 }
                                 <div className='flex justify-between border-b'>
                                     <p>Completion Status</p>
@@ -201,7 +204,7 @@ const ListingDetail = ({ params }) => {
                                     <div className='shadow-gray-800 shadow px-4 md:px-8 py-4 md:py-6 rounded-md hover:scale-105 transition-all'>
                                         {/* first installment */}
                                         <div className='flex justify-end text-[#E4B649]'>
-                                            <ImSwitch size={32}/>
+                                            <ImSwitch size={32} />
                                         </div>
                                         <h2 className='text-xl md:text-3xl font-semibold'>{data?.payment?.firstInstallment} %</h2>
                                         <p className='md:text-xl text-gray-400 mt-2'>First Installment</p>
@@ -209,7 +212,7 @@ const ListingDetail = ({ params }) => {
                                     {/* under construction */}
                                     <div className='shadow-gray-800 shadow px-4 md:px-8 py-4 md:py-6 rounded-md hover:scale-105 transition-all'>
                                         <div className='flex justify-end text-[#E4B649]'>
-                                            <IoSettingsOutline size={32}/>
+                                            <IoSettingsOutline size={32} />
                                         </div>
                                         <h2 className='text-xl md:text-3xl font-semibold'>{data?.payment?.underConstruction} %</h2>
                                         <p className='md:text-xl text-gray-400 mt-2'>Under Constraction</p>
@@ -217,21 +220,21 @@ const ListingDetail = ({ params }) => {
                                     {/* on handover */}
                                     <div className='shadow-gray-800 shadow px-4 md:px-8 py-4 md:py-6 rounded-md hover:scale-105 transition-all'>
                                         <div className='flex justify-end text-[#E4B649]'>
-                                            <IoKeyOutline size={32} className=''/>
+                                            <IoKeyOutline size={32} className='' />
                                         </div>
                                         <h2 className='text-xl md:text-3xl font-semibold'>{data?.payment?.onHandover} %</h2>
                                         <p className='md:text-xl text-gray-400 mt-2'>On Handover</p>
                                     </div>
                                     {/* post handover */}
-                                   {
-                                    data.payment?.postHandover &&  <div className='shadow-gray-800 shadow px-4 md:px-8 py-4 md:py-6 rounded-md hover:scale-105 transition-all'>
-                                    <div className='flex justify-end text-[#E4B649]'>
-                                        <FaRegHandshake size={32} className=''/>
-                                    </div>
-                                    <h2 className='text-xl md:text-3xl font-semibold'>{data?.payment?.postHandover} %</h2>
-                                    <p className='md:text-xl text-gray-400 mt-2'>Post Handover</p>
-                                </div>
-                                   }
+                                    {
+                                        data.payment?.postHandover && <div className='shadow-gray-800 shadow px-4 md:px-8 py-4 md:py-6 rounded-md hover:scale-105 transition-all'>
+                                            <div className='flex justify-end text-[#E4B649]'>
+                                                <FaRegHandshake size={32} className='' />
+                                            </div>
+                                            <h2 className='text-xl md:text-3xl font-semibold'>{data?.payment?.postHandover} %</h2>
+                                            <p className='md:text-xl text-gray-400 mt-2'>Post Handover</p>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         }
@@ -252,40 +255,40 @@ const ListingDetail = ({ params }) => {
                     </div>
                     {/* agent information */}
                     <Link href={`/agents/${agent._id}`} className='mt-10 lg:mt-0 lg:w-[30%] lg:h-[300px] border border-[#BE8500] rounded-2xl p-4'>
-                    <div >
-                        <div className='flex items-end justify-between gap-2 '>
-                            <div className='space-y-2'>
-                                <h2 className='md:text-xl font-semibold'>{agent?.name}</h2>
-                                <h3 className='text-sm md:text-base font-medium'>{agent?.designation}</h3>
-                                <h3 className='text-sm md:text-base font-medium'>RERA - {agent?.reraID}</h3>
+                        <div >
+                            <div className='flex items-end justify-between gap-2 '>
+                                <div className='space-y-2'>
+                                    <h2 className='md:text-xl font-semibold'>{agent?.name}</h2>
+                                    <h3 className='text-sm md:text-base font-medium'>{agent?.designation}</h3>
+                                    <h3 className='text-sm md:text-base font-medium'>RERA - {agent?.reraID}</h3>
+                                </div>
+                                <div className='md:w-[30%]'>
+                                    <Image src={agent?.photo} alt={agent?.name} height={30} width={100} className='w-full object-contain' />
+                                </div>
                             </div>
-                            <div className='md:w-[30%]'>
-                                <Image src={agent?.photo} alt={agent?.name} height={30} width={100} className='w-full object-contain' />
+                            <div className="flex mt-6 gap-2 md:gap-6">
+                                <Link href={`tel:${agent?.wpNum}`} className='w-1/2'>  <div className="flex items-center hover:scale-105 transition-all gap-3 border border-[#e4b5499e] px-2 py-1 rounded-3xl w-full">
+                                    <Image src={call} alt="Phone Icon" width={24} height={24} />
+                                    <p>Call Now</p>
+                                </div></Link>
+
+                                <div className="flex items-center hover:scale-105 transition-all border-[#e4b5499e] gap-3 border px-3 py-1 w-1/2 rounded-3xl justify-center">
+                                    <Link href={''}><p>Inquiry</p></Link>
+                                </div>
+                            </div>
+                            <div className='text-center mt-3'>
+                                <Link href='/' className='text-[#E4B649]'>View All Properties</Link>
+                                <div className='mx-4 border-t border-[#E4B649] my-4'></div>
+                                <Link href={`https://wa.me/${agent?.wpNum}`} className='text-sm md:text-base flex justify-center gap-1 items-center'>
+
+                                    <span className="w-4 md:w-8">
+                                        <Image src={whatsapp} alt="whatsapp" width={24} height={24} />
+                                    </span>
+
+                                    <span className='mt-1'>Get your inquiry on <span className='bg-clip-text text-transparent bg-gradient-to-r from-[#FFD87C] to-[#A27100] hover:scale-105'>WhatsApp</span></span>
+                                </Link>
                             </div>
                         </div>
-                        <div className="flex mt-6 gap-2 md:gap-6">
-                            <Link href={`tel:${agent?.wpNum}`} className='w-1/2'>  <div className="flex items-center hover:scale-105 transition-all gap-3 border border-[#e4b5499e] px-2 py-1 rounded-3xl w-full">
-                                <Image src={call} alt="Phone Icon" width={24} height={24} />
-                                <p>Call Now</p>
-                            </div></Link>
-
-                            <div className="flex items-center hover:scale-105 transition-all border-[#e4b5499e] gap-3 border px-3 py-1 w-1/2 rounded-3xl justify-center">
-                                <Link href={''}><p>Inquiry</p></Link>
-                            </div>
-                        </div>
-                        <div className='text-center mt-3'>
-                            <Link href='/' className='text-[#E4B649]'>View All Properties</Link>
-                            <div className='mx-4 border-t border-[#E4B649] my-4'></div>
-                            <Link href={`https://wa.me/${agent?.wpNum}`} className='text-sm md:text-base flex justify-center gap-1 items-center'>
-
-                                <span className="w-4 md:w-8">
-                                    <Image src={whatsapp} alt="whatsapp" width={24} height={24} />
-                                </span>
-
-                                <span className='mt-1'>Get your inquiry on <span className='bg-clip-text text-transparent bg-gradient-to-r from-[#FFD87C] to-[#A27100] hover:scale-105'>WhatsApp</span></span>
-                            </Link>
-                        </div>
-                    </div>
                     </Link>
                 </div>
             </div>
