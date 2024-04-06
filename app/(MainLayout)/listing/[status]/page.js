@@ -4,6 +4,7 @@ import axios from 'axios';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import Link from 'next/link';
 
 import location from '@/public/images/dashboard/listing/location.svg'
 import property from '@/public/images/dashboard/listing/property.svg'
@@ -13,6 +14,9 @@ import { HiOutlineSearch } from 'react-icons/hi';
 import useGetAreas from '@/hooks/useGetAreas';
 import useGetProperties from '@/hooks/useGetProperties';
 import ListingCard from '@/components/listing/ListingCard';
+
+import call from '@/public/images/root/call.svg';
+import whatsapp from "@/public/images/whatsapp.svg"
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
@@ -140,12 +144,48 @@ const ListingDetail = ({ params }) => {
                     <h2 className='text-[#E4B649] text-3xl font-medium'>Discover a World of Possibilities</h2>
                     <p className='lg:w-1/2 my-4 mx-auto'>Our portfolio of properties is as diverse as your dreams. Explore the following categories to find the perfect property that resonates with your vision of home</p>
                 </div>
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 py-4'>
-                    {/* listing card */}
-                    {
-                        listings.map(item => <ListingCard key={item._id} item={item} status={params.status} />)
-                    }
+                <div className='flex gap-4'>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 py-4'>
+                        {/* listing card */}
+                        {
+                            listings.map(item => <ListingCard key={item._id} item={item} status={params.status} />)
+                        }
 
+                    </div>
+                    <div className='mt-4 lg:w-[30%] lg:h-[300px] border border-[#BE8500] p-4'>
+                        <div className='flex items-end justify-between gap-2 '>
+                            <div className='space-y-2'>
+                                <h2 className='md:text-xl font-semibold'>Ashraf Khan</h2>
+                                <h3 className='text-sm md:text-base font-medium'>Founder & CEO</h3>
+                                <h3 className='text-sm md:text-base font-medium'>RERA - 58926</h3>
+                            </div>
+                            <div className='md:w-[30%]'>
+                                <Image src="" alt='Ashraf Khan' height={30} width={100} className='w-full object-contain' />
+                            </div>
+                        </div>
+                        <div className="flex mt-6 gap-2 md:gap-6">
+                            <Link href='' className='w-1/2'>  <div className="flex items-center hover:scale-105 transition-all gap-3 border border-[#e4b5499e] px-2 py-1 rounded-3xl w-full">
+                                <Image src={call} alt="Phone Icon" width={24} height={24} />
+                                <p>Call Now</p>
+                            </div></Link>
+
+                            <div className="flex items-center hover:scale-105 transition-all border-[#e4b5499e] gap-3 border px-3 py-1 w-1/2 rounded-3xl justify-center">
+                                <Link href={''}><p>Inquiry</p></Link>
+                            </div>
+                        </div>
+                        <div className='text-center mt-3'>
+                            <Link href='/' className='text-[#E4B649]'>View All Properties</Link>
+                            <div className='mx-4 border-t border-[#E4B649] my-4'></div>
+                            <Link href='/' className='text-sm md:text-base flex justify-center gap-1 items-center'>
+
+                                <span className="w-4 md:w-8">
+                                    <Image src={whatsapp} alt="whatsapp" width={24} height={24} />
+                                </span>
+
+                                <span className='mt-1'>Get your inquiry on <span className='bg-clip-text text-transparent bg-gradient-to-r from-[#FFD87C] to-[#A27100] hover:scale-105'>WhatsApp</span></span>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
                 {/*  Strategic Investment */}
                 <div className='py-4 md:py-12 lg:py-16'>
