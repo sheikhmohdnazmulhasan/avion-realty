@@ -15,16 +15,21 @@ import ShowAmenities from '@/components/listing/ShowAmenities';
 import { ImSwitch } from "react-icons/im";
 import { IoKeyOutline, IoSettingsOutline } from 'react-icons/io5';
 import { FaRegHandshake } from 'react-icons/fa6';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2'
 
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
-    const [floorPlanModal, setFloorPlanModal] = useState(false)
+    const [photos, setPhotos] = useState([]);
 
     const { data = [] } = useSWR(`http://localhost:3000/api/offplans?id=${params.id}`, fetcher);
     const { data: agent = [] } = useSWR(`http://localhost:3000/api/users?email=${data.agent}`, fetcher);
+    
+    useEffect(()=>{
+        setPhotos(data?.images);
+    },[data])
+    console.log(photos);
 
     const showFloorplan = ()=> {
         Swal.fire({
@@ -52,30 +57,35 @@ const ListingDetail = ({ params }) => {
             <div className='mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen'>
 
                 {/* desktop */}
-                <div className="h-[500px]  flex gap-4">
+                {
+                    photos?.length &&(<div className="h-[500px]  flex gap-4">
 
-                    <div className="w-[65%] border rounded-l-lg">
+                    <div className="w-[65%] rounded-l-lg">
 
                         {/* big image */}
+                        <Image src={photos[0]} alt='avion realty' width={790} height={200} className='w-full h-[500px] object-fill  rounded-l-lg'/>
 
                     </div>
 
                     <div className="w-[35%] space-y-4 ">
 
-                        <div className="h-[48.5%] border  rounded-r-lg">
+                        <div className="h-[48.5%]  rounded-r-lg">
 
                             {/* right 1 */}
+                            <Image src={photos[1]} alt='avion realty' width={790} height={200} className='w-full h-[240px] object-fill rounded-r-lg'/>
 
                         </div>
 
-                        <div className="h-[48.5%] border rounded-r-lg">
+                        <div className="h-[48.5%] rounded-r-lg">
 
                             {/* Right 2 */}
+                            <Image src={photos[2]} alt='avion realty' width={790} height={200} className='w-full h-[240px] object-fill rounded-r-lg'/>
 
                         </div>
 
                     </div>
-                </div>
+                </div>)
+                }
 
                 {/* details  */}
                 <div className='lg:flex justify-between gap-12 mt-8 md:mt-16'>
