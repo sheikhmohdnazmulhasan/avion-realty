@@ -3,6 +3,7 @@
 import Navbar from "@/components/dashboard/Navbar";
 import AgentCard from "@/components/dashboard/admin/AgentCard";
 import useAgents from "@/hooks/useAgents";
+import useUser from "@/hooks/useUser";
 import axios from "axios";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -16,6 +17,7 @@ import { mutate } from "swr";
 
 const Agents = () => {
   const data = useAgents();
+  const { data: user } = useUser();
   const [openModal, setOpenModal] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -120,6 +122,16 @@ const Agents = () => {
       }
     });
   }
+
+  if (user.role !== 'admin') {
+
+    return (
+      <div className="grid h-screen place-content-center bg-[#0A0909] px-4">
+        <h1 className="uppercase tracking-widest text-gray-200">401 | Unauthorized</h1>
+      </div>
+    );
+
+  };
 
   return (
     <div className="max-h-screen">

@@ -2,11 +2,22 @@
 import Navbar from "@/components/dashboard/Navbar";
 import usePodcast from "@/hooks/usePodcast";
 import PodcastCard from "@/components/dashboard/admin/podcast/PodcastCard";
+import useUser from "@/hooks/useUser";
 
 const UploadPodcast = () => {
+  const { data: user } = useUser();
 
   const [podcasts, isLoading] = usePodcast();
-  
+
+  if (user.role !== 'admin') {
+
+    return (
+      <div className="grid h-screen place-content-center bg-[#0A0909] px-4">
+        <h1 className="uppercase tracking-widest text-gray-200">401 | Unauthorized</h1>
+      </div>
+    )
+  }
+
 
   if (!podcasts.length) {
     return <h1 className="flex justify-center items-center h-screen font-semibold">No Data!</h1>
@@ -25,7 +36,7 @@ const UploadPodcast = () => {
             <h2 className="border-r border-[#E4B649]">Updated On</h2>
             <h2>Action</h2>
           </div>
-          {podcasts.map((podcast) => (<PodcastCard key={podcast._id} podcast={podcast}/>))}
+          {podcasts.map((podcast) => (<PodcastCard key={podcast._id} podcast={podcast} />))}
         </div>
       </div>
     );
