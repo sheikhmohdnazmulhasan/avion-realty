@@ -1,5 +1,6 @@
 "use client";
 import Navbar from "@/components/dashboard/Navbar";
+import useUser from "@/hooks/useUser";
 import useViews from "@/hooks/useViews";
 import axios from "axios";
 import { useState } from "react";
@@ -12,6 +13,7 @@ import { mutate } from "swr";
 const Views = () => {
   const [openModal, setOpenModal] = useState(false);
   const [data] = useViews();
+  const { data: user } = useUser();
 
   async function handleDelete(_id) {
     Swal.fire({
@@ -60,19 +62,19 @@ const Views = () => {
 
       try {
         const dataForBackend = {
-            name
-          };
+          name
+        };
 
-          // post data to database
-          const serverResponse = await axios.post(
-            "http://localhost:3000/api/admin/view",
-            dataForBackend
-          );
-          if (serverResponse.data.success) {
-            toast.success("View Successfully Added", { id: toastId });
-            setOpenModal(false);
-            mutate(`http://localhost:3000/api/admin/view`);
-          }
+        // post data to database
+        const serverResponse = await axios.post(
+          "http://localhost:3000/api/admin/view",
+          dataForBackend
+        );
+        if (serverResponse.data.success) {
+          toast.success("View Successfully Added", { id: toastId });
+          setOpenModal(false);
+          mutate(`http://localhost:3000/api/admin/view`);
+        }
       } catch (error) {
         console.log(error);
         throw new Error("Something wrong");
@@ -81,6 +83,15 @@ const Views = () => {
 
 
 
+  }
+
+  if (user.role !== 'admin') {
+
+    return (
+      <div className="grid h-screen place-content-center bg-[#0A0909] px-4">
+        <h1 className="uppercase tracking-widest text-gray-200">401 | Unauthorized</h1>
+      </div>
+    )
   }
 
   return (

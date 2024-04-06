@@ -1,6 +1,7 @@
 "use client";
 import Navbar from "@/components/dashboard/Navbar";
 import useGetAmenities from "@/hooks/useGetAmenities";
+import useUser from "@/hooks/useUser";
 import axios from "axios";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -12,6 +13,7 @@ import { mutate } from "swr";
 const Amenities = () => {
   const [openModal, setOpenModal] = useState(false);
   const data = useGetAmenities();
+  const { data: user } = useUser();
 
   async function handleDelete(_id) {
     Swal.fire({
@@ -94,6 +96,15 @@ const Amenities = () => {
 
 
   }
+
+  if (user.role !== 'admin') {
+
+    return (
+      <div className="grid h-screen place-content-center bg-[#0A0909] px-4">
+        <h1 className="uppercase tracking-widest text-gray-200">401 | Unauthorized</h1>
+      </div>
+    );
+  };
 
   return (
     <div className="relative">

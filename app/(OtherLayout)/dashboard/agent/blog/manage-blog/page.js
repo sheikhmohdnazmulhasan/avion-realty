@@ -14,6 +14,15 @@ const ManageBlog = () => {
 
     const { data = [], isLoading } = useSWR(`http://localhost:3000/api/agent/blog?email=${user?.data?.email}`, fetcher);
 
+    if (user.data.role !== 'agent') {
+
+        return (
+            <div className="grid h-screen place-content-center bg-[#0A0909] px-4">
+                <h1 className="uppercase tracking-widest text-gray-200">401 | Unauthorized</h1>
+            </div>
+        )
+    }
+
     if (!data.length) {
         return <h1 className="flex justify-center items-center h-screen font-semibold">No Data!</h1>
 

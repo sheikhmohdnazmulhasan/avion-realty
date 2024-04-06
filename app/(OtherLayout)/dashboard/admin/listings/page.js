@@ -2,9 +2,20 @@
 import Navbar from "@/components/dashboard/Navbar";
 import ListingCard from "@/components/dashboard/admin/ListingCard";
 import useLists from "@/hooks/useLists";
+import useUser from "@/hooks/useUser";
 
 const Listing = () => {
     const [data, isLoading] = useLists();
+    const { data: user } = useUser();
+
+    if (user.role !== 'admin') {
+
+        return (
+            <div className="grid h-screen place-content-center bg-[#0A0909] px-4">
+                <h1 className="uppercase tracking-widest text-gray-200">401 | Unauthorized</h1>
+            </div>
+        )
+    };
 
     if (!data.length) {
         return <h1 className="flex justify-center items-center h-screen font-semibold">No Data!</h1>

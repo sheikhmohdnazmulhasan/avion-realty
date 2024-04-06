@@ -3,9 +3,20 @@
 import Navbar from "@/components/dashboard/Navbar";
 import InventoryCard from "@/components/dashboard/agent/InventoryCard";
 import useInventory from "@/hooks/useInventory";
+import useUser from "@/hooks/useUser";
 
 const PrivateInventory = () => {
     const [data, isLoading] = useInventory();
+    const user = useUser();
+
+    if (user.data.role !== 'agent') {
+
+        return (
+            <div className="grid h-screen place-content-center bg-[#0A0909] px-4">
+                <h1 className="uppercase tracking-widest text-gray-200">401 | Unauthorized</h1>
+            </div>
+        )
+    }
 
     if (!data.length) {
         return <h1 className="flex justify-center items-center h-screen font-semibold">No Data!</h1>

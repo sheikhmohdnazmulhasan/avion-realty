@@ -2,6 +2,7 @@
 
 import Navbar from "@/components/dashboard/Navbar";
 import useAgents from "@/hooks/useAgents";
+import useUser from "@/hooks/useUser";
 import axios from "axios";
 import { useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -11,6 +12,7 @@ import { MdOutlineCancel } from "react-icons/md";
 
 const UploadPodcast = () => {
   const agents = useAgents();
+  const { data: user } = useUser();
 
   const [showName, setShowName] = useState({});
   const [showImagePreview, setShowImagePreview] = useState({});
@@ -99,6 +101,15 @@ const UploadPodcast = () => {
 
     }
 
+  }
+
+  if (user.role !== 'admin') {
+
+    return (
+      <div className="grid h-screen place-content-center bg-[#0A0909] px-4">
+        <h1 className="uppercase tracking-widest text-gray-200">401 | Unauthorized</h1>
+      </div>
+    )
   }
 
   return (
