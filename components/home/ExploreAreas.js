@@ -84,7 +84,7 @@ const ExploreAreas = () => {
                 {
                     areas?.slice(currentIndex, currentIndex + 4).map(area => <Link key={area._id} href={`/listing/${area.itemName}`}> <div >
                         <div className="relative">
-                            <Image src={area.itemImg} alt={area.itemName} height={360} width={120} className="w-full h-[360px]" />
+                            <Image src={area.itemImg} alt={area.itemName} height={360} width={120} className="w-full h-[450px]" />
                             <div className="  bg-black opacity-70 absolute bottom-0 w-full hover:opacity-80">
                                 <div className="w-full text-center p-4">
                                     <h2 className="text-xl uppercase py-2">{area.itemName}</h2>

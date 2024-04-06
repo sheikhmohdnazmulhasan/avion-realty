@@ -102,14 +102,14 @@ const ListingDetail = ({ params }) => {
                         <div className=' flex justify-between items-center'>
                             <h2 className=' lg:text-3xl font-semibold'>{data.status === 'Off-Plan' && <span className='text-xs lg:text-xl text-[#E4B649]'>Starting Prices</span>} AED {data.startingPrice}</h2>
                             {/* price converter and share */}
-                            <div className='md:flex md:gap-8 my-6'>
+                            <div className='hidden md:gap-8 my-6'>
                                 {/* price converter */}
                                 <select className='bg-transparent px-2 md:px-3 py-1 md:text-xl border rounded-2xl'>
                                     <option selected value="usd" className='bg-black'>USD</option>
                                     <option value="bdt" className='bg-black'>BDT</option>
                                 </select>
                                 {/* share */}
-                                <button className='gap-3 items-center text-xl px-3 py-1 border rounded-2xl hidden md:flex'>
+                                <button className=' gap-3 items-center text-xl px-3 py-1 border rounded-2xl hidden '>
                                     <CiShare2 size={24} />
                                     <span>Share</span>
                                 </button>
