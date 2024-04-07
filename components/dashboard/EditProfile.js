@@ -1,7 +1,8 @@
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { mutate } from "swr";
 
-const EditProfile = ({ user, mutate }) => {
+const EditProfile = ({ user}) => {
   const currentUser = user;
 
   const handleProfileEdit = async (event) => {
@@ -27,15 +28,17 @@ const EditProfile = ({ user, mutate }) => {
         languagesSpeak,
         about,
       };
+    } else {
+      updatedData = {
+        email: currentUser.email,
+        wpNum,
+        name,
+        languagesSpeak,
+        about,
+      };
     }
 
-    updatedData = {
-      email: currentUser.email,
-      wpNum,
-      name,
-      languagesSpeak,
-      about,
-    };
+
 
     try {
       const res = await axios.put(
@@ -108,7 +111,7 @@ const EditProfile = ({ user, mutate }) => {
             <label>WhatsApp Number</label>
             <br />
             <input
-              type="number"
+              type="text"
               name="whatsApp"
               defaultValue={currentUser?.wpNum}
               placeholder="Write your whatsapp number"

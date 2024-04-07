@@ -8,24 +8,29 @@ export async function GET(request) {
 
     const { searchParams } = new URL(request.url);
 
+    const id = searchParams.get('id');
     const email = searchParams.get('email');
 
-    if (email) {
+    if (id) {
+        const result = await User.findById(id);
+        return NextResponse.json(result);
+
+    } else if (email) {
         const result = await User.findOne({ email });
         return NextResponse.json(result);
 
     } else {
-        const result = await User.find({ role: 'agent' });
+        const result = await User.find({ role: 'agent' }).sort({ properties: -1 });
         return NextResponse.json(result);
     }
-
+    
 };
 
 
 export async function POST(request) {
     await connectMongoDB();
 
-    const { name, email, password, designation, wpNum, role } = await request.json();
+    const { name, email, password, designation, wpNum, role, properties } = await request.json();
     const encryptedPassword = await bcrypt.hash(password, 10);
     const isExist = await User.findOne({ email });
 
@@ -33,7 +38,7 @@ export async function POST(request) {
         return NextResponse.json({ message: 'User Already Exist!' }, { status: 200 })
     }
 
-    await User.create({ name, email, password: encryptedPassword, designation, wpNum, role });
+    await User.create({ name, email, password: encryptedPassword, designation, wpNum, role, properties });
     return NextResponse.json({ message: "The user has been successfully saved to the database" }, { status: 201 })
 
 };

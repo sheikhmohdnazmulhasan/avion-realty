@@ -3,6 +3,7 @@
 import Navbar from "@/components/dashboard/Navbar";
 import AgentCard from "@/components/dashboard/admin/AgentCard";
 import useAgents from "@/hooks/useAgents";
+import useUser from "@/hooks/useUser";
 import axios from "axios";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -13,13 +14,15 @@ import { PiKeyLight } from "react-icons/pi";
 import Swal from "sweetalert2";
 import { mutate } from "swr";
 
+
 const Agents = () => {
   const data = useAgents();
+  const { data: user } = useUser();
   const [openModal, setOpenModal] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
-  const [showPassword , setShowPassword] = useState(false);
-  const [showRetypePassword , setShowRetypePassword] = useState(false);
-  
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRetypePassword, setShowRetypePassword] = useState(false);
+
   const handleScroll = () => {
     const scrollContainer = document.getElementById("scrollID");
 
@@ -66,6 +69,7 @@ const Agents = () => {
           designation: agentDesignation,
           wpNum: agentWhatsApp,
           role: "agent",
+          properties: 0
         };
 
         if (!passwordRegex.test(newPassword)) {
@@ -100,8 +104,9 @@ const Agents = () => {
                 text: `You have successfully created a new agent. Email: ${agentEmail},  Password: ${newPassword}. Please note it down!`,
                 icon: "success",
               });
-              mutate("http://localhost:3000/api/users");
+              mutate("http://localhost:3000/api/users?agent=all");
               setOpenModal(false);
+
             } else {
               Swal.fire({
                 title: "Email Exist",
@@ -117,6 +122,16 @@ const Agents = () => {
       }
     });
   }
+
+  if (user.role !== 'admin') {
+
+    return (
+      <div className="grid h-screen place-content-center bg-[#0A0909] px-4">
+        <h1 className="uppercase tracking-widest text-gray-200">401 | Unauthorized</h1>
+      </div>
+    );
+
+  };
 
   return (
     <div className="max-h-screen">
@@ -180,9 +195,9 @@ const Agents = () => {
                         placeholder="New PassWord"
                         className="bg-black w-full p-2 outline-none"
                       />
-                      <button type="button" onClick={()=>setShowPassword(!showPassword)} className="mr-2">
+                      <button type="button" onClick={() => setShowPassword(!showPassword)} className="mr-2">
                         {
-                          showPassword ? <IoEyeOffOutline size={20}/> : <IoEyeOutline size={20}/>
+                          showPassword ? <IoEyeOffOutline size={20} /> : <IoEyeOutline size={20} />
                         }
                       </button>
                     </div>
@@ -199,9 +214,9 @@ const Agents = () => {
                         placeholder="Re-type New Password"
                         className="bg-black w-full p-2 outline-none"
                       />
-                      <button type="button" onClick={()=>setShowRetypePassword(!showRetypePassword)} className="mr-2">
+                      <button type="button" onClick={() => setShowRetypePassword(!showRetypePassword)} className="mr-2">
                         {
-                          showRetypePassword ? <IoEyeOffOutline size={20}/> : <IoEyeOutline size={20}/>
+                          showRetypePassword ? <IoEyeOffOutline size={20} /> : <IoEyeOutline size={20} />
                         }
                       </button>
                     </div>

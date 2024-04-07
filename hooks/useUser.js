@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
@@ -16,6 +16,7 @@ const useUser = () => {
     `http://localhost:3000/api/users?email=${user?.data?.user?.email}`,
     fetcher
   );
+  
   return { data, error, mutate };
 };
 
