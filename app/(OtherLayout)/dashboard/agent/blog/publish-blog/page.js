@@ -51,7 +51,7 @@ const PublishBlog = () => {
 
                 const dataForBackend = { title, description, blogImg: res.data.data.display_url, agentEmail: user.data.email, agentName: user.data.name, agentImg: user.data.photo, agentDesignation: user.data.designation, agentId: user.data._id };
 
-                axios.post(`https://avion-realty.vercel.app/api/agent/blog`, dataForBackend).then(res => {
+                axios.post(`hhttps://avion-realty.vercel.app/api/agent/blog`, dataForBackend).then(res => {
 
                     if (res.data.success) {
                         toast.success(`${title} Published!`, { id: toastId })

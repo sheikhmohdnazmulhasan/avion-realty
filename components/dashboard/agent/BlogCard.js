@@ -27,7 +27,7 @@ const BlogCard = ({ blog }) => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                axios.delete(`https://avion-realty.vercel.app/api/agent/blog?id=${_id}`).then(res => {
+                axios.delete(`hhttps://avion-realty.vercel.app/api/agent/blog?id=${_id}`).then(res => {
 
                     if (res.data.success) {
                         Swal.fire({
@@ -36,7 +36,7 @@ const BlogCard = ({ blog }) => {
                             icon: "success"
                         });
 
-                        mutate(`https://avion-realty.vercel.app/api/agent/blog?email=${user?.data?.email}`)
+                        mutate(`hhttps://avion-realty.vercel.app/api/agent/blog?email=${user?.data?.email}`)
                     }
 
                 }).catch(() => toast.error('Something Wrong!'))

@@ -6,7 +6,7 @@ const useAgents = () => {
   // fetch all agent
   const fetcher = (url) => axios.get(url).then((res) => res.data);
 
-  const { data = [] } = useSWR("https://avion-realty.vercel.app/api/users?agent=all&sort=properties_desc", fetcher);
+  const { data = [] } = useSWR("hhttps://avion-realty.vercel.app/api/users?agent=all&sort=properties_desc", fetcher);
   //   console.log(data);
   return data;
 };

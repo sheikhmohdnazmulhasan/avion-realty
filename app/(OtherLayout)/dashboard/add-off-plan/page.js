@@ -166,7 +166,7 @@ const AddOffPlan = () => {
     if (clickedButton === "button1") {
       try {
         const serverResponse = await axios.post(
-          "https://avion-realty.vercel.app/api/offplans",
+          "hhttps://avion-realty.vercel.app/api/offplans",
           dataForBackend
         );
 
@@ -182,7 +182,7 @@ const AddOffPlan = () => {
     } else {
       try {
         const serverResponse = await axios.post(
-          "https://avion-realty.vercel.app/api/inventory",
+          "hhttps://avion-realty.vercel.app/api/inventory",
           dataForBackend
         );
 

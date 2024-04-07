@@ -16,7 +16,7 @@ const useVerifyUser = () => {
  
     } else if (status === 'authenticated') {
 
-        axios.get(`https://avion-realty.vercel.app/api/users?email=${data?.user?.email}`).then(res => {
+        axios.get(`hhttps://avion-realty.vercel.app/api/users?email=${data?.user?.email}`).then(res => {
 
             return { access: 'authenticated', role: res.data.role}
 

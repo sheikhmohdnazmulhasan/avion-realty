@@ -16,9 +16,9 @@ const AgentDetails = ({ params }) => {
     const [showAllAbout, setShowAllAbout] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    const { data: agent = [] } = useSWR(`https://avion-realty.vercel.app/api/users?id=${params.id}`, fetcher);
+    const { data: agent = [] } = useSWR(`hhttps://avion-realty.vercel.app/api/users?id=${params.id}`, fetcher);
 
-    const { data: properties = [] } = useSWR(`https://avion-realty.vercel.app/api/offplans?agent=${agent.email}`, fetcher);
+    const { data: properties = [] } = useSWR(`hhttps://avion-realty.vercel.app/api/offplans?agent=${agent.email}`, fetcher);
 
     setTimeout(() => { setLoading(false); }, 1000);
 
