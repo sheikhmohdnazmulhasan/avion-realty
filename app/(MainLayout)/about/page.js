@@ -6,19 +6,19 @@ import aboutImg from "@/public/images/root/about.svg"
 import ashrafImg from "@/public/images/root/ashraf.svg"
 import Inquiry from '@/components/shared/Inquiry';
 
-const page = () => {
+const About = () => {
     const title = <>
-            <span>About</span>
-            <br/>
-            <span className='md:mt-2'>Avion Realty</span>
-        </>
+        <span>About</span>
+        <br />
+        <span className='md:mt-2'>Avion Realty</span>
+    </>
     return (
         <div className='space-y-8 md:space-y-16 lg:space-y-24'>
-            <Banner title={title}/>
+            <Banner title={title} />
             {/* about section */}
             <div className='lg:flex lg:pl-40'>
                 <div className='w-full lg:w-1/3 relative p-4'>
-                    <Image src={aboutImg} alt='about svg' className='h-[200px] lg:h-auto w-full object-cover'/>
+                    <Image src={aboutImg} alt='about svg' className='h-[200px] lg:h-auto w-full object-cover' />
                     <div className="p-16 md:p-24 border border-[#E4B649] absolute bottom-2 lg:bottom-8 right-2 lg:-right-4 z-20"></div>
                 </div>
                 <div className='lg:flex-1 lg:mt-12 lg:-ml-6 z-10 '>
@@ -26,7 +26,7 @@ const page = () => {
                         <p>At Avion Realty Properties LLC, we understand that buying, selling, or leasing a property is a significant decision, and we strive to make the process seamless and rewarding for our clients. With a team of seasoned professionals, we bring extensive knowledge of the Dubai real estate market, ensuring that our clients make informed decisions to achieve their property goals.</p>
 
                         <p>At Avion Realty Properties LLC, we understand that buying, selling, or leasing a property is a significant decision, and we strive to make the process seamless and rewarding for our clients. With a team of seasoned professionals, we bring extensive knowledge of the Dubai real estate market, ensuring that our clients make informed decisions to achieve their property goals.
-                        At Avion Realty Properties LLC, we understand that buying, selling, or leasing a property is a </p>
+                            At Avion Realty Properties LLC, we understand that buying, selling, or leasing a property is a </p>
 
                         <p>significant decision, and we strive to make the process seamless and rewarding for our clients. With a team of seasoned professionals, we bring extensive knowledge of the Dubai real estate market, ensuring that our clients make informed decisions to achieve their property goals.</p>
                     </div>
@@ -60,32 +60,32 @@ const page = () => {
 
             {/* property section */}
             <div>
-            <div className=' hidden lg:flex pl-56'>
-                <div className='w-1/3 relative p-4'>
-                    <Image src={aboutImg} alt='about svg' className=' w-full object-cover'/>
-                    <div className="p-24 border border-[#E4B649] absolute top-60 -left-4 z-20"></div>
-                </div>
-                <div className='w-2/3 mt-36 -ml-28 z-10 '>
-                    <div className=' w-full bg-[#191919] p-24 text-sm grid grid-cols-2 gap-8'>
-                        <div>
-                            <h3 className='text-xl mb-2'>Off-Plan Investment</h3>
-                            <p>Embark on a journey of foresight with Avion Realty Properties LLC as we redefine the landscape of off-plan investments in Dubai. Our team of seasoned professionals leverages extensive market knowledge to guide you through the dynamic world of pre-construction opportunities. Explore the potential for substantial returns as we help you secure exclusive off-plan properties, ensuring you&apos;re at the forefront of Dubai&apos;s real estate evolution. With Avion Realty, turn your investment dreams into a reality, unlocking the door to tomorrow&apos;s prime locations today.</p>
-                        </div>
-                        <div>
-                            <h3 className='text-xl mb-2'>Ready Homes</h3>
-                            <p>Experience the epitome of comfort and style with Avion Realty Properties LLC&apos;s curated collection of ready homes. Our portfolio boasts meticulously crafted residences in Dubai&apos;s most sought-after neighborhoods, each promising an unparalleled blend of sophistication and functionality. Whether you seek a contemporary city apartment or a serene suburban villa, our dedicated team is committed to finding your perfect match. Trust Avion Realty to navigate the ready-home market, ensuring that your next property purchase is not just a house but a statement of refined living.</p>
-                        </div>
-                        <div>
-                            <h3 className='text-xl mb-2'>Rental Residences</h3>
-                            <p>Discover a curated selection of rental properties that redefine the concept of temporary living with Avion Realty Properties LLC. Whether you seek short-term luxury or a long-term home, our comprehensive portfolio spans across Dubai&apos;s diverse landscapes. Our dedicated rental consultants work tirelessly to match your preferences with the perfect property, ensuring that every moment spent in your rental residence is an experience in comfort and convenience. Elevate your lifestyle with Avion Realty&apos;s rental solutions, where every property is a temporary haven crafted for your unique needs.</p>
-                        </div>
-                        <div>
-                            <h3 className='text-xl mb-2'>Seamless Selling</h3>
-                            <p>Selling your property in Dubai is a journey that demands precision, strategy, and a touch of finesse. Avion Realty Properties LLC takes pride in offering a seamless selling experience, backed by a team of experts adept at understanding market dynamics. From strategic pricing to targeted marketing, we tailor our approach to maximize your property&apos;s potential. Trust us to navigate the complexities, negotiate skillfully, and secure the optimal value for your property. Let Avion Realty be your partner in realizing the true worth of your investment..</p>
+                <div className=' hidden lg:flex pl-56'>
+                    <div className='w-1/3 relative p-4'>
+                        <Image src={aboutImg} alt='about svg' className=' w-full object-cover' />
+                        <div className="p-24 border border-[#E4B649] absolute top-60 -left-4 z-20"></div>
+                    </div>
+                    <div className='w-2/3 mt-36 -ml-28 z-10 '>
+                        <div className=' w-full bg-[#191919] p-24 text-sm grid grid-cols-2 gap-8'>
+                            <div>
+                                <h3 className='text-xl mb-2'>Off-Plan Investment</h3>
+                                <p>Embark on a journey of foresight with Avion Realty Properties LLC as we redefine the landscape of off-plan investments in Dubai. Our team of seasoned professionals leverages extensive market knowledge to guide you through the dynamic world of pre-construction opportunities. Explore the potential for substantial returns as we help you secure exclusive off-plan properties, ensuring you&apos;re at the forefront of Dubai&apos;s real estate evolution. With Avion Realty, turn your investment dreams into a reality, unlocking the door to tomorrow&apos;s prime locations today.</p>
+                            </div>
+                            <div>
+                                <h3 className='text-xl mb-2'>Ready Homes</h3>
+                                <p>Experience the epitome of comfort and style with Avion Realty Properties LLC&apos;s curated collection of ready homes. Our portfolio boasts meticulously crafted residences in Dubai&apos;s most sought-after neighborhoods, each promising an unparalleled blend of sophistication and functionality. Whether you seek a contemporary city apartment or a serene suburban villa, our dedicated team is committed to finding your perfect match. Trust Avion Realty to navigate the ready-home market, ensuring that your next property purchase is not just a house but a statement of refined living.</p>
+                            </div>
+                            <div>
+                                <h3 className='text-xl mb-2'>Rental Residences</h3>
+                                <p>Discover a curated selection of rental properties that redefine the concept of temporary living with Avion Realty Properties LLC. Whether you seek short-term luxury or a long-term home, our comprehensive portfolio spans across Dubai&apos;s diverse landscapes. Our dedicated rental consultants work tirelessly to match your preferences with the perfect property, ensuring that every moment spent in your rental residence is an experience in comfort and convenience. Elevate your lifestyle with Avion Realty&apos;s rental solutions, where every property is a temporary haven crafted for your unique needs.</p>
+                            </div>
+                            <div>
+                                <h3 className='text-xl mb-2'>Seamless Selling</h3>
+                                <p>Selling your property in Dubai is a journey that demands precision, strategy, and a touch of finesse. Avion Realty Properties LLC takes pride in offering a seamless selling experience, backed by a team of experts adept at understanding market dynamics. From strategic pricing to targeted marketing, we tailor our approach to maximize your property&apos;s potential. Trust us to navigate the complexities, negotiate skillfully, and secure the optimal value for your property. Let Avion Realty be your partner in realizing the true worth of your investment..</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
 
 
@@ -96,7 +96,7 @@ const page = () => {
             {/* founder details */}
             <div className='lg:flex lg:pl-40'>
                 <div className='w-full lg:w-1/3 relative p-4 z-10'>
-                    <Image src={ashrafImg} alt='ashraf khan' className='mt-16 h-[200px] lg:h-auto md:w-[70%] object-cover'/>
+                    <Image src={ashrafImg} alt='ashraf khan' className='mt-16 h-[200px] lg:h-auto md:w-[70%] object-cover' />
                     <div className="p-12 md:p-20 border border-[#E4B649] absolute bottom-2 lg:bottom-24 left-2 lg:-left-4 z-20"></div>
                 </div>
                 <div className='lg:flex-1 lg:-ml-56 '>
@@ -113,10 +113,10 @@ const page = () => {
                     </div>
                 </div>
             </div>
-            
-            <Inquiry/>
+
+            <Inquiry />
         </div>
     );
 };
 
-export default page;
+export default About;
