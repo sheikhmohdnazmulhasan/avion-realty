@@ -11,7 +11,7 @@ const ExploreProperties = () => {
     const [isActive, setIsActive] = useState('Apartment');
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const { data = [], isLoading, error } = useSWR(`hhttps://avion-realty.vercel.app/api/offplans`, fetcher);
+    const { data = [], isLoading, error } = useSWR(`https://avion-realty.vercel.app/api/offplans`, fetcher);
 
     useEffect(() => {
         setListings(data.filter(item => item.propertyType === 'Apartment'));

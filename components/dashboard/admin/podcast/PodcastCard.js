@@ -38,7 +38,7 @@ const PodcastCard = ({ podcast }) => {
       if (result.isConfirmed) {
         try {
           const serverResponse = await axios.delete(
-            `hhttps://avion-realty.vercel.app/api/admin/podcast?id=${id}`
+            `https://avion-realty.vercel.app/api/admin/podcast?id=${id}`
           );
 
           if (serverResponse.data.success) {
@@ -48,7 +48,7 @@ const PodcastCard = ({ podcast }) => {
               icon: "success",
             });
 
-            mutate("hhttps://avion-realty.vercel.app/api/admin/podcast");
+            mutate("https://avion-realty.vercel.app/api/admin/podcast");
           }
         } catch (error) {
           console.log(error);
@@ -89,12 +89,12 @@ const PodcastCard = ({ podcast }) => {
 
       const newData = { title, description, agent, videoUrl };
 
-      axios.put(`hhttps://avion-realty.vercel.app/api/admin/podcast?id=${podcast._id}`, newData).then(res => {
+      axios.put(`https://avion-realty.vercel.app/api/admin/podcast?id=${podcast._id}`, newData).then(res => {
 
         if (res.data.success) {
           toast.success('Podcast Updated without thumbnail!', { id: toastId });
 
-          mutate("hhttps://avion-realty.vercel.app/api/admin/podcast");
+          mutate("https://avion-realty.vercel.app/api/admin/podcast");
           setOpenModal(false);
         }
 
@@ -109,12 +109,12 @@ const PodcastCard = ({ podcast }) => {
 
           const newData = { title, description, agent, videoUrl, thumbnail: res.data.data.display_url };
 
-          axios.put(`hhttps://avion-realty.vercel.app/api/admin/podcast?id=${podcast._id}`, newData).then(res => {
+          axios.put(`https://avion-realty.vercel.app/api/admin/podcast?id=${podcast._id}`, newData).then(res => {
 
             if (res.data.success) {
               toast.success('Podcast Updated with thumbnail!', { id: toastId });
 
-              mutate("hhttps://avion-realty.vercel.app/api/admin/podcast");
+              mutate("https://avion-realty.vercel.app/api/admin/podcast");
               setOpenModal(false);
             }
 

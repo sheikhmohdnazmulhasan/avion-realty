@@ -30,7 +30,7 @@ const InventoryCard = ({ list }) => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                axios.delete(`hhttps://avion-realty.vercel.app/api/inventory?id=${_id}`).then(res => {
+                axios.delete(`https://avion-realty.vercel.app/api/inventory?id=${_id}`).then(res => {
 
                     if (res.data.success) {
                         Swal.fire({
@@ -39,7 +39,7 @@ const InventoryCard = ({ list }) => {
                             icon: "success"
                         });
 
-                        mutate(`hhttps://avion-realty.vercel.app/api/inventory?agent=${agent}`);
+                        mutate(`https://avion-realty.vercel.app/api/inventory?agent=${agent}`);
                     }
 
                 }).catch(err => console.log(err))
