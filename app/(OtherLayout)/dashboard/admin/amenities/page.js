@@ -27,7 +27,7 @@ const Amenities = () => {
 
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`hhttps://avion-realty.vercel.app/api/admin/amenities?id=${_id}`)
+        axios.delete(`https://avion-realty.vercel.app/api/admin/amenities?id=${_id}`)
           .then((res) => {
             if (res.data.success) {
               Swal.fire({
@@ -36,7 +36,7 @@ const Amenities = () => {
                 icon: "success",
               });
 
-              mutate(`hhttps://avion-realty.vercel.app/api/admin/amenities`);
+              mutate(`https://avion-realty.vercel.app/api/admin/amenities`);
             }
           })
           .catch((err) => console.log(err));
@@ -78,13 +78,13 @@ const Amenities = () => {
 
           // post data to database
           const serverResponse = await axios.post(
-            "hhttps://avion-realty.vercel.app/api/admin/amenities",
+            "https://avion-realty.vercel.app/api/admin/amenities",
             dataForBackend
           );
           if (serverResponse.data.success) {
             toast.success("Amenity Successfully Added", { id: toastId });
             setOpenModal(false);
-            mutate(`hhttps://avion-realty.vercel.app/api/admin/amenities`);
+            mutate(`https://avion-realty.vercel.app/api/admin/amenities`);
           }
         }
       } catch (error) {

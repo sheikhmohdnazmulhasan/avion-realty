@@ -42,7 +42,7 @@ const EditProfile = ({ user}) => {
 
     try {
       const res = await axios.put(
-        `hhttps://avion-realty.vercel.app/api/users?email=${currentUser.email}`,
+        `https://avion-realty.vercel.app/api/users?email=${currentUser.email}`,
         updatedData
       );
 
@@ -55,7 +55,7 @@ const EditProfile = ({ user}) => {
             color: "#fff",
           },
         });
-        mutate(`hhttps://avion-realty.vercel.app/api/users?email=${currentUser.email}`);
+        mutate(`https://avion-realty.vercel.app/api/users?email=${currentUser.email}`);
       } else {
         alert("Something wrong, check console");
       }

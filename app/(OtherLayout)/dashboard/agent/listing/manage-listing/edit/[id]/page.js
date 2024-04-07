@@ -22,7 +22,7 @@ const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 const EditList = ({ params }) => {
 
-    const { data = [], isLoading } = useSWR(`hhttps://avion-realty.vercel.app/api/offplans?id=${params.id}`, fetcher);
+    const { data = [], isLoading } = useSWR(`https://avion-realty.vercel.app/api/offplans?id=${params.id}`, fetcher);
 
     const properties = useGetProperties();
     const areas = useGetAreas();
@@ -182,7 +182,7 @@ const EditList = ({ params }) => {
         const dataForBackend = { title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, description, location, amenities, images };
 
         try {
-            const serverResponse = await axios.put(`hhttps://avion-realty.vercel.app/api/offplans?id=${params.id}`, dataForBackend);
+            const serverResponse = await axios.put(`https://avion-realty.vercel.app/api/offplans?id=${params.id}`, dataForBackend);
 
             if (serverResponse.data.success) {
 
