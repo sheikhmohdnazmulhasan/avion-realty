@@ -5,7 +5,7 @@ const useGetProperties = () => {
     const fetcher = url => axios.get(url).then(res => res.data);
     const {
         data = []
-    } = useSWR('http://localhost:3000/api/admin/items/property', fetcher);
+    } = useSWR('https://avion-realty.vercel.app/api/admin/items/property', fetcher);
 
     return data;
 };

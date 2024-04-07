@@ -7,7 +7,7 @@ import BlogCard from "../root/BlogCard";
 const fetcher = url => axios.get(url).then(res => res.data);
 
 const LatestBlog = () => {
-    const {data = []} = useSWR(`http://localhost:3000/api/agent/blog?&sort=createdAt_desc`, fetcher)
+    const {data = []} = useSWR(`https://avion-realty.vercel.app/api/agent/blog?&sort=createdAt_desc`, fetcher)
     return (
         <div className="lg:flex pt-8 md:pt-16 gap-8 items-end">
             <div className=" lg:w-1/2">
