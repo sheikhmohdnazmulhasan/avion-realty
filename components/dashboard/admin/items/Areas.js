@@ -52,7 +52,7 @@ const Areas = () => {
           };
 
           const serverResponse = await axios.post(
-            "https://avion-realty.vercel.app/api/admin/items/area",
+            "http://localhost:3000/api/admin/items/area",
             dataForBackend
           );
 
@@ -60,7 +60,7 @@ const Areas = () => {
             toast.success("Area Successfully Added", { id: toastId });
             setOpenModal(false);
 
-            mutate(`https://avion-realty.vercel.app/api/admin/items/area`);
+            mutate(`http://localhost:3000/api/admin/items/area`);
           }
         }
 
@@ -86,7 +86,7 @@ const Areas = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://avion-realty.vercel.app/api/admin/items/area?id=${_id}`)
+          .delete(`http://localhost:3000/api/admin/items/area?id=${_id}`)
           .then((res) => {
             if (res.data.success) {
               Swal.fire({
@@ -95,7 +95,7 @@ const Areas = () => {
                 icon: "success",
               });
 
-              mutate(`https://avion-realty.vercel.app/api/admin/items/area`);
+              mutate(`http://localhost:3000/api/admin/items/area`);
             }
           })
           .catch((err) => console.log(err));

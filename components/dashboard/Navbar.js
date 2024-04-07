@@ -24,7 +24,7 @@ const Navbar = ({ title }) => {
     error,
     mutate,
   } = useSWR(
-    `https://avion-realty.vercel.app/api/users?email=${user?.data?.user?.email}`,
+    `http://localhost:3000/api/users?email=${user?.data?.user?.email}`,
     fetcher
   );
 
