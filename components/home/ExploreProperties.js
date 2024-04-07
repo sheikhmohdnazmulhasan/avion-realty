@@ -55,7 +55,7 @@ const ExploreProperties = () => {
         <div>
             <h2 className="text-xl md:text-2xl lg:text-3xl text-center">EXPLORE LUXURY PROPERTIES</h2>
             {/*property types*/}
-            <div className="flex justify-center gap-6 md:gap-12 my-6">
+            <div className="flex justify-center px-3 text-sm gap-2 md:gap-12 my-6">
                 <button onClick={() => handlePropertyType('Apartment')} className={`uppercase ${isActive === 'Apartment'? 'text-[#E4B649] underline' : ''}`}>Apartment</button>
                 <button onClick={() => handlePropertyType('Villa')} className={`uppercase ${isActive === 'Villa' ? 'text-[#E4B649] underline' : ''}`}>Villa</button>
                 <button onClick={() => handlePropertyType('Penthouse')} className={`uppercase ${isActive === 'Penthouse' ? 'text-[#E4B649] underline' : ''}`}>Penthouse</button>

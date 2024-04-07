@@ -10,6 +10,7 @@ import whatsapp from "@/public/images/whatsapp.svg";
 import home from "@/public/images/home.svg";
 import contact from "@/public/images/contact.svg";
 import search from "@/public/images/search.svg";
+import Headroom from 'react-headroom';
 
 import Link from "next/link";
 import { useState } from "react";
@@ -37,7 +38,7 @@ const MobileMenu = () => {
             <RxCross2 size="24px" />
           </button>
         ) : (
-          <Link href="" className="w-6">
+          <Link href="https://wa.me/+971504597167" target="_blank" className="w-6">
             <Image src={whatsapp} alt="avion realty whatsapp" />
           </Link>
         )}
