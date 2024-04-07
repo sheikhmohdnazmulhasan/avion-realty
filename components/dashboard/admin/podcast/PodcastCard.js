@@ -133,7 +133,9 @@ const PodcastCard = ({ podcast }) => {
       <Toaster position="bottom-right" reverseOrder={false} />
       <div className="col-span-2 flex items-center gap-4">
         <Image
-          src={dummyImg}
+          src={podcast?.thumbnail}
+          height={100}
+          width={100}
           alt={podcast.title}
           className="h-16 w-16 object-fill rounded-md"
         />

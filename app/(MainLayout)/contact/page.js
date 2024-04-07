@@ -19,8 +19,8 @@ const Contact = () => {
 
             {/* map, location, contact */}
             <div className='md:flex mt-12 md:-mt-24 lg:-mt-48 mb-20 bg-[#0D0D0D] md:bg-transparent'>
-                <div className='md:w-1/2 border md:ml-16 mr-4 md:mr-0'>
-                    <h2>map</h2>
+                <div className='md:w-1/2 md:ml-16 mr-4 md:mr-0'>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.504100094383!2d55.2811433!3d25.186217100000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f69055cbbfdff%3A0x90ffa0ed00a0ad49!2sAvion%20Realty!5e0!3m2!1sen!2sbd!4v1712493979863!5m2!1sen!2sbd" allowfullscreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className='w-full h-full'></iframe>
                 </div>
                 <div className='flex-1 relative mt-12 md:mt-0'>
 
@@ -28,39 +28,39 @@ const Contact = () => {
                         <Image src={logo} alt='avion realty' />
                     </div>
                     <div className='w-full bg-[#0D0D0D]  mx-auto h-[400px] md:h-80 lg:h-96 flex items-end pb-20' >
-                    <ul className="space-y-2 text-sm lg:text-base md:w-2/3 mx-auto">
-                        <li className="flex gap-2 items-center">
-                        <span className="text-[#E4B649] ">
-                            <FaMapMarkerAlt size={20} />
-                        </span>
-                        <a>
-                            Office 707, Building No 13
-                            <br /> Business Bay, Bay Square, Dubai
-                        </a>
-                        </li>
-                        <li className="flex gap-2 items-center">
-                        <span className="text-[#E4B649] ">
-                            <MdEmail size={20} />
-                        </span>
-                        <a>info@avionrealty.ae</a>
-                        </li>
-                        <li className="flex gap-2 items-center">
-                        <span className="text-[#E4B649] ">
-                            <IoCall size={20} />
-                        </span>
-                        <span>
-                            <a>+971 50 459 71 67</a>
-                            <br />
-                            <a>+971 4 876 6085</a>
-                        </span>
-                        </li>
-                    </ul>
+                        <ul className="space-y-2 text-sm lg:text-base md:w-2/3 mx-auto">
+                            <li className="flex gap-2 items-center">
+                                <span className="text-[#E4B649] ">
+                                    <FaMapMarkerAlt size={20} />
+                                </span>
+                                <a>
+                                    Office 707, Building No 13
+                                    <br /> Business Bay, Bay Square, Dubai
+                                </a>
+                            </li>
+                            <li className="flex gap-2 items-center">
+                                <span className="text-[#E4B649] ">
+                                    <MdEmail size={20} />
+                                </span>
+                                <a>info@avionrealty.ae</a>
+                            </li>
+                            <li className="flex gap-2 items-center">
+                                <span className="text-[#E4B649] ">
+                                    <IoCall size={20} />
+                                </span>
+                                <span>
+                                    <a>+971 50 459 71 67</a>
+                                    <br />
+                                    <a>+971 4 876 6085</a>
+                                </span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
             </div>
-            
-            <Inquiry/>
+
+            <Inquiry />
         </div>
     );
 };
