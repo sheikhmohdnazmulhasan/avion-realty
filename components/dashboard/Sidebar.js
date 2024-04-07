@@ -128,7 +128,7 @@ const Sidebar = () => {
                 <span>Items</span>
               </Link>
             </li>
-            <li className={`hover:text-[#E4B649] hover:scale-105 ${isActive === 'text-[#E4B649] scale-'} transition-all`} onClick={() => setIsActive('Amenities')}>
+            <li className={`hover:text-[#E4B649] hover:scale-105 ${isActive === 'Amenities' && 'text-[#E4B649] scale-105'} transition-all`} onClick={() => setIsActive('Amenities')}>
               <Link
                 href="/dashboard/admin/amenities"
                 className="flex gap-4 items-center"
@@ -155,7 +155,7 @@ const Sidebar = () => {
                 <span>Agents</span>
               </Link>
             </li>
-            <li className={`hover:text-[#E4B649] hover:scale-105 ${isActive === 'Listings' && 'text-[#E4B649] hover:scale-105'} transition-all`} onClick={() => setIsActive('Listings')}>
+            <li className={`hover:text-[#E4B649] hover:scale-105 ${isActive === 'Listings' && 'text-[#E4B649] scale-105'} transition-all`} onClick={() => setIsActive('Listings')}>
               <Link
                 href="/dashboard/admin/listings"
                 className="flex gap-4 items-center"
