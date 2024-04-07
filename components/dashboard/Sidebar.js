@@ -33,7 +33,7 @@ const Sidebar = () => {
       {/* nav links */}
       <ul className=" font-bold mt-16 space-y-4">
         <li>
-          <Link href="/dashboard" className="flex gap-4 items-center">
+          <Link href="/dashboard" className={`flex gap-4 items-center hover:text-[#E4B649] hover:scale-105 transition-all`}>
             <VscGraph size={24} />
             <span>Overview</span>
           </Link>
@@ -42,7 +42,7 @@ const Sidebar = () => {
         {data?.role !== "admin" ? (
           // for agent nav links
           <>
-            <li className="flex gap-4 items-center">
+            <li className={`flex gap-4 items-center hover:text-[#E4B649] hover:scale-105 transition-all`}>
               <TiThListOutline size={24} />
               <button
                 onClick={() => setDropdown(!isDropdown)}
@@ -58,19 +58,19 @@ const Sidebar = () => {
             </li>
             {isDropdown && (
               <ul className=" ml-8 space-y-1">
-                <li>
+                <li className={`hover:text-[#E4B649] hover:scale-105 transition-all`}>
                   <Link href="/dashboard/agent/listing/manage-listing">
                     <span>Manage Listing</span>
                   </Link>
                 </li>
-                <li>
+                <li className={`hover:text-[#E4B649] hover:scale-105 transition-all`}>
                   <Link href="/dashboard/agent/listing/private-inventory">
                     <span>Private Inventory</span>
                   </Link>
                 </li>
               </ul>
             )}
-            <li>
+            <li className={`hover:text-[#E4B649] hover:scale-105 transition-all`}>
               <Link
                 href="/dashboard/agent/Insights"
                 className="flex gap-4 items-center"
@@ -79,7 +79,7 @@ const Sidebar = () => {
                 <span>Insights</span>
               </Link>
             </li>
-            <li>
+            <li className={`hover:text-[#E4B649] hover:scale-105 transition-all`}>
               <Link
                 href="/dashboard/agent/leads"
                 className="flex gap-4 items-center"
@@ -88,7 +88,7 @@ const Sidebar = () => {
                 <span>Leads</span>
               </Link>
             </li>
-            <li className="flex gap-4 items-center">
+            <li className={`flex gap-4 items-center hover:text-[#E4B649] hover:scale-105 transition-all`}>
               <RiFileList3Line size={24} />
               <button
                 onClick={() => setDropdown2(!isDropdown2)}
@@ -104,12 +104,12 @@ const Sidebar = () => {
             </li>
 
             {isDropdown2 && <ul className=" ml-8 space-y-1">
-              <li>
+              <li className={`hover:text-[#E4B649] hover:scale-105 transition-all`}>
                 <Link href="/dashboard/agent/blog/publish-blog">
                   <span>Publish Blog</span>
                 </Link>
               </li>
-              <li>
+              <li className={`hover:text-[#E4B649] hover:scale-105 transition-all`}>
                 <Link href="/dashboard/agent/blog/manage-blog">
                   <span>Manage Blog</span>
                 </Link>
@@ -119,7 +119,7 @@ const Sidebar = () => {
         ) : (
           // for admin nav links
           <>
-            <li>
+            <li className={`hover:text-[#E4B649] hover:scale-105 transition-all`}>
               <Link
                 href="/dashboard/admin/items"
                 className="flex gap-4 items-center"
@@ -128,7 +128,7 @@ const Sidebar = () => {
                 <span>Items</span>
               </Link>
             </li>
-            <li>
+            <li className={`hover:text-[#E4B649] hover:scale-105 transition-all`}>
               <Link
                 href="/dashboard/admin/amenities"
                 className="flex gap-4 items-center"
@@ -137,7 +137,7 @@ const Sidebar = () => {
                 <span>Amenities</span>
               </Link>
             </li>
-            <li>
+            <li className={`hover:text-[#E4B649] hover:scale-105 transition-all`}>
               <Link
                 href="/dashboard/admin/views"
                 className="flex gap-4 items-center"
@@ -146,7 +146,7 @@ const Sidebar = () => {
                 <span>Views</span>
               </Link>
             </li>
-            <li>
+            <li className={`hover:text-[#E4B649] hover:scale-105 transition-all`}>
               <Link
                 href="/dashboard/admin/agents"
                 className="flex gap-4 items-center"
@@ -155,7 +155,7 @@ const Sidebar = () => {
                 <span>Agents</span>
               </Link>
             </li>
-            <li>
+            <li className={`hover:text-[#E4B649] hover:scale-105 transition-all`}>
               <Link
                 href="/dashboard/admin/listings"
                 className="flex gap-4 items-center"
@@ -164,7 +164,7 @@ const Sidebar = () => {
                 <span>Listings</span>
               </Link>
             </li>
-            <li className="flex gap-4 items-center">
+            <li className={`flex gap-4 items-center hover:text-[#E4B649] hover:scale-105 transition-all`}>
               <GrVideo size={24} />
               <button
                 onClick={() => setDropdown(!isDropdown)}
@@ -180,12 +180,12 @@ const Sidebar = () => {
             </li>
             {isDropdown && (
               <ul className=" ml-8 space-y-1">
-                <li>
+                <li className={`hover:text-[#E4B649] hover:scale-105 transition-all`}>
                   <Link href="/dashboard/admin/podcast/upload-podcast">
                     <span>Upload Podcast</span>
                   </Link>
                 </li>
-                <li>
+                <li className={`hover:text-[#E4B649] hover:scale-105 transition-all`}>
                   <Link href="/dashboard/admin/podcast/manage-podcast">
                     <span>Manage Podcast</span>
                   </Link>
@@ -194,7 +194,7 @@ const Sidebar = () => {
             )}
           </>
         )}
-        <li>
+        <li className={`hover:text-[#E4B649] hover:scale-105 transition-all`}>
           <Link
             href="/dashboard/add-off-plan"
             className="flex gap-4 items-center"
@@ -203,7 +203,7 @@ const Sidebar = () => {
             <span>Add-Off-plan</span>
           </Link>
         </li>
-        <li>
+        <li className={`hover:text-[#E4B649] hover:scale-105 transition-all`}>
           <Link href="/dashboard/profile" className="flex gap-4 items-center">
             <FaUserCircle size={24} />
             <span>My Profile</span>
@@ -216,7 +216,7 @@ const Sidebar = () => {
       {data?.role !== 'admin' && <div className="mt-12">
         <Link
           href="/dashboard/agent/add-property"
-          className="bg-[#835C00] rounded-2xl p-3 flex items-center gap-2 text-xl justify-center"
+          className={`bg-[#835C00] rounded-2xl p-3 flex items-center gap-2 text-xl justify-center hover:scale-105 transition-all`}
         >
           <FaPlus />
           <span>Add Property</span>
