@@ -11,6 +11,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import useSWR from "swr";
 import { signOut, useSession } from "next-auth/react";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 const Navbar = ({ title }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -29,6 +30,23 @@ const Navbar = ({ title }) => {
 
   const profile = data?.photo;
 
+  function handleLogOut() {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `Do you want to be logged out ?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Log Out!"
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signOut({ redirect: false });
+      }
+    });
+  }
+
   return (
     <div className=" fixed top-0 w-full z-50 bg-[#0A0909]">
       <div className="pt-8 pb-4 flex justify-between items-center z-20  ">
@@ -36,7 +54,7 @@ const Navbar = ({ title }) => {
         <div className="fixed right-0 px-16">
           <div className="flex justify-end items-center">
             <IoNotificationsOutline size={32} className="mr-8 mt-2" />
-            <div className="w-10 rounded-full mr-2">
+            <div className="w-10 rounded-full mr-2 cursor-pointer" onClick={() => setOpenModal(!openModal)}>
               {profile ? (
                 <Image
                   src={profile}
@@ -49,8 +67,7 @@ const Navbar = ({ title }) => {
                 <FaUserCircle size={40} />
               )}
             </div>
-            <button
-              onClick={() => setOpenModal(!openModal)}
+            <button onClick={() => setOpenModal(!openModal)}
               className="mt-2 relative"
             >
               {openModal ? <FaAngleUp size={12} /> : <FaAngleDown size={12} />}
@@ -58,19 +75,19 @@ const Navbar = ({ title }) => {
             {openModal && (
               <div className="bg-[#0A0909] border border-[#3b2d0c] p-8 font-semibold absolute top-12">
                 <ul className="space-y-3">
-                  <li>
+                  <li className="hover:scale-105 transition-all">
                     <Link href="/dashboard/profile" className="flex gap-3 items-center">
                       <FaRegUser className=" text-[#E4B649]" size={20} />
-                      <span>My Profile</span>
+                      <span className="hover:text-[#E4B649]">My Profile</span>
                     </Link>
                   </li>
-                  <li>
+                  <li className="hover:scale-105 transition-all">
                     <div
                       className="flex gap-3 cursor-pointer items-center"
-                      onClick={() => signOut({ redirect: false })}
+                      onClick={handleLogOut}
                     >
                       <MdLogout className=" text-[#E4B649]" size={24} />
-                      <span>Log Out</span>
+                      <span className="hover:text-[#E4B649]">Log Out</span>
                     </div>
                   </li>
                 </ul>
