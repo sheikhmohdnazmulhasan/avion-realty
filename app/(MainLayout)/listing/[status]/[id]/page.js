@@ -271,7 +271,7 @@ const ListingDetail = ({ params }) => {
                         </div>
                     </div>
                     {/* agent information */}
-                    <Link href={`/agents/${agent._id}`} className='mt-10 lg:mt-0 lg:w-[30%] lg:h-[300px] border border-[#BE8500] rounded-2xl p-4'>
+                    <Link href={`/agents/${agent?._id}`} className='mt-10 lg:mt-0 lg:w-[30%] lg:h-[300px] border border-[#BE8500] rounded-2xl p-4'>
                         <div >
                             <div className='flex items-end justify-between gap-2 '>
                                 <div className='space-y-2'>
