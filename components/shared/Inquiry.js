@@ -1,8 +1,22 @@
+'use client'
+
 import whatsapp from "@/public/images/whatsapp.svg"
 import Image from "next/image";
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 const Inquiry = () => {
+    const router = useRouter()
+
+    function handleInquiry(event) {
+        event.preventDefault();
+        const name = event.target.name.value;
+        const phone = event.target.name.value;
+        const email = event.target.name.value;
+
+        router.push(`https://wa.me/+971504597167?text=Hello my name is ${name}, Phone: ${phone} Email: ${email}. I want to talk to you about a house`);
+    };
+
     return (
         <div className='px-4 md:px-12 lg:px-20 py-8 md:py-16 text-center'>
             <div className='uppercase font-light pb-6'>
@@ -14,12 +28,12 @@ const Inquiry = () => {
             </div>
 
             {/* form */}
-            <form className="flex flex-col lg:flex-row justify-center gap-6">
-                <input type='text' placeholder='Your Name' name="name" className='bg-transparent border border-[#E4B649] p-3 rounded-2xl' />
+            <form className="flex flex-col lg:flex-row justify-center gap-6" onSubmit={handleInquiry}>
+                <input type='text' placeholder='Your Name' name="name" className='bg-transparent border border-[#E4B649] p-3 rounded-2xl' required />
                 <input type='number' placeholder='Your Phone' name="phone" className='bg-transparent border border-[#E4B649] p-3 rounded-2xl' />
-                <input type='email' placeholder='Your Email' name="email" className='bg-transparent border border-[#E4B649] p-3 rounded-2xl' />
+                <input type='email' placeholder='Your Email' name="email" className='bg-transparent border border-[#E4B649] p-3 rounded-2xl' required />
 
-                <input type="submit" value="Send" className='bg-[#FFD980] text-xl font-extrabold text-black py-2 px-10 rounded-2xl' />
+                <input type="submit" value="Send" className='bg-[#b9943f] hover:bg-[#a58b4d] text-xl transition-all hover:cursor-pointer  font-extrabold text-black py-2 px-10 rounded-2xl' required />
             </form>
 
             <Link href={'https://wa.me/+971504597167'} target="_blank" className="">
