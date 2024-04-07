@@ -29,7 +29,7 @@ const Developers = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/api/admin/items/dev?id=${_id}`)
+          .delete(`hhttps://avion-realty.vercel.app/api/admin/items/dev?id=${_id}`)
           .then((res) => {
             if (res.data.success) {
               Swal.fire({
@@ -38,7 +38,7 @@ const Developers = () => {
                 icon: "success",
               });
 
-              mutate(`http://localhost:3000/api/admin/items/dev`);
+              mutate(`hhttps://avion-realty.vercel.app/api/admin/items/dev`);
             }
           })
           .catch((err) => console.log(err));
@@ -68,7 +68,7 @@ const Developers = () => {
         };
 
         const serverResponse = await axios.post(
-          "http://localhost:3000/api/admin/items/dev",
+          "hhttps://avion-realty.vercel.app/api/admin/items/dev",
           dataForBackend
         );
 
@@ -76,7 +76,7 @@ const Developers = () => {
           toast.success("Developer Successfully Added", { id: toastId });
           setOpenModal(false);
 
-          mutate(`http://localhost:3000/api/admin/items/dev`);
+          mutate(`hhttps://avion-realty.vercel.app/api/admin/items/dev`);
         }
       } catch (error) {
         console.log(error);

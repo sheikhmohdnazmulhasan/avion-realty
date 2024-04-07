@@ -12,7 +12,7 @@ const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ManageBlog = () => {
     const user = useUser();
 
-    const { data = [], isLoading } = useSWR(`http://localhost:3000/api/agent/blog?email=${user?.data?.email}`, fetcher);
+    const { data = [], isLoading } = useSWR(`hhttps://avion-realty.vercel.app/api/agent/blog?email=${user?.data?.email}`, fetcher);
 
     if (user.data.role !== 'agent') {
 

@@ -11,7 +11,7 @@ import Inquiry from "@/components/shared/Inquiry";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const Blog = () => {
-    const { data = [] } = useSWR(`http://localhost:3000/api/agent/blog`, fetcher);
+    const { data = [] } = useSWR(`hhttps://avion-realty.vercel.app/api/agent/blog`, fetcher);
 
     return (
         <div>

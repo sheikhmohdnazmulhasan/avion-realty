@@ -14,8 +14,8 @@ const PodcastDetails = ({ params }) => {
 
     setTimeout(() => { setLoading(false); }, 1000);
 
-    const { data = [] } = useSWR(`http://localhost:3000/api/admin/podcast?id=${params.id}`, fetcher);
-    axios.get(`http://localhost:3000/api/users?email=${data?.agent}`).then(res => setAgent(res.data)).catch(err => console.log(err));
+    const { data = [] } = useSWR(`hhttps://avion-realty.vercel.app/api/admin/podcast?id=${params.id}`, fetcher);
+    axios.get(`hhttps://avion-realty.vercel.app/api/users?email=${data?.agent}`).then(res => setAgent(res.data)).catch(err => console.log(err));
 
     if (loading) {
 

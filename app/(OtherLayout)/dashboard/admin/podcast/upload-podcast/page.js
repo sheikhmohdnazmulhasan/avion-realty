@@ -70,7 +70,7 @@ const UploadPodcast = () => {
 
           const dataForBackend = { title, description, agent, videoUrl, thumbnail: res.data.data.display_url };
 
-          axios.post('http://localhost:3000/api/admin/podcast', dataForBackend).then(res => {
+          axios.post('hhttps://avion-realty.vercel.app/api/admin/podcast', dataForBackend).then(res => {
 
             if (res.data.success) {
 

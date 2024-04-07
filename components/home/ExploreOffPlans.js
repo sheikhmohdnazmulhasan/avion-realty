@@ -16,7 +16,7 @@ const ExploreOffPlans = () => {
 
     const fetcher = (url) => axios.get(url).then((res) => res.data);
 
-    const { data = [], isLoading, error } = useSWR(`http://localhost:3000/api/offplans?status=Off-Plan`, fetcher);
+    const { data = [], isLoading, error } = useSWR(`hhttps://avion-realty.vercel.app/api/offplans?status=Off-Plan`, fetcher);
 
     const handlePrev = () => {
 
