@@ -12,10 +12,10 @@ const fetcher = (url) => axios.get(url).then((res) => res.data);
 const BlogDetails = ({ params }) => {
     const [loading, setLoading] = useState(true);
 
-    const { data = [] } = useSWR(`https://avion-realty.vercel.app/api/agent/blog?id=${params.id}`, fetcher);
+    const { data = [] } = useSWR(`https://www.avionrealty.ae/api/agent/blog?id=${params.id}`, fetcher);
     const updatedDate = new Date(data?.createdAt).toLocaleDateString();
 
-    const { data: allBlog = [] } = useSWR(`https://avion-realty.vercel.app/api/agent/blog`, fetcher);
+    const { data: allBlog = [] } = useSWR(`https://www.avionrealty.ae/api/agent/blog`, fetcher);
     const blogExceptThisBlog = allBlog.filter(blog => blog._id !== data._id);
 
     setTimeout(() => { setLoading(false); }, 1000);

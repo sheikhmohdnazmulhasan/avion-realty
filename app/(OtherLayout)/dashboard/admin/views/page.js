@@ -27,7 +27,7 @@ const Views = () => {
 
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`https://avion-realty.vercel.app/api/admin/view?id=${_id}`)
+        axios.delete(`https://www.avionrealty.ae/api/admin/view?id=${_id}`)
           .then((res) => {
             if (res.data.success) {
               Swal.fire({
@@ -36,7 +36,7 @@ const Views = () => {
                 icon: "success",
               });
 
-              mutate(`https://avion-realty.vercel.app/api/admin/view`);
+              mutate(`https://www.avionrealty.ae/api/admin/view`);
             }
           })
           .catch((err) => console.log(err));
@@ -67,13 +67,13 @@ const Views = () => {
 
         // post data to database
         const serverResponse = await axios.post(
-          "https://avion-realty.vercel.app/api/admin/view",
+          "https://www.avionrealty.ae/api/admin/view",
           dataForBackend
         );
         if (serverResponse.data.success) {
           toast.success("View Successfully Added", { id: toastId });
           setOpenModal(false);
-          mutate(`https://avion-realty.vercel.app/api/admin/view`);
+          mutate(`https://www.avionrealty.ae/api/admin/view`);
         }
       } catch (error) {
         console.log(error);
