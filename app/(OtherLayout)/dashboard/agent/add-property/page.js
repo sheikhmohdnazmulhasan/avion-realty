@@ -141,7 +141,7 @@ const AddProperty = () => {
     if (clickedButton === "button1") {
       try {
         const serverResponse = await axios.post(
-          "http://localhost:3000/api/offplans",
+          "https://www.avionrealty.ae/api/offplans",
           dataForBackend
         );
 
@@ -157,7 +157,7 @@ const AddProperty = () => {
     } else {
       try {
         const serverResponse = await axios.post(
-          "http://localhost:3000/api/inventory",
+          "https://www.avionrealty.ae/api/inventory",
           dataForBackend
         );
 
