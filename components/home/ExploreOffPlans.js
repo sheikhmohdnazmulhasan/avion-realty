@@ -51,7 +51,7 @@ const ExploreOffPlans = () => {
                     <h2 className="text-xl md:text-2xl lg:text-3xl">{data[currentIndex]?.title}</h2>
                     {/* location */}
                     <div className="flex items-center gap-2">
-                        <Image src={location} alt="location svg" />
+                        <Image quality={100} src={location} alt="location svg" />
                         <span className=''>{data[currentIndex]?.location}</span>
                     </div>
                     {/* price */}
@@ -63,12 +63,12 @@ const ExploreOffPlans = () => {
 
                         {/* bed */}
                         <div className="flex items-center gap-2">
-                            <Image src={bed} alt="Bedroom svg" />
+                            <Image quality={100} src={bed} alt="Bedroom svg" />
                             <span>{data[currentIndex]?.bedroom}</span>
                         </div>
                         {/* sqft */}
                         <div className="flex items-center gap-2">
-                            <Image src={sqft} alt="scale svg" />
+                            <Image quality={100} src={sqft} alt="scale svg" />
                             <span className='text-sm md:text-base text-[#E4B649] font-normal'>Start From</span>
                             <span>{data[currentIndex]?.areaSqFt} sq. ft.</span>
                         </div>
@@ -78,7 +78,7 @@ const ExploreOffPlans = () => {
 
                 {/* image */}
                 <div className="relative md:static">
-                    <Image src={data[currentIndex]?.images[0]} alt={data[currentIndex]?.title} width={280} height={320} className="w-full h-[280px] md:h-full lg:w[280px] lg:h-[320px] object-fill md:rounded-l md:rounded-xl" />
+                    <Image quality={100} src={data[currentIndex]?.images[0]} alt={data[currentIndex]?.title} width={280} height={320} className="w-full h-[280px] md:h-full lg:w[280px] lg:h-[320px] object-fill md:rounded-l md:rounded-xl" />
                     <div className='bg-black px-4 py-1 rounded-2xl absolute top-4 left-4 text-xs uppercase md:hidden'><span>{data[currentIndex]?.status}</span></div>
 
                 </div>

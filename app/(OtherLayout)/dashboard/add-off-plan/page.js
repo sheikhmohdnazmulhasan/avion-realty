@@ -44,6 +44,7 @@ const AddOffPlan = () => {
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
   const [markerPosition, setMarkerPosition] = useState(null);
   const router = useRouter();
+
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: 'AIzaSyCGYwarV1r9FE_QhBXvvv1r0XwpMAAGOmM'
   });
@@ -112,9 +113,9 @@ const AddOffPlan = () => {
 
     const payment = { firstInstallment, underConstruction, onHandover, postHandover };
 
-    if (user?.data?.role !== "agent") {
-      setAgent(form.agent.value);
-    }
+    // if (user?.data?.role !== "agent") {
+    //   setAgent(form.agent.value);
+    // }
 
     const description = form.description.value;
     // const location = form.location.value;
@@ -140,7 +141,9 @@ const AddOffPlan = () => {
       );
 
       images.push(imgBbResponse.data.data.display_url);
+      console.log(imgBbResponse.data);
     }
+
 
     const dataForBackend = {
       leads: 0,
@@ -382,6 +385,7 @@ const AddOffPlan = () => {
               <label>Select Agent</label>
               <br />
               <select
+                onChange={(event) => setAgent(event.target.value)}
                 name="agent"
                 placeholder="Select agent"
                 className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
