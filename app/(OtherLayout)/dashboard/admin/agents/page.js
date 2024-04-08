@@ -94,7 +94,7 @@ const Agents = () => {
         } else {
           try {
             const res = await axios.post(
-              "https://avion-realty.vercel.app/api/users",
+              "https://www.avionrealty.ae/api/users",
               newAgentData
             );
 
@@ -104,7 +104,7 @@ const Agents = () => {
                 text: `You have successfully created a new agent. Email: ${agentEmail},  Password: ${newPassword}. Please note it down!`,
                 icon: "success",
               });
-              mutate("https://avion-realty.vercel.app/api/users?agent=all");
+              mutate("https://www.avionrealty.ae/api/users?agent=all");
               setOpenModal(false);
 
             } else {

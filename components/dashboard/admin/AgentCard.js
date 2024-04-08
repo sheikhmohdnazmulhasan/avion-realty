@@ -25,7 +25,7 @@ const AgentCard = ({ agent }) => {
 
     try {
       const serverResponse = await axios.put(
-        `https://avion-realty.vercel.app/api/users?email=${agent.email}`,
+        `https://www.avionrealty.ae/api/users?email=${agent.email}`,
         newData
       );
 
@@ -39,7 +39,7 @@ const AgentCard = ({ agent }) => {
           },
         });
 
-        mutate("https://avion-realty.vercel.app/api/users?agent=all");
+        mutate("https://www.avionrealty.ae/api/users?agent=all");
         setOpenModal(false);
       }
     } catch (error) {
@@ -60,7 +60,7 @@ const AgentCard = ({ agent }) => {
       if (result.isConfirmed) {
         try {
           const serverResponse = await axios.delete(
-            `https://avion-realty.vercel.app/api/users?id=${_id}`
+            `https://www.avionrealty.ae/api/users?id=${_id}`
           );
 
           if (serverResponse.data.success) {
@@ -70,7 +70,7 @@ const AgentCard = ({ agent }) => {
               icon: "success",
             });
 
-            mutate("https://avion-realty.vercel.app/api/users?agent=all");
+            mutate("https://www.avionrealty.ae/api/users?agent=all");
           }
         } catch (error) {
           console.log(error);

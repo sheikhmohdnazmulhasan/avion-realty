@@ -30,7 +30,7 @@ const ListingCard = ({ list }) => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                axios.delete(`https://avion-realty.vercel.app/api/offplans?id=${_id}&agent=${agent}`).then(res => {
+                axios.delete(`https://www.avionrealty.ae/api/offplans?id=${_id}&agent=${agent}`).then(res => {
 
                     if (res.data.success) {
                         Swal.fire({
@@ -39,7 +39,7 @@ const ListingCard = ({ list }) => {
                             icon: "success"
                         });
 
-                        mutate(`https://avion-realty.vercel.app/api/offplans`);
+                        mutate(`https://www.avionrealty.ae/api/offplans`);
                     }
 
                 }).catch(err => console.log(err))

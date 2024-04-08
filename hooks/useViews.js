@@ -4,7 +4,7 @@ import useSWR from "swr";
 const useViews = () => {
     const fetcher = (url) => axios.get(url).then((res) => res.data);
 
-    const { data = [], isLoading } = useSWR('https://avion-realty.vercel.app/api/admin/view', fetcher);
+    const { data = [], isLoading } = useSWR('https://www.avionrealty.ae/api/admin/view', fetcher);
 
     return [data, isLoading];
 };

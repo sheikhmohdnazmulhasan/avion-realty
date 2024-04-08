@@ -23,7 +23,7 @@ import AgentInfo from '@/components/listing/AgentInfo';
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
 
-    const { data = [], isLoading, error } = useSWR(`https://avion-realty.vercel.app/api/offplans?${params.status === 'Off-Plan' || params.status === 'Ready' || params.status === 'Rental' ? `status=${params.status}` : `area=${params.status}`}`, fetcher);
+    const { data = [], isLoading, error } = useSWR(`https://www.avionrealty.ae/api/offplans?${params.status === 'Off-Plan' || params.status === 'Ready' || params.status === 'Rental' ? `status=${params.status}` : `area=${params.status}`}`, fetcher);
 
     const areas = useGetAreas();
     const properties = useGetProperties();
@@ -33,11 +33,11 @@ const ListingDetail = ({ params }) => {
     const [listings, setListings] = useState([]);
 
     const dataFilterByArea = (value) => {
-        axios.get(`https://avion-realty.vercel.app/api/offplans?area=${value}`).then(res => setListings(res.data)).catch(err => console.log(err))
+        axios.get(`https://www.avionrealty.ae/api/offplans?area=${value}`).then(res => setListings(res.data)).catch(err => console.log(err))
     }
 
     const dataFilterByProperty = (value) => {
-        axios.get(`https://avion-realty.vercel.app/api/offplans?propertyType=${value}`).then(res => setListings(res.data)).catch(err => console.log(err))
+        axios.get(`https://www.avionrealty.ae/api/offplans?propertyType=${value}`).then(res => setListings(res.data)).catch(err => console.log(err))
     }
 
     useEffect(() => {

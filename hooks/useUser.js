@@ -13,7 +13,7 @@ const useUser = () => {
     error,
     mutate,
   } = useSWR(
-    `https://avion-realty.vercel.app/api/users?email=${user?.data?.user?.email}`,
+    `https://www.avionrealty.ae/api/users?email=${user?.data?.user?.email}`,
     fetcher
   );
   
