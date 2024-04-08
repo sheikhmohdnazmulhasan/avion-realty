@@ -140,7 +140,9 @@ const AddOffPlan = () => {
       );
 
       images.push(imgBbResponse.data.data.display_url);
+      console.log(imgBbResponse.data);
     }
+
 
     const dataForBackend = {
       leads: 0,

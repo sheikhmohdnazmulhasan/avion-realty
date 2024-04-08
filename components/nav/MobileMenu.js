@@ -20,7 +20,7 @@ const MobileMenu = () => {
   const [openMedia, setOpenMedia] = useState(false);
 
   return (
-    <div className=" w-full bg-black fixed z-[100000000000]">
+    <div className={` w-full bg-black  z-[100000000000] ${isOpen && ''}`}>
       <div className={`flex justify-between px-4 py-4 items-center ${isOpen && 'bg-black'}`}>
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -29,7 +29,7 @@ const MobileMenu = () => {
           <LuMenu color="#E8BF44" size="24px" />
         </button>
 
-        <Link href="/" className="w-10">
+        <Link href="/" className="w-10" onClick={() => setIsOpen(false)}>
           <Image src={icon} alt="avion realty" />
         </Link>
 

@@ -61,13 +61,13 @@ const Footer = () => {
                 Quick Links{" "}
               </h3>
               <li>
-                <Link href="/">Off-Plan</Link>
+                <Link href="/listing/Off-Plan">Off-Plan</Link>
               </li>
               <li>
-                <Link href="/">Ready</Link>
+                <Link href="/listing/Ready">Ready</Link>
               </li>
               <li>
-                <Link href="/">Rent</Link>
+                <Link href="/listing/Rent">Rent</Link>
               </li>
               <li>
                 <Link href="/">Sell your property</Link>
@@ -79,16 +79,16 @@ const Footer = () => {
                   Quick Links{" "}
                 </h3> */}
               <li>
-                <Link href="/">About Us</Link>
+                <Link href="/about">About Us</Link>
               </li>
               <li>
-                <Link href="/">Career</Link>
+                <Link href="/career">Career</Link>
               </li>
               <li>
-                <Link href="/">Blog</Link>
+                <Link href="/blogs">Blog</Link>
               </li>
               <li>
-                <Link href="/">Podcast</Link>
+                <Link href="/podcasts">Podcast</Link>
               </li>
             </ul>
           </div>
@@ -146,10 +146,10 @@ const Footer = () => {
             <p>&copy; 2024 Avion Realty All Rights Reserved.</p>
             <Link href="/privacy-policy">Privacy Policy</Link>
 
-            <span>
+            <Link href={'https://intellitixdev.com/'} target="_blank" className="hidden">
               Powered by
               <a className="text-[#CC9107]"> INTELLITIX TECHNOLOGY</a>{" "}
-            </span>
+            </Link>
           </div>
           <ul className="text-[#E8BF44] md:text-2xl flex gap-4">
             <li>

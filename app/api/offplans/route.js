@@ -43,6 +43,8 @@ export async function POST(request) {
     await connectMongoDB();
 
     const data = await request.json();
+    console.log(data.agent);
+
 
     const agent = await User.findOne({ email: data.agent });
 
@@ -67,7 +69,7 @@ export async function POST(request) {
 
     } else {
 
-        return NextResponse.json({ message: 'Something Wrong', success: false }, { status: 500 });
+        return NextResponse.json({ message: 'Something Wrong , unable to update agent property', success: false }, { status: 500 });
     };
 
 };

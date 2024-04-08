@@ -12,7 +12,7 @@ import sqft from '@/public/images/dashboard/listing/sqft.svg';
 
 
 const ExploreOffPlans = () => {
-    const [currentIndex, setCurrentIndex] = useState(2);
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     const fetcher = (url) => axios.get(url).then((res) => res.data);
 
@@ -40,7 +40,7 @@ const ExploreOffPlans = () => {
             <p className="text-xl my-4 hidden lg:block">Explore exclusive off-plan investment opportunities in Dubai. Uncover unrivaled luxury, futuristic architecture, and prime locations. Discover a city where innovation meets opulence, creating a lucrative landscape for smart investors. Secure your stake in Dubai&apos;s dynamic real estate market for promising returns and a lifestyle beyond ordinary. Embrace the future of property investment with confidence. </p>
 
             {/* slider  */}
-            <Link href={`/listing/Off-Plan/${data[currentIndex]?._id}`}> <div className="my-4 md:rounded-xl hover:scale-105 transition-all flex flex-col-reverse md:flex-row justify-between md:p-4 md:bg-[#171717] border border-[#E4B649] md:border-none ">
+            <Link href={`/listing/Off-Plan/${data[currentIndex]?._id}`}> <div className="my-4 md:rounded-xl hover:scale-105 transition-all flex flex-col-reverse md:flex-row justify-between md:p-4 md:bg-[#171717] border border-[#E4B649] md:border-none items-center ">
 
                 <div className="md:m-4 space-y-4 p-3">
                     {/* status */}
