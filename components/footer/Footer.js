@@ -146,7 +146,7 @@ const Footer = () => {
             <p>&copy; 2024 Avion Realty All Rights Reserved.</p>
             <Link href="/privacy-policy">Privacy Policy</Link>
 
-            <Link href={'https://intellitixdev.com/'} target="_blank">
+            <Link href={'https://intellitixdev.com/'} target="_blank" className="hidden">
               Powered by
               <a className="text-[#CC9107]"> INTELLITIX TECHNOLOGY</a>{" "}
             </Link>

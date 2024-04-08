@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const EditBlog = ({ params }) => {
-    const { data = [] } = useSWR(`https://www.avionrealty.ae/api/agent/blog?id=${params.id}`, fetcher);
+    const { data = [] } = useSWR(`http://localhost:3000/api/agent/blog?id=${params.id}`, fetcher);
 
     const [showName, setShowName] = useState('prev');
     const [showImagePreview, setShowImagePreview] = useState(null);
@@ -47,7 +47,7 @@ const EditBlog = ({ params }) => {
         } else if (showName === 'prev') {
             const dataForBackend = { title, description };
 
-            axios.put(`https://www.avionrealty.ae/api/agent/blog?id=${data._id}`, dataForBackend).then(res => {
+            axios.put(`http://localhost:3000/api/agent/blog?id=${data._id}`, dataForBackend).then(res => {
 
                 if (res.data.success) {
                     toast.success(`${title} Updated!`, { id: toastId })
@@ -69,7 +69,7 @@ const EditBlog = ({ params }) => {
 
                 const dataForBackend = { title, description, blogImg: res.data.data.display_url };
 
-                axios.put(`https://www.avionrealty.ae/api/agent/blog?id=${data._id}`, dataForBackend).then(res => {
+                axios.put(`http://localhost:3000/api/agent/blog?id=${data._id}`, dataForBackend).then(res => {
 
                     if (res.data.success) {
                         toast.success(`${title} Updated!`, { id: toastId });
