@@ -30,7 +30,7 @@ const InventoryCard = ({ list }) => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                axios.delete(`http://localhost:3000/api/inventory?id=${_id}`).then(res => {
+                axios.delete(`https://www.avionrealty.ae/api/inventory?id=${_id}`).then(res => {
 
                     if (res.data.success) {
                         Swal.fire({
@@ -39,7 +39,7 @@ const InventoryCard = ({ list }) => {
                             icon: "success"
                         });
 
-                        mutate(`http://localhost:3000/api/inventory?agent=${agent}`);
+                        mutate(`https://www.avionrealty.ae/api/inventory?agent=${agent}`);
                     }
 
                 }).catch(err => console.log(err))

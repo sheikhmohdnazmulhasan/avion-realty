@@ -24,7 +24,7 @@ const Navbar = ({ title }) => {
     error,
     mutate,
   } = useSWR(
-    `http://localhost:3000/api/users?email=${user?.data?.user?.email}`,
+    `https://www.avionrealty.ae/api/users?email=${user?.data?.user?.email}`,
     fetcher
   );
 

@@ -11,7 +11,7 @@ const ListingCard = ({ item, status }) => {
     return (
         <div className='border border-[#CC9107] hover:scale-105 transition-all h-[420px]'>
             <Link href={`/listing/${status}/${item._id}`} className='relative'>
-                <Image src={item?.images[0]} alt={item.title} width={100} height={300} className='w-full h-52 object-fill ' />
+                <Image quality={100} src={item?.images[0]} alt={item.title} width={100} height={300} className='w-full h-52 object-fill ' />
                 <div className='bg-black px-4 py-1 rounded-2xl absolute top-4 left-4 text-xs uppercase'><span>{item.status}</span></div>
             </Link>
             <div className='p-4 text-left space-y-2'>
@@ -19,7 +19,7 @@ const ListingCard = ({ item, status }) => {
 
                 {/* location */}
                 <div className="flex items-center gap-2">
-                    <Image src={location} alt="location svg" />
+                    <Image quality={100} src={location} alt="location svg" />
                     <span className='text-sm'>{item.location.slice(0, 26)} {item.location.length > 26 && "..."}</span>
                 </div>
 
@@ -32,20 +32,20 @@ const ListingCard = ({ item, status }) => {
 
                     {/* bed */}
                     <div className="flex items-center gap-2">
-                        <Image src={bed} alt="Bedroom svg" />
+                        <Image quality={100} src={bed} alt="Bedroom svg" />
                         <span>{item.bedroom}</span>
                     </div>
 
                     {/* bathroom */}
                     {item.status === 'Off-Plan' &&
                         <div className="flex items-center gap-2">
-                            <Image src={bathroomSvg} alt="bathroom svg" />
+                            <Image quality={100} src={bathroomSvg} alt="bathroom svg" />
                             <span>{item.bathroom}</span>
                         </div>
                     }
                     {/* sqft */}
                     <div className="flex items-center gap-2">
-                        <Image src={sqft} alt="scale svg" />
+                        <Image quality={100} src={sqft} alt="scale svg" />
                         {item.status === 'Off-Plan' && <span className='text-xs text-[#E4B649] font-normal'>Start From</span>}
                         <span>{item.areaSqFt} sq. ft.</span>
                     </div>
@@ -56,13 +56,13 @@ const ListingCard = ({ item, status }) => {
                 {/* contact */}
                 <div className='flex justify-evenly'>
                     <button>
-                        <Image src={whatsapp} alt='whatsapp svg' />
+                        <Image quality={100} src={whatsapp} alt='whatsapp svg' />
                     </button>
                     <button>
-                        <Image src={call} alt='call svg' />
+                        <Image quality={100} src={call} alt='call svg' />
                     </button>
                     <button>
-                        <Image src={whatsapp} alt='whatsapp svg' />
+                        <Image quality={100} src={whatsapp} alt='whatsapp svg' />
                     </button>
                 </div>
 

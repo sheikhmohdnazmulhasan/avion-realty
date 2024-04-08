@@ -16,7 +16,7 @@ const useVerifyUser = () => {
  
     } else if (status === 'authenticated') {
 
-        axios.get(`http://localhost:3000/api/users?email=${data?.user?.email}`).then(res => {
+        axios.get(`https://www.avionrealty.ae/api/users?email=${data?.user?.email}`).then(res => {
 
             return { access: 'authenticated', role: res.data.role}
 

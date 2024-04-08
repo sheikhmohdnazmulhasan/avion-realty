@@ -33,7 +33,7 @@ const ExploreRentReady = () => {
                 </div>
 
                 <div className="md:w-1/2">
-                    <Image src={readyRentImg} alt='ready rent png' className="w-full md:rounded-l rounded-xl " />
+                    <Image quality={100} src={readyRentImg} alt='ready rent png' className="w-full md:rounded-l rounded-xl " />
                 </div>
             </div>
         </div>

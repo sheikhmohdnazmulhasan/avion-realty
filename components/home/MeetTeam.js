@@ -42,7 +42,7 @@ const MeetTeam = () => {
                                 height: '342px'
                             }}></div>
                             <div className="w-[85%] mx-auto flex justify-center">
-                                <Image src={agent.photo} alt={agent.name} height={360} width={100} className="w-[300px] h-[360px] rounded-t rounded-xl z-10 absolute -top-4  " />
+                                <Image quality={100} src={agent.photo} alt={agent.name} height={360} width={100} className="w-[300px] h-[360px] rounded-t rounded-xl z-10 absolute -top-4  " />
                             </div>
                             <div className="  bg-black opacity-70 absolute -bottom-1 w-full  z-20">
                                 <div className="w-full text-center p-2">
@@ -69,7 +69,7 @@ const MeetTeam = () => {
                 {
                     agents?.map(agent => <Link href={`/agents/${agent._id}`} key={agent._id} className='hover:scale-105 transition-all'> <div>
                         <div className="relative">
-                            <Image src={agent.photo} alt={agent.name} height={360} width={120} className="w-full h-[360px]" />
+                            <Image quality={100} src={agent.photo} alt={agent.name} height={360} width={120} className="w-full h-[360px]" />
                             <div className="  bg-black opacity-70 absolute bottom-0 w-full hover:opacity-80 hover:cursor-pointer">
                                 <div className="w-full text-center p-2">
                                     <h2 className="text-xl font-bold">{agent.name}</h2>

@@ -27,7 +27,7 @@ const BlogCard = ({ blog }) => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                axios.delete(`http://localhost:3000/api/agent/blog?id=${_id}`).then(res => {
+                axios.delete(`https://www.avionrealty.ae/api/agent/blog?id=${_id}`).then(res => {
 
                     if (res.data.success) {
                         Swal.fire({
@@ -36,7 +36,7 @@ const BlogCard = ({ blog }) => {
                             icon: "success"
                         });
 
-                        mutate(`http://localhost:3000/api/agent/blog?email=${user?.data?.email}`)
+                        mutate(`https://www.avionrealty.ae/api/agent/blog?email=${user?.data?.email}`)
                     }
 
                 }).catch(() => toast.error('Something Wrong!'))

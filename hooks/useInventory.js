@@ -8,7 +8,7 @@ const useInventory = () => {
     const session = useSession();
     const fetcher = (url) => axios.get(url).then((res) => res.data);
 
-    const { data = [], isLoading } = useSWR(`http://localhost:3000/api/inventory?agent=${session?.data?.user?.email}`, fetcher);
+    const { data = [], isLoading } = useSWR(`https://www.avionrealty.ae/api/inventory?agent=${session?.data?.user?.email}`, fetcher);
 
     return [data, isLoading];
 
