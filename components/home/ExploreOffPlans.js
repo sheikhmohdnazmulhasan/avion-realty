@@ -78,7 +78,7 @@ const ExploreOffPlans = () => {
 
                 {/* image */}
                 <div className="relative md:static">
-                    <Image src={data[currentIndex]?.images[0]} alt={data[currentIndex]?.title} width={280} height={320} className="w-full h-[280px] md:h-full lg:w[280px] lg:h-[320px] object-fill md:rounded-l md:rounded-xl" />
+                    <Image quality={100} src={data[currentIndex]?.images[0]} alt={data[currentIndex]?.title} width={280} height={320} className="w-full h-[280px] md:h-full lg:w[280px] lg:h-[320px] object-fill md:rounded-l md:rounded-xl" />
                     <div className='bg-black px-4 py-1 rounded-2xl absolute top-4 left-4 text-xs uppercase md:hidden'><span>{data[currentIndex]?.status}</span></div>
 
                 </div>
