@@ -12,11 +12,11 @@ import sqft from '@/public/images/dashboard/listing/sqft.svg';
 
 
 const ExploreOffPlans = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const [currentIndex, setCurrentIndex] = useState(2);
 
     const fetcher = (url) => axios.get(url).then((res) => res.data);
 
-    const { data = [], isLoading, error } = useSWR(`http://localhost:3000/api/offplans?status=Off-Plan`, fetcher);
+    const { data = [], isLoading, error } = useSWR(`https://www.avionrealty.ae/api/offplans?status=Off-Plan`, fetcher);
 
     const handlePrev = () => {
 
@@ -40,7 +40,7 @@ const ExploreOffPlans = () => {
             <p className="text-xl my-4 hidden lg:block">Explore exclusive off-plan investment opportunities in Dubai. Uncover unrivaled luxury, futuristic architecture, and prime locations. Discover a city where innovation meets opulence, creating a lucrative landscape for smart investors. Secure your stake in Dubai&apos;s dynamic real estate market for promising returns and a lifestyle beyond ordinary. Embrace the future of property investment with confidence. </p>
 
             {/* slider  */}
-            <Link href={`/listing/Off-Plan/${data[currentIndex]?._id}`}> <div className="my-4 md:rounded-xl hover:scale-105 transition-all flex flex-col-reverse md:flex-row justify-between md:p-4 md:bg-[#171717] border border-[#E4B649] md:border-none items-center ">
+            <Link href={`/listing/Off-Plan/${data[currentIndex]?._id}`}> <div className="my-4 md:rounded-xl hover:scale-105 transition-all flex flex-col-reverse md:flex-row justify-between md:p-4 md:bg-[#171717] border border-[#E4B649] md:border-none ">
 
                 <div className="md:m-4 space-y-4 p-3">
                     {/* status */}
@@ -51,7 +51,7 @@ const ExploreOffPlans = () => {
                     <h2 className="text-xl md:text-2xl lg:text-3xl">{data[currentIndex]?.title}</h2>
                     {/* location */}
                     <div className="flex items-center gap-2">
-                        <Image src={location} alt="location svg" />
+                        <Image quality={100} src={location} alt="location svg" />
                         <span className=''>{data[currentIndex]?.location}</span>
                     </div>
                     {/* price */}
@@ -63,12 +63,12 @@ const ExploreOffPlans = () => {
 
                         {/* bed */}
                         <div className="flex items-center gap-2">
-                            <Image src={bed} alt="Bedroom svg" />
+                            <Image quality={100} src={bed} alt="Bedroom svg" />
                             <span>{data[currentIndex]?.bedroom}</span>
                         </div>
                         {/* sqft */}
                         <div className="flex items-center gap-2">
-                            <Image src={sqft} alt="scale svg" />
+                            <Image quality={100} src={sqft} alt="scale svg" />
                             <span className='text-sm md:text-base text-[#E4B649] font-normal'>Start From</span>
                             <span>{data[currentIndex]?.areaSqFt} sq. ft.</span>
                         </div>

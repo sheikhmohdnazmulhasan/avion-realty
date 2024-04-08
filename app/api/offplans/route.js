@@ -45,7 +45,6 @@ export async function POST(request) {
     const data = await request.json();
     console.log(data.agent);
 
-
     const agent = await User.findOne({ email: data.agent });
 
     if (agent) {
