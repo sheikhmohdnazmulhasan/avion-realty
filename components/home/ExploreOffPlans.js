@@ -12,7 +12,7 @@ import sqft from '@/public/images/dashboard/listing/sqft.svg';
 
 
 const ExploreOffPlans = () => {
-    const [currentIndex, setCurrentIndex] = useState(2);
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     const fetcher = (url) => axios.get(url).then((res) => res.data);
 
