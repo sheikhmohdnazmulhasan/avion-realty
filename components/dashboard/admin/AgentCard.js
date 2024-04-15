@@ -25,7 +25,7 @@ const AgentCard = ({ agent }) => {
 
     try {
       const serverResponse = await axios.put(
-        `https://www.avionrealty.ae/api/users?email=${agent.email}`,
+        `http://localhost:3000/api/users?email=${agent.email}`,
         newData
       );
 
@@ -39,7 +39,7 @@ const AgentCard = ({ agent }) => {
           },
         });
 
-        mutate("https://www.avionrealty.ae/api/users?agent=all");
+        mutate("http://localhost:3000/api/users?agent=all");
         setOpenModal(false);
       }
     } catch (error) {
@@ -60,7 +60,7 @@ const AgentCard = ({ agent }) => {
       if (result.isConfirmed) {
         try {
           const serverResponse = await axios.delete(
-            `https://www.avionrealty.ae/api/users?id=${_id}`
+            `http://localhost:3000/api/users?id=${_id}`
           );
 
           if (serverResponse.data.success) {
@@ -70,7 +70,7 @@ const AgentCard = ({ agent }) => {
               icon: "success",
             });
 
-            mutate("https://www.avionrealty.ae/api/users?agent=all");
+            mutate("http://localhost:3000/api/users?agent=all");
           }
         } catch (error) {
           console.log(error);

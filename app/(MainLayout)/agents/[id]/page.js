@@ -16,9 +16,9 @@ const AgentDetails = ({ params }) => {
     const [showAllAbout, setShowAllAbout] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    const { data: agent = [] } = useSWR(`https://www.avionrealty.ae/api/users?id=${params.id}`, fetcher);
+    const { data: agent = [] } = useSWR(`http://localhost:3000/api/users?id=${params.id}`, fetcher);
 
-    const { data: properties = [] } = useSWR(`https://www.avionrealty.ae/api/offplans?agent=${agent.email}`, fetcher);
+    const { data: properties = [] } = useSWR(`http://localhost:3000/api/offplans?agent=${agent.email}`, fetcher);
 
     setTimeout(() => { setLoading(false); }, 1000);
 

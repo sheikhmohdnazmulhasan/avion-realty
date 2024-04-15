@@ -23,21 +23,22 @@ import AgentInfo from '@/components/listing/AgentInfo';
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
 
-    const { data = [], isLoading, error } = useSWR(`https://www.avionrealty.ae/api/offplans?${params.status === 'Off-Plan' || params.status === 'Ready' || params.status === 'Rental' ? `status=${params.status}` : `area=${params.status}`}`, fetcher);
+    const { data = [], isLoading, error } = useSWR(`http://localhost:3000/api/offplans?${params.status === 'Off-Plan' || params.status === 'Ready' || params.status === 'Rental' ? `status=${params.status}` : `area=${params.status}`}`, fetcher);
 
     const areas = useGetAreas();
     const properties = useGetProperties();
-    const selectedAgent = useAgents().filter(agent => agent.designation === 'Founder & CEO' || agent.designation === 'Sales Director');
-    console.log(selectedAgent);
+    const selectedAgent = useAgents().filter(agent => agent.name === 'Ashraf Khan' || agent.name === 'Zaid Khan')
+
+
 
     const [listings, setListings] = useState([]);
 
     const dataFilterByArea = (value) => {
-        axios.get(`https://www.avionrealty.ae/api/offplans?area=${value}`).then(res => setListings(res.data)).catch(err => console.log(err))
+        axios.get(`http://localhost:3000/api/offplans?area=${value}`).then(res => setListings(res.data)).catch(err => console.log(err))
     }
 
     const dataFilterByProperty = (value) => {
-        axios.get(`https://www.avionrealty.ae/api/offplans?propertyType=${value}`).then(res => setListings(res.data)).catch(err => console.log(err))
+        axios.get(`http://localhost:3000/api/offplans?propertyType=${value}`).then(res => setListings(res.data)).catch(err => console.log(err))
     }
 
     useEffect(() => {

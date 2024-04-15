@@ -88,7 +88,7 @@ const UserProfile = ({ user, mutate }) => {
         const dataWithNewPassword = { ...user, password };
 
         const serverResponse = await axios.put(
-          `https://www.avionrealty.ae/api/users?email=${currentUser.email}`,
+          `http://localhost:3000/api/users?email=${currentUser.email}`,
           dataWithNewPassword
         );
 
@@ -131,7 +131,7 @@ const UserProfile = ({ user, mutate }) => {
 
       try {
         const serverResponse = await axios.put(
-          `https://www.avionrealty.ae/api/users?email=${user?.email}`,
+          `http://localhost:3000/api/users?email=${user?.email}`,
           dataWithDesignation
         );
 
@@ -147,7 +147,7 @@ const UserProfile = ({ user, mutate }) => {
             },
           });
 
-          mutate(`https://www.avionrealty.ae/api/users?email=${currentUser.email}`);
+          mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
         }
       } catch (error) {
         console.log(error);
@@ -179,7 +179,7 @@ const UserProfile = ({ user, mutate }) => {
       try {
         const dataWithBio = { ...user, bio };
         const serverResponse = await axios.put(
-          `https://www.avionrealty.ae/api/users?email=${user?.email}`,
+          `http://localhost:3000/api/users?email=${user?.email}`,
           dataWithBio
         );
 
@@ -195,7 +195,7 @@ const UserProfile = ({ user, mutate }) => {
             },
           });
 
-          mutate(`https://www.avionrealty.ae/api/users?email=${currentUser.email}`);
+          mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
         }
       } catch (error) {
         console.log(error);
@@ -223,7 +223,7 @@ const UserProfile = ({ user, mutate }) => {
       if (imgBbResponse.data.success) {
         const dataForBackend = { ...user, photo: imgBbResponse.data.data.display_url };
 
-        const serverResponse = await axios.put(`https://www.avionrealty.ae/api/users?email=${user?.email}`, dataForBackend);
+        const serverResponse = await axios.put(`http://localhost:3000/api/users?email=${user?.email}`, dataForBackend);
 
         if (serverResponse.data.success) {
           toast("Profile Picture Updated", {
@@ -237,7 +237,7 @@ const UserProfile = ({ user, mutate }) => {
 
           },);
 
-          mutate(`https://www.avionrealty.ae/api/users?email=${currentUser.email}`);
+          mutate(`http://localhost:3000/api/users?email=${currentUser.email}`);
         }
 
       }

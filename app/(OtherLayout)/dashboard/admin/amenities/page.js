@@ -27,7 +27,7 @@ const Amenities = () => {
 
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`https://www.avionrealty.ae/api/admin/amenities?id=${_id}`)
+        axios.delete(`http://localhost:3000/api/admin/amenities?id=${_id}`)
           .then((res) => {
             if (res.data.success) {
               Swal.fire({
@@ -36,7 +36,7 @@ const Amenities = () => {
                 icon: "success",
               });
 
-              mutate(`https://www.avionrealty.ae/api/admin/amenities`);
+              mutate(`http://localhost:3000/api/admin/amenities`);
             }
           })
           .catch((err) => console.log(err));
@@ -78,13 +78,13 @@ const Amenities = () => {
 
           // post data to database
           const serverResponse = await axios.post(
-            "https://www.avionrealty.ae/api/admin/amenities",
+            "http://localhost:3000/api/admin/amenities",
             dataForBackend
           );
           if (serverResponse.data.success) {
             toast.success("Amenity Successfully Added", { id: toastId });
             setOpenModal(false);
-            mutate(`https://www.avionrealty.ae/api/admin/amenities`);
+            mutate(`http://localhost:3000/api/admin/amenities`);
           }
         }
       } catch (error) {
