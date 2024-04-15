@@ -13,7 +13,7 @@ const useUser = () => {
     error,
     mutate,
   } = useSWR(
-    `http://localhost:3000/api/users?email=${user?.data?.user?.email}`,
+    `/api/users?email=${user?.data?.user?.email}`,
     fetcher
   );
   

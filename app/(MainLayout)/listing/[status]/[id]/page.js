@@ -25,8 +25,8 @@ const ListingDetail = ({ params }) => {
     const [photos, setPhotos] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const { data = [] } = useSWR(`http://localhost:3000/api/offplans?id=${params.id}`, fetcher);
-    const { data: agent = [] } = useSWR(`http://localhost:3000/api/users?email=${data.agent}`, fetcher);
+    const { data = [] } = useSWR(`/api/offplans?id=${params.id}`, fetcher);
+    const { data: agent = [] } = useSWR(`/api/users?email=${data.agent}`, fetcher);
 
     useEffect(() => {
         setPhotos(data?.images);
