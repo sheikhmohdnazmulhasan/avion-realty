@@ -48,9 +48,9 @@ const ListingDetail = ({ params }) => {
 
             {/* inquiry */}
 
-            {openInquiry && <div className="w-full absolute top-[15%] z-50">
+            {openInquiry && <div className="w-full absolute top-[15%] z-50 rounded">
                 <div className="w-[60%] mx-auto flex justify-end font-semibold" onClick={() => setOpenInquiry(false)}><span className='cursor-pointer '>Close</span></div>
-                <div className="w-[60%] mx-auto h-44  bg-[#000]">
+                <div className="w-[60%] mx-auto h-44  bg-[#000] rounded">
                     <h1 className='text-2xl text-center pt-3'>Get call back for inquiry</h1>
                     <form className='px-10 mt-4'>
                         <div className="flex gap-4">
@@ -65,7 +65,7 @@ const ListingDetail = ({ params }) => {
                 </div>
             </div>}
 
-            <div className={`mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen ${openInquiry && 'opacity-60'}`}>
+            <div className={`mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen ${openInquiry && 'opacity-60 blur-sm'}`}>
 
                 {/* desktop */}
                 {
