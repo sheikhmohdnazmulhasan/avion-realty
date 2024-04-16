@@ -169,7 +169,7 @@ const AddOffPlan = () => {
     if (clickedButton === "button1") {
       try {
         const serverResponse = await axios.post(
-          "http://localhost:3000/api/offplans",
+          "/api/offplans",
           dataForBackend
         );
 
@@ -185,7 +185,7 @@ const AddOffPlan = () => {
     } else {
       try {
         const serverResponse = await axios.post(
-          "http://localhost:3000/api/inventory",
+          "/api/inventory",
           dataForBackend
         );
 
