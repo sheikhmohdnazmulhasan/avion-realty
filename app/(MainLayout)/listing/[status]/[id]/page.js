@@ -51,8 +51,15 @@ const ListingDetail = ({ params }) => {
         const email = event.target.email.value;
         const mobile = event.target.mobile.value;
 
-        console.log(leadFor, name, email, mobile);
-    }
+        const dataForBackend = { leadFor, name, email, mobile };
+
+        axios.post('/api/agent/leads', dataForBackend).then(res => {
+            console.log(res.data);
+
+        }).catch(err => console.log(err));
+    };
+
+    
 
     return (
         <div className=''>
@@ -64,7 +71,7 @@ const ListingDetail = ({ params }) => {
                 <div className="md:w-[60%] mx-auto h-44  bg-[#000] rounded">
                     <h1 className='text-2xl text-center pt-3'>Get call back for inquiry</h1>
                     <form className='px-10 mt-4' onSubmit={handleCreateNewLeads}>
-                        
+
                         <div className="md:flex gap-4 space-y-3 md:space-y-0">
 
                             <input type="text" name="name" id="" placeholder='Name' className='w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl' required />
