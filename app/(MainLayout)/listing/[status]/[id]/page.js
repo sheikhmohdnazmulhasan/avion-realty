@@ -24,6 +24,7 @@ const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
     const [photos, setPhotos] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [openInquiry, setOpenInquiry] = useState(false)
 
     const { data = [] } = useSWR(`/api/offplans?id=${params.id}`, fetcher);
     const { data: agent = [] } = useSWR(`/api/users?email=${data.agent}`, fetcher);
@@ -31,7 +32,7 @@ const ListingDetail = ({ params }) => {
     useEffect(() => {
         setPhotos(data?.images);
     }, [data])
-    console.log(photos);
+
 
     const showFloorplan = () => {
         Swal.fire({
@@ -43,8 +44,28 @@ const ListingDetail = ({ params }) => {
     }
 
     return (
-        <div >
-            <div className='mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen'>
+        <div className=''>
+
+            {/* inquiry */}
+
+            {openInquiry && <div className="w-full absolute top-[15%] z-50">
+                <div className="w-[60%] mx-auto flex justify-end font-semibold" onClick={() => setOpenInquiry(false)}><span className='cursor-pointer '>Close</span></div>
+                <div className="w-[60%] mx-auto h-44  bg-[#000]">
+                    <h1 className='text-2xl text-center pt-3'>Get call back for inquiry</h1>
+                    <form className='px-10 mt-4'>
+                        <div className="flex gap-4">
+                            <input type="text" name="name" id="" placeholder='Name' className='w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl' />
+                            <input type="number" name="mobile" id="" placeholder='Mobile' className='w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl' />
+                            <input type="text" name="email" id="" placeholder='Email' className='w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl' />
+                        </div>
+                        <div className="flex w-full justify-center mt-4">
+                            <button type='submit' className='py-2 px-3 border border-[#E4B649] text-xl transition-all rounded-3xl hover:bg-[#625129]'>Send Now</button>
+                        </div>
+                    </form>
+                </div>
+            </div>}
+
+            <div className={`mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen ${openInquiry && 'opacity-60'}`}>
 
                 {/* desktop */}
                 {
@@ -99,7 +120,7 @@ const ListingDetail = ({ params }) => {
                 }
 
                 <div className="flex justify-end gap-3 mt-4">
-                    
+
                     {/* prev */}
                     <FaArrowAltCircleLeft size={36} className={`hover:text-[#b4914b] cursor-pointer ${currentIndex === 0 && 'text-gray-800 hover:text-gray-800 !cursor-not-allowed'}`} onClick={() => currentIndex >= 3 && setCurrentIndex(currentIndex - 3)} />
 
@@ -271,7 +292,7 @@ const ListingDetail = ({ params }) => {
                         </div>
                     </div>
                     {/* agent information */}
-                    <Link href={`/agents/${agent?._id}`} className='mt-10 lg:mt-0 lg:w-[30%] lg:h-[300px] border border-[#BE8500] rounded-2xl p-4'>
+                    <div className='mt-10 lg:mt-0 lg:w-[30%] lg:h-[300px] border border-[#BE8500] rounded-2xl p-4'>
                         <div >
                             <div className='flex items-end justify-between gap-2 '>
                                 <div className='space-y-2'>
@@ -289,12 +310,12 @@ const ListingDetail = ({ params }) => {
                                     <p>Call Now</p>
                                 </div></Link>
 
-                                <div className="flex items-center hover:scale-105 transition-all border-[#e4b5499e] gap-3 border px-3 py-1 w-1/2 rounded-3xl justify-center">
-                                    <Link href={''}><p>Inquiry</p></Link>
+                                <div className="flex items-center hover:scale-105 transition-all hover:cursor-pointer border-[#e4b5499e] gap-3 border px-3 py-1 w-1/2 rounded-3xl justify-center" onClick={() => setOpenInquiry(true)}>
+                                    <p>Inquiry</p>
                                 </div>
                             </div>
                             <div className='text-center mt-3'>
-                                <Link href='/' className='text-[#E4B649]'>View All Properties</Link>
+                                <Link href={`/agents/${agent?._id}`} className='text-[#E4B649]'>View All Properties</Link>
                                 <div className='mx-4 border-t border-[#E4B649] my-4'></div>
                                 <Link href={`https://wa.me/${agent?.wpNum}`} className='text-sm md:text-base flex justify-center gap-1 items-center'>
 
@@ -306,7 +327,7 @@ const ListingDetail = ({ params }) => {
                                 </Link>
                             </div>
                         </div>
-                    </Link>
+                    </div>
                 </div>
             </div>
 

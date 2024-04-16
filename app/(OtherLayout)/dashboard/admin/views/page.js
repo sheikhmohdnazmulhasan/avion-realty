@@ -81,8 +81,6 @@ const Views = () => {
       }
     }
 
-
-
   }
 
   if (user.role !== 'admin') {
