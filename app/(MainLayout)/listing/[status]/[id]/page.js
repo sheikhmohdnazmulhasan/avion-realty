@@ -43,8 +43,6 @@ const ListingDetail = ({ params }) => {
         });
     }
 
-
-
     return (
         <div className=''>
 
@@ -55,10 +53,10 @@ const ListingDetail = ({ params }) => {
                 <div className="md:w-[60%] mx-auto h-44  bg-[#000] rounded">
                     <h1 className='text-2xl text-center pt-3'>Get call back for inquiry</h1>
                     <form className='px-10 mt-4'>
-                        <div className="md:flex gap-4 space-y-3">
-                            <input type="text" name="name" id="" placeholder='Name' className='w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl' />
-                            <input type="number" name="mobile" id="" placeholder='Mobile' className='w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl' />
-                            <input type="text" name="email" id="" placeholder='Email' className='w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl' />
+                        <div className="md:flex gap-4 space-y-3 md:space-y-0">
+                            <input type="text" name="name" id="" placeholder='Name' className='w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl' required />
+                            <input type="number" name="mobile" id="" placeholder='Mobile' className='w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl' required />
+                            <input type="text" name="email" id="" placeholder='Email' className='w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl' required />
                         </div>
                         <div className="flex w-full justify-center mt-4">
                             <button type='submit' className='py-2 w-full md:w-fit px-3 border border-[#E4B649] text-xl transition-all rounded-3xl hover:bg-[#625129]'>Send Now</button>
