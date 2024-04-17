@@ -4,13 +4,20 @@ import bathroomSvg from '@/public/images/dashboard/listing/bathroom.svg';
 import sqft from '@/public/images/dashboard/listing/sqft.svg';
 import locationSvg from '@/public/images/dashboard/listing/location.svg';
 import leadsIcon from '@/public/images/dashboard/agent/leads.svg';
+import axios from "axios";
 
 const LeadsCard = ({ list }) => {
     const { title, bedroom, bathroom, areaSqFt, location, images, leads, _id } = list;
 
-    function handleDownloadLeadsDataAsPDF(_id) {
+    async function handleDownloadLeadsDataAsPDF(_id) {
 
-        
+        try {
+            const serverResponse = await axios.get(`/api/agent/leads?list-id=${_id}`);
+
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
     return (
