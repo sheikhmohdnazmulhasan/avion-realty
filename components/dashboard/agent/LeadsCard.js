@@ -6,32 +6,29 @@ import locationSvg from '@/public/images/dashboard/listing/location.svg';
 import leadsIcon from '@/public/images/dashboard/agent/leads.svg';
 import axios from "axios";
 import jsPDF from "jspdf";
+import { useState } from "react";
+import 'jspdf-autotable';
 
 const LeadsCard = ({ list }) => {
     const { title, bedroom, bathroom, areaSqFt, location, images, leads, _id } = list;
 
-    async function handleDownloadLeadsDataAsPDF(_id) {
-
+    const handleDownloadLeadsDataAsPDF = async (_id) => {
         try {
             const serverResponse = await axios.get(`/api/agent/leads?list-id=${_id}`);
+            const modifiedData = serverResponse.data.map(({ _id, leadFor, ...rest }) => rest);
 
-            if (serverResponse) {
-                const doc = new jsPDF();
-                doc.text('JSON Data:', 10, 10);
-                doc.text(JSON.stringify(serverResponse, null, 2), 10, 20);
+            const doc = new jsPDF();
+            doc.autoTable({
+                head: [Object.keys(modifiedData[0])],
+                body: modifiedData.map(obj => Object.values(obj))
+            });
 
-                // Save PDF
-                doc.save('data.pdf');
-
-            } else {
-                console.log('error in generating JSON to PDF');
-            }
-
+            // Save PDF
+            doc.save('data.pdf');
         } catch (error) {
-            console.log(error);
+            console.log('Error in fetching or generating PDF:', error);
         }
-
-    }
+    };
 
     return (
         <div>
@@ -89,6 +86,11 @@ const LeadsCard = ({ list }) => {
                         <hr className="opacity-20" />
                     </div>
                 </div>
+            </div>
+
+            {/* hidden structure for generate formatted PDF */}
+            <div className="" id="json-table">
+                <p>hello</p>
             </div>
         </div>
     );
