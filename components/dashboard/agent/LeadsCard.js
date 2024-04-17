@@ -5,20 +5,71 @@ import sqft from '@/public/images/dashboard/listing/sqft.svg';
 import locationSvg from '@/public/images/dashboard/listing/location.svg';
 import leadsIcon from '@/public/images/dashboard/agent/leads.svg';
 import axios from "axios";
+// import jsPDF from "jspdf";
+// import 'jspdf-autotable';
+import * as XLSX from 'xlsx';
 
 const LeadsCard = ({ list }) => {
     const { title, bedroom, bathroom, areaSqFt, location, images, leads, _id } = list;
 
-    async function handleDownloadLeadsDataAsPDF(_id) {
 
+
+    // download as PDF
+    // const handleDownloadLeadsDataAsPDF = async (_id) => {
+    //     try {
+    //         const serverResponse = await axios.get(`/api/agent/leads?list-id=${_id}`);
+    //         const modifiedData = serverResponse.data.map(({ _id, leadFor, createdAt, updatedAt, __v, ...rest }) => ({
+    //             ...rest
+    //         }));
+
+    //         const doc = new jsPDF();
+    //         doc.autoTable({
+    //             head: [Object.keys(modifiedData[0])],
+    //             body: modifiedData.map(obj => Object.values(obj))
+    //         });
+
+    //         // Save PDF
+    //         doc.save('data.pdf');
+    //     } catch (error) {
+    //         console.log('Error in fetching or generating PDF:', error);
+    //     }
+    // };
+
+    const handleDownloadLeadsDataAsXLSX = async (_id) => {
         try {
             const serverResponse = await axios.get(`/api/agent/leads?list-id=${_id}`);
+            const modifiedData = serverResponse.data.map(({ _id, leadFor, createdAt, updatedAt, __v, ...rest }) => rest)
+
+            // Convert JSON data to worksheet
+            const worksheet = XLSX.utils.json_to_sheet(modifiedData);
+
+            // Customize column width
+            const columnWidths = [
+                { wch: 35 },
+                { wch: 30 },
+                { wch: 30 },
+
+            ];
+
+            worksheet['!cols'] = columnWidths;
+
+            // Make specific properties bold
+            const boldCells = ['A1', 'B1'];
+            boldCells.forEach(cell => {
+                worksheet[cell].s = { font: { bold: true } }; // Set font to bold
+            });
+
+            // Create workbook and append worksheet
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+            // Save XLSX
+            XLSX.writeFile(workbook, `${title}'s Leads.xlsx`);
 
         } catch (error) {
-            console.log(error);
+            console.log('Error in fetching or generating XLSX:', error);
         }
-
-    }
+    };
 
     return (
         <div>
@@ -67,8 +118,8 @@ const LeadsCard = ({ list }) => {
                         </div>
 
                         {/* updated on */}
-                        <div className="w-[25%] text-center">
-                            <button className="py-2 px-5 bg-[#835C00] rounded-3xl" onClick={() => handleDownloadLeadsDataAsPDF(_id)}>Download All</button>
+                        <div className={`w-[25%] text-center  ${!leads && 'opacity-20'}`}>
+                            <button disable={!leads} className={`py-2 px-5 ${leads && 'hover:bg-[#8c7234] transition-all hover:scale-105'} bg-[#835C00] ${!leads && 'cursor-not-allowed'} rounded-3xl`} onClick={() => handleDownloadLeadsDataAsXLSX(_id)}>Download All</button>
                         </div>
 
                     </div>
