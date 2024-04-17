@@ -6,7 +6,12 @@ import locationSvg from '@/public/images/dashboard/listing/location.svg';
 import leadsIcon from '@/public/images/dashboard/agent/leads.svg';
 
 const LeadsCard = ({ list }) => {
-    const { title, bedroom, bathroom, areaSqFt, location, images, leads} = list;
+    const { title, bedroom, bathroom, areaSqFt, location, images, leads, _id } = list;
+
+    function handleDownloadLeadsDataAsPDF(_id) {
+
+        
+    }
 
     return (
         <div>
@@ -55,8 +60,8 @@ const LeadsCard = ({ list }) => {
                         </div>
 
                         {/* updated on */}
-                        <div className="w-[25%] text-center ">
-                            <button className="py-2 px-5 bg-[#835C00] rounded-3xl">Download All</button>
+                        <div className="w-[25%] text-center">
+                            <button className="py-2 px-5 bg-[#835C00] rounded-3xl" onClick={() => handleDownloadLeadsDataAsPDF(_id)}>Download All</button>
                         </div>
 
                     </div>
