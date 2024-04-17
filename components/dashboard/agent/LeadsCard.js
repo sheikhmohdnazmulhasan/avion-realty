@@ -5,6 +5,7 @@ import sqft from '@/public/images/dashboard/listing/sqft.svg';
 import locationSvg from '@/public/images/dashboard/listing/location.svg';
 import leadsIcon from '@/public/images/dashboard/agent/leads.svg';
 import axios from "axios";
+import jsPDF from "jspdf";
 
 const LeadsCard = ({ list }) => {
     const { title, bedroom, bathroom, areaSqFt, location, images, leads, _id } = list;
@@ -13,6 +14,18 @@ const LeadsCard = ({ list }) => {
 
         try {
             const serverResponse = await axios.get(`/api/agent/leads?list-id=${_id}`);
+
+            if (serverResponse) {
+                const doc = new jsPDF();
+                doc.text('JSON Data:', 10, 10);
+                doc.text(JSON.stringify(serverResponse, null, 2), 10, 20);
+
+                // Save PDF
+                doc.save('data.pdf');
+
+            } else {
+                console.log('error in generating JSON to PDF');
+            }
 
         } catch (error) {
             console.log(error);
