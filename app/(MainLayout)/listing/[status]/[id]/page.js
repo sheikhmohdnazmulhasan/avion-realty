@@ -54,12 +54,21 @@ const ListingDetail = ({ params }) => {
         const dataForBackend = { leadFor, name, email, mobile };
 
         axios.post('/api/agent/leads', dataForBackend).then(res => {
-            console.log(res.data);
+
+            if (res.data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    'title': 'Message sent successfully',
+                    text: `Dear ${name}, Thank you for your interest. One of our agents will contact you shortly.`
+                });
+
+                setOpenInquiry(false);
+            }
 
         }).catch(err => console.log(err));
     };
 
-    
+
 
     return (
         <div className=''>

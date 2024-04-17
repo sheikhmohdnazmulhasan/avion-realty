@@ -3,6 +3,28 @@ import Leads from "@/models/leads";
 import OffPlan from "@/models/offPlan";
 import { NextResponse } from "next/server";
 
+export async function GET(required) {
+    await connectMongoDB();
+    const { searchParams } = new URL(required.url);
+    const listId = searchParams.get('list-id');
+
+    try {
+        const result = await Leads.find({ leadFor: listId });
+
+        if (!result) {
+            return NextResponse.json({ message: "Something Wrong for finding leads by provided list-id", success: false }, { status: 500 });
+
+        } else {
+
+            return NextResponse.json(result);
+        };
+
+
+    } catch (error) {
+        return NextResponse.json({ message: "Something Wrong in main tryc", success: false }, { status: 500 });
+    }
+}
+
 export async function POST(required) {
     await connectMongoDB();
     const data = await required.json();
