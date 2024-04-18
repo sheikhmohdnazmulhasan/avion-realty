@@ -27,13 +27,13 @@ const Inquiry = () => {
 
         <div className="flex w-full items-center py-2 border-b border-[#E4B649]">
           <div className="w-[28.33%] border-r border-[#E4B649] py-2 text-center">
-            <p className="font-semibold">Property</p>
+            <p className="font-semibold">Name</p>
           </div>
           <div className="w-[28.33%]  border-r border-[#E4B649] py-2 text-center">
-            <p className="font-semibold">Agent</p>
+            <p className="font-semibold">Email</p>
           </div>
           <div className="w-[28.33%]  border-r border-[#E4B649] py-2 text-center">
-            <p className="font-semibold">Status</p>
+            <p className="font-semibold">Mobile</p>
           </div>
           <div className="w-[15%]  py-2 text-center">
             <p className="font-semibold">Action</p>
