@@ -1,20 +1,39 @@
 'use client'
 
 import whatsapp from "@/public/images/whatsapp.svg"
+import axios from "axios";
 import Image from "next/image";
 import Link from 'next/link';
-import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 const Inquiry = () => {
-    const router = useRouter()
 
-    function handleInquiry(event) {
+    async function handleInquiry(event) {
         event.preventDefault();
         const name = event.target.name.value;
         const phone = event.target.name.value;
         const email = event.target.name.value;
 
-        router.push(`https://wa.me/+971504597167?text=Hello my name is ${name}, Phone: ${phone} Email: ${email}. I want to talk to you about a house`);
+        const dataForBackend = { name, email, mobile: phone }
+
+        try {
+
+            const serverResponse = await axios.post(`/api/admin/inquiry`, dataForBackend);
+
+            if (serverResponse.data.success) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Message sent successfully",
+                    text: `Dear ${name}, Thank you for your interest. One of our agents will contact you shortly.`,
+                });
+                
+                event.target.reset();
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+
     };
 
     return (
