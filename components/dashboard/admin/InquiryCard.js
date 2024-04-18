@@ -1,9 +1,11 @@
+import useUser from '@/hooks/useUser';
 import axios from 'axios';
 import React from 'react';
 import Swal from 'sweetalert2';
 import { mutate } from 'swr';
 
-const InquiryCard = ({ inquiry }) => {
+const InquiryCard = ({ inquiry, role }) => {
+    const { data: user } = useUser()
 
     function handleDeleteInquiry(_id) {
 
@@ -20,7 +22,7 @@ const InquiryCard = ({ inquiry }) => {
 
 
                 try {
-                    const serverResponse = await axios.delete(`/api/admin/inquiry?id=${_id}`);
+                    const serverResponse = await axios.delete(`/api/${role}/inquiry?id=${_id}`);
 
                     if (serverResponse.data.success) {
 
@@ -30,7 +32,12 @@ const InquiryCard = ({ inquiry }) => {
                             icon: "success"
                         });
 
-                        mutate(`/api/admin/inquiry`);
+                        if (role === 'admin') {
+                            mutate(`/api/admin/inquiry`);
+
+                        } else {
+                            mutate(`/api/agent/inquiry?agent=${user._id}`)
+                        }
                     }
 
                 } catch (error) {

@@ -87,7 +87,7 @@ const Inquiry = () => {
             <hr />
           </div>
 
-          {data.map(i => <InquiryCard key={i._id} inquiry={i} />)}
+          {data.map(i => <InquiryCard key={i._id} inquiry={i} role={'admin'} />)}
 
         </div>
       </div>
