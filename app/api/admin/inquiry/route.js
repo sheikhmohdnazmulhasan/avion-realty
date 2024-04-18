@@ -15,7 +15,7 @@ export async function GET() {
     } catch (error) {
         return NextResponse.json({ message: 'Something Wrong', success: false }, { status: 500 });
     }
-}
+};
 
 export async function POST(request) {
     await connectMongoDB();
@@ -33,4 +33,20 @@ export async function POST(request) {
     }
 
 
-}
+};
+
+export async function DELETE(request) {
+    await connectMongoDB();
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    try {
+        const result = await AdminInquiry.findByIdAndDelete(id);
+
+        if (result) {
+            return NextResponse.json({ message: 'Data successfully deleted form database', success: true }, { status: 200 });
+        }
+    } catch (error) {
+        return NextResponse.json({ message: 'Something Wrong', success: false }, { status: 500 });
+    }
+};
