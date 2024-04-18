@@ -51,7 +51,7 @@ const ExploreAreas = () => {
                                 height: '342px'
                             }}></div>
                             <div className="w-[85%] mx-auto flex justify-center">
-                                <Image quality={100} src={area.itemImg} alt={area.itemName} height={360} width={100} className="w-[300px] h-[360px] rounded-t rounded-xl z-10 absolute -top-4  " />
+                                <img src={area.itemImg} alt={area.itemName} height={360} width={100} className="w-[300px] h-[360px] rounded-t rounded-xl z-10 absolute -top-4  " />
                             </div>
                             <div className="  bg-black opacity-70 absolute -bottom-1 w-full hover:opacity-80 z-20">
                                 <div className="w-full text-center p-4">
@@ -64,11 +64,11 @@ const ExploreAreas = () => {
                 }
             </div>
             {/* md device slieder */}
-            <div className="hidden md:grid grid-cols-2 lg:hidden">
+            <div className="hidden md:grid grid-cols-2 lg:hidden gap-4">
                 {
                     areas?.slice(currentIndex, currentIndex + 2).map(area => <div key={area._id}>
                         <div className="relative">
-                            <Image quality={100} src={area.itemImg} alt={area.itemName} height={360} width={120} className="w-full h-[360px]" />
+                            <img  src={area.itemImg} alt={area.itemName} height={360} width={120} className="w-full h-[360px]" />
                             <div className="  bg-black opacity-70 absolute bottom-0 w-full hover:opacity-80">
                                 <div className="w-full text-center p-4">
                                     <h2 className="text-xl uppercase py-2">{area.itemName}</h2>
@@ -80,11 +80,11 @@ const ExploreAreas = () => {
                 }
             </div>
             {/* lg device slieder */}
-            <div className="hidden lg:grid grid-cols-4">
+            <div className="hidden lg:grid grid-cols-4 gap-6">
                 {
                     areas?.slice(currentIndex, currentIndex + 4).map(area => <Link key={area._id} href={`/listing/${area.itemName}`}> <div >
                         <div className="relative">
-                            <Image quality={100} src={area.itemImg} alt={area.itemName} height={360} width={120} className="w-full h-[450px]" />
+                            <img src={area.itemImg} alt={area.itemName} height={360} width={120} className="w-full h-[450px]" />
                             <div className="  bg-black opacity-70 absolute bottom-0 w-full hover:opacity-80">
                                 <div className="w-full text-center p-4">
                                     <h2 className="text-xl uppercase py-2">{area.itemName}</h2>

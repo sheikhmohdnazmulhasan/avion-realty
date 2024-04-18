@@ -13,7 +13,6 @@ const LeadsCard = ({ list }) => {
     const { title, bedroom, bathroom, areaSqFt, location, images, leads, _id } = list;
 
 
-
     // download as PDF
     // const handleDownloadLeadsDataAsPDF = async (_id) => {
     //     try {
