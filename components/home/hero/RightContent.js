@@ -1,8 +1,39 @@
 "use client";
+import axios from "axios";
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 
 const RightContent = () => {
   const [openInquiry, setOpenInquiry] = useState(false);
+
+  async function handleCreateNewInquiry(event) {
+    event.preventDefault();
+
+    const name = event.target.name.value;
+    const email = event.target.email.value;
+    const mobile = event.target.mobile.value;
+
+    const dataForBackend = { name, email, mobile };
+
+    try {
+      const serverResponse = await axios.post(`/api/admin/inquiry`, dataForBackend);
+
+      if (serverResponse.data.success) {
+        Swal.fire({
+          icon: "success",
+          title: "Message sent successfully",
+          text: `Dear ${name}, Thank you for your interest. One of our agents will contact you shortly.`,
+        });
+
+        event.target.reset();
+        setOpenInquiry(false)
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
 
   return (
     <div className=" w-full ">
@@ -38,7 +69,7 @@ const RightContent = () => {
             <h1 className="text-xl md:text-2xl text-center pt-3">
               Get call back for inquiry
             </h1>
-            <form className="px-10 mt-4">
+            <form className="px-10 mt-4" onSubmit={handleCreateNewInquiry}>
               <div className="md:flex gap-4 space-y-3 md:space-y-0">
                 <input
                   type="text"
