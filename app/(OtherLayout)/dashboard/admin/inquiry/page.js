@@ -1,13 +1,49 @@
 'use client'
-
 import Navbar from "@/components/dashboard/Navbar";
 import InquiryCard from "@/components/dashboard/admin/InquiryCard";
 import useAdminInquiries from "@/hooks/useAdminInquiries";
 import useUser from "@/hooks/useUser";
+import * as XLSX from 'xlsx';
 
 const Inquiry = () => {
   const { data: user } = useUser();
   const [data, isLoading] = useAdminInquiries();
+
+  const handleDownloadLeadsDataAsXLSX = async () => {
+    try {
+
+      const modifiedData = data.map(({ _id, createdAt, updatedAt, __v, ...rest }) => rest)
+
+      // Convert JSON data to worksheet
+      const worksheet = XLSX.utils.json_to_sheet(modifiedData);
+
+      // Customize column width
+      const columnWidths = [
+        { wch: 35 },
+        { wch: 30 },
+        { wch: 30 },
+
+      ];
+
+      worksheet['!cols'] = columnWidths;
+
+      // Make specific properties bold
+      const boldCells = ['A1', 'B1'];
+      boldCells.forEach(cell => {
+        worksheet[cell].s = { font: { bold: true } }; // Set font to bold
+      });
+
+      // Create workbook and append worksheet
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+      // Save XLSX
+      XLSX.writeFile(workbook, `avion-inquiry(admin).xlsx`);
+
+    } catch (error) {
+      console.log('Error in fetching or generating XLSX:', error);
+    }
+  };
 
 
   if (user.role !== 'admin') {
@@ -30,7 +66,7 @@ const Inquiry = () => {
         <Navbar title="Inquiry" />
 
         <div className="flex justify-end mt-20 mb-3">
-          <button className="py-2 px-3 bg-[#886c2b] hover:bg-[#8f7537] transition-all hover:scale-105">Download All</button>
+          <button className="py-2 px-3 bg-[#886c2b] hover:bg-[#8f7537] transition-all hover:scale-105" onClick={handleDownloadLeadsDataAsXLSX}>Download All</button>
         </div>
 
         <div className=" mb-8 w-full text-sm border border-[#E4B649]">
