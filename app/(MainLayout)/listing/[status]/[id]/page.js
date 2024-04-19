@@ -130,9 +130,8 @@ const ListingDetail = ({ params }) => {
       )}
 
       <div
-        className={`mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen ${
-          openInquiry && "opacity-60 blur-sm"
-        }`}
+        className={`mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen ${openInquiry && "opacity-60 blur-sm"
+          }`}
       >
         {photos?.length && (
           <div>
@@ -201,10 +200,9 @@ const ListingDetail = ({ params }) => {
           {/* prev */}
           <FaArrowAltCircleLeft
             size={36}
-            className={`hover:text-[#b4914b] cursor-pointer ${
-              currentIndex === 0 &&
+            className={`hover:text-[#b4914b] cursor-pointer ${currentIndex === 0 &&
               "text-gray-800 hover:text-gray-800 !cursor-not-allowed"
-            }`}
+              }`}
             onClick={() =>
               currentIndex >= 3 && setCurrentIndex(currentIndex - 3)
             }
@@ -213,10 +211,9 @@ const ListingDetail = ({ params }) => {
           {/* next */}
           <FaArrowAltCircleRight
             size={36}
-            className={`hover:text-[#b4914b] cursor-pointer ${
-              currentIndex == photos?.length - 3 &&
+            className={`hover:text-[#b4914b] cursor-pointer ${currentIndex == photos?.length - 3 &&
               "text-gray-800 hover:text-gray-800 !cursor-not-allowed"
-            } `}
+              } `}
             onClick={() =>
               currentIndex < photos?.length - 4 &&
               setCurrentIndex(currentIndex + 3)
@@ -239,27 +236,33 @@ const ListingDetail = ({ params }) => {
             </div>
             {/* price */}
             <div className=" flex justify-between items-center">
-              <h2 className=" lg:text-3xl font-semibold">
-                {data.status === "Off-Plan" && (
-                  <span className="text-xs lg:text-xl text-[#E4B649]">
-                    Starting Prices
-                  </span>
-                )}{" "}
-                AED {data.startingPrice}
-              </h2>
-              {/* price converter and share */}
-              <div className="hidden md:gap-8 my-6">
-                {/* price converter */}
+              <div className="flex gap-0 md:gap-4 justify-between md:justify-normal w-full">
+                <h2 className="  lg:text-3xl font-semibold">
+                  {data.status === "Off-Plan" && (
+                    <span className="text-xs lg:text-xl text-[#E4B649]">
+                      Starting Prices
+                    </span>
+                  )}{" "}
+                  AED {data.startingPrice}
+                </h2>
                 <select className="bg-transparent px-2 md:px-3 py-1 md:text-xl border rounded-2xl">
-                  <option selected value="usd" className="bg-black">
+                  <option selected value="AED" className="bg-black">
+                    AED
+                  </option>
+                  <option value="usd" className="bg-black">
                     USD
                   </option>
                   <option value="bdt" className="bg-black">
                     BDT
                   </option>
                 </select>
+              </div>
+              {/* price converter and share */}
+              <div className=" md:gap-8 my-6 flex">
+                {/* price converter */}
+
                 {/* share */}
-                <button className=" gap-3 items-center text-xl px-3 py-1 border rounded-2xl hidden ">
+                <button className=" gap-3 items-center text-xl px-3 py-1 border rounded-2xl hidden md:flex">
                   <CiShare2 size={24} />
                   <span>Share</span>
                 </button>
