@@ -26,30 +26,19 @@ const ListingDetail = ({ params }) => {
   const [photos, setPhotos] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [openInquiry, setOpenInquiry] = useState(false);
-  const [currencyCode, setCurrencyCode] = useState('AED');
   const [price, setPrice] = useState(null);
 
   const { data = [] } = useSWR(`/api/offplans?id=${params.id}`, fetcher);
   const { data: agent = [] } = useSWR(`/api/users?email=${data.agent}`, fetcher);
-
-  useEffect(() => {
-    setPhotos(data?.images);
-
-    if (data?.startingPrice) {
-      setPrice(data?.startingPrice.toLocaleString());
-    }
-
-  }, [data]);
 
   async function handleChangeCurrency(currencyCode) {
 
     if (currencyCode === 'AED') {
 
       if (data?.startingPrice) {
-        setPrice(data?.startingPrice.toLocaleString());
-      }
+        setPrice(data?.startingPrice.toLocaleString('en-AE', { style: 'currency', currency: 'AED' }));
 
-      setCurrencyCode('AED');
+      }
       return;
 
     } else {
@@ -58,14 +47,17 @@ const ListingDetail = ({ params }) => {
         const exchangeRateApiResponse = await axios.get(`https://v6.exchangerate-api.com/v6/fae5e182931399ecc7dd590a/pair/AED/${currencyCode}/${data?.startingPrice}`);
 
         if (exchangeRateApiResponse.data.result === 'success') {
-          setCurrencyCode(currencyCode);
 
           const fetchedPrice = exchangeRateApiResponse?.data?.conversion_result;
 
-          if (fetchedPrice) {
-            setPrice(fetchedPrice.toLocaleString());
-          }
-          
+          if (fetchedPrice && currencyCode === 'USD') {
+            setPrice(fetchedPrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+
+          } else if (fetchedPrice && currencyCode === 'BDT') {
+            setPrice(fetchedPrice.toLocaleString('en-BD', { style: 'currency', currency: 'BDT' }));
+
+          } //more condition here
+
         }
 
       } catch (error) {
@@ -107,6 +99,16 @@ const ListingDetail = ({ params }) => {
       })
       .catch((err) => console.log(err));
   }
+
+  useEffect(() => {
+    setPhotos(data?.images);
+
+    if (data?.startingPrice) {
+      // setPrice(data?.startingPrice.toLocaleString());
+      setPrice(data?.startingPrice.toLocaleString('en-AE', { style: 'currency', currency: 'AED' }));
+    }
+
+  }, [data]);
 
   return (
     <div className="">
@@ -279,8 +281,7 @@ const ListingDetail = ({ params }) => {
                     <span className="text-xs lg:text-xl text-[#E4B649]">
                       Starting Prices
                     </span>
-                  )}{" "}
-                  {currencyCode} {price}
+                  )}{" "} {price}
                 </h2>
                 <select className="bg-transparent px-2 md:px-3 py-1 md:text-xl border rounded-2xl" onChange={(event) => handleChangeCurrency(event.target.value)}>
                   <option selected value="AED" className="bg-black">
