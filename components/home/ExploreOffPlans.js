@@ -3,7 +3,7 @@
 import axios from "axios";
 import Image from "next/image";
 import Link from 'next/link';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 
 import location from '@/public/images/dashboard/listing/location.svg'
@@ -13,6 +13,7 @@ import sqft from '@/public/images/dashboard/listing/sqft.svg';
 
 const ExploreOffPlans = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [price, setPrice] = useState(null);
 
     const fetcher = (url) => axios.get(url).then((res) => res.data);
 
@@ -33,6 +34,12 @@ const ExploreOffPlans = () => {
             setCurrentIndex(currentIndex + 1);
         }
     }
+
+    useEffect(() => {
+        if (data[currentIndex]?.startingPrice) {
+            setPrice(data[currentIndex]?.startingPrice.toLocaleString('en-AE', { style: 'currency', currency: 'AED' }));
+        }
+    }, [data, currentIndex])
 
     return (
         <div className="">
@@ -56,8 +63,7 @@ const ExploreOffPlans = () => {
                     </div>
                     {/* price */}
                     <h2 className='text-xl font-extrabold'>
-                        <span className='text-sm md:text-base text-[#E4B649]  mr-2 font-normal'>Start From</span>
-                        <span>AED </span>{data[currentIndex]?.startingPrice} </h2>
+                        <span className='text-sm md:text-base text-[#E4B649]  mr-2 font-normal'>Start From</span>{price} </h2>
 
                     <div className="flex gap-5 pb-4 text-xl">
 

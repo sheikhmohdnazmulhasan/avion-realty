@@ -6,8 +6,18 @@ import whatsapp from '@/public/images/contact/whatsapp.svg';
 import call from '@/public/images/contact/call.svg';
 import bed from '@/public/images/dashboard/listing/bed.svg';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 const ListingCard = ({ item, status }) => {
+    const [price, setPrice] = useState(null);
+
+    useEffect(() => {
+        if (item?.startingPrice) {
+            setPrice(item.startingPrice.toLocaleString('en-AE', { style: 'currency', currency: 'AED' }));
+        }
+
+    }, [item])
+
     return (
         <div className='border border-[#CC9107] hover:scale-105 transition-all h-[420px]'>
             <Link href={`/listing/${status}/${item._id}`} className='relative'>
@@ -25,8 +35,7 @@ const ListingCard = ({ item, status }) => {
 
                 {/* price */}
                 <h2 className='text-xl font-extrabold'>
-                    {item.status === 'Off-Plan' && <span className='text-xs text-[#E4B649]  mr-2 font-normal'>Start From</span>}
-                    <span>AED </span>{item.startingPrice} </h2>
+                    {item.status === 'Off-Plan' && <span className='text-xs text-[#E4B649]  mr-2 font-normal'>Start From</span>}{price} </h2>
 
                 <div className="flex gap-5 pb-4 text-xs">
 
