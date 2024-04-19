@@ -34,13 +34,21 @@ const ListingDetail = ({ params }) => {
 
   useEffect(() => {
     setPhotos(data?.images);
-    setPrice(data?.startingPrice)
+
+    if (data?.startingPrice) {
+      setPrice(data?.startingPrice.toLocaleString());
+    }
+
   }, [data]);
 
   async function handleChangeCurrency(currencyCode) {
 
     if (currencyCode === 'AED') {
-      setPrice(data?.startingPrice);
+
+      if (data?.startingPrice) {
+        setPrice(data?.startingPrice.toLocaleString());
+      }
+
       setCurrencyCode('AED');
       return;
 
@@ -51,8 +59,13 @@ const ListingDetail = ({ params }) => {
 
         if (exchangeRateApiResponse.data.result === 'success') {
           setCurrencyCode(currencyCode);
+
+          const fetchedPrice = exchangeRateApiResponse?.data?.conversion_result;
+
+          if (fetchedPrice) {
+            setPrice(fetchedPrice.toLocaleString());
+          }
           
-          setPrice(exchangeRateApiResponse.data.conversion_result);
         }
 
       } catch (error) {
