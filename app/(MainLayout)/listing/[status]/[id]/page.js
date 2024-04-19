@@ -26,16 +26,40 @@ const ListingDetail = ({ params }) => {
   const [photos, setPhotos] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [openInquiry, setOpenInquiry] = useState(false);
+  const [currencyCode, setCurrencyCode] = useState('AED');
+  const [price, setPrice] = useState(null);
 
   const { data = [] } = useSWR(`/api/offplans?id=${params.id}`, fetcher);
-  const { data: agent = [] } = useSWR(
-    `/api/users?email=${data.agent}`,
-    fetcher
-  );
+  const { data: agent = [] } = useSWR(`/api/users?email=${data.agent}`, fetcher);
 
   useEffect(() => {
     setPhotos(data?.images);
+    setPrice(data?.startingPrice)
   }, [data]);
+
+  async function handleChangeCurrency(currencyCode) {
+
+    if (currencyCode === 'AED') {
+      setPrice(data?.startingPrice);
+      setCurrencyCode('AED');
+      return;
+
+    } else {
+
+      try {
+        const exchangeRateApiResponse = await axios.get(`https://v6.exchangerate-api.com/v6/fae5e182931399ecc7dd590a/pair/AED/${currencyCode}/${data?.startingPrice}`);
+
+        if (exchangeRateApiResponse.data.result === 'success') {
+          setCurrencyCode(currencyCode);
+          
+          setPrice(exchangeRateApiResponse.data.conversion_result);
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
 
   const showFloorplan = () => {
     Swal.fire({
@@ -243,16 +267,16 @@ const ListingDetail = ({ params }) => {
                       Starting Prices
                     </span>
                   )}{" "}
-                  AED {data.startingPrice}
+                  {currencyCode} {price}
                 </h2>
-                <select className="bg-transparent px-2 md:px-3 py-1 md:text-xl border rounded-2xl">
+                <select className="bg-transparent px-2 md:px-3 py-1 md:text-xl border rounded-2xl" onChange={(event) => handleChangeCurrency(event.target.value)}>
                   <option selected value="AED" className="bg-black">
                     AED
                   </option>
-                  <option value="usd" className="bg-black">
+                  <option value="USD" className="bg-black">
                     USD
                   </option>
-                  <option value="bdt" className="bg-black">
+                  <option value="BDT" className="bg-black">
                     BDT
                   </option>
                 </select>
