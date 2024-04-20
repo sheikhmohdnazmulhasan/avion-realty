@@ -68,6 +68,7 @@ const ListingDetail = ({ params }) => {
             setPrice(fetchedPrice.toLocaleString('en-EU', { style: 'currency', currency: 'EUR' }));
 
           } else if (fetchedPrice && currencyCode === 'RUB') {
+            // setPrice(fetchedPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }));
             setPrice(fetchedPrice.toLocaleString());
           }
 
