@@ -20,9 +20,11 @@ import Swal from "sweetalert2";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import logo from "@/public/images/icon.svg";
 import PhoneSlider from "@/components/listing/PhoneSlider";
+import toast, { Toaster } from "react-hot-toast";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
+
   const [photos, setPhotos] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [openInquiry, setOpenInquiry] = useState(false);
@@ -56,12 +58,44 @@ const ListingDetail = ({ params }) => {
           } else if (fetchedPrice && currencyCode === 'BDT') {
             setPrice(fetchedPrice.toLocaleString('en-BD', { style: 'currency', currency: 'BDT' }));
 
-          } //more condition here
+          } else if (fetchedPrice && currencyCode === 'GBP') {
+            setPrice(fetchedPrice.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' }));
 
+          } else if (fetchedPrice && currencyCode === 'CNY') {
+            setPrice(fetchedPrice.toLocaleString('zh-CN', { style: 'currency', currency: 'CNY' }));
+
+          } else if (fetchedPrice && currencyCode === 'EUR') {
+            setPrice(fetchedPrice.toLocaleString('en-EU', { style: 'currency', currency: 'EUR' }));
+
+          } else if (fetchedPrice && currencyCode === 'RUB') {
+            setPrice(fetchedPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }));
+          }
+
+        } else {
+          toast.error('Currency Exchange API Expired!',
+            {
+              style: {
+                borderRadius: '10px',
+                background: '#333',
+                color: '#fff',
+              },
+            }
+          );
         }
 
       } catch (error) {
+
         console.log(error);
+        
+        toast.error('Currency Exchange API Expired!',
+          {
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        );
       }
     }
   }
@@ -113,7 +147,10 @@ const ListingDetail = ({ params }) => {
   return (
     <div className="">
       {/* inquiry */}
-
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+      />
       {openInquiry && (
         <div className="w-full absolute bottom-[35%] md:top-[15%] z-50 rounded px-5">
           <div
@@ -290,8 +327,17 @@ const ListingDetail = ({ params }) => {
                   <option value="USD" className="bg-black">
                     USD
                   </option>
-                  <option value="BDT" className="bg-black">
-                    BDT
+                  <option value="GBP" className="bg-black">
+                    GBP
+                  </option>
+                  <option value="CNY" className="bg-black">
+                    CNY
+                  </option>
+                  <option value="EUR" className="bg-black">
+                    EUR
+                  </option>
+                  <option value="RUB" className="bg-black">
+                    RUB
                   </option>
                 </select>
               </div>
