@@ -55,9 +55,6 @@ const ListingDetail = ({ params }) => {
           if (fetchedPrice && currencyCode === 'USD') {
             setPrice(fetchedPrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
 
-          } else if (fetchedPrice && currencyCode === 'BDT') {
-            setPrice(fetchedPrice.toLocaleString('en-BD', { style: 'currency', currency: 'BDT' }));
-
           } else if (fetchedPrice && currencyCode === 'GBP') {
             setPrice(fetchedPrice.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' }));
 
@@ -87,7 +84,7 @@ const ListingDetail = ({ params }) => {
       } catch (error) {
 
         console.log(error);
-        
+
         toast.error('Currency Exchange API Expired!',
           {
             style: {
