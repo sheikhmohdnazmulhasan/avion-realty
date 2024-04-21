@@ -22,7 +22,7 @@ const PrivateInventory = () => {
         return <h1 className="flex justify-center items-center h-screen font-semibold">No Data!</h1>
 
     } else if (isLoading) {
-        return <h1 className="flex justify-center items-center h-screen font-semibold">Loading!</h1>
+        return <h1 className="flex justify-center items-center h-screen font-semibold">Loading...</h1>
 
     } else {
 
