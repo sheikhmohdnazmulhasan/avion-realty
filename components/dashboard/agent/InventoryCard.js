@@ -5,7 +5,7 @@ import bed from '@/public/images/dashboard/listing/bed.svg';
 import bathroomSvg from '@/public/images/dashboard/listing/bathroom.svg';
 import sqft from '@/public/images/dashboard/listing/sqft.svg';
 import locationSvg from '@/public/images/dashboard/listing/location.svg';
-import live from '@/public/images/dashboard/listing/live.svg';
+// import live from '@/public/images/dashboard/listing/live.svg';
 import edit from '@/public/images/dashboard/listing/edit.svg';
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -105,7 +105,6 @@ const InventoryCard = ({ list }) => {
 
                         {/* action */}
                         <div className="w-[15%] text-center gap-3 flex items-center justify-center">
-                            <Image src={live} alt="Live svg" className="w-4 cursor-pointer hover:scale-125 transition-all" />
                             <Link href={`private-inventory/edit/${list._id}`}>  <Image src={edit} alt="Live svg" className="w-4 cursor-pointer hover:scale-125 transition-all" /></Link>
                             <MdDelete size={20} className="text-red-500 hover:text-red-600 cursor-pointer hover:scale-125 transition-all" onClick={() => handleDeleteList(list._id)} />
                         </div>
