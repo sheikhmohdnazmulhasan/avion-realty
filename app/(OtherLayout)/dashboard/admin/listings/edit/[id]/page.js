@@ -390,7 +390,7 @@ const EditList = ({ params }) => {
                 {/* payment */}
 
                 {/* payment */}
-                <div>
+                <div className={data.status !== 'Off-Plan' && 'hidden'}>
                     <label>Payment Plan</label>
                     <br />
 

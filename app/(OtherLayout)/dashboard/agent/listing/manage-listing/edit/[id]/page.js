@@ -107,8 +107,6 @@ const EditList = ({ params }) => {
 
         const payment = { firstInstallment, underConstruction, onHandover, postHandover };
 
-        console.log(payment);
-
         let images = [...previousFile];
 
         const toastId = toast.loading('Working...', {
