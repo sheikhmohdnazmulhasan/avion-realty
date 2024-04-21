@@ -128,7 +128,7 @@ const EditList = ({ params }) => {
             images.push(imgBbResponse.data.data.display_url);
         }
 
-        const dataForBackend = { title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, agent, description, location, amenities, images };
+        const dataForBackend = { title, startingPrice, propertyType, area, developer, bedroom, areaSqFt, completion, views, agent, description, location, amenities, images, payment };
 
         try {
             const serverResponse = await axios.put(`/api/offplans?id=${params.id}`, dataForBackend);
