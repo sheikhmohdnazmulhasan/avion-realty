@@ -44,11 +44,11 @@ const MeetTeam = () => {
                             <div className="w-[85%] mx-auto flex justify-center">
                                 <img src={agent.photo} alt={agent.name} height={360} width={100} className="w-[300px] h-[360px] rounded-t rounded-xl z-10 absolute -top-4  " />
                             </div>
-                            <div className="  bg-black opacity-70 absolute -bottom-1 w-full  z-20">
+                            <div className="h-20 flex items-center bg-black opacity-70 absolute -bottom-1 w-full  z-20">
                                 <div className="w-full text-center p-2">
                                     <h2 className="font-bold">{agent.name}</h2>
-                                    <p className='text-xs'>Languages : {agent.languagesSpeak}</p>
-                                    <p className='text-xs'>Specialty : {agent.specializes}</p>
+                                    {agent.languagesSpeak && <p className='text-xs'>Languages : {agent.languagesSpeak}</p>}
+                                    {agent.specializes && <p className='text-xs'>Specialty : {agent.specializes}</p>}
                                 </div>
                             </div>
                         </div>
@@ -70,11 +70,11 @@ const MeetTeam = () => {
                     agents?.map(agent => <Link href={`/agents/${agent._id}`} key={agent._id} className='hover:scale-105 transition-all'> <div>
                         <div className="relative">
                             <img src={agent.photo} alt={agent.name} height={360} width={120} className="w-full h-[360px]" />
-                            <div className="  bg-black opacity-70 absolute bottom-0 w-full hover:opacity-80 hover:cursor-pointer">
+                            <div className=" h-20 flex items-center bg-black opacity-70 absolute bottom-0 w-full hover:opacity-80 hover:cursor-pointer">
                                 <div className="w-full text-center p-2">
                                     <h2 className="text-xl font-bold">{agent.name}</h2>
-                                    <p className='text-sm'>Languages : {agent.languagesSpeak}</p>
-                                    <p className='text-sm'>Specialty : {agent.specializes}</p>
+                                    {agent.languagesSpeak && <p className='text-sm'>Languages : {agent.languagesSpeak}</p>}
+                                    {agent.specializes &&<p className='text-sm'>Specialty : {agent.specializes}</p>}
                                 </div>
                             </div>
                         </div>
