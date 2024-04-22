@@ -28,6 +28,7 @@ const ListingDetail = ({ params }) => {
   const [photos, setPhotos] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [openInquiry, setOpenInquiry] = useState(false);
+  const [showPopup, setShowPopup] = useState(true);
   const [price, setPrice] = useState(null);
 
   const { data = [] } = useSWR(`/api/offplans?id=${params.id}`, fetcher);
@@ -203,6 +204,21 @@ const ListingDetail = ({ params }) => {
         </div>
       )}
 
+      {/* share */}
+
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <p className="py-4">Press ESC key or click the button below to close</p>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
       <div
         className={`mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen ${openInquiry && "opacity-60 blur-sm"
           }`}
@@ -344,10 +360,12 @@ const ListingDetail = ({ params }) => {
                 {/* price converter */}
 
                 {/* share */}
-                <button className=" gap-3 items-center text-xl px-3 py-1 border rounded-2xl hidden md:flex">
+                <button onClick={() => document.getElementById('my_modal_1').showModal()} className=" gap-3 items-center text-xl px-3 py-1 border rounded-2xl hidden md:flex">
                   <CiShare2 size={24} />
                   <span>Share</span>
                 </button>
+
+
               </div>
             </div>
             {/* bed, bath, sqrft, floorplan */}
