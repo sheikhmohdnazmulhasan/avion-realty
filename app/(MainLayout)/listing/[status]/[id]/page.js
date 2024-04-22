@@ -25,6 +25,7 @@ import toast, { Toaster } from "react-hot-toast";
 import facebook from '@/public/share/facebook.png';
 import instagram from '@/public/share/instagram.png';
 import linkedin from '@/public/share/linkedin.png';
+import mail from '@/public/share/mail.png';
 import wp from '@/public/share/wp.png';
 import twitter from '@/public/share/twitter.png';
 import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
@@ -144,6 +145,7 @@ const ListingDetail = ({ params }) => {
 
   // share
 
+  // copy link
   function handleCopyLink() {
     const url = window.location.href;
     navigator.clipboard.writeText(url);
@@ -152,6 +154,37 @@ const ListingDetail = ({ params }) => {
     setTimeout(() => {
       setCoped(false)
     }, 1000);
+  }
+
+  function handleSocialShare(media) {
+
+    if (media === 'facebook') {
+      const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+      window.open(url, '_blank', 'width=600,height=400');
+
+    } else if (media === 'mail') {
+      const subject = `Check out ${data.title}`;
+      const body = `I thought you might be interested in this property: ${window.location.href}`;
+      const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoUrl;
+
+    } else if (media === 'linkedin') {
+      const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
+      window.open(url, '_blank');
+
+    } else if (media === 'twitter') {
+      const text = `Check out ${data.title}`;
+      const url = encodeURIComponent(window.location.href);
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`;
+      window.open(twitterUrl, '_blank', 'width=600,height=400');
+
+    } else if (media === 'whatsapp') {
+
+      const text = `Check out ${data.title}` + ' ' + window.location.href;
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+
   }
 
 
@@ -232,11 +265,12 @@ const ListingDetail = ({ params }) => {
         <div className="modal-box">
           <h3 className=""> <span className="font-bold text-lg">Share</span> {data.title}</h3>
           <div className="flex gap-4 justify-center items-center mt-8">
-            <Image src={facebook} alt="Facebook icon" className="w-10" />
-            <Image src={instagram} alt="Facebook icon" className="w-10" />
-            <Image src={wp} alt="Facebook icon" className="w-10" />
-            <Image src={twitter} alt="Facebook icon" className="w-10" />
-            <Image src={linkedin} alt="Facebook icon" className="w-10" />
+            <Image src={facebook} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('facebook')} />
+            <Image src={mail} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('mail')} />
+            {/* <Image src={instagram} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('instagram')} /> */}
+            <Image src={linkedin} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('linkedin')} />
+            <Image src={twitter} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('twitter')} />
+            <Image src={wp} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('whatsapp')} />
           </div>
 
           {/* copy link */}
