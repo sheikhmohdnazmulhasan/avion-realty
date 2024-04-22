@@ -8,23 +8,18 @@ import ListingCard from "../listing/ListingCard";
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ExploreProperties = () => {
     const [listings, setListings] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
     const [isActive, setIsActive] = useState('Apartment');
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const { data = [] } = useSWR(`/api/offplans`, fetcher);
+    const { data = [], isLoading } = useSWR(`/api/offplans`, fetcher);
 
     useEffect(() => {
         setListings(data.filter(item => item.propertyType === 'Apartment'));
-        setIsLoading(false);
     }, [data])
 
     const handlePropertyType = (propertyType) => {
-        setIsLoading(true);
         setIsActive(propertyType);
-        setInterval(4000)
         setListings(data.filter(item => item.propertyType === propertyType));
-        setIsLoading(false);
     }
 
     const handlePrev = () => {
