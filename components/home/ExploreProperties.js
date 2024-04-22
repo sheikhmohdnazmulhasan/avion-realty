@@ -7,19 +7,24 @@ import ListingCard from "../listing/ListingCard";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ExploreProperties = () => {
-    const [listings, setListings] = useState(null);
+    const [listings, setListings] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [isActive, setIsActive] = useState('Apartment');
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const { data = [], isLoading, error } = useSWR(`/api/offplans`, fetcher);
+    const { data = [] } = useSWR(`/api/offplans`, fetcher);
 
     useEffect(() => {
         setListings(data.filter(item => item.propertyType === 'Apartment'));
+        setIsLoading(false);
     }, [data])
 
     const handlePropertyType = (propertyType) => {
-        setListings(data.filter(item => item.propertyType === propertyType));
+        setIsLoading(true);
         setIsActive(propertyType);
+        setInterval(4000)
+        setListings(data.filter(item => item.propertyType === propertyType));
+        setIsLoading(false);
     }
 
     const handlePrev = () => {
@@ -62,41 +67,51 @@ const ExploreProperties = () => {
                 <button onClick={() => handlePropertyType('Townhouse')} className={`uppercase ${isActive === 'Townhouse' ? 'text-[#E4B649] underline' : ''}`}>Townhouse</button>
             </div>
 
-            {/* sm device slieder */}
-            <div className="md:hidden">
-                {
-                    listings?.slice(currentIndex, currentIndex + 1).map(item => <ListingCard key={item._id} item={item} status={item.status} />)
-                }
-            </div>
+            {isLoading && <h1 className="flex justify-center items-center h-36 text-center text-2xl font-semibold">Loading!</h1> }
 
-            {/* md device slider */}
-            <div className="hidden md:grid grid-cols-2 lg:hidden gap-6">
-                {
-                    listings?.slice(currentIndex, currentIndex + 2).map(item => <ListingCard key={item._id} item={item} status={item.status} />)
-                }
+            {
+                listings?.length ? <>{/* sm device slieder */}
+                <div className="md:hidden">
+                    {
+                        listings?.slice(currentIndex, currentIndex + 1).map(item => <ListingCard key={item._id} item={item} status={item.status} />)
+                    }
+                </div>
+    
+                {/* md device slider */}
+                <div className="hidden md:grid grid-cols-2 lg:hidden gap-6">
+                    {
+                        listings?.slice(currentIndex, currentIndex + 2).map(item => <ListingCard key={item._id} item={item} status={item.status} />)
+                    }
+    
+                </div>
+                {/* lg device slider */}
+                <div className="hidden lg:grid grid-cols-4 gap-6">
+                    
+                    {
+                        listings?.slice(currentIndex, currentIndex + 4).map(item => <ListingCard key={item._id} item={item} status={item.status} />)
+                    }
+                </div>
+    
+                </> : !isLoading && <h1 className="flex justify-center items-center h-36 text-center text-2xl font-semibold">No Data!</h1>
+            }
 
-            </div>
-            {/* lg device slider */}
-            <div className="hidden lg:grid grid-cols-4 gap-6">
-                {
-                    listings?.slice(currentIndex, currentIndex + 4).map(item => <ListingCard key={item._id} item={item} status={item.status} />)
-                }
-            </div>
-
+            
             {/* silde controller */}
-            <div className=" flex justify-between items-center text-xs px-4 my-6">
-                {<button onClick={handlePrev} className={currentIndex < 1 && 'text-gray-500 cursor-not-allowed'}>PREV</button>}
-
-                {/* sm */}
-                <button onClick={handleNextSm} className={`md:hidden ${currentIndex == data.length - 1 && 'text-gray-500 cursor-not-allowed'}`}>NEXT</button>
-                {/* lg */}
-
-                <button onClick={handleNextMd} className={`hidden md:block lg:hidden ${currentIndex == data.length - 2 && 'text-gray-500 cursor-not-allowed'}`}>NEXT</button>
-                {/* lg */}
-
-                <button onClick={handleNextLg} className={`hidden lg:block ${currentIndex == data.length - 4 && 'text-gray-500 cursor-not-allowed'}`}>NEXT</button>
-
-            </div>
+            { listings.length &&
+                <div className="flex justify-between items-center text-xs px-4 my-6">
+                    {<button onClick={handlePrev} className={currentIndex < 1 && 'text-gray-500 cursor-not-allowed'}>PREV</button>}
+    
+                    {/* sm */}
+                    <button onClick={handleNextSm} className={`md:hidden ${currentIndex == data.length - 1 && 'text-gray-500 cursor-not-allowed'}`}>NEXT</button>
+                    {/* lg */}
+    
+                    <button onClick={handleNextMd} className={`hidden md:block lg:hidden ${currentIndex == data.length - 2 && 'text-gray-500 cursor-not-allowed'}`}>NEXT</button>
+                    {/* lg */}
+    
+                    <button onClick={handleNextLg} className={`hidden lg:block ${currentIndex == data.length - 4 && 'text-gray-500 cursor-not-allowed'}`}>NEXT</button>
+    
+                </div>
+            }
 
         </div>
     );

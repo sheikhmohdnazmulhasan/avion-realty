@@ -150,13 +150,13 @@ const ListingDetail = ({ params }) => {
                     <p className='lg:w-1/2 my-4 mx-auto'>Our portfolio of properties is as diverse as your dreams. Explore the following categories to find the perfect property that resonates with your vision of home</p>
                 </div>
                 <div className='flex gap-8'>
-                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-4 lg:w-3/4'>
+                    {listings.length ? <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-4 lg:w-3/4'>
                         {/* listing card */}
                         {
                             listings.map(item => <ListingCard key={item._id} item={item} status={params.status} />)
                         }
 
-                    </div>
+                    </div> : <h1 className="h-12 lg:h-screen text-center lg:pl-52 flex-1 text-2xl font-semibold">No Property Available !</h1>}
                     <div className='hidden lg:block'>
                         {
                             selectedAgent.map(agent => <AgentInfo key={agent._id} agent={agent}/>)
