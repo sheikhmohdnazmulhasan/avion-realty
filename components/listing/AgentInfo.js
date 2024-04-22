@@ -1,11 +1,13 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
 import call from '@/public/images/root/call.svg';
 import whatsapp from "@/public/images/whatsapp.svg"
+// import { useState } from 'react';
 
-const AgentInfo = ({ agent }) => {
+const AgentInfo = ({ agent, openInquiry, setOpenInquiry }) => {
     return (
-        <Link href={`/agents/${agent._id}`}>
+        <>
             <div className='mt-4 lg:h-[320px] border border-[#BE8500] p-4 mb-8'>
                 <div className='flex items-end justify-between gap-2 '>
                     <div className='space-y-2'>
@@ -23,12 +25,69 @@ const AgentInfo = ({ agent }) => {
                         <p>Call Now</p>
                     </div></Link>
 
-                    <div className="flex items-center hover:scale-105 transition-all border-[#e4b5499e] gap-3 border px-3 py-1 w-1/2 rounded-3xl justify-center">
-                        <Link href={''}><p>Inquiry</p></Link>
-                    </div>
+                    <button
+                        onClick={() => setOpenInquiry(true)}className="flex items-center hover:scale-105 transition-all border-[#e4b5499e] gap-3 border px-3 py-1 w-1/2 rounded-3xl justify-center">
+                        <p>Inquiry</p>
+                    </button>
                 </div>
+
+                {/* inquiry */}
+
+                {openInquiry && (
+                    <div className="w-full absolute top-4 md:top-36 md:-left-[5px] lg:-left-[70px] z-50 rounded px-5 ">
+                    <div
+                        className="md:w-[80%] lg:w-[60%] mx-auto flex justify-end font-semibold"
+                        onClick={() => setOpenInquiry(false)}
+                    >
+                        <span className="cursor-pointer ">Close</span>
+                    </div>
+                    <div className="md:w-[80%] lg:w-[60%] mx-auto md:h-48 pt-4 pb-8 lg:py-16 bg-[#000] rounded">
+                        <h1 className="text-xl md:text-2xl text-center pt-3">
+                        Get call back for inquiry
+                        </h1>
+                        <form className="px-10 mt-4">
+                        <div className="md:flex gap-4 space-y-3 md:space-y-0">
+                            <input
+                            type="text"
+                            name="name"
+                            id=""
+                            placeholder="Name"
+                            className="w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl"
+                            required
+                            />
+
+                            <input
+                            type="number"
+                            name="mobile"
+                            id=""
+                            placeholder="Mobile"
+                            className="w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl"
+                            required
+                            />
+
+                            <input
+                            type="text"
+                            name="email"
+                            id=""
+                            placeholder="Email"
+                            className="w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl"
+                            required
+                            />
+                        </div>
+                        <div className="flex w-full justify-center mt-4">
+                            <button
+                            type="submit"
+                            className="py-2 w-full md:w-fit px-3 border border-[#E4B649] text-xl transition-all rounded-3xl hover:bg-[#625129]"
+                            >
+                            Send Now
+                            </button>
+                        </div>
+                        </form>
+                    </div>
+                    </div>
+                )}
                 <div className='text-center mt-3'>
-                    <Link href='/' className='text-[#E4B649]'>View All Properties</Link>
+                    <Link href={`/agents/${agent._id}`} className='text-[#E4B649]'>View All Properties</Link>
                     <div className='mx-4 border-t border-[#E4B649] my-4'></div>
                     <Link href={`https://wa.me/${agent?.wpNum}`} className='text-sm md:text-base flex justify-center gap-1 items-center'>
 
@@ -40,7 +99,7 @@ const AgentInfo = ({ agent }) => {
                     </Link>
                 </div>
             </div>
-        </Link>
+        </>
     );
 };
 
