@@ -22,6 +22,13 @@ import logo from "@/public/images/icon.svg";
 import PhoneSlider from "@/components/listing/PhoneSlider";
 import toast, { Toaster } from "react-hot-toast";
 
+import facebook from '@/public/share/facebook.png';
+import instagram from '@/public/share/instagram.png';
+import linkedin from '@/public/share/linkedin.png';
+import wp from '@/public/share/wp.png';
+import twitter from '@/public/share/twitter.png';
+import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
+
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
 
@@ -30,6 +37,7 @@ const ListingDetail = ({ params }) => {
   const [openInquiry, setOpenInquiry] = useState(false);
   const [showPopup, setShowPopup] = useState(true);
   const [price, setPrice] = useState(null);
+  const [coped, setCoped] = useState(false);
 
   const { data = [] } = useSWR(`/api/offplans?id=${params.id}`, fetcher);
   const { data: agent = [] } = useSWR(`/api/users?email=${data.agent}`, fetcher);
@@ -133,6 +141,20 @@ const ListingDetail = ({ params }) => {
       .catch((err) => console.log(err));
   }
 
+
+  // share
+
+  function handleCopyLink() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url);
+    setCoped(true);
+
+    setTimeout(() => {
+      setCoped(false)
+    }, 1000);
+  }
+
+
   useEffect(() => {
     setPhotos(data?.images);
 
@@ -208,15 +230,23 @@ const ListingDetail = ({ params }) => {
 
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">Press ESC key or click the button below to close</p>
-          <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
-            </form>
+          <h3 className=""> <span className="font-bold text-lg">Share</span> {data.title}</h3>
+          <div className="flex gap-4 justify-center items-center mt-8">
+            <Image src={facebook} alt="Facebook icon" className="w-10" />
+            <Image src={instagram} alt="Facebook icon" className="w-10" />
+            <Image src={wp} alt="Facebook icon" className="w-10" />
+            <Image src={twitter} alt="Facebook icon" className="w-10" />
+            <Image src={linkedin} alt="Facebook icon" className="w-10" />
+          </div>
+
+          {/* copy link */}
+          <div className="mt-10 flex justify-center items-center " >
+            <button className="py-2 flex justify-center text-center hover:scale-105 gap-2 px-6 rounded-md hover:bg-sky-700 transition-all bg-sky-600 " onClick={handleCopyLink}>Copy Link {!coped ? <FaClipboard size={20} /> : <FaClipboardCheck size={20} />} </button>
           </div>
         </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
       </dialog>
 
       <div
