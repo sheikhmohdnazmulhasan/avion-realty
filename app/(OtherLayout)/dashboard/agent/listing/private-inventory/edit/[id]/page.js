@@ -36,65 +36,6 @@ const EditList = ({ params }) => {
     const [showAll, setShowAll] = useState(true);
     const router = useRouter()
     const [selectedAmenities, setSelectedAmenities] = useState([]);
-    const [installmentElement, setInstalmentElement] = useState([<>
-        <div>
-            <input
-                type="text"
-                name="milestone"
-                placeholder="write Milestone here"
-                className="bg-black text-xs p-2 text-center rounded-md w-full border border-dotted "
-            />
-        </div>
-        <div className="flex gap-1 items-center justify-center">
-            <input
-                type="number"
-                name="paymentPercent"
-                placeholder="00 %"
-                className="bg-black text-xs p-2 text-center rounded-md w-1/3 ml-4 border border-dotted "
-            />
-            <h3 className="text-[#E4B649] mr-1">+4% DLD</h3>
-            <RiEditBoxFill size={24} className="-mt-1" />
-        </div>
-    </>])
-
-
-    const installmentOrder = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th'];
-
-    const handleAddInstallment = () => {
-
-        if (installmentElement.length > 8) {
-            console.log('Dont cross the limit');
-            return;
-        }
-        setInstalmentElement(prevElement => [...prevElement, <>
-
-            <div>
-                <input
-                    type="text"
-                    name="milestone"
-                    placeholder="write Milestone here"
-                    className="bg-black text-xs p-2 text-center rounded-md w-full border border-dotted "
-                />
-            </div>
-            <div className="flex gap-1 items-center justify-center">
-                <input
-                    type="number"
-                    name="paymentPercent"
-                    placeholder="00 %"
-                    className="bg-black text-xs p-2 text-center rounded-md w-1/3 ml-4 border border-dotted "
-                />
-
-                <RiEditBoxFill size={24} className="-mt-1" />
-                <button onClick={() => removeInstallment(prevElement.length)} type="button">
-                    <IoMdCloseCircle className="text-red-600 text-xl" />
-                </button>
-            </div>
-        </>]);
-    }
-
-    const removeInstallment = (indexOfRemoveItem) => {
-        setInstalmentElement(prevElement => prevElement.filter((item, index) => (index !== indexOfRemoveItem)));
-    }
 
     const handleRemovePrevFile = url => {
         const newImages = previousFile.filter(file => file !== url);
@@ -157,9 +98,15 @@ const EditList = ({ params }) => {
         const description = form.description.value;
         const location = form.location.value;
         const amenities = selectedAmenities;
-        let images = [...previousFile];
 
-        console.log(images);
+        const firstInstallment = form.firstInstallment.value;
+        const underConstruction = form.underConstruction.value;
+        const onHandover = form.onHandover.value;
+        const postHandover = form.postHandover.value;
+
+        const payment = { firstInstallment, underConstruction, onHandover, postHandover };
+
+        let images = [...previousFile];
 
         const toastId = toast.loading('Working...', {
             style: {
@@ -432,25 +379,36 @@ const EditList = ({ params }) => {
                 </div>
 
                 {/* payment */}
-                <div>
+
+                <div className={data.status !== 'Off-Plan' && 'hidden'}>
                     <label>Payment Plan</label>
                     <br />
-                    <div className="my-3 space-y-2">
-                        {/* tiltle bar */}
-                        <div className="text-[#E4B649] font-medium grid grid-cols-3 p-3 border justify-items-center">
-                            <h3>Installment</h3>
-                            <h3>Milestone</h3>
-                            <h3>Payment %</h3>
+
+                    <div className="grid grid-cols-2 mt-4 gap-6">
+                        <div>
+                            <label>First Installment</label>
+                            <input defaultValue={data?.payment?.firstInstallment} type="number" placeholder="Place your payment in %" name="firstInstallment"
+                                className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+                            />
                         </div>
-                        {
-                            installmentElement.map((installment, index) => <div key={index} className="font-medium grid grid-cols-3 items-center py-2 border justify-items-center">
-                                <h3>{installmentOrder[index]} Installment</h3>
-                                {installment}</div>)
-                        }
-                    </div>
-                    {/* add new installment  */}
-                    <div className="flex mt-1 justify-end">
-                        <button onClick={handleAddInstallment} type="button" className="bg-[#835C00] py-2 px-4 font-semibold rounded-2xl"> + Add More Terms</button>
+                        <div>
+                            <label>Under Construction</label>
+                            <input defaultValue={data?.payment?.underConstruction} type="number" placeholder="Place your payment in %" name="underConstruction"
+                                className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+                            />
+                        </div>
+                        <div>
+                            <label>On Handover</label>
+                            <input defaultValue={data?.payment?.onHandover} type="number" placeholder="Place your payment in %" name="onHandover"
+                                className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+                            />
+                        </div>
+                        <div>
+                            <label>Post Handover</label>
+                            <input defaultValue={data?.payment?.postHandover} type="number" placeholder="Place your payment in %" name="postHandover"
+                                className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
+                            />
+                        </div>
                     </div>
                 </div>
 
