@@ -4,7 +4,6 @@ import axios from 'axios';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
-import Link from 'next/link';
 
 import location from '@/public/images/dashboard/listing/location.svg'
 import property from '@/public/images/dashboard/listing/property.svg'
@@ -15,13 +14,13 @@ import useGetAreas from '@/hooks/useGetAreas';
 import useGetProperties from '@/hooks/useGetProperties';
 import ListingCard from '@/components/listing/ListingCard';
 
-import call from '@/public/images/root/call.svg';
-import whatsapp from "@/public/images/whatsapp.svg"
 import useAgents from '@/hooks/useAgents';
 import AgentInfo from '@/components/listing/AgentInfo';
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
+    
+    const [openInquiry, setOpenInquiry] = useState(false);
 
     const { data = [], isLoading, error } = useSWR(`/api/offplans?${params.status === 'Off-Plan' || params.status === 'Ready' || params.status === 'Rental' ? `status=${params.status}` : `area=${params.status}`}`, fetcher);
 
@@ -149,17 +148,17 @@ const ListingDetail = ({ params }) => {
                     <h2 className='text-[#E4B649] text-3xl font-medium'>Discover a World of Possibilities</h2>
                     <p className='lg:w-1/2 my-4 mx-auto'>Our portfolio of properties is as diverse as your dreams. Explore the following categories to find the perfect property that resonates with your vision of home</p>
                 </div>
-                <div className='flex gap-8'>
-                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-4 lg:w-3/4'>
+                <div className='flex gap-8 relative'>
+                    {listings.length ? <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-4 lg:w-3/4 ${openInquiry && "opacity-60 blur-sm"}`}>
                         {/* listing card */}
                         {
                             listings.map(item => <ListingCard key={item._id} item={item} status={params.status} />)
                         }
 
-                    </div>
+                    </div> : <h1 className="h-12 lg:h-screen text-center lg:pl-52 flex-1 text-2xl font-semibold">No Property Available !</h1>}
                     <div className='hidden lg:block'>
                         {
-                            selectedAgent.map(agent => <AgentInfo key={agent._id} agent={agent}/>)
+                            selectedAgent.map(agent => <AgentInfo key={agent._id} agent={agent} openInquiry={openInquiry} setOpenInquiry={setOpenInquiry}/>)
                         }
                     </div>
                 </div>

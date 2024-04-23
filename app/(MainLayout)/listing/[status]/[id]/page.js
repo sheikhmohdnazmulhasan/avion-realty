@@ -22,13 +22,23 @@ import logo from "@/public/images/icon.svg";
 import PhoneSlider from "@/components/listing/PhoneSlider";
 import toast, { Toaster } from "react-hot-toast";
 
+import facebook from '@/public/share/facebook.png';
+import instagram from '@/public/share/instagram.png';
+import linkedin from '@/public/share/linkedin.png';
+import mail from '@/public/share/mail.png';
+import wp from '@/public/share/wp.png';
+import twitter from '@/public/share/twitter.png';
+import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
+
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
 
   const [photos, setPhotos] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [openInquiry, setOpenInquiry] = useState(false);
+  const [showPopup, setShowPopup] = useState(true);
   const [price, setPrice] = useState(null);
+  const [coped, setCoped] = useState(false);
 
   const { data = [] } = useSWR(`/api/offplans?id=${params.id}`, fetcher);
   const { data: agent = [] } = useSWR(`/api/users?email=${data.agent}`, fetcher);
@@ -54,9 +64,6 @@ const ListingDetail = ({ params }) => {
 
           if (fetchedPrice && currencyCode === 'USD') {
             setPrice(fetchedPrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
-
-          } else if (fetchedPrice && currencyCode === 'BDT') {
-            setPrice(fetchedPrice.toLocaleString('en-BD', { style: 'currency', currency: 'BDT' }));
 
           } else if (fetchedPrice && currencyCode === 'GBP') {
             setPrice(fetchedPrice.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' }));
@@ -87,7 +94,7 @@ const ListingDetail = ({ params }) => {
       } catch (error) {
 
         console.log(error);
-        
+
         toast.error('Currency Exchange API Expired!',
           {
             style: {
@@ -134,6 +141,52 @@ const ListingDetail = ({ params }) => {
       })
       .catch((err) => console.log(err));
   }
+
+
+  // share
+
+  // copy link
+  function handleCopyLink() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url);
+    setCoped(true);
+
+    setTimeout(() => {
+      setCoped(false)
+    }, 1000);
+  }
+
+  function handleSocialShare(media) {
+
+    if (media === 'facebook') {
+      const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+      window.open(url, '_blank', 'width=600,height=400');
+
+    } else if (media === 'mail') {
+      const subject = `Check out ${data.title}`;
+      const body = `I thought you might be interested in this property: ${window.location.href}`;
+      const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoUrl;
+
+    } else if (media === 'linkedin') {
+      const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
+      window.open(url, '_blank');
+
+    } else if (media === 'twitter') {
+      const text = `Check out ${data.title}`;
+      const url = encodeURIComponent(window.location.href);
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`;
+      window.open(twitterUrl, '_blank', 'width=600,height=400');
+
+    } else if (media === 'whatsapp') {
+
+      const text = `Check out ${data.title}` + ' ' + window.location.href;
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+
+  }
+
 
   useEffect(() => {
     setPhotos(data?.images);
@@ -205,6 +258,30 @@ const ListingDetail = ({ params }) => {
           </div>
         </div>
       )}
+
+      {/* share */}
+
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className=""> <span className="font-bold text-lg">Share</span> {data.title}</h3>
+          <div className="flex gap-4 justify-center items-center mt-8">
+            <Image src={facebook} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('facebook')} />
+            <Image src={mail} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('mail')} />
+            {/* <Image src={instagram} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('instagram')} /> */}
+            <Image src={linkedin} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('linkedin')} />
+            <Image src={twitter} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('twitter')} />
+            <Image src={wp} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('whatsapp')} />
+          </div>
+
+          {/* copy link */}
+          <div className="mt-10 flex justify-center items-center " >
+            <button className="py-2 flex justify-center text-center hover:scale-105 gap-2 px-6 rounded-md hover:bg-sky-700 transition-all bg-sky-600 " onClick={handleCopyLink}>Copy Link {!coped ? <FaClipboard size={20} /> : <FaClipboardCheck size={20} />} </button>
+          </div>
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
 
       <div
         className={`mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen ${openInquiry && "opacity-60 blur-sm"
@@ -347,10 +424,12 @@ const ListingDetail = ({ params }) => {
                 {/* price converter */}
 
                 {/* share */}
-                <button className=" gap-3 items-center text-xl px-3 py-1 border rounded-2xl hidden md:flex">
+                <button onClick={() => document.getElementById('my_modal_1').showModal()} className=" gap-3 items-center text-xl px-3 py-1 border rounded-2xl hidden md:flex">
                   <CiShare2 size={24} />
                   <span>Share</span>
                 </button>
+
+
               </div>
             </div>
             {/* bed, bath, sqrft, floorplan */}
