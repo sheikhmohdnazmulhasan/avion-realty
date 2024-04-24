@@ -8,12 +8,20 @@ import Image from "next/image";
 import { GrFormAttachment } from "react-icons/gr";
 
 const Career = () => {
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
     const number = form.number.value;
     const email = form.email.value;
+    const resume = form.resume.files[0];
+
+    // Construct the mailto link with form data
+    const mailtoLink = `mailto:hr@avionrealty.ae?subject=Avion Reality - Mail From Career Page&body=Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${number}`;
+
+    // Open the user's email client
+    window.location.href = mailtoLink;
 
     // console.log(name, number, email);
   };
@@ -50,6 +58,7 @@ const Career = () => {
               supportive work environment for our team members.
             </p>
           </div>
+
           {/* facilities */}
           <div className="mt-12 lg:mt-0 lg:w-[57%] grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
             {/* 1 */}
@@ -171,7 +180,7 @@ const Career = () => {
               />
               <label
                 for="resume-input"
-                className="w-full bg-[#835C00]  rounded-3xl md:text-xl flex justify-center items-center gap-2 py-3"
+                className="w-full bg-[#835C00] hover:cursor-pointer rounded-3xl md:text-xl flex justify-center items-center gap-2 py-3"
               >
                 <span>Upload Your Resume</span>
                 <GrFormAttachment size={32} />
