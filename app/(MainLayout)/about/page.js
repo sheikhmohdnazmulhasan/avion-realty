@@ -166,9 +166,6 @@ const About = () => {
         </div>
       </div>
 
-      <div className="md:px-16 lg:px-40 ">
-        <MeetTeam />
-      </div>
 
       {/* founder details */}
       <div className="lg:flex lg:pl-40">
@@ -220,6 +217,10 @@ const About = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="md:px-16 lg:px-40 ">
+        <MeetTeam  admin={true}/>
       </div>
 
       <Inquiry />

@@ -1,14 +1,26 @@
 "use client";
 import useAgents from "@/hooks/useAgents";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useSWR from "swr";
 
-const MeetTeam = () => {
+const fetcher = url => axios.get(url).then(res => res.data);
+const MeetTeam = ({admin}) => {
+  const [agents, setAgent] = useState([])
   const [currentIndex, setCurrentIndex] = useState(0);
-  const agents = useAgents().slice(0, 4);
+  const allAgents = useAgents();
+  const {data : adminInfo = []} = useSWR(`http://localhost:3000/api/users?email=admin@avionrealty.ae`, fetcher);
+  
+  useEffect(() => {
+    if (admin && adminInfo) {
+      setAgent([adminInfo, ...allAgents.slice(1, 4)]);
+    } else {
+      setAgent(allAgents.slice(0, 4));
+    }
+  }, [admin, adminInfo, allAgents]);
 
-  // console.log(agents);
 
   const handlePrev = () => {
     if (currentIndex > 0) {
