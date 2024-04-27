@@ -3,14 +3,22 @@
 import Image from "next/image";
 import { LuMenu } from "react-icons/lu";
 import { RxCross2 } from "react-icons/rx";
-import { FaChevronDown, FaChevronRight, FaFacebookF, FaInstagram, FaLinkedin, FaXTwitter, FaYoutube } from "react-icons/fa6";
+import {
+  FaChevronDown,
+  FaChevronRight,
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedin,
+  FaXTwitter,
+  FaYoutube,
+} from "react-icons/fa6";
 
 import icon from "@/public/images/icon.svg";
 import whatsapp from "@/public/images/whatsapp.svg";
 import home from "@/public/images/home.svg";
 import contact from "@/public/images/contact.svg";
 import search from "@/public/images/search.svg";
-import Headroom from 'react-headroom';
+import Headroom from "react-headroom";
 
 import Link from "next/link";
 import { useState } from "react";
@@ -20,8 +28,12 @@ const MobileMenu = () => {
   const [openMedia, setOpenMedia] = useState(false);
 
   return (
-    <div className={` w-full bg-black  z-[100000000000] ${isOpen && ''}`}>
-      <div className={`flex justify-between px-4 py-4 items-center ${isOpen && 'bg-black'}`}>
+    <div className={` w-full bg-black  z-[100000000000] ${isOpen && ""}`}>
+      <div
+        className={`flex justify-between px-4 py-4 items-center ${
+          isOpen && "bg-black"
+        }`}
+      >
         <button
           onClick={() => setIsOpen(!isOpen)}
           className={isOpen ? "hidden" : "block"}
@@ -38,7 +50,11 @@ const MobileMenu = () => {
             <RxCross2 size="24px" />
           </button>
         ) : (
-          <Link href="https://wa.me/+971504597167" target="_blank" className="w-6">
+          <Link
+            href="https://wa.me/+971504597167"
+            target="_blank"
+            className="w-6"
+          >
             <Image src={whatsapp} alt="avion realty whatsapp" />
           </Link>
         )}
@@ -46,7 +62,10 @@ const MobileMenu = () => {
       {isOpen && (
         <div className="px-3 h-screen absolute w-full z-10 bg-black font-extralight">
           <ul className="grid grid-cols-3 gap-2 ">
-            <li className=" bg-[#0E0E0E] rounded-md" onClick={() => setIsOpen(false)}>
+            <li
+              className=" bg-[#0E0E0E] rounded-md"
+              onClick={() => setIsOpen(false)}
+            >
               <Link
                 href="/"
                 className="flex gap-1 flex-col justify-center text-xs py-2 text-center"
@@ -57,7 +76,10 @@ const MobileMenu = () => {
                 <span>Home</span>
               </Link>
             </li>
-            <li className=" bg-[#0E0E0E] rounded-md" onClick={() => setIsOpen(false)}>
+            <li
+              className=" bg-[#0E0E0E] rounded-md"
+              onClick={() => setIsOpen(false)}
+            >
               <Link
                 href="/contact"
                 className="flex gap-1 flex-col justify-center text-xs py-2 text-center"
@@ -140,29 +162,34 @@ const MobileMenu = () => {
             </ul>
           </div>
 
-          <button onClick={() => setOpenMedia(!openMedia)} className="relative mt-3 bg-[#0E0E0E] w-full flex items-center justify-between p-3 rounded-md">
+          <button
+            onClick={() => setOpenMedia(!openMedia)}
+            className="relative mt-3 bg-[#0E0E0E] w-full flex items-center justify-between p-3 rounded-md"
+          >
             <span>Media</span>
-            {
-              openMedia && <ul className="capitalize absolute top-10 right-2  z-20 space-y-2 px-4 py-3 bg-[#0E0E0E]">
+            {openMedia && (
+              <ul className="capitalize absolute top-10 right-2  z-20 space-y-2 px-4 py-3 bg-[#0E0E0E]">
                 <li onClick={() => setIsOpen(false)}>
                   <Link href="/blogs">News & Blog</Link>
                 </li>
                 <li onClick={() => setIsOpen(false)}>
-                  <Link href='/podcasts'>Podcast</Link>
+                  <Link href="/podcasts">Podcast</Link>
                 </li>
               </ul>
-            }
-            {
-              openMedia ? <FaChevronDown /> : <FaChevronRight />
-            }
+            )}
+            {openMedia ? <FaChevronDown /> : <FaChevronRight />}
           </button>
 
-
           {/* social */}
-          <ul className="text-xl px-4 pt-4 flex justify-between" onClick={() => setIsOpen(false)}>
-
+          <ul
+            className="text-xl px-4 pt-4 flex justify-between"
+            onClick={() => setIsOpen(false)}
+          >
             <li>
-              <Link href="https://www.instagram.com/avionrealtyuae/" target="_blank">
+              <Link
+                href="https://www.instagram.com/avionrealtyuae/"
+                target="_blank"
+              >
                 <FaInstagram color="#E8BF44" />
               </Link>
             </li>
@@ -172,22 +199,25 @@ const MobileMenu = () => {
               </Link>
             </li>
             <li>
-              <Link href="http://www.linkedin.com/company/avionrealtyuae/" target="_blank">
+              <Link
+                href="http://www.linkedin.com/company/avionrealtyuae/"
+                target="_blank"
+              >
                 <FaLinkedin color="#E8BF44" />
               </Link>
             </li>
             <li>
-              <Link href="https://www.facebook.com/avionrealtyuae/" target="_blank">
+              <Link
+                href="https://www.facebook.com/avionrealtyuae/"
+                target="_blank"
+              >
                 <FaFacebookF color="#E8BF44" />
               </Link>
             </li>
           </ul>
         </div>
-      )
-      }
-
-
-    </div >
+      )}
+    </div>
   );
 };
 

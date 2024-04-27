@@ -20,9 +20,9 @@ const UserProfile = ({ user, mutate }) => {
   const [designation, setDesignation] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [isHover, setIsHover] = useState(false);
-  const [showOldPassword , setShowOldPassword] = useState(false);
-  const [showPassword , setShowPassword] = useState(false);
-  const [showRetypePassword , setShowRetypePassword] = useState(false);
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRetypePassword, setShowRetypePassword] = useState(false);
 
 
   async function handleChangePassword(event) {
@@ -61,17 +61,12 @@ const UserProfile = ({ user, mutate }) => {
     }
 
     try {
-      const validCurrentPassword = await bcrypt.compare(
-        currentPassword,
-        user.password
-      );
-      const checkSamePassword = await bcrypt.compare(
-        newPassword,
-        user.password
-      );
+      const validCurrentPassword = await bcrypt.compare(currentPassword, user.password);
+      const checkSamePassword = await bcrypt.compare(newPassword, user.password);
 
       if (!validCurrentPassword) {
         setPasswordError("Wrong Password");
+        
       } else if (checkSamePassword) {
         toast("New password is same as current password!", {
           style: {
@@ -295,7 +290,7 @@ const UserProfile = ({ user, mutate }) => {
           {!editDesignation && (
             <p
               onClick={() => setEditDesignation(!editDesignation)}
-              
+
             >
               {currentUser?.designation
                 ? currentUser.designation
@@ -412,11 +407,11 @@ const UserProfile = ({ user, mutate }) => {
                       placeholder="Old PassWord"
                       className="bg-black w-full p-2 outline-none"
                     />
-                    <button type="button" onClick={()=>setShowOldPassword(!showOldPassword)} className="mr-2">
-                        {
-                          showOldPassword ? <IoEyeOffOutline size={20}/> : <IoEyeOutline size={20}/>
-                        }
-                      </button>
+                    <button type="button" onClick={() => setShowOldPassword(!showOldPassword)} className="mr-2">
+                      {
+                        showOldPassword ? <IoEyeOffOutline size={20} /> : <IoEyeOutline size={20} />
+                      }
+                    </button>
                   </div>
                   <p className="text-red-600 mt-2">{passwordError}</p>
                 </div>
@@ -431,11 +426,11 @@ const UserProfile = ({ user, mutate }) => {
                       placeholder="New PassWord"
                       className="bg-black w-full p-2 outline-none"
                     />
-                    <button type="button" onClick={()=>setShowPassword(!showPassword)} className="mr-2">
-                        {
-                          showPassword ? <IoEyeOffOutline size={20}/> : <IoEyeOutline size={20}/>
-                        }
-                      </button>
+                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="mr-2">
+                      {
+                        showPassword ? <IoEyeOffOutline size={20} /> : <IoEyeOutline size={20} />
+                      }
+                    </button>
                   </div>
                 </div>
                 <div>
@@ -449,11 +444,11 @@ const UserProfile = ({ user, mutate }) => {
                       placeholder="Re-type New Password"
                       className="bg-black w-full p-2 outline-none"
                     />
-                    <button type="button" onClick={()=>setShowRetypePassword(!showRetypePassword)} className="mr-2">
-                        {
-                          showRetypePassword ? <IoEyeOffOutline size={20}/> : <IoEyeOutline size={20}/>
-                        }
-                      </button>
+                    <button type="button" onClick={() => setShowRetypePassword(!showRetypePassword)} className="mr-2">
+                      {
+                        showRetypePassword ? <IoEyeOffOutline size={20} /> : <IoEyeOutline size={20} />
+                      }
+                    </button>
                   </div>
                 </div>
                 <div className="flex justify-between pt-4">
