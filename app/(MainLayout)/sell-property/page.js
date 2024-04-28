@@ -15,11 +15,92 @@ import { FaCheckCircle } from "react-icons/fa";
 
 import { useState } from "react";
 import useGetProperties from "@/hooks/useGetProperties";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const SellProperty = () => {
   const [selectStatus, setSelectStatus] = useState("Sell");
   const properties = useGetProperties();
-  console.log(properties);
+  let images = { passport: '', titleDeeds: '', images: [] }
+
+  async function handleSubmitReq(event) {
+    event.preventDefault();
+    const status = selectStatus;
+    const name = event.target.name.value;
+    const email = event.target.email.value;
+    const phone = event.target.phone.value;
+    const location = event.target.location.value;
+    const propertyType = event.target.propertyType.value;
+    const bedroom = event.target.bedroom.value;
+    const areaSqFt = event.target.areaSqFt.value;
+    const unit = event.target.unit.value;
+    const price = event.target.price.value;
+
+    // image
+    const titleDeeds = event.target.titleDeeds.files[0];
+    const passport = event.target.passport.files[0];
+
+    // maybe multiple image
+    const pics = event.target.images.files;
+
+    if (titleDeeds) {
+      const image = new FormData();
+      image.append("image", titleDeeds);
+
+      const imgBbResponse = await axios.post(`https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`, image);
+
+      if (imgBbResponse.data.success) {
+        images.titleDeeds = imgBbResponse.data.data.display_url;
+
+      }
+
+    };
+
+    if (passport) {
+      const image = new FormData();
+      image.append('image', passport);
+
+      const imgBbResponse = await axios.post(`https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`, image);
+
+      if (imgBbResponse.data.success) {
+        images.passport = imgBbResponse.data.data.display_url;
+
+      }
+
+    };
+
+    if (pics) {
+
+      for (let i = 0; i < pics.length; i++) {
+        const image = new FormData();
+        image.append('image', pics[i]);
+
+        const imgBbResponse = await axios.post(`https://api.imgbb.com/1/upload?key=10a0343a75c20fe85ce07c1d5561bfa1`, image);
+
+        if (imgBbResponse.data.success) {
+          images.images.push(imgBbResponse.data.data.display_url);
+        }
+
+      }
+
+    }
+
+    const dataForBackend = { status, name, email, phone, location, propertyType, bedroom, areaSqFt, unit, price, images }
+
+
+    try {
+      const serverResponse = await axios.post(`/api/admin/sell-req`, dataForBackend);
+      // console.log(serverResponse.data);
+
+      if (serverResponse.data.success) {
+        alert('done')
+      }
+
+    } catch (error) {
+      console.loog(error)
+    }
+
+  }
 
   return (
     <div>
@@ -71,7 +152,7 @@ const SellProperty = () => {
           <div className="bg-white rounded-xl hover:scale-105 transition-all">
             <div className="bg-[#A87600] p-3 rounded-xl flex justify-between items-end">
               <h2 className="text-xl font-semibold">Home Visit</h2>
-              <Image src={homeVisit} alt="home svg" width={56} height={56}/>
+              <Image src={homeVisit} alt="home svg" width={56} height={56} />
             </div>
             <p className="text-black p-4 text-left font-medium">Our team conducts a thorough assessment of your property to determine its value and unique selling points.</p>
           </div>
@@ -79,7 +160,7 @@ const SellProperty = () => {
           <div className="bg-white rounded-xl hover:scale-105 transition-all">
             <div className="bg-[#A87600] p-3 rounded-xl flex justify-between items-end">
               <h2 className="text-xl font-semibold">Marketing</h2>
-              <Image src={marketing} alt="Marketing svg" width={44} height={44}/>
+              <Image src={marketing} alt="Marketing svg" width={44} height={44} />
             </div>
             <p className="text-black p-4 text-left font-medium">We develop a tailored marketing strategy, including professional photography and targeted advertising, to attract qualified buyers or tenants.</p>
           </div>
@@ -87,7 +168,7 @@ const SellProperty = () => {
           <div className="bg-white rounded-xl hover:scale-105 transition-all">
             <div className="bg-[#A87600] p-3 rounded-xl flex justify-between items-end">
               <h2 className="text-xl font-semibold">Viwing</h2>
-              <Image src={viwing} alt="Viwing svg" width={56} height={56}/>
+              <Image src={viwing} alt="Viwing svg" width={56} height={56} />
             </div>
             <p className="text-black p-4 text-left font-medium">We schedule and manage viewings and open houses to showcase your property to interested parties.</p>
           </div>
@@ -95,7 +176,7 @@ const SellProperty = () => {
           <div className="bg-white rounded-xl hover:scale-105 transition-all">
             <div className="bg-[#A87600] p-3 rounded-xl flex justify-between items-end">
               <h2 className="text-xl font-semibold">Sell / Rent</h2>
-              <Image src={sell} alt="sell svg" width={56} height={56}/>
+              <Image src={sell} alt="sell svg" width={56} height={56} />
             </div>
             <p className="text-black p-4 text-left font-medium">Our skilled negotiators work to secure the best terms and price for your property, handling all paperwork for a smooth transaction.</p>
           </div>
@@ -105,16 +186,16 @@ const SellProperty = () => {
       {/* Sell/Rent Your Property  */}
       <div className="my-12 lg:mt-72 px-6 md:px-12 lg:px-60 ">
         <h2 className="text-2xl font-bold">Sell/Rent Your Property </h2>
-        <form className="my-12">
+        <form className="my-12" onSubmit={handleSubmitReq}>
           {/* about yourself */}
           <h2 className="text-xl font-semibold">Tell us about yourself</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 my-4 gap-4">
-              {/* name */}
-              <input type="text" name="name" placeholder="Your Name" className="bg-transparent outline-none border border-[#E4B649] text-xl px-4 py-2 rounded-2xl"/>
-              {/* phone */}
-              <input type="number" name="phone" placeholder="Your Phonne" className="bg-transparent outline-none border border-[#E4B649] text-xl px-4 py-2 rounded-2xl"/>
-              {/* email */}
-              <input type="email" name="email" placeholder="Your Email" className="bg-transparent outline-none border border-[#E4B649] text-xl px-4 py-2 rounded-2xl"/>
+            {/* name */}
+            <input type="text" name="name" placeholder="Your Name" className="bg-transparent outline-none border border-[#E4B649] text-xl px-4 py-2 rounded-2xl" required />
+            {/* phone */}
+            <input type="number" name="phone" placeholder="Your Phone" className="bg-transparent outline-none border border-[#E4B649] text-xl px-4 py-2 rounded-2xl" required />
+            {/* email */}
+            <input type="email" name="email" placeholder="Your Email" className="bg-transparent outline-none border border-[#E4B649] text-xl px-4 py-2 rounded-2xl" required />
           </div>
           {/* about property */}
           <h2 className="text-xl font-semibold mt-12">Tell us about your property</h2>
@@ -122,116 +203,114 @@ const SellProperty = () => {
           <div className="flex my-4 font-semibold w-36 border border-[#E4B649]">
             <div
               onClick={() => setSelectStatus("Sell")}
-              className={`${
-                selectStatus === "Sell" && "bg-[#A87600]"
-              } px-4 text-center py-1 w-1/2 cursor-pointer`}
+              className={`${selectStatus === "Sell" && "bg-[#A87600]"
+                } px-4 text-center py-1 w-1/2 cursor-pointer`}
             >
               <span>Sell</span>
             </div>
             <div
               onClick={() => setSelectStatus("Rent")}
-              className={`${
-                selectStatus === "Rent" && "bg-[#A87600]"
-              } px-4 text-center py-1 w-1/2 cursor-pointer`}
+              className={`${selectStatus === "Rent" && "bg-[#A87600]"
+                } px-4 text-center py-1 w-1/2 cursor-pointer`}
             >
               <span>Rent</span>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 my-8 gap-4 lg:gap-8">
             {/* location */}
-              <div className="flex items-center border border-[#E4B649] ">
-                <div className="bg-[#A87600] p-2"> 
-                  <Image src={location} alt="location svg" width={24} height={24} />
-                </div>
-                <input type="text" name="location" placeholder="Location" className="bg-transparent outline-none text-xl md:text-sm lg:text-xl px-4 py-2"/>
+            <div className="flex items-center border border-[#E4B649] ">
+              <div className="bg-[#A87600] p-2">
+                <Image src={location} alt="location svg" width={24} height={24} />
               </div>
+              <input type="text" name="location" placeholder="Location" className="bg-transparent outline-none text-xl md:text-sm lg:text-xl px-4 py-2" />
+            </div>
             {/* property type */}
-              <div className="flex items-center border border-[#E4B649] ">
-                <div className="bg-[#A87600] p-2">
-                  <Image src={homeVisit} alt="homeVisit svg" width={42} height={42}/>
-                </div>
-                <select
-                  name="propertyType"
-                  className=" w-full  bg-transparent outline-none text-xl md:text-sm lg:text-xl px-4 opacity-60  "
-                >
-                  <option value="" selected disabled>
+            <div className="flex items-center border border-[#E4B649] ">
+              <div className="bg-[#A87600] p-2">
+                <Image src={homeVisit} alt="homeVisit svg" width={42} height={42} />
+              </div>
+              <select
+                name="propertyType"
+                className=" w-full  bg-transparent outline-none text-xl md:text-sm lg:text-xl px-4 opacity-60  "
+              >
+                <option value="" selected disabled>
                   Property Type
+                </option>
+                {properties.map((property) => (
+                  <option
+                    key={property._id}
+                    value={property.propertyName}
+                    className="bg-[#000000C7]"
+                  >
+                    {property.propertyName}
                   </option>
-                  {properties.map((property) => (
-                    <option
-                      key={property._id}
-                      value={property.propertyName}
-                      className="bg-[#000000C7]"
-                    >
-                      {property.propertyName}
-                    </option>
-                  ))}
-                </select> 
-                {/* <input type="text" name="location" placeholder="Location" className="bg-transparent outline-none text-xl md:text-sm lg:text-xl px-4 py-2"/> */}
-              </div>
+                ))}
+              </select>
+              {/* <input type="text" name="location" placeholder="Location" className="bg-transparent outline-none text-xl md:text-sm lg:text-xl px-4 py-2"/> */}
+            </div>
             {/* bedroom */}
-              <div className="flex items-center border border-[#E4B649] ">
-                <div className="bg-[#A87600] p-2">
-                  <Image src={bed} alt="bed svg" width={38} height={38}/>
-                </div>
-                <input type="number" min={1} max={7} name="bedroom" placeholder="Bedroom" className="bg-transparent outline-none text-xl md:text-sm lg:text-xl px-4 py-2 w-2/3"/>
+            <div className="flex items-center border border-[#E4B649] ">
+              <div className="bg-[#A87600] p-2">
+                <Image src={bed} alt="bed svg" width={38} height={38} />
               </div>
+              <input type="number" min={1} max={7} name="bedroom" placeholder="Bedroom" className="bg-transparent outline-none text-xl md:text-sm lg:text-xl px-4 py-2 w-2/3" />
+            </div>
             {/* size */}
-              <div className="flex items-center border border-[#E4B649] ">
-                <div className="bg-[#A87600] p-2">
-                  <Image src={sqft} alt="sqft svg" width={36} height={36}/>
-                </div>
-                <input type="text" name="areaSqFt" placeholder="Size sqft" className="bg-transparent outline-none text-xl md:text-sm lg:text-xl px-4 py-2"/>
+            <div className="flex items-center border border-[#E4B649] ">
+              <div className="bg-[#A87600] p-2">
+                <Image src={sqft} alt="sqft svg" width={36} height={36} />
               </div>
+              <input type="text" name="areaSqFt" placeholder="Size sqft" className="bg-transparent outline-none text-xl md:text-sm lg:text-xl px-4 py-2" />
+            </div>
             {/* unit no */}
-              <div className="flex items-center border border-[#E4B649] ">
-                <div className="bg-[#A87600] p-2">
-                  <Image src={floorPlan} alt="floorPlan svg" width={36} height={36}/>
-                </div>
-                <input type="number" name="unit" placeholder="Unit No." className="bg-transparent outline-none text-xl md:text-sm lg:text-xl px-4 py-2"/>
+            <div className="flex items-center border border-[#E4B649] ">
+              <div className="bg-[#A87600] p-2">
+                <Image src={floorPlan} alt="floorPlan svg" width={36} height={36} />
               </div>
+              <input type="number" name="unit" placeholder="Unit No." className="bg-transparent outline-none text-xl md:text-sm lg:text-xl px-4 py-2" />
+            </div>
             {/* price */}
-              <div className="flex items-center border border-[#E4B649] ">
-                <div className="bg-[#A87600] p-2">
-                  <Image src={price} alt="price svg" width={38} height={38}/>
-                </div>
-                <input type="number" name="price" placeholder="Location" className="bg-transparent outline-none text-xl md:text-sm lg:text-xl px-4 py-2"/>
+            <div className="flex items-center border border-[#E4B649] ">
+              <div className="bg-[#A87600] p-2">
+                <Image src={price} alt="price svg" width={38} height={38} />
               </div>
+              <input type="number" name="price" placeholder="Price" className="bg-transparent outline-none text-xl md:text-sm lg:text-xl px-4 py-2" />
+            </div>
 
-              {/* title deeds */}
-              <div className="my-4 flex flex-col">
-                <label className="font-semibold text-xl md:text-sm lg:text-xl">
-                  Upload title deeds <span className="text-sm font-light">(optional)</span>
-                </label>
-                <input type="file" name="titleDeeds" id="title-deeds" className="hidden"/>
-                <label for="title-deeds" className="bg-[#A87600] py-12 bg-opacity-20 mt-4 flex items-center justify-center gap-2 font-semibold cursor-pointer"><span>Select File here</span>
+            {/* title deeds */}
+            <div className="my-4 flex flex-col">
+              <label className="font-semibold text-xl md:text-sm lg:text-xl">
+                Upload title deeds <span className="text-sm font-light">(optional)</span>
+              </label>
+              <input type="file" name="titleDeeds" id="title-deeds" className="hidden" />
+              <label for="title-deeds" className="bg-[#A87600] py-12 bg-opacity-20 mt-4 flex items-center justify-center gap-2 font-semibold cursor-pointer"><span>Select File here</span>
                 <GrFormAttachment size={32} /></label>
-              </div>
+            </div>
 
-              {/* Upload passpor */}
-              <div className="my-4 flex flex-col">
-                <label className="font-semibold text-xl md:text-sm lg:text-xl">
+            {/* Upload passport */}
+            <div className="my-4 flex flex-col">
+              <label className="font-semibold text-xl md:text-sm lg:text-xl">
                 Upload passport <span className="text-sm font-light">(optional)</span>
-                </label>
-                <input type="file" name="passport" id="passport" className="hidden"/>
-                <label for="passport" className="bg-[#A87600] py-12 bg-opacity-20 mt-4 flex items-center justify-center gap-2 font-semibold cursor-pointer"><span>Select File here</span>
+              </label>
+              <input type="file" name="passport" id="passport" className="hidden" />
+              <label for="passport" className="bg-[#A87600] py-12 bg-opacity-20 mt-4 flex items-center justify-center gap-2 font-semibold cursor-pointer"><span>Select File here</span>
                 <GrFormAttachment size={32} /></label>
-              </div>
+            </div>
 
-              {/* images */}
-              <div className="my-4 flex flex-col">
-                <label className="font-semibold text-xl md:text-sm lg:text-xl">
-                  Upload images <span className="text-sm font-light">(optional)</span>
-                </label>
-                <input type="file" name="images" id="images" multiple className="hidden"/>
-                <label for="images" className="bg-[#A87600] py-12 bg-opacity-20 mt-4 flex items-center justify-center gap-2 font-semibold cursor-pointer"><span>Select File here</span>
+            {/* images */}
+            <div className="my-4 flex flex-col">
+              <label className="font-semibold text-xl md:text-sm lg:text-xl">
+                Upload images <span className="text-sm font-light">(optional)</span>
+              </label>
+              <input type="file" name="images" id="images" multiple className="hidden" />
+              <label for="images" className="bg-[#A87600] py-12 bg-opacity-20 mt-4 flex items-center justify-center gap-2 font-semibold cursor-pointer"><span>Select File here</span>
                 <GrFormAttachment size={32} /></label>
-              </div>
+            </div>
 
           </div>
-          
+
           <div className="flex justify-center pb-12">
-            <button className="bg-[#835C00] flex gap-2 items-center justify-center px-12 py-2 font-semibold rounded-lg"><span>Submit Here</span> <FaCheckCircle/></button>
+            <button className="bg-[#835C00] flex gap-2 items-center justify-center px-12 py-2 font-semibold rounded-lg"><span>Submit Here</span> <FaCheckCircle /></button>
           </div>
         </form>
       </div>
