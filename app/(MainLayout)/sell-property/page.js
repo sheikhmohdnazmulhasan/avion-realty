@@ -140,7 +140,7 @@ const SellProperty = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 my-8 gap-4 lg:gap-8">
             {/* location */}
               <div className="flex items-center border border-[#E4B649] ">
-                <div className="bg-[#A87600] p-2">
+                <div className="bg-[#A87600] p-2"> 
                   <Image src={location} alt="location svg" width={24} height={24} />
                 </div>
                 <input type="text" name="location" placeholder="Location" className="bg-transparent outline-none text-xl md:text-sm lg:text-xl px-4 py-2"/>
