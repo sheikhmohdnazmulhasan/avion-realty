@@ -5,10 +5,14 @@ import call from "@/public/images/root/call.svg";
 import whatsapp from "@/public/images/whatsapp.svg";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useState } from "react";
 // import { useState } from 'react';
 
-const AgentInfo = ({ agent, openInquiry, setOpenInquiry }) => {
-  async function handleInquiry(event, id) {
+const AgentInfo = ({ agent }) => {
+  const [openInquiry, setOpenInquiry] = useState(false);
+  const { _id: id } = agent;
+  console.log(id);
+  const handleInquiry = async (event) => {
     event.preventDefault();
     const name = event.target.name.value;
     const phone = event.target.phone.value;
@@ -36,7 +40,7 @@ const AgentInfo = ({ agent, openInquiry, setOpenInquiry }) => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <>
@@ -94,12 +98,7 @@ const AgentInfo = ({ agent, openInquiry, setOpenInquiry }) => {
               <h1 className="text-xl md:text-2xl text-center pt-3">
                 Get call back for inquiry
               </h1>
-              <form
-                onSubmit={() => {
-                  handleInquiry(event, agent?._id);
-                }}
-                className="px-10 mt-4"
-              >
+              <form onSubmit={handleInquiry} className="px-10 mt-4">
                 <div className="md:flex gap-4 space-y-3 md:space-y-0">
                   <input
                     type="text"
