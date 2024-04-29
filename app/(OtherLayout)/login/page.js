@@ -5,12 +5,48 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { IoMdEyeOff, IoMdEye } from "react-icons/io";
+import { SyncLoader } from 'react-spinners';
+import Swal from 'sweetalert2';
 
 const Login = () => {
+    const { status } = useSession();
     const [showPassword, setShowPassword] = useState(false);
     const [errMsg, setErrMsg] = useState('');
     const router = useRouter();
+
+    // if (status === 'loading') {
+
+    //     return (
+    //       <div className="flex justify-center items-center min-h-screen">
+    //         <SyncLoader
+    //           color="#3e143e"
+    //           size={60}
+    //         />
+    //       </div>
+    //     )
+    //   };
+
+    // if(status === "authenticated"){
+    //     setTimeout(()=>{
+    //         Swal.fire({
+    //             title: "You Are Already Signed In!",
+    //             text: "Wnat To Visit Your Dashboard?",
+    //             icon: "warning",
+    //             showCancelButton: true,
+    //             confirmButtonColor: "#3085d6",
+    //             cancelButtonColor: "#d33",
+    //             confirmButtonText: "Dashboard"
+    //           }).then((result) => {
+    //             if (result.isConfirmed) {
+    //              return router.push('/dashboard')
+    //             }
+    //           });
+    //     }, 3000);
+        
+        // return router.replace('/');
+
 
 
     // Defining an asynchronous function called handleLogin which takes an 'event' parameter
@@ -42,6 +78,7 @@ const Login = () => {
         }
     }
 
+    
 
     return (
         <>
