@@ -38,7 +38,6 @@ const AgentDetails = ({ params }) => {
     const email = event.target.email.value;
 
     const dataForBackend = { agent: id, name, email, mobile: phone };
-    console.log(dataForBackend);
 
     try {
       const serverResponse = await axios.post(
