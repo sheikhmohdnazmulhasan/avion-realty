@@ -8,6 +8,7 @@ import axios from "axios";
 // import { useState } from 'react';
 
 const AgentInfo = ({ agent, openInquiry, setOpenInquiry }) => {
+
   async function handleInquiry(event, id) {
     event.preventDefault();
     const name = event.target.name.value;
@@ -37,7 +38,7 @@ const AgentInfo = ({ agent, openInquiry, setOpenInquiry }) => {
       console.log(error);
     }
   }
-
+  
   return (
     <>
       <div className="mt-4 lg:h-[320px] border border-[#BE8500] p-4 mb-8">

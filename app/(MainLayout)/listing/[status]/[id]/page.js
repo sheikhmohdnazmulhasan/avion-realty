@@ -262,7 +262,7 @@ const ListingDetail = ({ params }) => {
       {/* share */}
 
       <dialog id="my_modal_1" className="modal">
-        <div className="modal-box">
+        <div className="modal-box bg-gray-900">
           <h3 className=""> <span className="font-bold text-lg">Share</span> {data.title}</h3>
           <div className="flex gap-4 justify-center items-center mt-8">
             <Image src={facebook} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('facebook')} />
