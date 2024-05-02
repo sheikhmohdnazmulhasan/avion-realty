@@ -374,6 +374,7 @@ const ListingDetail = ({ params }) => {
             }
           />
         </div>
+        
 
         {/* details  */}
         <div className="lg:flex justify-between gap-12 mt-8 md:mt-16">
@@ -603,16 +604,17 @@ const ListingDetail = ({ params }) => {
               <p className="mt-4">{data.description}</p>
             </div>
           </div>
+
           {/* agent information */}
-          <div className="mt-10 lg:mt-0 lg:w-[30%] lg:h-[300px] border border-[#BE8500] rounded-2xl p-4">
+          <div className="mt-10 lg:mt-0 lg:w-[30%] h-fit  border border-[#BE8500] rounded-2xl p-4">
             <div>
               <div className="flex items-end justify-between gap-2 ">
                 <div className="space-y-2">
-                  <h2 className="md:text-xl font-semibold">{agent?.name}</h2>
+                  <h2 className=" font-semibold">{agent?.name}</h2>
                   <h3 className="text-sm md:text-base font-medium">
                     {agent?.designation}
                   </h3>
-                  <h3 className="text-sm md:text-base font-medium">
+                  <h3 className="text-sm font-medium">
                     RERA - {agent?.reraID}
                   </h3>
                 </div>
@@ -627,11 +629,11 @@ const ListingDetail = ({ params }) => {
                 </div>
               </div>
               <div className="flex mt-6 gap-2 md:gap-6">
+
                 <Link href={`tel:${agent?.wpNum}`} className="w-1/2">
-                  {" "}
-                  <div className="flex items-center hover:scale-105 transition-all gap-3 border border-[#e4b5499e] px-2 py-1 rounded-3xl w-full">
-                    <Image src={call} alt="Phone Icon" width={24} height={24} />
-                    <p>Call Now</p>
+                  <div className=" hover:scale-105 transition-all gap-3 border border-[#e4b5499e] px-2 py-1 rounded-3xl w-full">
+                   
+                    <p className="text-sm text-center w-full">Call Now</p>
                   </div>
                 </Link>
 
@@ -639,7 +641,7 @@ const ListingDetail = ({ params }) => {
                   className="flex items-center hover:scale-105 transition-all hover:cursor-pointer border-[#e4b5499e] gap-3 border px-3 py-1 w-1/2 rounded-3xl justify-center"
                   onClick={() => setOpenInquiry(true)}
                 >
-                  <p>Inquiry</p>
+                  <p className="text-sm">Inquiry</p>
                 </div>
               </div>
               <div className="text-center mt-3">
@@ -647,26 +649,15 @@ const ListingDetail = ({ params }) => {
                   View All Properties
                 </Link>
                 <div className="mx-4 border-t border-[#E4B649] my-4"></div>
-                <Link
-                  href={`https://wa.me/${agent?.wpNum}`}
-                  className="text-sm md:text-base flex justify-center gap-1 items-center"
-                >
-                  <span className="w-4 md:w-8">
-                    <Image
-                      src={whatsapp}
-                      alt="whatsapp"
-                      width={24}
-                      height={24}
-                    />
-                  </span>
+               
+                <Link href={`https://wa.me/${agent?.wpNum}`} className="flex gap-3 justify-center text-sm items-center">
 
-                  <span className="mt-1">
-                    Get your inquiry on{" "}
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FFD87C] to-[#A27100] hover:scale-105">
-                      WhatsApp
-                    </span>
-                  </span>
+                  <Image src={whatsapp} alt="whatsapp" width={16} height={16} />
+
+                  <p>Get Inquiry On <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FFD87C] to-[#A27100]">Whatsapp</span></p>
+
                 </Link>
+
               </div>
             </div>
           </div>
