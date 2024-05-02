@@ -45,6 +45,8 @@ const Areas = () => {
           image
         );
 
+        console.log(imgBbResponse)
+
         if (imgBbResponse.data.success) {
           const dataForBackend = {
             itemName: area,

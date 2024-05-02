@@ -53,7 +53,7 @@ const BlogDetails = ({ params }) => {
 
     return (
         <div className='px-5 md:px-36 mt-10 '>
-            <Image src={data?.blogImg} width={800} height={800} alt='Blog Image' className='w-full h-60 md:h-[500px]' />
+            <Image src={data?.blogImg} width={800} height={800} alt={`${data.title}'s Image`} className='w-full h-60 md:h-[500px]' />
             <h1 className='text-3xl mt-3'>{data?.title}</h1>
 
             {/* updated info */}

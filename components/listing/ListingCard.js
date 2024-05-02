@@ -20,13 +20,13 @@ const ListingCard = ({ item, status }) => {
     }, [item])
 
     return (
-        <div className='border border-[#CC9107] hover:scale-105 transition-all h-[424px]'>
+        <div className='border border-[#CC9107] hover:scale-105 transition-all'>
             <Link href={`/listing/${status}/${item._id}`} className='relative'>
-                <Image quality={100} src={item?.images[0]} alt={item.title} width={100} height={300} className='w-full h-52 object-fill ' />
+                <img src={item?.images[0]} alt={item.title} className='w-full object-fill ' />
                 <div className='bg-black px-4 py-1 rounded-2xl absolute top-4 left-4 text-xs uppercase'><span>{item.status}</span></div>
             </Link>
             <div className='p-4 text-left space-y-2'>
-                <h2 className='capitalize text-xl font-medium'>{item.title.slice(0, 42)} {item.title.length > 42 && '...'}</h2>
+                <h2 className='capitalize text font-medium'>{item.title.slice(0, 30)} {item.title.length > 30 && '...'}</h2>
 
                 {/* location */}
                 {item.location && <div className="flex items-center gap-2">
@@ -35,8 +35,8 @@ const ListingCard = ({ item, status }) => {
                 </div>}
 
                 {/* price */}
-                {price && <h2 className='text-xl font-extrabold'>
-                    {item.status === 'Off-Plan' && <span className='text-xs text-[#E4B649]  mr-2 font-normal'>Start From</span>}{price} </h2>}
+                {price && <h2 className=' font-extrabold'>
+                    {item.status === 'Off-Plan' && <span className=' text-[#E4B649]  mr-2 font-normal'>Start From</span>}{price} </h2>}
 
                 <div className="flex gap-5 pb-4 text-xs">
 
