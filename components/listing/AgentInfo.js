@@ -5,16 +5,27 @@ import call from "@/public/images/root/call.svg";
 import whatsapp from "@/public/images/whatsapp.svg";
 import Swal from "sweetalert2";
 import axios from "axios";
-// import { useState } from 'react';
+import { useState } from "react";
 
-const AgentInfo = ({ agent, openInquiry, setOpenInquiry }) => {
-  async function handleInquiry(event, id) {
+const AgentInfo = ({ agent , openInquiry, setOpenInquiry }) => {
+  const [selectedId, setSelectedId] = useState(null);
+
+  const handleOpenInquiry = (id)=>{
+    setOpenInquiry(!openInquiry);
+    setSelectedId(id);
+  }
+
+  // handle inquiry
+  const handleInquiry = async (event ) => {
+    
     event.preventDefault();
     const name = event.target.name.value;
     const phone = event.target.phone.value;
     const email = event.target.email.value;
+    // const agent = event.target.id.value;
+    // const id = agent._id
 
-    const dataForBackend = { agent: id, name, email, mobile: phone };
+    const dataForBackend = { agent : selectedId , name, email, mobile: phone };
     console.log(dataForBackend);
 
     try {
@@ -32,11 +43,12 @@ const AgentInfo = ({ agent, openInquiry, setOpenInquiry }) => {
 
         event.target.reset();
         setOpenInquiry(false);
+        setSelectedId(null);
       }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <>
@@ -73,7 +85,7 @@ const AgentInfo = ({ agent, openInquiry, setOpenInquiry }) => {
           </Link>
 
           <button
-            onClick={() => setOpenInquiry(true)}
+            onClick={()=>{handleOpenInquiry(agent._id)}}
             className="flex items-center hover:scale-105 transition-all border-[#e4b5499e] gap-3 border px-3 py-1 w-1/2 rounded-3xl justify-center"
           >
             <p>Inquiry</p>
@@ -86,7 +98,7 @@ const AgentInfo = ({ agent, openInquiry, setOpenInquiry }) => {
           <div className="w-full absolute top-4 md:top-36 md:-left-[5px] lg:-left-[70px] z-50 rounded px-5 ">
             <div
               className="md:w-[80%] lg:w-[60%] mx-auto flex justify-end font-semibold"
-              onClick={() => setOpenInquiry(false)}
+              onClick={()=>{handleOpenInquiry(agent._id)}}
             >
               <span className="cursor-pointer ">Close</span>
             </div>
@@ -94,12 +106,7 @@ const AgentInfo = ({ agent, openInquiry, setOpenInquiry }) => {
               <h1 className="text-xl md:text-2xl text-center pt-3">
                 Get call back for inquiry
               </h1>
-              <form
-                onSubmit={() => {
-                  handleInquiry(event, agent?._id);
-                }}
-                className="px-10 mt-4"
-              >
+              <form onSubmit={handleInquiry} className="px-10 mt-4">
                 <div className="md:flex gap-4 space-y-3 md:space-y-0">
                   <input
                     type="text"
