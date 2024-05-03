@@ -15,7 +15,7 @@ const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 const ListingCard = ({ item, status }) => {
   const { data: agent } = useSWR(`/api/users?email=${item.agent}`, fetcher);
-  console.log(agent);
+
   const [price, setPrice] = useState(null);
 
   useEffect(() => {
