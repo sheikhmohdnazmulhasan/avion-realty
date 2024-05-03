@@ -22,17 +22,16 @@ import logo from "@/public/images/icon.svg";
 import PhoneSlider from "@/components/listing/PhoneSlider";
 import toast, { Toaster } from "react-hot-toast";
 
-import facebook from '@/public/share/facebook.png';
-import instagram from '@/public/share/instagram.png';
-import linkedin from '@/public/share/linkedin.png';
-import mail from '@/public/share/mail.png';
-import wp from '@/public/share/wp.png';
-import twitter from '@/public/share/twitter.png';
+import facebook from "@/public/share/facebook.png";
+import instagram from "@/public/share/instagram.png";
+import linkedin from "@/public/share/linkedin.png";
+import mail from "@/public/share/mail.png";
+import wp from "@/public/share/wp.png";
+import twitter from "@/public/share/twitter.png";
 import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
-
   const [photos, setPhotos] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [openInquiry, setOpenInquiry] = useState(false);
@@ -41,69 +40,82 @@ const ListingDetail = ({ params }) => {
   const [coped, setCoped] = useState(false);
 
   const { data = [] } = useSWR(`/api/offplans?id=${params.id}`, fetcher);
-  const { data: agent = [] } = useSWR(`/api/users?email=${data.agent}`, fetcher);
+  const { data: agent = [] } = useSWR(
+    `/api/users?email=${data.agent}`,
+    fetcher
+  );
 
   async function handleChangeCurrency(currencyCode) {
-
-    if (currencyCode === 'AED') {
-
+    if (currencyCode === "AED") {
       if (data?.startingPrice) {
-        setPrice(data?.startingPrice.toLocaleString('en-AE', { style: 'currency', currency: 'AED' }));
-
+        setPrice(
+          data?.startingPrice.toLocaleString("en-AE", {
+            style: "currency",
+            currency: "AED",
+          })
+        );
       }
       return;
-
     } else {
-
       try {
-        const exchangeRateApiResponse = await axios.get(`https://v6.exchangerate-api.com/v6/fae5e182931399ecc7dd590a/pair/AED/${currencyCode}/${data?.startingPrice}`);
+        const exchangeRateApiResponse = await axios.get(
+          `https://v6.exchangerate-api.com/v6/fae5e182931399ecc7dd590a/pair/AED/${currencyCode}/${data?.startingPrice}`
+        );
 
-        if (exchangeRateApiResponse.data.result === 'success') {
-
+        if (exchangeRateApiResponse.data.result === "success") {
           const fetchedPrice = exchangeRateApiResponse?.data?.conversion_result;
 
-          if (fetchedPrice && currencyCode === 'USD') {
-            setPrice(fetchedPrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
-
-          } else if (fetchedPrice && currencyCode === 'GBP') {
-            setPrice(fetchedPrice.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' }));
-
-          } else if (fetchedPrice && currencyCode === 'CNY') {
-            setPrice(fetchedPrice.toLocaleString('zh-CN', { style: 'currency', currency: 'CNY' }));
-
-          } else if (fetchedPrice && currencyCode === 'EUR') {
-            setPrice(fetchedPrice.toLocaleString('en-EU', { style: 'currency', currency: 'EUR' }));
-
-          } else if (fetchedPrice && currencyCode === 'RUB') {
+          if (fetchedPrice && currencyCode === "USD") {
+            setPrice(
+              fetchedPrice.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              })
+            );
+          } else if (fetchedPrice && currencyCode === "GBP") {
+            setPrice(
+              fetchedPrice.toLocaleString("en-GB", {
+                style: "currency",
+                currency: "GBP",
+              })
+            );
+          } else if (fetchedPrice && currencyCode === "CNY") {
+            setPrice(
+              fetchedPrice.toLocaleString("zh-CN", {
+                style: "currency",
+                currency: "CNY",
+              })
+            );
+          } else if (fetchedPrice && currencyCode === "EUR") {
+            setPrice(
+              fetchedPrice.toLocaleString("en-EU", {
+                style: "currency",
+                currency: "EUR",
+              })
+            );
+          } else if (fetchedPrice && currencyCode === "RUB") {
             // setPrice(fetchedPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }));
             setPrice(fetchedPrice.toLocaleString());
           }
-
         } else {
-          toast.error('Currency Exchange API Expired!',
-            {
-              style: {
-                borderRadius: '10px',
-                background: '#333',
-                color: '#fff',
-              },
-            }
-          );
+          toast.error("Currency Exchange API Expired!", {
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+            },
+          });
         }
-
       } catch (error) {
-
         console.log(error);
 
-        toast.error('Currency Exchange API Expired!',
-          {
-            style: {
-              borderRadius: '10px',
-              background: '#333',
-              color: '#fff',
-            },
-          }
-        );
+        toast.error("Currency Exchange API Expired!", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
       }
     }
   }
@@ -142,7 +154,6 @@ const ListingDetail = ({ params }) => {
       .catch((err) => console.log(err));
   }
 
-
   // share
 
   // copy link
@@ -152,59 +163,60 @@ const ListingDetail = ({ params }) => {
     setCoped(true);
 
     setTimeout(() => {
-      setCoped(false)
+      setCoped(false);
     }, 1000);
   }
 
   function handleSocialShare(media) {
-
-    if (media === 'facebook') {
-      const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
-      window.open(url, '_blank', 'width=600,height=400');
-
-    } else if (media === 'mail') {
+    if (media === "facebook") {
+      const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        window.location.href
+      )}`;
+      window.open(url, "_blank", "width=600,height=400");
+    } else if (media === "mail") {
       const subject = `Check out ${data.title}`;
       const body = `I thought you might be interested in this property: ${window.location.href}`;
-      const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const mailtoUrl = `mailto:?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(body)}`;
       window.location.href = mailtoUrl;
-
-    } else if (media === 'linkedin') {
-      const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
-      window.open(url, '_blank');
-
-    } else if (media === 'twitter') {
+    } else if (media === "linkedin") {
+      const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+        window.location.href
+      )}`;
+      window.open(url, "_blank");
+    } else if (media === "twitter") {
       const text = `Check out ${data.title}`;
       const url = encodeURIComponent(window.location.href);
-      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`;
-      window.open(twitterUrl, '_blank', 'width=600,height=400');
-
-    } else if (media === 'whatsapp') {
-
-      const text = `Check out ${data.title}` + ' ' + window.location.href;
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+        text
+      )}&url=${url}`;
+      window.open(twitterUrl, "_blank", "width=600,height=400");
+    } else if (media === "whatsapp") {
+      const text = `Check out ${data.title}` + " " + window.location.href;
       const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
-      window.open(whatsappUrl, '_blank');
+      window.open(whatsappUrl, "_blank");
     }
-
   }
-
 
   useEffect(() => {
     setPhotos(data?.images);
 
     if (data?.startingPrice) {
       // setPrice(data?.startingPrice.toLocaleString());
-      setPrice(data?.startingPrice.toLocaleString('en-AE', { style: 'currency', currency: 'AED' }));
+      setPrice(
+        data?.startingPrice.toLocaleString("en-AE", {
+          style: "currency",
+          currency: "AED",
+        })
+      );
     }
-
   }, [data]);
 
   return (
     <div className="">
       {/* inquiry */}
-      <Toaster
-        position="bottom-right"
-        reverseOrder={false}
-      />
+      <Toaster position="bottom-right" reverseOrder={false} />
       {openInquiry && (
         <div className="w-full absolute bottom-[35%] md:top-[15%] z-50 rounded px-5">
           <div
@@ -263,19 +275,57 @@ const ListingDetail = ({ params }) => {
 
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box bg-gray-900">
-          <h3 className=""> <span className="font-bold text-lg">Share</span> {data.title}</h3>
+          <h3 className="">
+            {" "}
+            <span className="font-bold text-lg">Share</span> {data.title}
+          </h3>
           <div className="flex gap-4 justify-center items-center mt-8">
-            <Image src={facebook} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('facebook')} />
-            <Image src={mail} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('mail')} />
+            <Image
+              src={facebook}
+              alt="Facebook icon"
+              className="w-10 transition-all hover:scale-110 hover:cursor-pointer"
+              onClick={() => handleSocialShare("facebook")}
+            />
+            <Image
+              src={mail}
+              alt="Facebook icon"
+              className="w-10 transition-all hover:scale-110 hover:cursor-pointer"
+              onClick={() => handleSocialShare("mail")}
+            />
             {/* <Image src={instagram} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('instagram')} /> */}
-            <Image src={linkedin} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('linkedin')} />
-            <Image src={twitter} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('twitter')} />
-            <Image src={wp} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('whatsapp')} />
+            <Image
+              src={linkedin}
+              alt="Facebook icon"
+              className="w-10 transition-all hover:scale-110 hover:cursor-pointer"
+              onClick={() => handleSocialShare("linkedin")}
+            />
+            <Image
+              src={twitter}
+              alt="Facebook icon"
+              className="w-10 transition-all hover:scale-110 hover:cursor-pointer"
+              onClick={() => handleSocialShare("twitter")}
+            />
+            <Image
+              src={wp}
+              alt="Facebook icon"
+              className="w-10 transition-all hover:scale-110 hover:cursor-pointer"
+              onClick={() => handleSocialShare("whatsapp")}
+            />
           </div>
 
           {/* copy link */}
-          <div className="mt-10 flex justify-center items-center " >
-            <button className="py-2 flex justify-center text-center hover:scale-105 gap-2 px-6 rounded-md hover:bg-sky-700 transition-all bg-sky-600 " onClick={handleCopyLink}>Copy Link {!coped ? <FaClipboard size={20} /> : <FaClipboardCheck size={20} />} </button>
+          <div className="mt-10 flex justify-center items-center ">
+            <button
+              className="py-2 flex justify-center text-center hover:scale-105 gap-2 px-6 rounded-md hover:bg-sky-700 transition-all bg-sky-600 "
+              onClick={handleCopyLink}
+            >
+              Copy Link{" "}
+              {!coped ? (
+                <FaClipboard size={20} />
+              ) : (
+                <FaClipboardCheck size={20} />
+              )}{" "}
+            </button>
           </div>
         </div>
         <form method="dialog" className="modal-backdrop">
@@ -283,9 +333,11 @@ const ListingDetail = ({ params }) => {
         </form>
       </dialog>
 
+      {/* listing detail start  */}
       <div
-        className={`mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen ${openInquiry && "opacity-60 blur-sm"
-          }`}
+        className={`mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen ${
+          openInquiry && "opacity-60 blur-sm"
+        }`}
       >
         {photos?.length && (
           <div>
@@ -354,9 +406,10 @@ const ListingDetail = ({ params }) => {
           {/* prev */}
           <FaArrowAltCircleLeft
             size={36}
-            className={`hover:text-[#b4914b] cursor-pointer ${currentIndex === 0 &&
+            className={`hover:text-[#b4914b] cursor-pointer ${
+              currentIndex === 0 &&
               "text-gray-800 hover:text-gray-800 !cursor-not-allowed"
-              }`}
+            }`}
             onClick={() =>
               currentIndex >= 3 && setCurrentIndex(currentIndex - 3)
             }
@@ -365,16 +418,16 @@ const ListingDetail = ({ params }) => {
           {/* next */}
           <FaArrowAltCircleRight
             size={36}
-            className={`hover:text-[#b4914b] cursor-pointer ${currentIndex == photos?.length - 3 &&
+            className={`hover:text-[#b4914b] cursor-pointer ${
+              currentIndex == photos?.length - 3 &&
               "text-gray-800 hover:text-gray-800 !cursor-not-allowed"
-              } `}
+            } `}
             onClick={() =>
               currentIndex < photos?.length - 4 &&
               setCurrentIndex(currentIndex + 3)
             }
           />
         </div>
-        
 
         {/* details  */}
         <div className="lg:flex justify-between gap-12 mt-8 md:mt-16">
@@ -397,9 +450,13 @@ const ListingDetail = ({ params }) => {
                     <span className="text-xs lg:text-xl text-[#E4B649]">
                       Starting Prices
                     </span>
-                  )}{" "} {price}
+                  )}{" "}
+                  {price}
                 </h2>
-                <select className="bg-transparent px-2 md:px-3 py-1 md:text-xl border rounded-2xl" onChange={(event) => handleChangeCurrency(event.target.value)}>
+                <select
+                  className="bg-transparent px-2 md:px-3 py-1 md:text-xl border rounded-2xl"
+                  onChange={(event) => handleChangeCurrency(event.target.value)}
+                >
                   <option selected value="AED" className="bg-black">
                     AED
                   </option>
@@ -425,12 +482,15 @@ const ListingDetail = ({ params }) => {
                 {/* price converter */}
 
                 {/* share */}
-                <button onClick={() => document.getElementById('my_modal_1').showModal()} className=" gap-3 items-center text-xl px-3 py-1 border rounded-2xl hidden md:flex">
+                <button
+                  onClick={() =>
+                    document.getElementById("my_modal_1").showModal()
+                  }
+                  className=" gap-3 items-center text-xl px-3 py-1 border rounded-2xl hidden md:flex"
+                >
                   <CiShare2 size={24} />
                   <span>Share</span>
                 </button>
-
-
               </div>
             </div>
             {/* bed, bath, sqrft, floorplan */}
@@ -629,10 +689,8 @@ const ListingDetail = ({ params }) => {
                 </div>
               </div>
               <div className="flex mt-6 gap-2 md:gap-6">
-
                 <Link href={`tel:${agent?.wpNum}`} className="w-1/2">
                   <div className=" hover:scale-105 transition-all gap-3 border border-[#e4b5499e] px-2 py-1 rounded-3xl w-full">
-                   
                     <p className="text-sm text-center w-full">Call Now</p>
                   </div>
                 </Link>
@@ -649,15 +707,20 @@ const ListingDetail = ({ params }) => {
                   View All Properties
                 </Link>
                 <div className="mx-4 border-t border-[#E4B649] my-4"></div>
-               
-                <Link href={`https://wa.me/${agent?.wpNum}`} className="flex gap-3 justify-center text-sm items-center">
 
+                <Link
+                  href={`https://wa.me/${agent?.wpNum}`}
+                  className="flex gap-3 justify-center text-sm items-center"
+                >
                   <Image src={whatsapp} alt="whatsapp" width={16} height={16} />
 
-                  <p>Get Inquiry On <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FFD87C] to-[#A27100]">Whatsapp</span></p>
-
+                  <p>
+                    Get Inquiry On{" "}
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FFD87C] to-[#A27100]">
+                      Whatsapp
+                    </span>
+                  </p>
                 </Link>
-
               </div>
             </div>
           </div>
