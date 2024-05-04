@@ -22,60 +22,57 @@ const Navbar = () => {
         <nav className="px-8 lg:px-16 py-4 bg-[#101010] hidden md:block">
           <div className="flex justify-between items-center text-[#E8BF44]">
             {/* logo image */}
-            <Link href="/" onClick={() => setIsActive("")}>
-              <Image
-                src={logo}
-                alt="avion realty"
-                className="hidden lg:block"
-              />
-              <Image src={icon} alt="avion realty" className="lg:hidden" />
-            </Link>
+            <div className="flex">
+              <Link href="/" onClick={() => setIsActive("")}>
+                <Image
+                  src={logo}
+                  alt="avion realty"
+                  className="hidden lg:block"
+                />
+                <Image src={icon} alt="avion realty" className="lg:hidden" />
+              </Link>
+              <p className="text-[10px] font-light  text-[#E8BF44]">BETA</p>
+            </div>
             {/* nav links */}
             <ul className="uppercase flex text-xs gap-4 lg:gap-6">
               <li
-                className={`hover:scale-105 transition-all hover:font-bold ${
-                  isActive === "Ready" && "scale-105 font-bold"
-                }`}
+                className={`hover:scale-105 transition-all hover:font-bold ${isActive === "Ready" && "scale-105 font-bold"
+                  }`}
                 onClick={() => setIsActive("Ready")}
               >
                 <Link href="/listing/Ready">Ready</Link>
               </li>
               <li
-                className={`hover:scale-105 transition-all hover:font-bold ${
-                  isActive === "Off-Plan" && "scale-105 font-bold"
-                }`}
+                className={`hover:scale-105 transition-all hover:font-bold ${isActive === "Off-Plan" && "scale-105 font-bold"
+                  }`}
                 onClick={() => setIsActive(`Off-Plan`)}
               >
                 <Link href="/listing/Off-Plan">Off-Plan</Link>
               </li>
               <li
-                className={`hover:scale-105 transition-all hover:font-bold ${
-                  isActive === "Rent" && "scale-105 font-bold"
-                }`}
+                className={`hover:scale-105 transition-all hover:font-bold ${isActive === "Rent" && "scale-105 font-bold"
+                  }`}
                 onClick={() => setIsActive("Rent")}
               >
                 <Link href="/listing/Rent">Rent</Link>
               </li>
               <li
-                className={`hover:scale-105 transition-all hover:font-bold ${
-                  isActive === "Buy" && "scale-105 font-bold"
-                }`}
+                className={`hover:scale-105 transition-all hover:font-bold ${isActive === "Buy" && "scale-105 font-bold"
+                  }`}
                 onClick={() => setIsActive("Buy")}
               >
                 <Link href="/listing/Ready">Buy</Link>
               </li>
               <li
-                className={`hover:scale-105 transition-all hover:font-bold ${
-                  isActive === "About" && "scale-105 font-bold"
-                }`}
+                className={`hover:scale-105 transition-all hover:font-bold ${isActive === "About" && "scale-105 font-bold"
+                  }`}
                 onClick={() => setIsActive("About")}
               >
                 <Link href="/about">About Us</Link>
               </li>
               <li
-                className={`hover:scale-105 transition-all hover:font-bold ${
-                  isActive === "Contact" && "scale-105 font-bold"
-                }`}
+                className={`hover:scale-105 transition-all hover:font-bold ${isActive === "Contact" && "scale-105 font-bold"
+                  }`}
                 onClick={() => setIsActive("Contact")}
               >
                 <Link href="/contact">Contact</Link>

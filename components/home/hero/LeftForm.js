@@ -69,7 +69,7 @@ const LeftForm = () => {
                 min="1"
                 max="7"
                 name="bedroom"
-                className="bg-transparent w-full"
+                className="bg-transparent w-full ml-4"
               />
             </div>
           </div>
