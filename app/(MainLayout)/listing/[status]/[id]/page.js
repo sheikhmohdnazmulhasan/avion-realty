@@ -38,6 +38,7 @@ const ListingDetail = ({ params }) => {
   const [showPopup, setShowPopup] = useState(true);
   const [price, setPrice] = useState(null);
   const [coped, setCoped] = useState(false);
+  const [btnClick, setBtnClick] = useState('video-call')
 
   const { data = [] } = useSWR(`/api/offplans?id=${params.id}`, fetcher);
   const { data: agent = [] } = useSWR(
@@ -199,6 +200,38 @@ const ListingDetail = ({ params }) => {
     }
   }
 
+
+  //   handle inquiry
+  async function handleInquiry(event) {
+    event.preventDefault();
+    const id = agent._id;
+    const name = event.target.name.value;
+    const phone = event.target.phone.value;
+    const email = event.target.email.value;
+
+    const dataForBackend = { agent: id, name, email, mobile: phone };
+
+    try {
+      const serverResponse = await axios.post(
+        `/api/agent/inquiry`,
+        dataForBackend
+      );
+
+      if (serverResponse.data.success) {
+        Swal.fire({
+          icon: "success",
+          title: "Message sent successfully",
+          text: `Dear ${name}, Thank you for your interest. ${agent.name} will contact you shortly.`,
+        });
+
+        event.target.reset();
+        setOpenInquiry(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     setPhotos(data?.images);
 
@@ -335,9 +368,8 @@ const ListingDetail = ({ params }) => {
 
       {/* listing detail start  */}
       <div
-        className={`mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen ${
-          openInquiry && "opacity-60 blur-sm"
-        }`}
+        className={`mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen ${openInquiry && "opacity-60 blur-sm"
+          }`}
       >
         {photos?.length && (
           <div>
@@ -406,10 +438,9 @@ const ListingDetail = ({ params }) => {
           {/* prev */}
           <FaArrowAltCircleLeft
             size={36}
-            className={`hover:text-[#b4914b] cursor-pointer ${
-              currentIndex === 0 &&
+            className={`hover:text-[#b4914b] cursor-pointer ${currentIndex === 0 &&
               "text-gray-800 hover:text-gray-800 !cursor-not-allowed"
-            }`}
+              }`}
             onClick={() =>
               currentIndex >= 3 && setCurrentIndex(currentIndex - 3)
             }
@@ -418,10 +449,9 @@ const ListingDetail = ({ params }) => {
           {/* next */}
           <FaArrowAltCircleRight
             size={36}
-            className={`hover:text-[#b4914b] cursor-pointer ${
-              currentIndex == photos?.length - 3 &&
+            className={`hover:text-[#b4914b] cursor-pointer ${currentIndex == photos?.length - 3 &&
               "text-gray-800 hover:text-gray-800 !cursor-not-allowed"
-            } `}
+              } `}
             onClick={() =>
               currentIndex < photos?.length - 4 &&
               setCurrentIndex(currentIndex + 3)
@@ -741,30 +771,33 @@ const ListingDetail = ({ params }) => {
           <p>Our representative will guide you through the property viewing.</p>
           {/* call section */}
           <div className="mt-4 flex gap-4">
-            <button className="bg-[#393939] opacity-70 py-1 md:py-2 px-4 border border-[#E4B649]">
+            <button className={`${btnClick === 'video-call' && 'bg-[#393939]'} opacity-70 py-1 md:py-2 px-4 border border-[#E4B649]`} onClick={() => setBtnClick('video-call')}>
               VIDEO CALL
             </button>
-            <button className="py-1 md:py-2 px-4 opacity-70 border border-[#E4B649]">
+            <button className={`${btnClick === 'in-person' && 'bg-[#393939]'} py-1 md:py-2 px-4 opacity-70 border border-[#E4B649]`} onClick={() => setBtnClick('in-person')}>
               IN PERSON
             </button>
           </div>
           {/*schedule form */}
-          <form className="mt-4 opacity-80 lg:text-xl">
+          <form className="mt-4 opacity-80 lg:text-xl" onSubmit={handleInquiry}>
             <input
               type="text"
               placeholder="Your Name"
-              className="bg-transparent  border-b border-[#E4B649] w-full outline-none "
-            />
+              name="name"
+              className="bg-transparent  border-b border-[#E4B649] w-full outline-none " required />
             <input
               type="number"
+              name="phone"
               placeholder="Your Phone"
               className="bg-transparent border-b border-[#E4B649] w-full outline-none mt-4"
-            />
+              required />
             <input
               type="email"
               placeholder="Mail"
+              name="email"
               className="bg-transparent border-b border-[#E4B649] w-full outline-none mt-4"
-            />
+              required />
+
             <div className="flex justify-between items-center mt-4">
               <label>select Date</label>
               <input type="date" className="bg-transparent outline-none " />
@@ -773,7 +806,7 @@ const ListingDetail = ({ params }) => {
               <input
                 type="submit"
                 value="Send Now"
-                className="border border-[#E4B649] px-2 py-1"
+                className="border border-[#E4B649] hover:bg-[#393939] transition-all cursor-pointer px-2 py-1"
               />
             </div>
           </form>

@@ -49,7 +49,7 @@ const AgentDetails = ({ params }) => {
         Swal.fire({
           icon: "success",
           title: "Message sent successfully",
-          text: `Dear ${name}, Thank you for your interest. One of our agents will contact you shortly.`,
+          text: `Dear ${name}, Thank you for your interest. ${agent.name} will contact you shortly.`,
         });
 
         event.target.reset();

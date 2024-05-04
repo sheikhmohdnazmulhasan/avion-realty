@@ -34,19 +34,7 @@ const ListingStatus = ({ params }) => {
   //   setOpenInquiry(!openInquiry);
   // }
 
-  const {
-    data = [],
-    isLoading,
-    error,
-  } = useSWR(
-    `/api/offplans?${params.status === "Off-Plan" ||
-      params.status === "Ready" ||
-      params.status === "Rental"
-      ? `status=${params.status}`
-      : `area=${params.status}`
-    }`,
-    fetcher
-  );
+  const { data = [], isLoading, error } = useSWR(`/api/offplans?${params.status === "Off-Plan" || params.status === "Ready" || params.status === "Rental" ? `status=${params.status}` : `area=${params.status}`}`, fetcher);
 
   const areas = useGetAreas();
   const properties = useGetProperties();
@@ -393,12 +381,12 @@ const ListingStatus = ({ params }) => {
                     View All Properties
                   </Link>
                   <div className="mx-4 border-t border-[#E4B649] my-4"></div>
-                  
-                  <Link  href={`https://wa.me/${agent?.wpNum}`} className="flex gap-3 justify-center text-sm items-center">
 
-                  <Image src={whatsapp} alt="whatsapp" width={16} height={16} />
+                  <Link href={`https://wa.me/${agent?.wpNum}`} className="flex gap-3 justify-center text-sm items-center">
 
-                  <p>Get Inquiry On <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FFD87C] to-[#A27100]">Whatsapp</span></p>
+                    <Image src={whatsapp} alt="whatsapp" width={16} height={16} />
+
+                    <p>Get Inquiry On <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FFD87C] to-[#A27100]">Whatsapp</span></p>
 
                   </Link>
 
