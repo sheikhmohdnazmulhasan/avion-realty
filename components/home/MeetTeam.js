@@ -12,7 +12,7 @@ const MeetTeam = ({ admin }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const allAgents = useAgents();
   const { data: adminInfo = [] } = useSWR(
-    `http://localhost:3000/api/users?email=admin@avionrealty.ae`,
+    `/api/users?email=admin@avionrealty.ae`,
     fetcher
   );
 
