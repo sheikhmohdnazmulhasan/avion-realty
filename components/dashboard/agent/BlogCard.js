@@ -52,7 +52,7 @@ const BlogCard = ({ blog }) => {
                     <div className="flex items-center gap-3">
                         <Image width={96} height={96} src={blogImg} alt="Listing image" className="w-16 h-16 rounded-md" />
                         <div className="">
-                            <h3 className="text-[20px] font-bold mb-2">{title?.slice(0, 26)} {title?.length > 26 && '...'}</h3>
+                            <h3 className="text-[20px] font-semibold mb-2">{title?.slice(0, 26)} {title?.length > 26 && '...'}</h3>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@ const BlogCard = ({ blog }) => {
                 </div>
 
                 <div className="w-[15%] text-center gap-3 flex items-center justify-center">
-                    <Image src={live} alt="Live svg" className="w-4 cursor-pointer hover:scale-125 transition-all" />
+                  <Link href={`/blogs/${_id}`}><Image src={live} alt="Live svg" className="w-4 cursor-pointer hover:scale-125 transition-all" /></Link>
                     <Link href={`manage-blog/edit/${_id}`}>  <Image src={edit} alt="Live svg" className="w-4 cursor-pointer hover:scale-125 transition-all" /></Link>
                     <MdDelete size={20} className="text-red-500 hover:text-red-600 cursor-pointer hover:scale-125 transition-all" onClick={() => handleDeleteBlog(_id)} />
                 </div>
