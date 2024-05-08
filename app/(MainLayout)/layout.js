@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import Navbar from "@/components/nav/Navbar";
 import Footer from "@/components/footer/Footer";
 import AuthProvider from "../AuthProvider";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="bg-black text-white">
       <body className={kaleko.className}>
+        <Suspense>
         <AuthProvider> <div className="relative">
           {/* navbar */}
           <Navbar />
@@ -28,6 +30,7 @@ export default function RootLayout({ children }) {
           {/* footer */}
           <Footer />
         </div> </AuthProvider>
+        </Suspense>
       </body>
     </html>
   );
