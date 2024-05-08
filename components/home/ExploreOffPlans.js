@@ -53,13 +53,15 @@ const ExploreOffPlans = () => {
                     {/* status */}
                     <span className='hidden md:block w-24 bg-black px-4 py-2 rounded-xl text-xs uppercase'>{data[currentIndex]?.status}</span>
                     {/* property type */}
-                    <h3 className="uppercase">{data[currentIndex]?.propertyType}</h3>
+                    <h3 className="uppercase text-sm">{data[currentIndex]?.propertyType}</h3>
                     {/* title */}
-                    <h2 className="text-xl md:text-2xl lg:text-3xl">{data[currentIndex]?.title}</h2>
+
+                    <h2 className=" hidden md:block font-medium text-sm md:text-2xl lg:text-3xl">{data[currentIndex]?.title}</h2>
+                    <h2 className="md:hidden font-medium text-sm md:text-2xl lg:text-3xl">{data[currentIndex]?.title.slice(0, 30)} {data[currentIndex]?.title.length > 30 && '...'}</h2>
                     {/* location */}
                     <div className="flex items-center gap-2">
                         <Image quality={100} src={location} alt="location svg" />
-                        <span className=''>{data[currentIndex]?.location}</span>
+                        <span className='text-sm'>{data[currentIndex]?.location}</span>
                     </div>
                     {/* price */}
                     <h2 className='text-xl font-extrabold'>
@@ -84,7 +86,7 @@ const ExploreOffPlans = () => {
 
                 {/* image */}
                 <div className="relative md:static">
-                    <Image quality={100} src={data[currentIndex]?.images[0]} alt={data[currentIndex]?.title} width={280} height={320} className="w-full h-[280px] md:h-full lg:w[280px] lg:h-[320px] object-fill md:rounded-l md:rounded-xl" />
+                    <img src={data[currentIndex]?.images[0]} alt={data[currentIndex]?.title} className="w-full lg:w[280px] lg:h-[320px] object-fill md:rounded-l md:rounded-xl" />
                     <div className='bg-black px-4 py-1 rounded-2xl absolute top-4 left-4 text-xs uppercase md:hidden'><span>{data[currentIndex]?.status}</span></div>
 
                 </div>

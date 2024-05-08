@@ -33,21 +33,21 @@ const ExploreProperties = () => {
 
     const handleNextSm = () => {
 
-        if (currentIndex < data.length - 1) {
+        if (currentIndex < listings.length - 1 ) {
             setCurrentIndex(currentIndex + 1);
         }
     }
     const handleNextMd = () => {
 
-        if (currentIndex < data.length - 2) {
-            setCurrentIndex(currentIndex + 1);
+        if (currentIndex < listings.length - 2) {
+            setCurrentIndex(currentIndex + 2);
         }
     }
 
     const handleNextLg = () => {
 
-        if (currentIndex < data.length - 4) {
-            setCurrentIndex(currentIndex + 1);
+        if (currentIndex < listings.length - 4) {
+            setCurrentIndex(currentIndex + 4);
         }
     }
 
@@ -97,13 +97,13 @@ const ExploreProperties = () => {
                     {<button onClick={handlePrev} className={currentIndex < 1 && 'text-gray-500 cursor-not-allowed'}>PREV</button>}
     
                     {/* sm */}
-                    <button onClick={handleNextSm} className={`md:hidden ${currentIndex == data.length - 1 && 'text-gray-500 cursor-not-allowed'}`}>NEXT</button>
+                    <button onClick={handleNextSm} className={`md:hidden ${currentIndex == listings.length - 1 && 'text-gray-500 cursor-not-allowed'}`}>NEXT</button>
+
+                    {/* md */}
+                    <button onClick={handleNextMd} className={`hidden md:block lg:hidden ${currentIndex == listings.length - 2 && 'text-gray-500 cursor-not-allowed'}`}>NEXT</button>
                     {/* lg */}
     
-                    <button onClick={handleNextMd} className={`hidden md:block lg:hidden ${currentIndex == data.length - 2 && 'text-gray-500 cursor-not-allowed'}`}>NEXT</button>
-                    {/* lg */}
-    
-                    <button onClick={handleNextLg} className={`hidden lg:block ${currentIndex == data.length - 4 && 'text-gray-500 cursor-not-allowed'}`}>NEXT</button>
+                    <button onClick={handleNextLg} className={`hidden lg:block ${currentIndex == listings.length - 4 && 'text-gray-500 cursor-not-allowed'}`}>NEXT</button>
     
                 </div>
             }

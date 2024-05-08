@@ -42,7 +42,7 @@ const ListingCard = ({ item, status }) => {
         </div>
       </Link>
       <div className="p-4 text-left space-y-2">
-        <h2 className="capitalize text font-medium">
+        <h2 className="capitalize  font-medium">
           {item.title.slice(0, 30)} {item.title.length > 30 && "..."}
         </h2>
 
