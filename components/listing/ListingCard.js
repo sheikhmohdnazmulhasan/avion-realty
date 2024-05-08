@@ -35,7 +35,7 @@ const ListingCard = ({ item, status }) => {
         <img
           src={item?.images[0]}
           alt={item.title}
-          className="w-full object-fill "
+          className="w-full h-48 object-fill "
         />
         <div className="bg-black px-4 py-1 rounded-2xl absolute top-4 left-4 text-xs uppercase">
           <span>{item.status}</span>

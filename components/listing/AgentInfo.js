@@ -7,11 +7,6 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useState } from "react";
 
-<<<<<<< HEAD
-const AgentInfo = ({ agent, openInquiry, setOpenInquiry }) => {
-
-  async function handleInquiry(event, id) {
-=======
 const AgentInfo = ({ agent , openInquiry, setOpenInquiry }) => {
   const [selectedId, setSelectedId] = useState(null);
 
@@ -23,7 +18,6 @@ const AgentInfo = ({ agent , openInquiry, setOpenInquiry }) => {
   // handle inquiry
   const handleInquiry = async (event ) => {
     
->>>>>>> 27957e85019c14c6035cd75831b55cb09e043de0
     event.preventDefault();
     const name = event.target.name.value;
     const phone = event.target.phone.value;
@@ -54,13 +48,8 @@ const AgentInfo = ({ agent , openInquiry, setOpenInquiry }) => {
     } catch (error) {
       console.log(error);
     }
-<<<<<<< HEAD
-  }
-  
-=======
   };
 
->>>>>>> 27957e85019c14c6035cd75831b55cb09e043de0
   return (
     <>
       <div className="mt-4 lg:h-[320px] border border-[#BE8500] p-4 mb-8">
