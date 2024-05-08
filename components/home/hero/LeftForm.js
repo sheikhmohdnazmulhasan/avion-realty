@@ -68,7 +68,7 @@ const LeftForm = () => {
 
 
     try {
-      const data = await axios.get(`/api/filter?status=${status}&pt=${propertyType}&br=${bedroom}&min=${minBudget}&max=${maxBudget}`);
+      const data = await axios.get(`/api/filter?from=hero&status=${status}&pt=${propertyType}&br=${bedroom}&min=${minBudget}&max=${maxBudget}`);
 
       if (data.data.success) {
         setIsloading(false);
@@ -201,7 +201,7 @@ const LeftForm = () => {
           </div>
           <div className={`w-full my-4 bg-[#604000] text-center py-2 uppercase `}>
 
-            {!data.length ? <button type="submit">{isLoading ? <BarLoader color="#36d7b7" /> : 'Search Properties'}</button> : <Link href={`/listing/filter?status=${quaryStatus}&pt=${quaryPropertyType}&br=${quaryBedroom}&min=${quaryMinBudget}&max=${quaryMaxBudget}`}>
+            {!data.length ? <button type="submit">{isLoading ? <BarLoader color="#36d7b7" /> : 'Search Properties'}</button> : <Link href={`/listing/filter?from=hero&status=${quaryStatus}&pt=${quaryPropertyType}&br=${quaryBedroom}&min=${quaryMinBudget}&max=${quaryMaxBudget}`}>
               {`View ${data.length} Properties`}
             </Link>}
 
