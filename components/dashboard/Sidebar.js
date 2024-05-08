@@ -337,7 +337,7 @@ const Sidebar = () => {
             className="flex gap-4 items-center"
           >
             <Image src={offPlanIcon} alt="off-plan" />
-            <span>Add-Off-plan</span>
+            <span>Add Off-plan</span>
           </Link>
         </li>
         <li
