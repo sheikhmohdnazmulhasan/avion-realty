@@ -103,6 +103,14 @@ const LeftForm = () => {
 
   }
 
+  const handlePOM = () => {
+    Swal.fire({
+      icon: 'info',
+      title: 'This feature is not ready yet!',
+      text: 'We are working hard over the clock to improve your experience and hope this feature will be accessible very soon.'
+    })
+  }
+
 
   return (
     <div>
@@ -130,7 +138,7 @@ const LeftForm = () => {
             <label className="uppercase font-semibold">Property Type</label>
             <select
               name="propertyType"
-              className=" w-full py-2 outline-none bg-[#000000C7] px-2  opacity-70 italic"
+              className=" w-full py-2 outline-none bg-[#000000C7] px-2  opacity-70"
             >
               <option value="" selected disabled>
                 PROPERTY TYPE
@@ -149,7 +157,7 @@ const LeftForm = () => {
           {/* bedrooms*/}
           <div>
             <label className="uppercase font-semibold">Bedrooms</label>
-            <div className=" w-full py-2 outline-none bg-[#000000C7] px-2 items-center flex justify-between opacity-70 italic">
+            <div className=" w-full py-2 outline-none bg-[#000000C7] px-2 items-center flex justify-between opacity-70">
               <p>Bedrooms</p>
               <input
                 type="number"
@@ -183,7 +191,7 @@ const LeftForm = () => {
           {/* price range */}
           <div className="flex bg-[#000000C7] opacity-70 w-full px-2 py-2">
             <div className="flex w-1/2">
-              <h2 className="opacity-70 italic w-1/3">MIN</h2>
+              <h2 className="opacity-70  w-1/3">MIN</h2>
               <input
                 type="number"
                 name="minbudget"
@@ -191,7 +199,7 @@ const LeftForm = () => {
                 required />
             </div>
             <div className="flex w-1/2">
-              <h2 className="opacity-70 italic w-1/3">MAX</h2>
+              <h2 className="opacity-70  w-1/3">MAX</h2>
               <input
                 type="number"
                 name="maxbudget"
@@ -211,8 +219,8 @@ const LeftForm = () => {
 
         </form>
 
-        <div className="w-full mb-4 mt-4 bg-[#000000C7] text-center py-2 uppercase">
-          <Link href="/">Properties on map</Link>
+        <div className="w-full mb-4 mt-4 bg-[#000000C7] text-center py-2 cursor-pointer uppercase" onClick={handlePOM}>
+          <p>Properties on map</p>
         </div>
       </div>
     </div>
