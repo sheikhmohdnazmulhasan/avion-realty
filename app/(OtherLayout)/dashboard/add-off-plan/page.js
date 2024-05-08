@@ -219,6 +219,17 @@ const AddOffPlan = () => {
   };
 
 
+  // useEffect(() => {
+
+  //   setTimeout(() => {
+  //     handleShowMap();
+  //   }, 2000);
+
+  // }, [])
+
+
+
+
   if (status === 'loading') return <div className="">Loading...</div>
 
   if (status === 'unauthenticated') return router.push('/login');
@@ -419,7 +430,7 @@ const AddOffPlan = () => {
           <input
             type="text"
             name="location"
-            onChange={handleLocationChange}
+            onBlur={handleLocationChange}
             placeholder="write location (eg. Address downtown, Burj Khalifa)"
             className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
           />

@@ -1,3 +1,4 @@
+'use client'
 import logo from "@/public/images/logo.svg";
 import Image from "next/image";
 
@@ -7,8 +8,11 @@ import { IoCall } from "react-icons/io5";
 import { FaFacebookF, FaLinkedin, FaTwitter, FaYoutube } from "react-icons/fa6";
 import { HiOutlineSearch } from "react-icons/hi";
 import Link from "next/link";
+import { useState } from "react";
 
 const Footer = () => {
+  const [quary, setQuary] = useState('');
+
   return (
 
     <div className='lg:bg-[url("https://i.ibb.co/JzgqCkk/footer-bg.png")] bg-no-repeat bg-left-bottom  border-t border-[#9E9E9E]  '>
@@ -123,22 +127,23 @@ const Footer = () => {
         </div>
 
         {/* search bar */}
-        <form className="hidden md:flex items-center bg-[#0F0F0F] w-full pl-8 pr-4 justify-around py-3 rounded-3xl my-8">
+        <div className="hidden md:flex items-center bg-[#0F0F0F] w-full pl-8 pr-4 justify-around py-3 rounded-3xl my-8">
           <span className="w-1 ">
             <HiOutlineSearch />
           </span>
           <input
+            onChange={(event) => setQuary(event.target.value)}
             type="text"
             placeholder="Search For A Property or Location"
             className="bg-transparent w-2/3 lg:w-4/5"
           />
-          <button className="bg-[#E4B649] text-black flex items-center font-extrabold gap-2 py-2 px-4 rounded-3xl">
+          <Link href={`/listing/filter?from=footer&query=${quary}`} className="bg-[#E4B649] text-black flex items-center font-extrabold gap-2 py-2 px-4 rounded-3xl">
             <span>
               <HiOutlineSearch />
             </span>
             <span>Find Property</span>
-          </button>
-        </form>
+          </Link>
+        </div>
 
         {/* copyright and social media  */}
         <div className="flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-4 mt-12 ">

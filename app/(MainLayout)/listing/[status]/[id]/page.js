@@ -22,88 +22,101 @@ import logo from "@/public/images/icon.svg";
 import PhoneSlider from "@/components/listing/PhoneSlider";
 import toast, { Toaster } from "react-hot-toast";
 
-import facebook from '@/public/share/facebook.png';
-import instagram from '@/public/share/instagram.png';
-import linkedin from '@/public/share/linkedin.png';
-import mail from '@/public/share/mail.png';
-import wp from '@/public/share/wp.png';
-import twitter from '@/public/share/twitter.png';
+import facebook from "@/public/share/facebook.png";
+import instagram from "@/public/share/instagram.png";
+import linkedin from "@/public/share/linkedin.png";
+import mail from "@/public/share/mail.png";
+import wp from "@/public/share/wp.png";
+import twitter from "@/public/share/twitter.png";
 import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
-
   const [photos, setPhotos] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [openInquiry, setOpenInquiry] = useState(false);
   const [showPopup, setShowPopup] = useState(true);
   const [price, setPrice] = useState(null);
   const [coped, setCoped] = useState(false);
+  const [btnClick, setBtnClick] = useState('video-call')
 
   const { data = [] } = useSWR(`/api/offplans?id=${params.id}`, fetcher);
-  const { data: agent = [] } = useSWR(`/api/users?email=${data.agent}`, fetcher);
+  const { data: agent = [] } = useSWR(
+    `/api/users?email=${data.agent}`,
+    fetcher
+  );
 
   async function handleChangeCurrency(currencyCode) {
-
-    if (currencyCode === 'AED') {
-
+    if (currencyCode === "AED") {
       if (data?.startingPrice) {
-        setPrice(data?.startingPrice.toLocaleString('en-AE', { style: 'currency', currency: 'AED' }));
-
+        setPrice(
+          data?.startingPrice.toLocaleString("en-AE", {
+            style: "currency",
+            currency: "AED",
+          })
+        );
       }
       return;
-
     } else {
-
       try {
-        const exchangeRateApiResponse = await axios.get(`https://v6.exchangerate-api.com/v6/fae5e182931399ecc7dd590a/pair/AED/${currencyCode}/${data?.startingPrice}`);
+        const exchangeRateApiResponse = await axios.get(
+          `https://v6.exchangerate-api.com/v6/fae5e182931399ecc7dd590a/pair/AED/${currencyCode}/${data?.startingPrice}`
+        );
 
-        if (exchangeRateApiResponse.data.result === 'success') {
-
+        if (exchangeRateApiResponse.data.result === "success") {
           const fetchedPrice = exchangeRateApiResponse?.data?.conversion_result;
 
-          if (fetchedPrice && currencyCode === 'USD') {
-            setPrice(fetchedPrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
-
-          } else if (fetchedPrice && currencyCode === 'GBP') {
-            setPrice(fetchedPrice.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' }));
-
-          } else if (fetchedPrice && currencyCode === 'CNY') {
-            setPrice(fetchedPrice.toLocaleString('zh-CN', { style: 'currency', currency: 'CNY' }));
-
-          } else if (fetchedPrice && currencyCode === 'EUR') {
-            setPrice(fetchedPrice.toLocaleString('en-EU', { style: 'currency', currency: 'EUR' }));
-
-          } else if (fetchedPrice && currencyCode === 'RUB') {
+          if (fetchedPrice && currencyCode === "USD") {
+            setPrice(
+              fetchedPrice.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              })
+            );
+          } else if (fetchedPrice && currencyCode === "GBP") {
+            setPrice(
+              fetchedPrice.toLocaleString("en-GB", {
+                style: "currency",
+                currency: "GBP",
+              })
+            );
+          } else if (fetchedPrice && currencyCode === "CNY") {
+            setPrice(
+              fetchedPrice.toLocaleString("zh-CN", {
+                style: "currency",
+                currency: "CNY",
+              })
+            );
+          } else if (fetchedPrice && currencyCode === "EUR") {
+            setPrice(
+              fetchedPrice.toLocaleString("en-EU", {
+                style: "currency",
+                currency: "EUR",
+              })
+            );
+          } else if (fetchedPrice && currencyCode === "RUB") {
             // setPrice(fetchedPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' }));
             setPrice(fetchedPrice.toLocaleString());
           }
-
         } else {
-          toast.error('Currency Exchange API Expired!',
-            {
-              style: {
-                borderRadius: '10px',
-                background: '#333',
-                color: '#fff',
-              },
-            }
-          );
+          toast.error("Currency Exchange API Expired!", {
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+            },
+          });
         }
-
       } catch (error) {
-
         console.log(error);
 
-        toast.error('Currency Exchange API Expired!',
-          {
-            style: {
-              borderRadius: '10px',
-              background: '#333',
-              color: '#fff',
-            },
-          }
-        );
+        toast.error("Currency Exchange API Expired!", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
       }
     }
   }
@@ -142,7 +155,6 @@ const ListingDetail = ({ params }) => {
       .catch((err) => console.log(err));
   }
 
-
   // share
 
   // copy link
@@ -152,59 +164,92 @@ const ListingDetail = ({ params }) => {
     setCoped(true);
 
     setTimeout(() => {
-      setCoped(false)
+      setCoped(false);
     }, 1000);
   }
 
   function handleSocialShare(media) {
-
-    if (media === 'facebook') {
-      const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
-      window.open(url, '_blank', 'width=600,height=400');
-
-    } else if (media === 'mail') {
+    if (media === "facebook") {
+      const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        window.location.href
+      )}`;
+      window.open(url, "_blank", "width=600,height=400");
+    } else if (media === "mail") {
       const subject = `Check out ${data.title}`;
       const body = `I thought you might be interested in this property: ${window.location.href}`;
-      const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const mailtoUrl = `mailto:?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(body)}`;
       window.location.href = mailtoUrl;
-
-    } else if (media === 'linkedin') {
-      const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
-      window.open(url, '_blank');
-
-    } else if (media === 'twitter') {
+    } else if (media === "linkedin") {
+      const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+        window.location.href
+      )}`;
+      window.open(url, "_blank");
+    } else if (media === "twitter") {
       const text = `Check out ${data.title}`;
       const url = encodeURIComponent(window.location.href);
-      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`;
-      window.open(twitterUrl, '_blank', 'width=600,height=400');
-
-    } else if (media === 'whatsapp') {
-
-      const text = `Check out ${data.title}` + ' ' + window.location.href;
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+        text
+      )}&url=${url}`;
+      window.open(twitterUrl, "_blank", "width=600,height=400");
+    } else if (media === "whatsapp") {
+      const text = `Check out ${data.title}` + " " + window.location.href;
       const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
-      window.open(whatsappUrl, '_blank');
+      window.open(whatsappUrl, "_blank");
     }
-
   }
 
+
+  //   handle inquiry
+  async function handleInquiry(event) {
+    event.preventDefault();
+    const id = agent._id;
+    const name = event.target.name.value;
+    const phone = event.target.phone.value;
+    const email = event.target.email.value;
+
+    const dataForBackend = { agent: id, name, email, mobile: phone };
+
+    try {
+      const serverResponse = await axios.post(
+        `/api/agent/inquiry`,
+        dataForBackend
+      );
+
+      if (serverResponse.data.success) {
+        Swal.fire({
+          icon: "success",
+          title: "Message sent successfully",
+          text: `Dear ${name}, Thank you for your interest. ${agent.name} will contact you shortly.`,
+        });
+
+        event.target.reset();
+        setOpenInquiry(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     setPhotos(data?.images);
 
     if (data?.startingPrice) {
       // setPrice(data?.startingPrice.toLocaleString());
-      setPrice(data?.startingPrice.toLocaleString('en-AE', { style: 'currency', currency: 'AED' }));
+      setPrice(
+        data?.startingPrice.toLocaleString("en-AE", {
+          style: "currency",
+          currency: "AED",
+        })
+      );
     }
-
   }, [data]);
 
   return (
     <div className="">
       {/* inquiry */}
-      <Toaster
-        position="bottom-right"
-        reverseOrder={false}
-      />
+      <Toaster position="bottom-right" reverseOrder={false} />
       {openInquiry && (
         <div className="w-full absolute bottom-[35%] md:top-[15%] z-50 rounded px-5">
           <div
@@ -262,20 +307,58 @@ const ListingDetail = ({ params }) => {
       {/* share */}
 
       <dialog id="my_modal_1" className="modal">
-        <div className="modal-box">
-          <h3 className=""> <span className="font-bold text-lg">Share</span> {data.title}</h3>
+        <div className="modal-box bg-gray-900">
+          <h3 className="">
+            {" "}
+            <span className="font-bold text-lg">Share</span> {data.title}
+          </h3>
           <div className="flex gap-4 justify-center items-center mt-8">
-            <Image src={facebook} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('facebook')} />
-            <Image src={mail} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('mail')} />
+            <Image
+              src={facebook}
+              alt="Facebook icon"
+              className="w-10 transition-all hover:scale-110 hover:cursor-pointer"
+              onClick={() => handleSocialShare("facebook")}
+            />
+            <Image
+              src={mail}
+              alt="Facebook icon"
+              className="w-10 transition-all hover:scale-110 hover:cursor-pointer"
+              onClick={() => handleSocialShare("mail")}
+            />
             {/* <Image src={instagram} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('instagram')} /> */}
-            <Image src={linkedin} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('linkedin')} />
-            <Image src={twitter} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('twitter')} />
-            <Image src={wp} alt="Facebook icon" className="w-10 transition-all hover:scale-110 hover:cursor-pointer" onClick={() => handleSocialShare('whatsapp')} />
+            <Image
+              src={linkedin}
+              alt="Facebook icon"
+              className="w-10 transition-all hover:scale-110 hover:cursor-pointer"
+              onClick={() => handleSocialShare("linkedin")}
+            />
+            <Image
+              src={twitter}
+              alt="Facebook icon"
+              className="w-10 transition-all hover:scale-110 hover:cursor-pointer"
+              onClick={() => handleSocialShare("twitter")}
+            />
+            <Image
+              src={wp}
+              alt="Facebook icon"
+              className="w-10 transition-all hover:scale-110 hover:cursor-pointer"
+              onClick={() => handleSocialShare("whatsapp")}
+            />
           </div>
 
           {/* copy link */}
-          <div className="mt-10 flex justify-center items-center " >
-            <button className="py-2 flex justify-center text-center hover:scale-105 gap-2 px-6 rounded-md hover:bg-sky-700 transition-all bg-sky-600 " onClick={handleCopyLink}>Copy Link {!coped ? <FaClipboard size={20} /> : <FaClipboardCheck size={20} />} </button>
+          <div className="mt-10 flex justify-center items-center ">
+            <button
+              className="py-2 flex justify-center text-center hover:scale-105 gap-2 px-6 rounded-md hover:bg-sky-700 transition-all bg-sky-600 "
+              onClick={handleCopyLink}
+            >
+              Copy Link{" "}
+              {!coped ? (
+                <FaClipboard size={20} />
+              ) : (
+                <FaClipboardCheck size={20} />
+              )}{" "}
+            </button>
           </div>
         </div>
         <form method="dialog" className="modal-backdrop">
@@ -283,6 +366,7 @@ const ListingDetail = ({ params }) => {
         </form>
       </dialog>
 
+      {/* listing detail start  */}
       <div
         className={`mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen ${openInquiry && "opacity-60 blur-sm"
           }`}
@@ -396,9 +480,13 @@ const ListingDetail = ({ params }) => {
                     <span className="text-xs lg:text-xl text-[#E4B649]">
                       Starting Prices
                     </span>
-                  )}{" "} {price}
+                  )}{" "}
+                  {price}
                 </h2>
-                <select className="bg-transparent px-2 md:px-3 py-1 md:text-xl border rounded-2xl" onChange={(event) => handleChangeCurrency(event.target.value)}>
+                <select
+                  className="bg-transparent px-2 md:px-3 py-1 md:text-xl border rounded-2xl"
+                  onChange={(event) => handleChangeCurrency(event.target.value)}
+                >
                   <option selected value="AED" className="bg-black">
                     AED
                   </option>
@@ -424,12 +512,15 @@ const ListingDetail = ({ params }) => {
                 {/* price converter */}
 
                 {/* share */}
-                <button onClick={() => document.getElementById('my_modal_1').showModal()} className=" gap-3 items-center text-xl px-3 py-1 border rounded-2xl hidden md:flex">
+                <button
+                  onClick={() =>
+                    document.getElementById("my_modal_1").showModal()
+                  }
+                  className=" gap-3 items-center text-xl px-3 py-1 border rounded-2xl hidden md:flex"
+                >
                   <CiShare2 size={24} />
                   <span>Share</span>
                 </button>
-
-
               </div>
             </div>
             {/* bed, bath, sqrft, floorplan */}
@@ -603,16 +694,17 @@ const ListingDetail = ({ params }) => {
               <p className="mt-4">{data.description}</p>
             </div>
           </div>
+
           {/* agent information */}
-          <div className="mt-10 lg:mt-0 lg:w-[30%] lg:h-[300px] border border-[#BE8500] rounded-2xl p-4">
+          <div className="mt-10 lg:mt-0 lg:w-[30%] h-fit  border border-[#BE8500] rounded-2xl p-4">
             <div>
               <div className="flex items-end justify-between gap-2 ">
                 <div className="space-y-2">
-                  <h2 className="md:text-xl font-semibold">{agent?.name}</h2>
+                  <h2 className=" font-semibold">{agent?.name}</h2>
                   <h3 className="text-sm md:text-base font-medium">
                     {agent?.designation}
                   </h3>
-                  <h3 className="text-sm md:text-base font-medium">
+                  <h3 className="text-sm font-medium">
                     RERA - {agent?.reraID}
                   </h3>
                 </div>
@@ -628,10 +720,8 @@ const ListingDetail = ({ params }) => {
               </div>
               <div className="flex mt-6 gap-2 md:gap-6">
                 <Link href={`tel:${agent?.wpNum}`} className="w-1/2">
-                  {" "}
-                  <div className="flex items-center hover:scale-105 transition-all gap-3 border border-[#e4b5499e] px-2 py-1 rounded-3xl w-full">
-                    <Image src={call} alt="Phone Icon" width={24} height={24} />
-                    <p>Call Now</p>
+                  <div className=" hover:scale-105 transition-all gap-3 border border-[#e4b5499e] px-2 py-1 rounded-3xl w-full">
+                    <p className="text-sm text-center w-full">Call Now</p>
                   </div>
                 </Link>
 
@@ -639,7 +729,7 @@ const ListingDetail = ({ params }) => {
                   className="flex items-center hover:scale-105 transition-all hover:cursor-pointer border-[#e4b5499e] gap-3 border px-3 py-1 w-1/2 rounded-3xl justify-center"
                   onClick={() => setOpenInquiry(true)}
                 >
-                  <p>Inquiry</p>
+                  <p className="text-sm">Inquiry</p>
                 </div>
               </div>
               <div className="text-center mt-3">
@@ -647,25 +737,19 @@ const ListingDetail = ({ params }) => {
                   View All Properties
                 </Link>
                 <div className="mx-4 border-t border-[#E4B649] my-4"></div>
+
                 <Link
                   href={`https://wa.me/${agent?.wpNum}`}
-                  className="text-sm md:text-base flex justify-center gap-1 items-center"
+                  className="flex gap-3 justify-center text-sm items-center"
                 >
-                  <span className="w-4 md:w-8">
-                    <Image
-                      src={whatsapp}
-                      alt="whatsapp"
-                      width={24}
-                      height={24}
-                    />
-                  </span>
+                  <Image src={whatsapp} alt="whatsapp" width={16} height={16} />
 
-                  <span className="mt-1">
-                    Get your inquiry on{" "}
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FFD87C] to-[#A27100] hover:scale-105">
-                      WhatsApp
+                  <p>
+                    Get Inquiry On{" "}
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FFD87C] to-[#A27100]">
+                      Whatsapp
                     </span>
-                  </span>
+                  </p>
                 </Link>
               </div>
             </div>
@@ -687,30 +771,33 @@ const ListingDetail = ({ params }) => {
           <p>Our representative will guide you through the property viewing.</p>
           {/* call section */}
           <div className="mt-4 flex gap-4">
-            <button className="bg-[#393939] opacity-70 py-1 md:py-2 px-4 border border-[#E4B649]">
+            <button className={`${btnClick === 'video-call' && 'bg-[#393939]'} opacity-70 py-1 md:py-2 px-4 border border-[#E4B649]`} onClick={() => setBtnClick('video-call')}>
               VIDEO CALL
             </button>
-            <button className="py-1 md:py-2 px-4 opacity-70 border border-[#E4B649]">
+            <button className={`${btnClick === 'in-person' && 'bg-[#393939]'} py-1 md:py-2 px-4 opacity-70 border border-[#E4B649]`} onClick={() => setBtnClick('in-person')}>
               IN PERSON
             </button>
           </div>
           {/*schedule form */}
-          <form className="mt-4 opacity-80 lg:text-xl">
+          <form className="mt-4 opacity-80 lg:text-xl" onSubmit={handleInquiry}>
             <input
               type="text"
               placeholder="Your Name"
-              className="bg-transparent  border-b border-[#E4B649] w-full outline-none "
-            />
+              name="name"
+              className="bg-transparent  border-b border-[#E4B649] w-full outline-none " required />
             <input
               type="number"
+              name="phone"
               placeholder="Your Phone"
               className="bg-transparent border-b border-[#E4B649] w-full outline-none mt-4"
-            />
+              required />
             <input
               type="email"
               placeholder="Mail"
+              name="email"
               className="bg-transparent border-b border-[#E4B649] w-full outline-none mt-4"
-            />
+              required />
+
             <div className="flex justify-between items-center mt-4">
               <label>select Date</label>
               <input type="date" className="bg-transparent outline-none " />
@@ -719,7 +806,7 @@ const ListingDetail = ({ params }) => {
               <input
                 type="submit"
                 value="Send Now"
-                className="border border-[#E4B649] px-2 py-1"
+                className="border border-[#E4B649] hover:bg-[#393939] transition-all cursor-pointer px-2 py-1"
               />
             </div>
           </form>
