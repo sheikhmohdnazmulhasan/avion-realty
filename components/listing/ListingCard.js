@@ -42,8 +42,8 @@ const ListingCard = ({ item, status }) => {
         </div>
       </Link>
       <div className="p-4 text-left space-y-2">
-        <h2 className="capitalize  font-medium">
-          {item.title.slice(0, 30)} {item.title.length > 30 && "..."}
+        <h2 className="capitalize font-medium h-[46px]">
+          {item.title.slice(0, 48)} {item.title.length > 48 && "..."}
         </h2>
 
         {/* location */}
@@ -101,7 +101,7 @@ const ListingCard = ({ item, status }) => {
         <hr className="opacity-60" />
 
         {/* contact */}
-        <div className="flex justify-evenly items-center ">
+        <div className="flex justify-evenly items-center pt-2 ">
           <Link href={`https://wa.me/${agent?.wpNum}`}>
             <Image quality={100} src={whatsapp} alt="whatsapp svg" width={20} />
           </Link>
