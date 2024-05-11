@@ -164,6 +164,7 @@ const EditList = ({ params }) => {
                         <label>Title</label>
                         <br />
                         <input
+                            required
                             type="text"
                             name="title"
                             defaultValue={data.title}
@@ -177,6 +178,7 @@ const EditList = ({ params }) => {
                         <label>Starting Price AED</label>
                         <br />
                         <input
+                            required
                             type="text"
                             name="startingPrice"
                             defaultValue={data.startingPrice}
@@ -191,6 +193,7 @@ const EditList = ({ params }) => {
                         <label>Property Type</label>
                         <br />
                         <select
+                            required
                             name="propertyType"
                             className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
                         >
@@ -211,6 +214,7 @@ const EditList = ({ params }) => {
                         <label>Area</label>
                         <br />
                         <select
+                            required
                             name="area"
                             className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
                         >
@@ -231,6 +235,7 @@ const EditList = ({ params }) => {
                         <label>Developer</label>
                         <br />
                         <select
+                            required
                             name="developer"
                             className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
                         >
@@ -253,6 +258,7 @@ const EditList = ({ params }) => {
                         <div className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted flex justify-between">
                             <span>BR</span>
                             <input
+                                required
                                 type="number"
                                 min="1"
                                 max="7"
@@ -269,6 +275,7 @@ const EditList = ({ params }) => {
                         <label>Starting Area Sq.ft.</label>
                         <br />
                         <input
+                            required
                             type="number"
                             name="areaSqFt"
                             placeholder="write property area (sq.ft.)"
@@ -282,6 +289,7 @@ const EditList = ({ params }) => {
                         <label>Estimated Completion</label>
                         <br />
                         <input
+                            required
                             type="text"
                             name="completion"
                             placeholder="write completion"
@@ -295,6 +303,7 @@ const EditList = ({ params }) => {
                         <label>Views</label>
                         <br />
                         <select
+                            required
                             name="views"
                             className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
                         >
@@ -317,6 +326,7 @@ const EditList = ({ params }) => {
                             <br />
                             <select
                                 name="agent"
+                                required
                                 placeholder="Select agent"
                                 className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
                             >
@@ -337,6 +347,7 @@ const EditList = ({ params }) => {
                 <div>
                     <label>Description</label>
                     <textarea
+                        required
                         name="description"
                         placeholder="write description"
                         rows={12}
@@ -349,6 +360,7 @@ const EditList = ({ params }) => {
                     <label>Location</label>
                     <br />
                     <input
+                        required
                         type="text"
                         name="location"
                         placeholder="write location (eg. Address downtown, Burj Khalifa)"
@@ -366,7 +378,8 @@ const EditList = ({ params }) => {
                             showAll ?
                                 (amenities.slice(0, 12).map(amenity => (
                                     <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
-                                        <input onChange={handleCheckboxChanged} type="checkbox" value={amenity?.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" checked={data?.amenities?.find(item => item === amenity.name)} />
+                                        <input
+                                            onChange={handleCheckboxChanged} type="checkbox" value={amenity?.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" checked={data?.amenities?.find(item => item === amenity.name)} />
                                         <label>{amenity.name}</label>
                                     </div>
                                 )
@@ -374,7 +387,8 @@ const EditList = ({ params }) => {
                                 :
                                 (amenities.map(amenity => (
                                     <div key={amenity._id} amenity={amenity} className="flex items-center gap-4">
-                                        <input onChange={handleCheckboxChanged} type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
+                                        <input
+                                            onChange={handleCheckboxChanged} type="checkbox" value={amenity.name} name="amenity" className="toggle bg-[#FFD673] border-4 border-[#CB9107]" />
                                         <label>{amenity.name}</label>
                                     </div>
                                 )
@@ -397,25 +411,29 @@ const EditList = ({ params }) => {
                     <div className="grid grid-cols-2 mt-4 gap-6">
                         <div>
                             <label>First Installment</label>
-                            <input defaultValue={data?.payment?.firstInstallment} type="number" placeholder="Place your payment in %" name="firstInstallment"
+                            <input
+                                required defaultValue={data?.payment?.firstInstallment} type="number" placeholder="Place your payment in %" name="firstInstallment"
                                 className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
                             />
                         </div>
                         <div>
                             <label>Under Construction</label>
-                            <input defaultValue={data?.payment?.underConstruction} type="number" placeholder="Place your payment in %" name="underConstruction"
+                            <input
+                                required defaultValue={data?.payment?.underConstruction} type="number" placeholder="Place your payment in %" name="underConstruction"
                                 className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
                             />
                         </div>
                         <div>
                             <label>On Handover</label>
-                            <input defaultValue={data?.payment?.onHandover} type="number" placeholder="Place your payment in %" name="onHandover"
+                            <input
+                                required defaultValue={data?.payment?.onHandover} type="number" placeholder="Place your payment in %" name="onHandover"
                                 className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
                             />
                         </div>
                         <div>
                             <label>Post Handover</label>
-                            <input defaultValue={data?.payment?.postHandover} type="number" placeholder="Place your payment in %" name="postHandover"
+                            <input
+                                required defaultValue={data?.payment?.postHandover} type="number" placeholder="Place your payment in %" name="postHandover"
                                 className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
                             />
                         </div>
@@ -444,6 +462,7 @@ const EditList = ({ params }) => {
                                     {`"Browse"`}
                                 </label>
                                 <input
+                                    required
                                     type="file"
                                     hidden
                                     id="browse"

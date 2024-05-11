@@ -252,7 +252,7 @@ const AddOffPlan = () => {
           <div className="w-3/5">
             <label>Title</label>
             <br />
-            <input
+            <input required
               type="text"
               name="title"
               placeholder="write listing title"
@@ -264,7 +264,7 @@ const AddOffPlan = () => {
           <div className="w-2/5">
             <label>Starting Price AED</label>
             <br />
-            <input
+            <input required
               type="number"
               name="startingPrice"
               placeholder="write property price"
@@ -277,7 +277,7 @@ const AddOffPlan = () => {
           <div>
             <label>Property Type</label>
             <br />
-            <select
+            <select required
               name="propertyType"
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
@@ -296,7 +296,7 @@ const AddOffPlan = () => {
           <div>
             <label>Area</label>
             <br />
-            <select
+            <select required
               name="area"
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
@@ -315,7 +315,7 @@ const AddOffPlan = () => {
           <div>
             <label>Developer</label>
             <br />
-            <select
+            <select required
               name="developer"
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
@@ -336,7 +336,7 @@ const AddOffPlan = () => {
             <br />
             <div className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted flex justify-between">
               <span>BR</span>
-              <input
+              <input required
                 type="number"
                 min="1"
                 max="7"
@@ -351,7 +351,7 @@ const AddOffPlan = () => {
           <div>
             <label>Starting Area Sq.ft.</label>
             <br />
-            <input
+            <input required
               type="number"
               name="areaSqFt"
               placeholder="write property area (sq.ft.)"
@@ -363,7 +363,7 @@ const AddOffPlan = () => {
           <div>
             <label>Estimated Completion</label>
             <br />
-            <input
+            <input required
               type="text"
               name="completion"
               placeholder="write completion"
@@ -376,6 +376,7 @@ const AddOffPlan = () => {
             <label>Views</label>
             <br />
             <select
+              required
               name="views"
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
@@ -396,6 +397,7 @@ const AddOffPlan = () => {
               <label>Select Agent</label>
               <br />
               <select
+                required
                 onChange={(event) => setAgent(event.target.value)}
                 name="agent"
                 placeholder="Select agent"
@@ -417,6 +419,7 @@ const AddOffPlan = () => {
         <div>
           <label>Description</label>
           <textarea
+            required
             name="description"
             placeholder="write description"
             rows={12}
@@ -427,7 +430,7 @@ const AddOffPlan = () => {
         <div>
           <label>Location</label>
           <br />
-          <input
+          <input required
             type="text"
             name="location"
             onBlur={handleLocationChange}
@@ -469,7 +472,7 @@ const AddOffPlan = () => {
                   amenity={amenity}
                   className="flex items-center gap-4"
                 >
-                  <input
+                  <input 
                     onChange={handleCheckboxChanged}
                     type="checkbox"
                     value={amenity.name}
@@ -485,7 +488,7 @@ const AddOffPlan = () => {
                   amenity={amenity}
                   className="flex items-center gap-4"
                 >
-                  <input
+                  <input 
                     onChange={handleCheckboxChanged}
                     type="checkbox"
                     value={amenity.name}
@@ -524,25 +527,25 @@ const AddOffPlan = () => {
           <div className="grid grid-cols-2 mt-4 gap-6">
             <div>
               <label>First Installment</label>
-              <input type="number" placeholder="Place your payment in %" name="firstInstallment"
+              <input required type="number" placeholder="Place your payment in %" name="firstInstallment"
                 className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
               />
             </div>
             <div>
               <label>Under Construction</label>
-              <input type="number" placeholder="Place your payment in %" name="underConstruction"
+              <input required type="number" placeholder="Place your payment in %" name="underConstruction"
                 className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
               />
             </div>
             <div>
               <label>On Handover</label>
-              <input type="number" placeholder="Place your payment in %" name="onHandover"
+              <input required type="number" placeholder="Place your payment in %" name="onHandover"
                 className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
               />
             </div>
             <div>
               <label>Post Handover</label>
-              <input type="number" placeholder="Place your payment in %" name="postHandover"
+              <input required type="number" placeholder="Place your payment in %" name="postHandover"
                 className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
               />
             </div>
@@ -570,7 +573,7 @@ const AddOffPlan = () => {
                 <label htmlFor="browse" className="browse-btn text-[#FFD167]">
                   {`"Browse"`}
                 </label>
-                <input
+                <input required
                   type="file"
                   hidden
                   id="browse"
@@ -611,7 +614,7 @@ const AddOffPlan = () => {
         {/* <div>
           <label>Upload Floorplan</label>
           <br />
-          <input
+          <input required
             type="file"
             name="floorPlan"
             accept="application/pdf"
