@@ -441,7 +441,7 @@ const AddOffPlan = () => {
         {/* location map */}
         {
           isLoaded ? (
-            <div className="p-8">
+            <div className="py-4">
 
               {/* <button className="btn btn-primary mb-4" onClick={handleShowMap}>Show Map</button> */}
               <div style={containerStyle} className="mb-4">

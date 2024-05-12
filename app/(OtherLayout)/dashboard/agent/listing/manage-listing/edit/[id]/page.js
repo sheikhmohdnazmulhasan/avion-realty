@@ -236,7 +236,7 @@ const EditList = ({ params }) => {
                             <option value="" disabled selected>
                                 Developer name
                             </option>
-                            <option value={data.developer}>{data.developer}</option>
+                            <option selected value={data.developer}>{data.developer}</option>
                             {developers.map((developer) => (
                                 <option key={developer._id} value={developer.devName}>
                                     {developer.devName}
@@ -434,9 +434,10 @@ const EditList = ({ params }) => {
                                 <label htmlFor="browse" className="browse-btn text-[#FFD167]">
                                     {`"Browse"`}
                                 </label>
-                                <input required
+                                <input 
                                     type="file"
                                     hidden
+                                    
                                     id="browse"
                                     onChange={handleFileChange}
                                     multiple
