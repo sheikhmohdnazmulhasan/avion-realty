@@ -23,7 +23,6 @@ import PhoneSlider from "@/components/listing/PhoneSlider";
 import toast, { Toaster } from "react-hot-toast";
 
 import facebook from "@/public/share/facebook.png";
-import instagram from "@/public/share/instagram.png";
 import linkedin from "@/public/share/linkedin.png";
 import mail from "@/public/share/mail.png";
 import wp from "@/public/share/wp.png";
@@ -38,7 +37,10 @@ const ListingDetail = ({ params }) => {
   const [showPopup, setShowPopup] = useState(true);
   const [price, setPrice] = useState(null);
   const [coped, setCoped] = useState(false);
-  const [btnClick, setBtnClick] = useState('video-call')
+  const [btnClick, setBtnClick] = useState('video-call');
+  const [loading, setLoading] = useState(true);
+
+  setTimeout(() => { setLoading(false); }, 1000);
 
   const { data = [] } = useSWR(`/api/offplans?id=${params.id}`, fetcher);
   const { data: agent = [] } = useSWR(
@@ -245,6 +247,50 @@ const ListingDetail = ({ params }) => {
       );
     }
   }, [data]);
+
+
+  if (loading) {
+    return (
+      <>
+        <div className="w-[90%] mx-auto my-10 animate-pulse bg-transparent hidden md:flex justify-between  items-center gap-6 p-36 rounded-md shadow-xl ">
+
+          {/* user post skeleton */}
+          <div className=" flex ">
+            <div className="w-96 h-96 rounded-lg bg-[#1f2123] animate-pulse"></div>
+          </div>
+
+          {/* User profile  Skeleton */}
+          <div className="mt-8 w-full flex  flex-col justify-center">
+            <div className="w-[60%] rounded-lg bg-[#1f2123] h-7 mb-5"></div>
+            <div className="w-[100%] rounded-lg bg-[#1f2123] h-5 mb-3"></div>
+            <div className="w-[40%] rounded-lg bg-[#1f2123] h-[13px] mb-3"></div>
+            <div className="w-[80%] rounded-lg bg-[#1f2123] h-5 mb-3"></div>
+            <div className="w-[40%] rounded-lg bg-[#1f2123] h-3 mb-3"></div>
+            <div className="w-[20%] rounded-lg bg-[#1f2123] h-2 mb-3"></div>
+            <div className="w-[70%] rounded-lg bg-[#1f2123] h-1 mb-3"></div>
+            <div className="w-[30%] rounded-lg bg-[#1f2123] h-4 mb-3"></div>
+          </div>
+
+
+        </div>
+
+        <div className="mt-8 w-full hidden md:flex animate-pulse flex-col justify-center px-20">
+          <div className="w-[60%] rounded-lg bg-[#1f2123] h-7 mb-5"></div>
+          <div className="w-[100%] rounded-lg bg-[#1f2123] h-5 mb-3"></div>
+          <div className="w-[40%] rounded-lg bg-[#1f2123] h-[13px] mb-3"></div>
+          <div className="w-[80%] rounded-lg bg-[#1f2123] h-5 mb-3"></div>
+          <div className="w-[40%] rounded-lg bg-[#1f2123] h-3 mb-3"></div>
+          <div className="w-[20%] rounded-lg bg-[#1f2123] h-2 mb-3"></div>
+          <div className="w-[70%] rounded-lg bg-[#1f2123] h-1 mb-3"></div>
+          <div className="w-[30%] rounded-lg bg-[#1f2123] h-4 mb-3"></div>
+        </div>
+
+        <div className=" min-h-screen flex justify-center items-center">
+          <div className="w-20 h-20 md:hidden border-l-2 border-green-500 rounded-full flex justify-center items-center animate-[spin_1.8s_linear_infinite]"><div className="w-16 h-16  border-b-2 border-indigo-500 rounded-full flex justify-center items-center animate-[spin_1.8s_linear_infinite]"><div className="w-10 h-10  border-r-2  border-sky-500 rounded-full animate-[spin_1.8s_linear_infinite]"></div></div></div>
+        </div>
+      </>
+    );
+  };
 
   return (
     <div className="">
