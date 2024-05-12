@@ -31,7 +31,7 @@ const PhoneSlider = ({ photos }) => {
       </div>
 
       {/* slider container */}
-      <div className="flex justify-center items-center gap-3 p-2">
+      <div className="grid grid-cols-5 justify-center items-center gap-3 py-2">
         {/* sliders */}
         {photos.map((slide, inx) => (
           <div
