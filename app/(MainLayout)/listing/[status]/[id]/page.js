@@ -234,6 +234,9 @@ const ListingDetail = ({ params }) => {
     }
   }
 
+
+  
+
   useEffect(() => {
     setPhotos(data?.images);
 
