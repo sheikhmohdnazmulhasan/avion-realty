@@ -23,7 +23,6 @@ import PhoneSlider from "@/components/listing/PhoneSlider";
 import toast, { Toaster } from "react-hot-toast";
 
 import facebook from "@/public/share/facebook.png";
-import instagram from "@/public/share/instagram.png";
 import linkedin from "@/public/share/linkedin.png";
 import mail from "@/public/share/mail.png";
 import wp from "@/public/share/wp.png";
