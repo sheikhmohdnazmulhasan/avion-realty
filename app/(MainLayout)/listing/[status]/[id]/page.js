@@ -28,6 +28,7 @@ import mail from "@/public/share/mail.png";
 import wp from "@/public/share/wp.png";
 import twitter from "@/public/share/twitter.png";
 import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
@@ -39,6 +40,8 @@ const ListingDetail = ({ params }) => {
   const [coped, setCoped] = useState(false);
   const [btnClick, setBtnClick] = useState('video-call');
   const [loading, setLoading] = useState(true);
+  const [center, setCenter] = useState({ lat: 0, lng: 0 });
+  const [markerPosition, setMarkerPosition] = useState(null);
 
   setTimeout(() => { setLoading(false); }, 1000);
 
@@ -234,11 +237,42 @@ const ListingDetail = ({ params }) => {
     }
   }
 
+<<<<<<< sheikh
 
   
+=======
+  // map
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: 'AIzaSyCGYwarV1r9FE_QhBXvvv1r0XwpMAAGOmM'
+  });
+  const containerStyle = {
+    width: '100%',
+    height: '400px'
+  };
+
+  
+  // const handleLocationChange = (event) => {
+  //   setLocation(event.target.value);
+  //   handleShowMap();
+  // };
+
+  const handleShowMap = async() => {
+    const geocoder = new window.google.maps.Geocoder();
+    // const {Geocoder} = await google.maps.importLibrary("geocoding")
+    geocoder.geocode({ address: data?.location }, (results, status) => {
+      if (status === 'OK') {
+        setCenter(results[0].geometry.location);
+        setMarkerPosition(results[0].geometry.location);
+      } else {
+        console.log('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  };
+>>>>>>> development
 
   useEffect(() => {
     setPhotos(data?.images);
+    handleShowMap();
 
     if (data?.startingPrice) {
       // setPrice(data?.startingPrice.toLocaleString());
@@ -742,6 +776,30 @@ const ListingDetail = ({ params }) => {
               <h2 className="text-xl">Description</h2>
               <p className="mt-4">{data.description}</p>
             </div>
+            {/* location map */}
+            <div className="mt-16">
+              <h2 className="text-xl">Map View</h2>
+              {
+                isLoaded ? (
+                  <div className="py-4">
+
+                    {/* <button className="btn btn-primary mb-4" onClick={handleShowMap}>Show Map</button> */}
+                    <div style={containerStyle} className="mb-4">
+                      <GoogleMap
+                        mapContainerStyle={containerStyle}
+                        center={center}
+                        zoom={16}
+                      >
+                        {markerPosition && (
+                          <Marker position={markerPosition} />
+                        )}
+                      </GoogleMap>
+                    </div>
+                  </div>
+                ) : <></>
+              }
+            </div>
+        
           </div>
 
           {/* agent information */}
