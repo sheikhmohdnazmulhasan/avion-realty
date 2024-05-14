@@ -275,7 +275,7 @@ const ListingDetail = ({ params }) => {
         })
       );
     }
-  }, [data, handleShowMap]);
+  }, [data]);
 
   if (loading) {
     return (
