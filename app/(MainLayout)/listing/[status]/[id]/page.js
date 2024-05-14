@@ -237,6 +237,10 @@ const ListingDetail = ({ params }) => {
     }
   }
 
+<<<<<<< sheikh
+
+  
+=======
   // map
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: 'AIzaSyCGYwarV1r9FE_QhBXvvv1r0XwpMAAGOmM'
@@ -264,6 +268,7 @@ const ListingDetail = ({ params }) => {
       }
     });
   };
+>>>>>>> development
 
   useEffect(() => {
     setPhotos(data?.images);
