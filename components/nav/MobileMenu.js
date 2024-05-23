@@ -164,7 +164,7 @@ const MobileMenu = () => {
 
           <button
             onClick={() => setOpenMedia(!openMedia)}
-            className="relative mt-3 bg-[#0E0E0E] w-full flex items-center justify-between p-3 rounded-md"
+            className="relative mt-3 bg-[#0E0E0E] w-full flex items-center justify-between p-3 rounded-md uppercase"
           >
             <span>Media</span>
             {openMedia && (

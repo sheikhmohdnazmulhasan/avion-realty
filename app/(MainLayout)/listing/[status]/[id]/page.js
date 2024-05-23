@@ -781,7 +781,7 @@ const ListingDetail = ({ params }) => {
                     <GoogleMap
                       mapContainerStyle={containerStyle}
                       center={center}
-                      zoom={16}
+                      zoom={8}
                     >
                       {markerPosition && <Marker position={markerPosition} />}
                     </GoogleMap>

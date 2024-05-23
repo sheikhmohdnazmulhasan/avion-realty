@@ -14,11 +14,11 @@ const LeftForm = () => {
   const [data, setData] = useState([]);
 
   // quary 17-21
-  const [quaryStatus, setQuaryStatus] = useState('');
-  const [quaryPropertyType, setQuaryPropertyType] = useState('');
-  const [quaryBedroom, setQuaryBedroom] = useState('');
-  const [quaryMinBudget, setQuaryMinBudget] = useState('');
-  const [quaryMaxBudget, setQuaryMaxBudget] = useState('');
+  const [quaryStatus, setQuaryStatus] = useState("");
+  const [quaryPropertyType, setQuaryPropertyType] = useState("");
+  const [quaryBedroom, setQuaryBedroom] = useState("");
+  const [quaryMinBudget, setQuaryMinBudget] = useState("");
+  const [quaryMaxBudget, setQuaryMaxBudget] = useState("");
 
   const currencies = ["AED", "GBP", "CNY", "USD", "EUR"];
 
@@ -29,51 +29,54 @@ const LeftForm = () => {
   const handleFliter = async (event) => {
     event.preventDefault();
     setIsloading(true);
-    setData([])
-    const status = selectStatus === 'Ready' ? 'Ready' : 'Off-Plan'
+    setData([]);
+    const status = selectStatus === "Ready" ? "Ready" : "Rental";
     const propertyType = event.target.propertyType.value;
     const bedroom = event.target.bedroom.value;
     let minBudget = event.target.minbudget.value;
     let maxBudget = event.target.maxbudget.value;
 
-    if (selectedCurrency !== 'AED') {
-
+    if (selectedCurrency !== "AED") {
       try {
-
         // min
-        const exchangeRateApiResponse = await axios.get(`https://v6.exchangerate-api.com/v6/fae5e182931399ecc7dd590a/pair/${selectedCurrency}/AED/${minBudget}`);
+        const exchangeRateApiResponse = await axios.get(
+          `https://v6.exchangerate-api.com/v6/fae5e182931399ecc7dd590a/pair/${selectedCurrency}/AED/${minBudget}`
+        );
 
-        console.log('Min Budget', exchangeRateApiResponse);
+        console.log("Min Budget", exchangeRateApiResponse);
 
         if (exchangeRateApiResponse.data.result === "success") {
-          minBudget = String(exchangeRateApiResponse?.data?.conversion_result).split('.')[0];
-
+          minBudget = String(
+            exchangeRateApiResponse?.data?.conversion_result
+          ).split(".")[0];
         }
 
         // max
-        const exchangeRateApiResponse2 = await axios.get(`https://v6.exchangerate-api.com/v6/fae5e182931399ecc7dd590a/pair/${selectedCurrency}/AED/${maxBudget}`);
+        const exchangeRateApiResponse2 = await axios.get(
+          `https://v6.exchangerate-api.com/v6/fae5e182931399ecc7dd590a/pair/${selectedCurrency}/AED/${maxBudget}`
+        );
 
-        console.log('Max Budget', exchangeRateApiResponse);
+        console.log("Max Budget", exchangeRateApiResponse);
 
         if (exchangeRateApiResponse2.data.result === "success") {
-          maxBudget = String(exchangeRateApiResponse2?.data?.conversion_result).split('.')[0];
+          maxBudget = String(
+            exchangeRateApiResponse2?.data?.conversion_result
+          ).split(".")[0];
         }
-
       } catch (error) {
         console.log(error);
         setIsloading(false);
-      };
-
-    };
-
+      }
+    }
 
     try {
-      const data = await axios.get(`/api/filter?from=hero&status=${status}&pt=${propertyType}&br=${bedroom}&min=${minBudget}&max=${maxBudget}`);
+      const data = await axios.get(
+        `/api/filter?from=hero&status=${status}&pt=${propertyType}&br=${bedroom}&min=${minBudget}&max=${maxBudget}`
+      );
 
       if (data.data.success) {
         setIsloading(false);
-
-      };
+      }
 
       if (data.data.data.length) {
         setData(data.data.data);
@@ -85,32 +88,25 @@ const LeftForm = () => {
         setQuaryPropertyType(propertyType);
 
         console.log(data.data.data);
-
       } else {
-
         Swal.fire({
-          title: 'No Result Found!',
-          text: 'No properties were found in the database filtered by your query. Please try another way',
-          icon: 'info'
-        })
-
+          title: "No Result Found!",
+          text: "No properties were found in the database filtered by your query. Please try another way",
+          icon: "info",
+        });
       }
-
     } catch (error) {
-      setIsloading(false)
+      setIsloading(false);
     }
-
-
-  }
+  };
 
   const handlePOM = () => {
     Swal.fire({
-      icon: 'info',
-      title: 'This feature is not ready yet!',
-      text: 'We are working hard over the clock to improve your experience and hope this feature will be accessible very soon.'
-    })
-  }
-
+      icon: "info",
+      title: "This feature is not ready yet!",
+      text: "We are working hard over the clock to improve your experience and hope this feature will be accessible very soon.",
+    });
+  };
 
   return (
     <div>
@@ -120,17 +116,19 @@ const LeftForm = () => {
           <div className="flex bg-[#000000C7] p-1 uppercase font-semibold ">
             <div
               onClick={() => setSelectStatus("Ready")}
-              className={`${selectStatus === "Ready" && "bg-[#604000]"
-                } w-1/2 text-center py-1 cursor-pointer`}
+              className={`${
+                selectStatus === "Ready" && "bg-[#604000]"
+              } w-1/2 text-center py-1 cursor-pointer`}
             >
               <span>Ready</span>
             </div>
             <div
-              onClick={() => setSelectStatus("Off-Plan")}
-              className={`${selectStatus === "Off-Plan" && "bg-[#604000]"
-                } w-1/2 text-center py-1 cursor-pointer`}
+              onClick={() => setSelectStatus("Rental")}
+              className={`${
+                selectStatus === "Rental" && "bg-[#604000]"
+              } w-1/2 text-center py-1 cursor-pointer`}
             >
-              <span>Off-Plan</span>
+              <span>Rental</span>
             </div>
           </div>
           {/* property type */}
@@ -165,7 +163,8 @@ const LeftForm = () => {
                 max="7"
                 name="bedroom"
                 className="bg-transparent w-full ml-4"
-                required />
+                required
+              />
             </div>
           </div>
           {/* currency */}
@@ -179,8 +178,9 @@ const LeftForm = () => {
                     key={ind}
                     type="button"
                     onClick={() => handleCurrency(currency)}
-                    className={`${selectedCurrency === currency && "text-white font-bold"
-                      }`}
+                    className={`${
+                      selectedCurrency === currency && "text-white font-bold"
+                    }`}
                   >
                     {currency}
                   </button>
@@ -196,7 +196,8 @@ const LeftForm = () => {
                 type="number"
                 name="minbudget"
                 className="bg-transparent w-2/3"
-                required />
+                required
+              />
             </div>
             <div className="flex w-1/2">
               <h2 className="opacity-70  w-1/3">MAX</h2>
@@ -204,22 +205,35 @@ const LeftForm = () => {
                 type="number"
                 name="maxbudget"
                 className="bg-transparent w-2/3"
-                required />
+                required
+              />
             </div>
           </div>
-          <div className={`w-full my-4 bg-[#604000] text-center py-2 uppercase `}>
-
-            {!data.length ? <button type="submit">{isLoading ? <BarLoader color="#36d7b7" /> : 'Search Properties'}</button> : <Link href={`/listing/filter?from=hero&status=${quaryStatus}&pt=${quaryPropertyType}&br=${quaryBedroom}&min=${quaryMinBudget}&max=${quaryMaxBudget}`}>
-              {`View ${data.length} Properties`}
-            </Link>}
-
-
-
+          <div
+            className={`w-full my-4 bg-[#604000] text-center py-2 uppercase `}
+          >
+            {!data.length ? (
+              <button type="submit">
+                {isLoading ? (
+                  <BarLoader color="#36d7b7" />
+                ) : (
+                  "Search Properties"
+                )}
+              </button>
+            ) : (
+              <Link
+                href={`/listing/filter?from=hero&status=${quaryStatus}&pt=${quaryPropertyType}&br=${quaryBedroom}&min=${quaryMinBudget}&max=${quaryMaxBudget}`}
+              >
+                {`View ${data.length} Properties`}
+              </Link>
+            )}
           </div>
-
         </form>
 
-        <div className="w-full mb-4 mt-4 bg-[#000000C7] text-center py-2 cursor-pointer uppercase" onClick={handlePOM}>
+        <div
+          className="w-full mb-4 mt-4 bg-[#000000C7] text-center py-2 cursor-pointer uppercase"
+          onClick={handlePOM}
+        >
           <p>Properties on map</p>
         </div>
       </div>
