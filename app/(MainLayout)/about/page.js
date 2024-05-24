@@ -5,6 +5,7 @@ import Image from "next/image";
 import aboutImg from "@/public/images/root/about.svg";
 import ashrafImg from "@/public/images/root/ashraf.svg";
 import Inquiry from "@/components/shared/Inquiry";
+import Link from "next/link";
 
 const About = () => {
   const title = (
@@ -222,6 +223,10 @@ const About = () => {
       <div className="md:px-16 lg:px-40 ">
         <MeetTeam  admin={true}/>
       </div>
+
+      <div className="hidden md:flex justify-end items-center md:px-16 lg:px-40 ">
+          <Link className="py-2 px-4 bg-[#604000] hover:scale-105 transition-all rounded-sm" href={'/agents'}> All Agents</Link>
+        </div>
 
       <Inquiry />
     </div>

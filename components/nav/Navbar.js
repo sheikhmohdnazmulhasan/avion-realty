@@ -36,43 +36,49 @@ const Navbar = () => {
             {/* nav links */}
             <ul className="uppercase flex text-xs gap-4 lg:gap-6">
               <li
-                className={`hover:scale-105 transition-all hover:font-bold ${isActive === "Ready" && "scale-105 font-bold"
-                  }`}
+                className={`hover:scale-105 transition-all hover:font-bold ${
+                  isActive === "Ready" && "scale-105 font-bold"
+                }`}
                 onClick={() => setIsActive("Ready")}
               >
                 <Link href="/listing/Ready">Ready</Link>
               </li>
               <li
-                className={`hover:scale-105 transition-all hover:font-bold ${isActive === "Off-Plan" && "scale-105 font-bold"
-                  }`}
+                className={`hover:scale-105 transition-all hover:font-bold ${
+                  isActive === "Off-Plan" && "scale-105 font-bold"
+                }`}
                 onClick={() => setIsActive(`Off-Plan`)}
               >
                 <Link href="/listing/Off-Plan">Off-Plan</Link>
               </li>
               <li
-                className={`hover:scale-105 transition-all hover:font-bold ${isActive === "Rent" && "scale-105 font-bold"
-                  }`}
+                className={`hover:scale-105 transition-all hover:font-bold ${
+                  isActive === "Rent" && "scale-105 font-bold"
+                }`}
                 onClick={() => setIsActive("Rent")}
               >
                 <Link href="/listing/Rent">Rent</Link>
               </li>
               <li
-                className={`hover:scale-105 transition-all hover:font-bold ${isActive === "Buy" && "scale-105 font-bold"
-                  }`}
+                className={`hover:scale-105 transition-all hover:font-bold ${
+                  isActive === "Buy" && "scale-105 font-bold"
+                }`}
                 onClick={() => setIsActive("Buy")}
               >
                 <Link href="/listing/Ready">Buy</Link>
               </li>
               <li
-                className={`hover:scale-105 transition-all hover:font-bold ${isActive === "About" && "scale-105 font-bold"
-                  }`}
+                className={`hover:scale-105 transition-all hover:font-bold ${
+                  isActive === "About" && "scale-105 font-bold"
+                }`}
                 onClick={() => setIsActive("About")}
               >
                 <Link href="/about">About Us</Link>
               </li>
               <li
-                className={`hover:scale-105 transition-all hover:font-bold ${isActive === "Contact" && "scale-105 font-bold"
-                  }`}
+                className={`hover:scale-105 transition-all hover:font-bold ${
+                  isActive === "Contact" && "scale-105 font-bold"
+                }`}
                 onClick={() => setIsActive("Contact")}
               >
                 <Link href="/contact">Contact</Link>
@@ -80,7 +86,12 @@ const Navbar = () => {
               <li
                 className={`hover:scale-105 transition-all hover:font-bold relative `}
               >
-                <button onMouseEnter={() => setOpenMedia(true)}>Media</button>
+                <button
+                  onMouseEnter={() => setOpenMedia(true)}
+                  className="uppercase"
+                >
+                  Media
+                </button>
                 {openMedia && (
                   <ul
                     className="capitalize absolute top-10 z-20 bg-black text-white w-32 space-y-2 px-4 py-3 "
@@ -106,7 +117,10 @@ const Navbar = () => {
             {/* social contact */}
             <ul className="flex gap-6 items-center">
               <li className="uppercase text-xs flex gap-4 items-center relative">
-                <button onMouseEnter={() => setOpenFollow(true)}>
+                <button
+                  onMouseEnter={() => setOpenFollow(true)}
+                  className="uppercase"
+                >
                   Follow Us
                 </button>
                 {/* <span className="cursor-pointer">Follow Us</span> */}

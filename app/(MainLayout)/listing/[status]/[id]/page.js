@@ -23,12 +23,12 @@ import PhoneSlider from "@/components/listing/PhoneSlider";
 import toast, { Toaster } from "react-hot-toast";
 
 import facebook from "@/public/share/facebook.png";
-import instagram from "@/public/share/instagram.png";
 import linkedin from "@/public/share/linkedin.png";
 import mail from "@/public/share/mail.png";
 import wp from "@/public/share/wp.png";
 import twitter from "@/public/share/twitter.png";
 import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 const ListingDetail = ({ params }) => {
@@ -38,7 +38,14 @@ const ListingDetail = ({ params }) => {
   const [showPopup, setShowPopup] = useState(true);
   const [price, setPrice] = useState(null);
   const [coped, setCoped] = useState(false);
-  const [btnClick, setBtnClick] = useState('video-call')
+  const [btnClick, setBtnClick] = useState("video-call");
+  const [loading, setLoading] = useState(true);
+  const [center, setCenter] = useState({ lat: 0, lng: 0 });
+  const [markerPosition, setMarkerPosition] = useState(null);
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 1000);
 
   const { data = [] } = useSWR(`/api/offplans?id=${params.id}`, fetcher);
   const { data: agent = [] } = useSWR(
@@ -200,7 +207,6 @@ const ListingDetail = ({ params }) => {
     }
   }
 
-
   //   handle inquiry
   async function handleInquiry(event) {
     event.preventDefault();
@@ -232,8 +238,33 @@ const ListingDetail = ({ params }) => {
     }
   }
 
+  // map
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: "AIzaSyCGYwarV1r9FE_QhBXvvv1r0XwpMAAGOmM",
+  });
+  const containerStyle = {
+    width: "100%",
+    height: "400px",
+  };
+
+  const handleShowMap = async () => {
+    const geocoder = new window.google.maps.Geocoder();
+    const { Geocoder } = await google.maps.importLibrary("geocoding");
+    geocoder.geocode({ address: data?.location }, (results, status) => {
+      if (status === "OK") {
+        setCenter(results[0].geometry.location);
+        setMarkerPosition(results[0].geometry.location);
+      } else {
+        console.log(
+          "Geocode was not successful for the following reason: " + status
+        );
+      }
+    });
+  };
+
   useEffect(() => {
     setPhotos(data?.images);
+    handleShowMap();
 
     if (data?.startingPrice) {
       // setPrice(data?.startingPrice.toLocaleString());
@@ -245,6 +276,50 @@ const ListingDetail = ({ params }) => {
       );
     }
   }, [data]);
+
+  if (loading) {
+    return (
+      <>
+        <div className="w-[90%] mx-auto my-10 animate-pulse bg-transparent hidden md:flex justify-between  items-center gap-6 p-36 rounded-md shadow-xl ">
+          {/* user post skeleton */}
+          <div className=" flex ">
+            <div className="w-96 h-96 rounded-lg bg-[#1f2123] animate-pulse"></div>
+          </div>
+
+          {/* User profile  Skeleton */}
+          <div className="mt-8 w-full flex  flex-col justify-center">
+            <div className="w-[60%] rounded-lg bg-[#1f2123] h-7 mb-5"></div>
+            <div className="w-[100%] rounded-lg bg-[#1f2123] h-5 mb-3"></div>
+            <div className="w-[40%] rounded-lg bg-[#1f2123] h-[13px] mb-3"></div>
+            <div className="w-[80%] rounded-lg bg-[#1f2123] h-5 mb-3"></div>
+            <div className="w-[40%] rounded-lg bg-[#1f2123] h-3 mb-3"></div>
+            <div className="w-[20%] rounded-lg bg-[#1f2123] h-2 mb-3"></div>
+            <div className="w-[70%] rounded-lg bg-[#1f2123] h-1 mb-3"></div>
+            <div className="w-[30%] rounded-lg bg-[#1f2123] h-4 mb-3"></div>
+          </div>
+        </div>
+
+        <div className="mt-8 w-full hidden md:flex animate-pulse flex-col justify-center px-20">
+          <div className="w-[60%] rounded-lg bg-[#1f2123] h-7 mb-5"></div>
+          <div className="w-[100%] rounded-lg bg-[#1f2123] h-5 mb-3"></div>
+          <div className="w-[40%] rounded-lg bg-[#1f2123] h-[13px] mb-3"></div>
+          <div className="w-[80%] rounded-lg bg-[#1f2123] h-5 mb-3"></div>
+          <div className="w-[40%] rounded-lg bg-[#1f2123] h-3 mb-3"></div>
+          <div className="w-[20%] rounded-lg bg-[#1f2123] h-2 mb-3"></div>
+          <div className="w-[70%] rounded-lg bg-[#1f2123] h-1 mb-3"></div>
+          <div className="w-[30%] rounded-lg bg-[#1f2123] h-4 mb-3"></div>
+        </div>
+
+        <div className=" min-h-screen flex justify-center items-center">
+          <div className="w-20 h-20 md:hidden border-l-2 border-green-500 rounded-full flex justify-center items-center animate-[spin_1.8s_linear_infinite]">
+            <div className="w-16 h-16  border-b-2 border-indigo-500 rounded-full flex justify-center items-center animate-[spin_1.8s_linear_infinite]">
+              <div className="w-10 h-10  border-r-2  border-sky-500 rounded-full animate-[spin_1.8s_linear_infinite]"></div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <div className="">
@@ -368,8 +443,9 @@ const ListingDetail = ({ params }) => {
 
       {/* listing detail start  */}
       <div
-        className={`mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen ${openInquiry && "opacity-60 blur-sm"
-          }`}
+        className={`mx-4 md:mx-12 lg:mx-36 md:my-20 min-h-screen ${
+          openInquiry && "opacity-60 blur-sm"
+        }`}
       >
         {photos?.length && (
           <div>
@@ -438,9 +514,10 @@ const ListingDetail = ({ params }) => {
           {/* prev */}
           <FaArrowAltCircleLeft
             size={36}
-            className={`hover:text-[#b4914b] cursor-pointer ${currentIndex === 0 &&
+            className={`hover:text-[#b4914b] cursor-pointer ${
+              currentIndex === 0 &&
               "text-gray-800 hover:text-gray-800 !cursor-not-allowed"
-              }`}
+            }`}
             onClick={() =>
               currentIndex >= 3 && setCurrentIndex(currentIndex - 3)
             }
@@ -449,9 +526,10 @@ const ListingDetail = ({ params }) => {
           {/* next */}
           <FaArrowAltCircleRight
             size={36}
-            className={`hover:text-[#b4914b] cursor-pointer ${currentIndex == photos?.length - 3 &&
+            className={`hover:text-[#b4914b] cursor-pointer ${
+              currentIndex == photos?.length - 3 &&
               "text-gray-800 hover:text-gray-800 !cursor-not-allowed"
-              } `}
+            } `}
             onClick={() =>
               currentIndex < photos?.length - 4 &&
               setCurrentIndex(currentIndex + 3)
@@ -693,6 +771,26 @@ const ListingDetail = ({ params }) => {
               <h2 className="text-xl">Description</h2>
               <p className="mt-4">{data.description}</p>
             </div>
+            {/* location map */}
+            <div className="mt-16">
+              <h2 className="text-xl">Map View</h2>
+              {isLoaded ? (
+                <div className="py-4">
+                  {/* <button className="btn btn-primary mb-4" onClick={handleShowMap}>Show Map</button> */}
+                  <div style={containerStyle} className="mb-4">
+                    <GoogleMap
+                      mapContainerStyle={containerStyle}
+                      center={center}
+                      zoom={8}
+                    >
+                      {markerPosition && <Marker position={markerPosition} />}
+                    </GoogleMap>
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
+            </div>
           </div>
 
           {/* agent information */}
@@ -771,10 +869,20 @@ const ListingDetail = ({ params }) => {
           <p>Our representative will guide you through the property viewing.</p>
           {/* call section */}
           <div className="mt-4 flex gap-4">
-            <button className={`${btnClick === 'video-call' && 'bg-[#393939]'} opacity-70 py-1 md:py-2 px-4 border border-[#E4B649]`} onClick={() => setBtnClick('video-call')}>
+            <button
+              className={`${
+                btnClick === "video-call" && "bg-[#393939]"
+              } opacity-70 py-1 md:py-2 px-4 border border-[#E4B649]`}
+              onClick={() => setBtnClick("video-call")}
+            >
               VIDEO CALL
             </button>
-            <button className={`${btnClick === 'in-person' && 'bg-[#393939]'} py-1 md:py-2 px-4 opacity-70 border border-[#E4B649]`} onClick={() => setBtnClick('in-person')}>
+            <button
+              className={`${
+                btnClick === "in-person" && "bg-[#393939]"
+              } py-1 md:py-2 px-4 opacity-70 border border-[#E4B649]`}
+              onClick={() => setBtnClick("in-person")}
+            >
               IN PERSON
             </button>
           </div>
@@ -784,19 +892,23 @@ const ListingDetail = ({ params }) => {
               type="text"
               placeholder="Your Name"
               name="name"
-              className="bg-transparent  border-b border-[#E4B649] w-full outline-none " required />
+              className="bg-transparent  border-b border-[#E4B649] w-full outline-none "
+              required
+            />
             <input
               type="number"
               name="phone"
               placeholder="Your Phone"
               className="bg-transparent border-b border-[#E4B649] w-full outline-none mt-4"
-              required />
+              required
+            />
             <input
               type="email"
               placeholder="Mail"
               name="email"
               className="bg-transparent border-b border-[#E4B649] w-full outline-none mt-4"
-              required />
+              required
+            />
 
             <div className="flex justify-between items-center mt-4">
               <label>select Date</label>
@@ -830,5 +942,4 @@ const ListingDetail = ({ params }) => {
     </div>
   );
 };
-
 export default ListingDetail;

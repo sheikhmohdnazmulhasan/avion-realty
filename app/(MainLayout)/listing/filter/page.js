@@ -77,7 +77,7 @@ const ListingStatus = ({ params }) => {
         <div>
             <div className=" px-4 md:px-12 lg:px-20 py-4 md:py-12 lg:py-16 border-b border-[#262626]">
                 {/* description */}
-                {params.status === "Off-Plan" ? (
+                {status === "Off-Plan" ? (
                     <>
                         <h2 className="text-3xl lg:hidden">
                             Dubai Off-Plan Investment Opportunities
@@ -125,11 +125,7 @@ const ListingStatus = ({ params }) => {
                 )}
             </div>
             <div className="px-4 md:px-12 lg:px-20 py-4 space-y-4">
-                {/* search bar */}
-
-                {/* multiple search */}
-
-
+              
                 {/* section header */}
                 <div className="hidden md:block text-center py-4 lg:py-16">
                     <h2 className="text-[#E4B649] text-3xl font-medium">
@@ -153,7 +149,7 @@ const ListingStatus = ({ params }) => {
                                     <ListingCard
                                         key={item._id}
                                         item={item}
-                                        status={params.status}
+                                        status={status}
                                     />
                                 ))}
                             </div>
@@ -200,7 +196,7 @@ const ListingStatus = ({ params }) => {
                                 <div className="flex mt-6 gap-2 md:gap-4">
 
                                     <Link href={`tel:${agent?.wpNum}`}
-                                        onClick={() => { handleOpenInquiry(agent._id) }}
+                                       
                                         className="flex items-center hover:scale-105 transition-all border-[#e4b5499e] gap-3 border px-3 py-1 w-1/2 rounded-3xl justify-center"
                                     >
                                         <p className="text-sm">Call Now</p>

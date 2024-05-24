@@ -42,25 +42,24 @@ const ListingCard = ({ item, status }) => {
         </div>
       </Link>
       <div className="p-4 text-left space-y-2">
-        <h2 className="capitalize  font-medium">
-          {item.title.slice(0, 30)} {item.title.length > 30 && "..."}
+        <h2 className="capitalize font-medium ">
+          {item.title.slice(0, 24)} {item.title.length > 24 && "..."}
         </h2>
 
         {/* location */}
-        {item.location && (
-          <div className="flex items-center gap-2">
-            <Image quality={100} src={location} alt="location svg" />
-            <span className="text-sm">
-              {item.location.slice(0, 26)} {item.location.length > 26 && "..."}
-            </span>
-          </div>
-        )}
+
+        <div className="flex items-center gap-2">
+          <Image quality={100} src={location} alt="location svg" />
+          <span className="text-xs ">
+            {item.location.slice(0, 26)} {item.location.length > 26 && "..."}
+          </span>
+        </div>
 
         {/* price */}
         {price && (
-          <h2 className=" font-extrabold">
+          <h2 className=" font-extrabold ">
             {item.status === "Off-Plan" && (
-              <span className=" text-[#E4B649]  mr-2 font-normal">
+              <span className=" text-[#E4B649] mr-1 font-normal">
                 Start From
               </span>
             )}
@@ -101,7 +100,7 @@ const ListingCard = ({ item, status }) => {
         <hr className="opacity-60" />
 
         {/* contact */}
-        <div className="flex justify-evenly items-center ">
+        <div className="flex justify-evenly items-center pt-2 ">
           <Link href={`https://wa.me/${agent?.wpNum}`}>
             <Image quality={100} src={whatsapp} alt="whatsapp svg" width={20} />
           </Link>

@@ -202,6 +202,7 @@ const AddProperty = () => {
             <label>Title</label>
             <br />
             <input
+              required
               type="text"
               name="title"
               placeholder="write listing title"
@@ -214,6 +215,7 @@ const AddProperty = () => {
             <label>Property Price AED</label>
             <br />
             <input
+              required
               type="number"
               name="startingPrice"
               placeholder="write property price"
@@ -226,7 +228,7 @@ const AddProperty = () => {
           <div>
             <label>Property Type</label>
             <br />
-            <select
+            <select required
               name="propertyType"
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
@@ -245,7 +247,7 @@ const AddProperty = () => {
           <div>
             <label>Property Status</label>
             <br />
-            <select
+            <select required
               name="propertyStatus"
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
@@ -261,7 +263,7 @@ const AddProperty = () => {
           <div>
             <label>Views</label>
             <br />
-            <select name="views" id="" className="bg-black  text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2">
+            <select required name="views" id="" className="bg-black  text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2">
               <option value="" selected disabled>Select View</option>
               {views.map(view => <option value={view.name} key={view._id}>{view.name}</option>)}
             </select>
@@ -274,6 +276,7 @@ const AddProperty = () => {
             <div className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted flex justify-between">
               <span>BR</span>
               <input
+                required
                 type="number"
                 min="1"
                 max="7"
@@ -290,6 +293,7 @@ const AddProperty = () => {
             <div className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted flex justify-between">
               <span>BR</span>
               <input
+                required
                 type="number"
                 min="1"
                 max="7"
@@ -305,6 +309,7 @@ const AddProperty = () => {
             <label>Area Sq.ft.</label>
             <br />
             <input
+              required
               type="number"
               name="areaSqFt"
               placeholder="write property area (sq.ft.)"
@@ -316,7 +321,7 @@ const AddProperty = () => {
           <div>
             <label>Area</label>
             <br />
-            <select
+            <select required
               name="area"
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
@@ -335,7 +340,7 @@ const AddProperty = () => {
           <div>
             <label>Furnishing</label>
             <br />
-            <select
+            <select required
               name="furnishing"
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
@@ -352,6 +357,7 @@ const AddProperty = () => {
             <label> Completion Status</label>
             <br />
             <input
+              required
               type="text"
               name="completion"
               placeholder="write completion status (optional)"
@@ -363,7 +369,7 @@ const AddProperty = () => {
         {/* description */}
         <div>
           <label>Description</label>
-          <textarea
+          <textarea required
             name="description"
             placeholder="write description"
             rows={12}
@@ -375,6 +381,7 @@ const AddProperty = () => {
           <label>Location</label>
           <br />
           <input
+            required
             type="text"
             name="location"
             placeholder="write location (eg. Address downtown, Burj Khalifa)"
@@ -462,6 +469,7 @@ const AddProperty = () => {
                   {`"Browse"`}
                 </label>
                 <input
+                  required
                   type="file"
                   hidden
                   id="browse"
@@ -503,6 +511,7 @@ const AddProperty = () => {
           <label>Upload Floorplan</label>
           <br />
           <input
+            required
             type="file"
             name="floorPlan"
             accept="application/pdf"

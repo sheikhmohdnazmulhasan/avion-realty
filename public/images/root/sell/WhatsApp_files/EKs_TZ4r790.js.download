@@ -1,0 +1,3 @@
+;/*FB_PKG_DELIM*/
+
+__d("WAWebStatusQuotedFlow.react",["WAWebStatusViewer.react","react"],(function(a,b,c,d,e,f,g){var h,i=h||c("react");function a(a){var b=a.statusV3,d=a.msgKey,e=a.onMsgNotFound,f=a.onClose,g=a.rowSection;a=a.rowIndex;return i.jsx(c("WAWebStatusViewer.react"),{initialStatus:b,quotedMsgKey:d,closeStatusViewer:f,onMsgNotFound:e,rowSection:g,rowIdx:a})}a.displayName=a.name+" [from "+f.id+"]";g["default"]=a}),98);

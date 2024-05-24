@@ -162,7 +162,7 @@ const EditList = ({ params }) => {
                     <div className="w-3/5">
                         <label>Title</label>
                         <br />
-                        <input
+                        <input required
                             type="text"
                             name="title"
                             defaultValue={data.title}
@@ -175,7 +175,7 @@ const EditList = ({ params }) => {
                     <div className="w-2/5">
                         <label>Starting Price AED</label>
                         <br />
-                        <input
+                        <input required
                             type="text"
                             name="startingPrice"
                             defaultValue={data.startingPrice}
@@ -189,7 +189,7 @@ const EditList = ({ params }) => {
                     <div>
                         <label>Property Type</label>
                         <br />
-                        <select
+                        <select required
                             name="propertyType"
                             className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
                         >
@@ -209,7 +209,7 @@ const EditList = ({ params }) => {
                     <div>
                         <label>Area</label>
                         <br />
-                        <select
+                        <select required
                             name="area"
                             className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
                         >
@@ -229,14 +229,14 @@ const EditList = ({ params }) => {
                     <div>
                         <label>Developer</label>
                         <br />
-                        <select
+                        <select required
                             name="developer"
                             className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
                         >
                             <option value="" disabled selected>
                                 Developer name
                             </option>
-                            <option value={data.developer}>{data.developer}</option>
+                            <option selected value={data.developer}>{data.developer}</option>
                             {developers.map((developer) => (
                                 <option key={developer._id} value={developer.devName}>
                                     {developer.devName}
@@ -251,7 +251,7 @@ const EditList = ({ params }) => {
                         <br />
                         <div className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted flex justify-between">
                             <span>BR</span>
-                            <input
+                            <input required
                                 type="number"
                                 min="1"
                                 max="7"
@@ -267,7 +267,7 @@ const EditList = ({ params }) => {
                     <div>
                         <label>Starting Area Sq.ft.</label>
                         <br />
-                        <input
+                        <input required
                             type="number"
                             name="areaSqFt"
                             placeholder="write property area (sq.ft.)"
@@ -280,7 +280,7 @@ const EditList = ({ params }) => {
                     <div>
                         <label>Estimated Completion</label>
                         <br />
-                        <input
+                        <input required
                             type="text"
                             name="completion"
                             placeholder="write completion"
@@ -293,7 +293,7 @@ const EditList = ({ params }) => {
                     <div>
                         <label>Views</label>
                         <br />
-                        <input
+                        <input required
                             type="text"
                             name="views"
                             placeholder="Eg. (Sea View)"
@@ -307,7 +307,7 @@ const EditList = ({ params }) => {
                         <div>
                             <label>Select Agent</label>
                             <br />
-                            <select
+                            <select required
                                 name="agent"
                                 placeholder="Select agent"
                                 className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
@@ -329,6 +329,7 @@ const EditList = ({ params }) => {
                 <div>
                     <label>Description</label>
                     <textarea
+                        required
                         name="description"
                         placeholder="write description"
                         rows={12}
@@ -340,7 +341,7 @@ const EditList = ({ params }) => {
                 <div>
                     <label>Location</label>
                     <br />
-                    <input
+                    <input required
                         type="text"
                         name="location"
                         placeholder="write location (eg. Address downtown, Burj Khalifa)"
@@ -388,25 +389,25 @@ const EditList = ({ params }) => {
                     <div className="grid grid-cols-2 mt-4 gap-6">
                         <div>
                             <label>First Installment</label>
-                            <input defaultValue={data?.payment?.firstInstallment} type="number" placeholder="Place your payment in %" name="firstInstallment"
+                            <input required defaultValue={data?.payment?.firstInstallment} type="number" placeholder="Place your payment in %" name="firstInstallment"
                                 className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
                             />
                         </div>
                         <div>
                             <label>Under Construction</label>
-                            <input defaultValue={data?.payment?.underConstruction} type="number" placeholder="Place your payment in %" name="underConstruction"
+                            <input required defaultValue={data?.payment?.underConstruction} type="number" placeholder="Place your payment in %" name="underConstruction"
                                 className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
                             />
                         </div>
                         <div>
                             <label>On Handover</label>
-                            <input defaultValue={data?.payment?.onHandover} type="number" placeholder="Place your payment in %" name="onHandover"
+                            <input required defaultValue={data?.payment?.onHandover} type="number" placeholder="Place your payment in %" name="onHandover"
                                 className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
                             />
                         </div>
                         <div>
                             <label>Post Handover</label>
-                            <input defaultValue={data?.payment?.postHandover} type="number" placeholder="Place your payment in %" name="postHandover"
+                            <input required defaultValue={data?.payment?.postHandover} type="number" placeholder="Place your payment in %" name="postHandover"
                                 className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
                             />
                         </div>
@@ -433,9 +434,10 @@ const EditList = ({ params }) => {
                                 <label htmlFor="browse" className="browse-btn text-[#FFD167]">
                                     {`"Browse"`}
                                 </label>
-                                <input
+                                <input 
                                     type="file"
                                     hidden
+                                    
                                     id="browse"
                                     onChange={handleFileChange}
                                     multiple
@@ -475,7 +477,7 @@ const EditList = ({ params }) => {
 
 
                 <div className="flex justify-end mt-6">
-                    <input
+                    <input 
                         type="submit"
                         value="Save Changes"
                         className="bg-[#835C00] hover:cursor-pointer px-8 py-2 rounded-md"
