@@ -1,12 +1,14 @@
 const { Schema, default: mongoose } = require("mongoose");
 
-const offPlanSchema = new Schema({
+const offPlanSchema = new Schema(
+  {
     title: String,
     startingPrice: Number,
     propertyType: String,
     area: String,
     developer: String,
-    bedroom: Number,
+    // bedroom: { type: [String], required: true },
+    bedroom: [Number],
     bathroom: Number,
     areaSqFt: Number,
     completion: String,
@@ -19,13 +21,16 @@ const offPlanSchema = new Schema({
     images: [String],
     status: String,
     payment: {
-        firstInstallment: String,
-        underConstruction: String,
-        onHandover: String,
-        postHandover: String
+      firstInstallment: String,
+      underConstruction: String,
+      onHandover: String,
+      postHandover: String,
     },
-    leads: Number
-}, { timestamps: true });
+    leads: Number,
+  },
+  { timestamps: true }
+);
 
-const OffPlan = mongoose.models.OffPlans || mongoose.model('OffPlans', offPlanSchema);
+const OffPlan =
+  mongoose.models.OffPlans || mongoose.model("OffPlans", offPlanSchema);
 export default OffPlan;

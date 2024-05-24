@@ -38,10 +38,14 @@ const AddOffPlan = () => {
   const [showAll, setShowAll] = useState(true);
   const [clickedButton, setClickedButton] = useState(null);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
+  const [selectedBedrooms, setSelectedBedrooms] = useState([]);
   const [location, setLocation] = useState("");
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
   const [markerPosition, setMarkerPosition] = useState(null);
   const router = useRouter();
+
+  // const bedroomsValue = ["Studio", "1", "2", "3", "4", "5", "6", "7"];
+  const bedroomsValue = [1, 2, 3, 4, 5, 6, 7];
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: "AIzaSyCGYwarV1r9FE_QhBXvvv1r0XwpMAAGOmM",
@@ -89,6 +93,14 @@ const AddOffPlan = () => {
       );
     }
   };
+  const handleCheckboxForBed = (event) => {
+    const value = event.target.value;
+    if (event.target.checked) {
+      setSelectedBedrooms((prev) => [...prev, value]);
+    } else {
+      setSelectedBedrooms(selectedBedrooms.filter((bed) => bed !== value));
+    }
+  };
 
   // handle submission of off plan form
   const handleSubmitPlan = async (event, clickedButton) => {
@@ -99,7 +111,6 @@ const AddOffPlan = () => {
     const propertyType = form.propertyType.value;
     const area = form.area.value;
     const developer = form.developer.value;
-    const bedroom = parseInt(form.bedroom.value);
     const areaSqFt = parseFloat(form.areaSqFt.value);
     const completion = form.completion.value;
     const views = form.views.value;
@@ -154,7 +165,7 @@ const AddOffPlan = () => {
       propertyType,
       area,
       developer,
-      bedroom,
+      bedroom: selectedBedrooms.sort(),
       areaSqFt,
       completion,
       views,
@@ -167,6 +178,7 @@ const AddOffPlan = () => {
       // floorPlan
     };
 
+    // console.log(dataForBackend);
     if (clickedButton === "button1") {
       try {
         const serverResponse = await axios.post(
@@ -214,7 +226,9 @@ const AddOffPlan = () => {
         setCenter(results[0].geometry.location);
         setMarkerPosition(results[0].geometry.location);
       } else {
-        alert("Geocode was not successful for the following reason: " + status);
+        console.log(
+          "Geocode was not successful for the following reason: " + status
+        );
       }
     });
   };
@@ -338,16 +352,17 @@ const AddOffPlan = () => {
               <label>Bedrooms</label>
               <br />
               <div className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted flex justify-between">
-                <span>BR</span>
-                <input
-                  required
-                  type="number"
-                  min="1"
-                  max="7"
-                  defaultValue="1"
-                  name="bedroom"
-                  className="bg-transparent outline-none w-12"
-                />
+                {bedroomsValue.map((bedroomCount, ind) => (
+                  <div key={ind} className="flex items-center ">
+                    <input
+                      type="checkbox"
+                      value={bedroomCount}
+                      name="bedroomCount"
+                      onChange={handleCheckboxForBed}
+                    />
+                    <label className="ml-0.5">{bedroomCount}</label>
+                  </div>
+                ))}
               </div>
             </div>
 

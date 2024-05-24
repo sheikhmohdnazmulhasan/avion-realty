@@ -42,10 +42,13 @@ const EditList = ({ params }) => {
   const [preview, setPreview] = useState([]);
   const [showAll, setShowAll] = useState(true);
   const router = useRouter();
-  const [selectedAmenities, setSelectedAmenities] = useState([]);
+  const [selectedAmenities, setSelectedAmenities] = useState(data?.amenities);
+  const [selectedBedrooms, setSelectedBedrooms] = useState(data?.bedroom);
   const [location, setLocation] = useState(data?.location);
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
   const [markerPosition, setMarkerPosition] = useState(null);
+
+  const bedroomsValue = [1, 2, 3, 4, 5, 6, 7];
 
   // map
   const { isLoaded } = useJsApiLoader({
@@ -123,6 +126,15 @@ const EditList = ({ params }) => {
     }
   };
 
+  const handleCheckboxForBed = (event) => {
+    const value = event.target.value;
+    if (event.target.checked) {
+      setSelectedBedrooms((prev) => [...prev, value]);
+    } else {
+      setSelectedBedrooms(selectedBedrooms.filter((bed) => bed !== value));
+    }
+  };
+
   // handle submission of off plan form
   const handleEditPlan = async (event) => {
     event.preventDefault();
@@ -132,7 +144,6 @@ const EditList = ({ params }) => {
     const propertyType = form.propertyType.value;
     const area = form.area.value;
     const developer = form.developer.value;
-    const bedroom = parseInt(form.bedroom.value);
     const areaSqFt = parseFloat(form.areaSqFt.value);
     const completion = form.completion.value;
     const views = form.views.value;
@@ -180,7 +191,7 @@ const EditList = ({ params }) => {
       propertyType,
       area,
       developer,
-      bedroom,
+      bedroom: selectedBedrooms.sort(),
       areaSqFt,
       completion,
       views,
@@ -304,7 +315,9 @@ const EditList = ({ params }) => {
               <option value="" disabled selected>
                 Developer name
               </option>
-              <option value={data.developer}>{data.developer}</option>
+              <option selected value={data.developer}>
+                {data.developer}
+              </option>
               {developers.map((developer) => (
                 <option key={developer._id} value={developer.devName}>
                   {developer.devName}
@@ -318,16 +331,20 @@ const EditList = ({ params }) => {
             <label>Bedrooms</label>
             <br />
             <div className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted flex justify-between">
-              <span>BR</span>
-              <input
-                required
-                type="number"
-                min="1"
-                max="7"
-                defaultValue={data.bedroom}
-                name="bedroom"
-                className="bg-transparent outline-none w-12"
-              />
+              {bedroomsValue.map((bedroomCount, ind) => (
+                <div key={ind} className="flex items-center ">
+                  <input
+                    type="checkbox"
+                    value={bedroomCount}
+                    name="bedroomCount"
+                    onChange={handleCheckboxForBed}
+                    checked={data?.bedroom?.find(
+                      (item) => item == bedroomCount
+                    )}
+                  />
+                  <label className="ml-0.5">{bedroomCount}</label>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -595,6 +612,7 @@ const EditList = ({ params }) => {
                   type="file"
                   hidden
                   id="browse"
+                  name=""
                   onChange={handleFileChange}
                   multiple
                 />
