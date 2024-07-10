@@ -57,7 +57,7 @@ const Navbar = () => {
                 }`}
                 onClick={() => setIsActive("Rent")}
               >
-                <Link href="/listing/Rent">Rent</Link>
+                <Link href="/listing/Rental">Rent</Link>
               </li>
               <li
                 className={`hover:scale-105 transition-all hover:font-bold ${

@@ -134,7 +134,7 @@ const MobileMenu = () => {
               </li>
               <li>
                 <Link
-                  href="/listing/Rent"
+                  href="/listing/Rental"
                   className="bg-[#0E0E0E] flex items-center justify-between p-3 rounded-md"
                 >
                   <span>Rent</span>
