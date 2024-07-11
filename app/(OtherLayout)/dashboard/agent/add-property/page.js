@@ -29,7 +29,6 @@ const AddProperty = () => {
   const [clickedButton, setClickedButton] = useState(null);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
 
-
   const handleFileChange = (event) => {
     const selectedFiles = event.target.files;
     if (selectedFiles && selectedFiles.length > 0) {
@@ -87,8 +86,6 @@ const AddProperty = () => {
     const agent = user?.data?.email;
     const furnishing = form.furnishing.value;
 
-
-
     const description = form.description.value;
     const location = form.location.value;
     const amenities = selectedAmenities;
@@ -114,8 +111,6 @@ const AddProperty = () => {
 
       images.push(imgBbResponse.data.data.display_url);
     }
-
-
 
     const dataForBackend = {
       leads: 0,
@@ -173,14 +168,14 @@ const AddProperty = () => {
     }
   };
 
-
-  if (user.data.role !== 'agent') {
-
+  if (user.data.role !== "agent") {
     return (
       <div className="grid h-screen place-content-center bg-[#0A0909] px-4">
-        <h1 className="uppercase tracking-widest text-gray-200">401 | Unauthorized</h1>
+        <h1 className="uppercase tracking-widest text-gray-200">
+          401 | Unauthorized
+        </h1>
       </div>
-    )
+    );
   }
 
   return (
@@ -228,7 +223,8 @@ const AddProperty = () => {
           <div>
             <label>Property Type</label>
             <br />
-            <select required
+            <select
+              required
               name="propertyType"
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
@@ -247,7 +243,8 @@ const AddProperty = () => {
           <div>
             <label>Property Status</label>
             <br />
-            <select required
+            <select
+              required
               name="propertyStatus"
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
@@ -263,9 +260,20 @@ const AddProperty = () => {
           <div>
             <label>Views</label>
             <br />
-            <select required name="views" id="" className="bg-black  text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2">
-              <option value="" selected disabled>Select View</option>
-              {views.map(view => <option value={view.name} key={view._id}>{view.name}</option>)}
+            <select
+              required
+              name="views"
+              id=""
+              className="bg-black  text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
+            >
+              <option value="" selected disabled>
+                Select View
+              </option>
+              {views.map((view) => (
+                <option value={view.name} key={view._id}>
+                  {view.name}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -321,7 +329,8 @@ const AddProperty = () => {
           <div>
             <label>Area</label>
             <br />
-            <select required
+            <select
+              required
               name="area"
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
@@ -340,7 +349,8 @@ const AddProperty = () => {
           <div>
             <label>Furnishing</label>
             <br />
-            <select required
+            <select
+              required
               name="furnishing"
               className="bg-black text-xs p-3 rounded-md mt-1 w-full border border-dotted my-2"
             >
@@ -351,25 +361,12 @@ const AddProperty = () => {
               <option value="Unfurnished">Unfurnished</option>
             </select>
           </div>
-
-          {/* Completion */}
-          <div>
-            <label> Completion Status</label>
-            <br />
-            <input
-              required
-              type="text"
-              name="completion"
-              placeholder="write completion status (optional)"
-              className="bg-black text-xs p-2 rounded-md mt-1 w-full border border-dotted "
-            />
-          </div>
-
         </div>
         {/* description */}
         <div>
           <label>Description</label>
-          <textarea required
+          <textarea
+            required
             name="description"
             placeholder="write description"
             rows={12}
@@ -396,37 +393,37 @@ const AddProperty = () => {
           <div className="grid grid-cols-3 gap-6 mt-3">
             {showAll
               ? amenities.slice(0, 12).map((amenity) => (
-                <div
-                  key={amenity._id}
-                  amenity={amenity}
-                  className="flex items-center gap-4"
-                >
-                  <input
-                    onChange={handleCheckboxChanged}
-                    type="checkbox"
-                    value={amenity.name}
-                    name="amenity"
-                    className="toggle bg-[#FFD673] border-4 border-[#CB9107]"
-                  />
-                  <label>{amenity.name}</label>
-                </div>
-              ))
+                  <div
+                    key={amenity._id}
+                    amenity={amenity}
+                    className="flex items-center gap-4"
+                  >
+                    <input
+                      onChange={handleCheckboxChanged}
+                      type="checkbox"
+                      value={amenity.name}
+                      name="amenity"
+                      className="toggle bg-[#FFD673] border-4 border-[#CB9107]"
+                    />
+                    <label>{amenity.name}</label>
+                  </div>
+                ))
               : amenities.map((amenity) => (
-                <div
-                  key={amenity._id}
-                  amenity={amenity}
-                  className="flex items-center gap-4"
-                >
-                  <input
-                    onChange={handleCheckboxChanged}
-                    type="checkbox"
-                    value={amenity.name}
-                    name="amenity"
-                    className="toggle bg-[#FFD673] border-4 border-[#CB9107]"
-                  />
-                  <label>{amenity.name}</label>
-                </div>
-              ))}
+                  <div
+                    key={amenity._id}
+                    amenity={amenity}
+                    className="flex items-center gap-4"
+                  >
+                    <input
+                      onChange={handleCheckboxChanged}
+                      type="checkbox"
+                      value={amenity.name}
+                      name="amenity"
+                      className="toggle bg-[#FFD673] border-4 border-[#CB9107]"
+                    />
+                    <label>{amenity.name}</label>
+                  </div>
+                ))}
           </div>
           {amenities.length > 12 &&
             (showAll ? (
@@ -451,8 +448,9 @@ const AddProperty = () => {
         {/* add picture */}
         <div className="drag-drop w-full h-auto bg-transparent">
           <div
-            className={`document-uploader ${files.length > 0 ? "upload-box active" : "upload-box"
-              }`}
+            className={`document-uploader ${
+              files.length > 0 ? "upload-box active" : "upload-box"
+            }`}
             onDrop={handleDrop}
             onDragOver={(event) => event.preventDefault()}
           >
@@ -538,8 +536,8 @@ const AddProperty = () => {
             <Image src={publish} alt="publish" height={16} width={16} />
           </button>
         </div>
-      </form >
-    </div >
+      </form>
+    </div>
   );
 };
 

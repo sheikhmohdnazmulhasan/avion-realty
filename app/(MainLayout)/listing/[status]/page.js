@@ -15,7 +15,6 @@ import useGetProperties from "@/hooks/useGetProperties";
 import ListingCard from "@/components/listing/ListingCard";
 import { FiPhone } from "react-icons/fi";
 
-
 import useAgents from "@/hooks/useAgents";
 // import AgentInfo from "@/components/listing/AgentInfo";
 import Link from "next/link";
@@ -34,7 +33,20 @@ const ListingStatus = ({ params }) => {
   //   setOpenInquiry(!openInquiry);
   // }
 
-  const { data = [], isLoading, error } = useSWR(`/api/offplans?${params.status === "Off-Plan" || params.status === "Ready" || params.status === "Rental" ? `status=${params.status}` : `area=${params.status}`}`, fetcher);
+  const {
+    data = [],
+    isLoading,
+    error,
+  } = useSWR(
+    `/api/offplans?${
+      params.status === "Off-Plan" ||
+      params.status === "Ready" ||
+      params.status === "Rental"
+        ? `status=${params.status}`
+        : `area=${params.status}`
+    }`,
+    fetcher
+  );
 
   const areas = useGetAreas();
   const properties = useGetProperties();
@@ -66,11 +78,10 @@ const ListingStatus = ({ params }) => {
   const handleOpenInquiry = (id) => {
     setOpenInquiry(!openInquiry);
     setSelectedId(id);
-  }
+  };
 
   // handle inquiry
   const handleInquiry = async (event) => {
-
     event.preventDefault();
     const name = event.target.name.value;
     const phone = event.target.phone.value;
@@ -79,7 +90,6 @@ const ListingStatus = ({ params }) => {
     // const id = agent._id
 
     const dataForBackend = { agent: selectedId, name, email, mobile: phone };
-
 
     try {
       const serverResponse = await axios.post(
@@ -230,7 +240,7 @@ const ListingStatus = ({ params }) => {
                 max="7"
                 name="bedroom"
                 className="bg-transparent"
-              // onChange={(event)=>setListings(data.filter(item => item.bedroom === event.target.value))}
+                // onChange={(event)=>setListings(data.filter(item => item.bedroom === event.target.value))}
               />
             </div>
           </div>
@@ -251,8 +261,9 @@ const ListingStatus = ({ params }) => {
           <div className="col-span-3">
             {listings.length ? (
               <div
-                className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-4 ${openInquiry && "opacity-60 blur-sm"
-                  }`}
+                className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-4 ${
+                  openInquiry && "opacity-60 blur-sm"
+                }`}
               >
                 {/* listing card */}
                 {listings.map((item) => (
@@ -280,118 +291,138 @@ const ListingStatus = ({ params }) => {
               //   // handleOpenInquiry = {(id)=>{setOpenInquiry(!openInquiry); setInquiryId(id)}}
 
               // />
-              <div key={agent._id} agent={agent}><div className="mt-4 border border-[#BE8500] p-4 mb-8">
-                <div className="flex items-end justify-between gap-2 ">
-                  <div className="space-y-2">
-                    <h2 className=" font-semibold">{agent?.name}</h2>
-                    <h3 className="text-sm font-medium">
-                      {agent?.designation}
-                    </h3>
-                    {agent?.reraID && (
+              <div key={agent._id} agent={agent}>
+                <div className="mt-4 border border-[#BE8500] p-4 mb-8">
+                  <div className="flex items-end justify-between gap-2 ">
+                    <div className="space-y-2">
+                      <h2 className=" font-semibold">{agent?.name}</h2>
                       <h3 className="text-sm font-medium">
-                        RERA - {agent?.reraID}
+                        {agent?.designation}
                       </h3>
-                    )}
+                      {agent?.reraID && (
+                        <h3 className="text-sm font-medium">
+                          RERA - {agent?.reraID}
+                        </h3>
+                      )}
+                    </div>
+                    <div className="md:w-[30%]">
+                      <Image
+                        src={agent?.photo}
+                        alt={agent?.name}
+                        height={30}
+                        width={100}
+                        className="w-full object-contain"
+                      />
+                    </div>
                   </div>
-                  <div className="md:w-[30%]">
-                    <Image
-                      src={agent?.photo}
-                      alt={agent?.name}
-                      height={30}
-                      width={100}
-                      className="w-full object-contain"
-                    />
-                  </div>
-                </div>
-                <div className="flex mt-6 gap-2 md:gap-4">
-
-                  <Link href={`tel:${agent?.wpNum}`}
-                    onClick={() => { handleOpenInquiry(agent._id) }}
-                    className="flex items-center hover:scale-105 transition-all border-[#e4b5499e] gap-3 border px-3 py-1 w-1/2 rounded-3xl justify-center"
-                  >
-                    <p className="text-sm">Call Now</p>
-                  </Link>
-
-                  <button
-                    onClick={() => { handleOpenInquiry(agent._id) }}
-                    className="flex items-center hover:scale-105 transition-all border-[#e4b5499e] gap-3 border px-3 py-1 w-1/2 rounded-3xl justify-center"
-                  >
-                    <p className="text-sm">Inquiry</p>
-                  </button>
-                </div>
-
-                {/* inquiry */}
-
-                {openInquiry && (
-                  <div className="w-full absolute top-4 md:top-36 md:-left-[5px] lg:-left-[70px] z-50 rounded px-5 ">
-                    <div
-                      className="md:w-[80%] lg:w-[60%] mx-auto flex justify-end font-semibold"
-                      onClick={() => { handleOpenInquiry(agent._id) }}
+                  <div className="flex mt-6 gap-2 md:gap-4">
+                    <Link
+                      href={`tel:${agent?.wpNum}`}
+                      onClick={() => {
+                        handleOpenInquiry(agent._id);
+                      }}
+                      className="flex items-center hover:scale-105 transition-all border-[#e4b5499e] gap-3 border px-3 py-1 w-1/2 rounded-3xl justify-center"
                     >
-                      <span className="cursor-pointer ">Close</span>
-                    </div>
-                    <div className="md:w-[80%] lg:w-[60%] mx-auto md:h-48 pt-4 pb-8 lg:py-16 bg-[#000] rounded">
-                      <h1 className="text-xl md:text-2xl text-center pt-3">
-                        Get call back for inquiry
-                      </h1>
-                      <form onSubmit={handleInquiry} className="px-10 mt-4">
-                        <div className="md:flex gap-4 space-y-3 md:space-y-0">
-                          <input
-                            type="text"
-                            name="name"
-                            id=""
-                            placeholder="Name"
-                            className="w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl"
-                            required
-                          />
+                      <p className="text-sm">Call Now</p>
+                    </Link>
 
-                          <input
-                            type="number"
-                            name="phone"
-                            id=""
-                            placeholder="Mobile"
-                            className="w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl"
-                            required
-                          />
-
-                          <input
-                            type="text"
-                            name="email"
-                            id=""
-                            placeholder="Email"
-                            className="w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl"
-                            required
-                          />
-                        </div>
-                        <div className="flex w-full justify-center mt-4">
-                          <button
-                            type="submit"
-                            className="py-2 w-full md:w-fit px-3 border border-[#E4B649] text-xl transition-all rounded-3xl hover:bg-[#625129]"
-                          >
-                            Send Now
-                          </button>
-                        </div>
-                      </form>
-                    </div>
+                    <button
+                      onClick={() => {
+                        handleOpenInquiry(agent._id);
+                      }}
+                      className="flex items-center hover:scale-105 transition-all border-[#e4b5499e] gap-3 border px-3 py-1 w-1/2 rounded-3xl justify-center"
+                    >
+                      <p className="text-sm">Inquiry</p>
+                    </button>
                   </div>
-                )}
-                <div className="text-center mt-3">
 
-                  <Link href={`/agents/${agent._id}`} className="text-[#E4B649]">
-                    View All Properties
-                  </Link>
-                  <div className="mx-4 border-t border-[#E4B649] my-4"></div>
+                  {/* inquiry */}
 
-                  <Link href={`https://wa.me/${agent?.wpNum}`} className="flex gap-3 justify-center text-sm items-center">
+                  {openInquiry && (
+                    <div className="w-full absolute top-4 md:top-36 md:-left-[5px] lg:-left-[70px] z-50 rounded px-5 ">
+                      <div
+                        className="md:w-[80%] lg:w-[60%] mx-auto flex justify-end font-semibold"
+                        onClick={() => {
+                          handleOpenInquiry(agent._id);
+                        }}
+                      >
+                        <span className="cursor-pointer ">Close</span>
+                      </div>
+                      <div className="md:w-[80%] lg:w-[60%] mx-auto md:h-48 pt-4 pb-8 lg:py-16 bg-[#000] rounded">
+                        <h1 className="text-xl md:text-2xl text-center pt-3">
+                          Get call back for inquiry
+                        </h1>
+                        <form onSubmit={handleInquiry} className="px-10 mt-4">
+                          <div className="md:flex gap-4 space-y-3 md:space-y-0">
+                            <input
+                              type="text"
+                              name="name"
+                              id=""
+                              placeholder="Name"
+                              className="w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl"
+                              required
+                            />
 
-                    <Image src={whatsapp} alt="whatsapp" width={16} height={16} />
+                            <input
+                              type="number"
+                              name="phone"
+                              id=""
+                              placeholder="Mobile"
+                              className="w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl"
+                              required
+                            />
 
-                    <p>Get Inquiry On <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FFD87C] to-[#A27100]">Whatsapp</span></p>
+                            <input
+                              type="text"
+                              name="email"
+                              id=""
+                              placeholder="Email"
+                              className="w-full bg-transparent py-2 px-4 border border-[#E4B649] rounded-3xl"
+                              required
+                            />
+                          </div>
+                          <div className="flex w-full justify-center mt-4">
+                            <button
+                              type="submit"
+                              className="py-2 w-full md:w-fit px-3 border border-[#E4B649] text-xl transition-all rounded-3xl hover:bg-[#625129]"
+                            >
+                              Send Now
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  )}
+                  <div className="text-center mt-3">
+                    <Link
+                      href={`/agents/${agent._id}`}
+                      className="text-[#E4B649]"
+                    >
+                      View All Properties
+                    </Link>
+                    <div className="mx-4 border-t border-[#E4B649] my-4"></div>
 
-                  </Link>
+                    <Link
+                      href={`https://wa.me/${agent?.wpNum}`}
+                      className="flex gap-3 justify-center text-sm items-center"
+                    >
+                      <Image
+                        src={whatsapp}
+                        alt="whatsapp"
+                        width={16}
+                        height={16}
+                      />
 
+                      <p>
+                        Get Inquiry On{" "}
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FFD87C] to-[#A27100]">
+                          Whatsapp
+                        </span>
+                      </p>
+                    </Link>
+                  </div>
                 </div>
-              </div></div>
+              </div>
             ))}
           </div>
         </div>
