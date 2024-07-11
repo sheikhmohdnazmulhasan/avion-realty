@@ -36,7 +36,9 @@ const Login = () => {
                 setForgotError('Sorry !Internal Server Error');
 
             } else if (response.data.message === 'Email send successfully') {
-                // send the verification email;
+
+                // TODO:  send the verification email;
+                // http://localhost:3000/auth/account/verification/forgot-password/token/${response.data.token}
 
                 Swal.fire({
                     icon: 'success',
