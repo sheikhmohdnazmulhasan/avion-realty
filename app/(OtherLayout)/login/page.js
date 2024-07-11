@@ -40,6 +40,9 @@ const Login = () => {
                 // TODO:  send the verification email;
                 // http://localhost:3000/auth/account/verification/forgot-password/token/${response.data.token}
 
+                // for testing
+                setForgotError(response.data.token);
+
                 Swal.fire({
                     icon: 'success',
                     title: 'Verification Email Send!',

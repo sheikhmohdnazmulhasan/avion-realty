@@ -1,12 +1,17 @@
 'use client'
+import axios from "axios";
+import { useRouter } from "next/navigation";
+
 import { useState } from "react";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import Swal from "sweetalert2";
 
 const SetPassword = ({ params }) => {
     const token = params.id;
     const [showPassword, setShowPassword] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
-    const [error, setError] = useState('')
+    const [error, setError] = useState('');
+    const router = useRouter();
 
     async function handleSetPassword(event) {
         event.preventDefault();
@@ -24,7 +29,53 @@ const SetPassword = ({ params }) => {
         } else {
 
             try {
-                // req to server for change pass
+                const dataForForgotPassword = { token, newPassword: password };
+                const response = await axios.patch(`/api/auth/forgot-password`, dataForForgotPassword);
+
+                if (response.data.message === 'Invalid Token') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid Token',
+                        text: 'The token you requested is incorrect. Please request a password reset from the login page again!'
+                    });
+                    router.replace('/login');
+
+                } else if (response.data.message === 'Token expired') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Token expired',
+                        text: 'The token you requested is expired. Please request a password reset from the login page again!'
+                    });
+                    router.replace('/login');
+
+
+                } else if (response.data.message === 'Same Password') {
+                    setError('Old password and new password cannot be same!');
+
+                } else if (response.data.message === 'Something Wrong') {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Something Wrong',
+                        text: 'We cannot identify you. Please try again from the beginning after a while'
+                    });
+                    router.replace('/login');
+
+                } else if (response.data.message === 'password update successfully') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Password Updated.',
+                        text: 'Your password has been successfully changed. Please login with new password from the login page'
+                    });
+                    router.replace('/login');
+
+                } else {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Something Wrong',
+                        text: 'We cannot identify you. Please try again from the beginning after a while'
+                    });
+                    router.replace('/login');
+                }
 
 
             } catch (error) {
@@ -32,7 +83,6 @@ const SetPassword = ({ params }) => {
                 setError('🥢Something Wrong')
             }
         }
-
 
     }
 
