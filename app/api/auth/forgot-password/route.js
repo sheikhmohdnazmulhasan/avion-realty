@@ -1,5 +1,5 @@
-import GetExpirationTime from "@/app/utils/getExpirationTime";
-import GenerateRandomString from "@/app/utils/randomString";
+import GetExpirationTime from "@/app/api/auth/forgot-password/utils/getExpirationTime";
+import GenerateRandomString from "@/app/api/auth/forgot-password/utils/randomString";
 import connectMongoDB from "@/libs/mongodb";
 import User from "@/models/user";
 import { NextResponse } from "next/server";
