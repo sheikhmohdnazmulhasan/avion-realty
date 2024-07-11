@@ -1,3 +1,4 @@
+import GetExpirationTime from "@/app/utils/getExpirationTime";
 import GenerateRandomString from "@/app/utils/randomString";
 import connectMongoDB from "@/libs/mongodb";
 import User from "@/models/user";
@@ -14,9 +15,17 @@ export async function POST(request) {
             return NextResponse.json({ message: 'invalid email' }, { status: 400 })
         }
 
-        const token = GenerateRandomString(30)
+        const token = GenerateRandomString(30);
+        const expirationTime = GetExpirationTime(30);
+        const dataForForgotPassword = { token, expirationTime }
 
-        return NextResponse.json(token)
+        const setToUser = await User.findOneAndUpdate({ email }, dataForForgotPassword);
+
+        if (!setToUser) {
+            return NextResponse.json({ message: 'Something Wrong' }, { status: 400 })
+        }
+
+        return NextResponse.json({ message: 'Email send successfully' }, { status: 200 });
 
     } catch (error) {
         console.error(error);

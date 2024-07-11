@@ -14,6 +14,7 @@ const userSchema = new Schema(
     about: String,
     role: String,
     token: String,
+    expirationTime: String,
     properties: Number,
     designation: String,
   },
