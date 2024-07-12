@@ -37,6 +37,34 @@ export async function POST(request) {
 
 };
 
+export async function GET(request) {
+
+    try {
+        await connectMongoDB()
+        const { searchParams } = new URL(request.url);
+        const token = searchParams.get('token');
+
+        const isValidToken = await User.findOne({ token });
+
+        if (!isValidToken) {
+            return NextResponse.json({ message: 'token not valid', success: false });
+        }
+
+        const isExpired2 = isExpired(isValidToken.expirationTime);
+
+        if (isExpired2) {
+            return NextResponse.json({ message: 'token not expired', success: false });
+        }
+
+        return NextResponse.json({ message: 'valid token', success: true }, { status: 200 });
+
+    } catch (error) {
+            return NextResponse.json({ message: 'Internal Server Error', success: false }, { status: 500 });
+
+    }
+
+}
+
 export async function PATCH(request) {
 
     try {
@@ -69,7 +97,7 @@ export async function PATCH(request) {
             return NextResponse.json({ message: 'Something Wrong', success: false });
         };
 
-        const deleteToken = User.findOneAndUpdate({ token }, { token: '', expirationTime: '' });
+        const deleteToken = await User.findOneAndUpdate({ token }, { token: null, expirationTime: null });
 
         if (!deleteToken) {
             return NextResponse.json({ message: 'Something Wrong', success: false });
