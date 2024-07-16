@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 import Swal from 'sweetalert2';
+import emailjs from 'emailjs-com';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -16,6 +17,11 @@ const Login = () => {
     const [openModal, setOpenModal] = useState(false);
     const [email2, setEmail2] = useState(null);
     const [forgotError, setForgotError] = useState('');
+
+    // email js configaration
+    const SERVICE_ID = "service_0fnmxk3";
+    const TEMPLATE_ID = "template_3q6ydlj";
+    const PUBLIC_KEY = "f8-NuZZSnWNj4M3eS";
 
 
     async function handleForgotPassword(event) {
@@ -31,7 +37,7 @@ const Login = () => {
 
             } else if (response.data.message === 'Something Wrong') {
                 setForgotError('Sorry! Something Wrong.');
-
+                
             } else if (response.data.message === 'Internal Server Error') {
                 setForgotError('Sorry !Internal Server Error');
 
@@ -39,15 +45,30 @@ const Login = () => {
 
                 // TODO:  send the verification email;
                 // http://localhost:3000/auth/account/verification/forgot-password/token/${response.data.token}
+                
+
+                const templateParams = {
+                    forgotEmail,
+                    link: `http://localhost:3000/auth/account/verification/forgot-password/token/${response.data.token}`
+                };
+                console.log(templateParams );
 
                 // for testing
-                setForgotError(response.data.token);
+                // setForgotError(response.data.token);
+                //email js
+                emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams , PUBLIC_KEY)
+                    .then((result) => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Verification Email Send!',
+                            text: "If you don't find the email in your inbox, please check your spam folder!"
+                        });
+                        
+                    }, (error) => {
+                        console.log(error.text);
+                    });
 
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Verification Email Send!',
-                    text: "If you don't find the email in your inbox, please check your spam folder!"
-                });
+                
 
             } else {
                 setForgotError('Something Wrong.');
