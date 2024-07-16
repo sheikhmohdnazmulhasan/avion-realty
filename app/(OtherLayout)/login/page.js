@@ -19,9 +19,10 @@ const Login = () => {
     const [forgotError, setForgotError] = useState('');
 
     // email js configaration
-    const SERVICE_ID = "service_0fnmxk3";
-    const TEMPLATE_ID = "template_3q6ydlj";
-    const PUBLIC_KEY = "f8-NuZZSnWNj4M3eS";
+    // const SERVICE_ID = "service_6q2mlgc";
+    const SERVICE_ID = process.env.SERVICE_ID
+    const TEMPLATE_ID = process.env.TEMPLATE_ID;
+    const PUBLIC_KEY = process.env.PUBLIC_KEY;
 
 
     async function handleForgotPassword(event) {
