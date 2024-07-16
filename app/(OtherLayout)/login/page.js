@@ -51,7 +51,7 @@ const Login = () => {
                 // Done:  send the verification email;
                 const templateParams = {
                     forgotEmail,
-                    link: `http://localhost:3000/auth/account/verification/forgot-password/token/${response.data.token}`
+                    link: `${window.location.href.split('/login')[0]}/auth/account/verification/forgot-password/token/${response.data.token}`
                 };
 
                 // for testing
