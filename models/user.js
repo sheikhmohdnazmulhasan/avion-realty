@@ -13,6 +13,8 @@ const userSchema = new Schema(
     reraID: String,
     about: String,
     role: String,
+    token: String,
+    expirationTime: String,
     properties: Number,
     designation: String,
   },
