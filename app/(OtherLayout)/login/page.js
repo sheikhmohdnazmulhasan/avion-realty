@@ -50,13 +50,9 @@ const Login = () => {
 
                 // Done:  send the verification email;
                 const templateParams = {
-                    forgotEmail,
-                    link: `${window.location.href.split('/login')[0]}/auth/account/verification/forgot-password/token/${response.data.token}`
+                    link: `${window.location.href.split('/login')[0]}/auth/account/verification/forgot-password/token/${response.data.token}`,
+                    forgotEmail
                 };
-
-                // for testing
-                // setForgotError(response.data.token);
-                //email js
 
                 emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
                     .then((result) => {
@@ -91,7 +87,6 @@ const Login = () => {
         }
     }
 
-
     // Defining an asynchronous function called handleLogin which takes an 'event' parameter
     const handleLogin = async (event) => {
         // Preventing the default form submission behavior
@@ -115,11 +110,9 @@ const Login = () => {
 
         } catch (error) {
             // Handling errors that occur during sign-in attempts
-            console.log(error);
+            setErrMsg('Something Wrong!');
         }
     };
-
-
 
     return (
         <>
